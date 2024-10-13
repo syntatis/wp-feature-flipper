@@ -25,6 +25,9 @@ use function file_exists;
  */
 require PLUGIN_DIR . '/dist/autoload/vendor/scoper-autoload.php';
 
+/**
+ * Load the environment-specific application runtime.
+ */
 $appEnv = PLUGIN_DIR . '/inc/bootstrap/app.' . wp_get_environment_type() . '.php';
 
 if (file_exists($appEnv)) {

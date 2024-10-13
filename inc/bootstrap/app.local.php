@@ -2,6 +2,17 @@
 
 declare(strict_types=1);
 
-// use Whoops\Run;
+namespace Syntatis\FeatureFlipper;
 
-// (new Run())->register();
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
+
+use function class_exists;
+
+if (! class_exists(Run::class)) {
+	return;
+}
+
+$whoops = new Run();
+$whoops->pushHandler(new PrettyPageHandler());
+$whoops->register();
