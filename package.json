@@ -1,7 +1,7 @@
 {
     "name": "@syntatis/wp-feature-flipper",
     "version": "0.1.0",
-    "description": "Easily switch some of the features in WordPress, on and off",
+    "description": "Easily switch some features in WordPress, on and off",
     "author": {
         "name": "Thoriq Firdaus",
         "url": "https://github.com/tfirdaus"

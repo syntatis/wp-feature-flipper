@@ -1,6 +1,6 @@
 {
     "name": "syntatis/wp-feature-flipper",
-    "description": "Easily switch some of the features in WordPress, on and off",
+    "description": "Easily switch some features in WordPress, on and off",
     "type": "wordpress-plugin",
     "keywords": [
         "wordpress",
@@ -15,9 +15,6 @@
     ],
     "license": "GPL-2.0-or-later",
     "autoload": {
-        "files": [
-            "inc/helpers.php"
-        ],
         "psr-4": {
             "Syntatis\\FeatureFlipper\\": [
                 "app/"
