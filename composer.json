@@ -1,11 +1,16 @@
 {
     "name": "syntatis/wp-feature-flipper",
-    "description": "Easily switch some features in WordPress, on and off",
+    "description": "🚥 Easily switch some features in WordPress, on and off",
     "type": "wordpress-plugin",
     "keywords": [
         "wordpress",
         "plugin",
-        "boilerplate"
+        "flipper",
+        "feature",
+        "rss",
+        "gutenberg",
+        "emojis",
+        "xmlrpc"
     ],
     "authors": [
         {
@@ -23,6 +28,7 @@
     },
     "require": {
         "php": ">=7.4",
+        "symfony/uid": "^5.4",
         "syntatis/codex": "dev-main",
         "syntatis/codex-settings-provider": "dev-main"
     },

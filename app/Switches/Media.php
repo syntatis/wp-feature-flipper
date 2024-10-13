@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Switches;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Symfony\Component\Uid\Uuid;
-use SSFV\Syntatis\Utils\Val;
 use Syntatis\FeatureFlipper\Option;
 use WP_Query;
 
@@ -54,7 +53,7 @@ class Media implements Hookable
 		$hook->addFilter(
 			'wp_unique_post_slug',
 			static function (string $slug, string $id, string $status, string $type): string {
-				if ($type !== 'attachment' || Val::isUUID($slug)) {
+				if ($type !== 'attachment' || Uuid::isValid($slug)) {
 					return $slug;
 				}
 
