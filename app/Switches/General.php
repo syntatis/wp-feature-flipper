@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Switches;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Option;
 
 use function array_filter;
@@ -49,11 +50,7 @@ class General implements Hookable
 
 		// 5. Embed.
 		if (! Option::get('embed')) {
-			$hook->addAction('wp_enqueue_scripts', static fn () => wp_dequeue_script('wp-embed'), 99);
-			$hook->addFilter('embed_oembed_discover', '__return_false', 99);
-			$hook->addFilter('oembed_discovery_links', '__return_null', 99);
-			$hook->addFilter('oembed_dataparse', '__return_empty_string', 99);
-			remove_action('rest_api_init', 'wp_oembed_register_route');
+			(new Embeds())->hook($hook);
 		}
 
 		// 6. Feeds.
