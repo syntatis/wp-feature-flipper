@@ -1,5 +1,9 @@
 # 🚥 wp-feature-flipper
 
+Easily switch some features in WordPress, on and off.
+
+## Description
+
 WordPress comes with a lot of features. Some of them are useful and essential, while there are probably some that you do not need. This plugin allows you to switch some of these features, on and off, easily. Several features that this plugin supports are:
 
 - **Gutenberg**: Gutenberg has become the default editor in WordPress on both Page and Post type. But if you are not using it, you can disable it to switch back to the Classic Editor.
