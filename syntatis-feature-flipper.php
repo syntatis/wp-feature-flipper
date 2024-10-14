@@ -12,7 +12,7 @@ declare(strict_types=1);
  * Plugin URI:        https://github.org/syntatis/wp-feature-flipper
  * Description:       Easily switch some features in WordPress, on and off
  * Version:           1.0.0
- * Requires at least: 5.8
+ * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
  * Author URI:        https://github.org/tfirdaus
