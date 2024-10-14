@@ -2,6 +2,17 @@ import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../components/form';
 import { SwitchInput } from '../components/inputs';
 
+const themeEditors = document.querySelector(
+	'#adminmenu a[href="theme-editor.php"]'
+);
+const pluginEditors = document.querySelector(
+	'#adminmenu a[href="plugin-editor.php"]'
+);
+const orginalDisplay = {
+	themeEditors: themeEditors?.parentElement?.style?.display,
+	pluginEditors: pluginEditors?.parentElement?.style?.display,
+};
+
 export const SecurityTab = () => {
 	return (
 		<Form>
@@ -14,6 +25,19 @@ export const SecurityTab = () => {
 						'When set to "off", it will disable the file editor for themes and plugins.',
 						'syntatis-feature-flipper'
 					) }
+					onChange={ ( checked ) => {
+						if ( themeEditors ) {
+							themeEditors.parentElement.style.display = ! checked
+								? 'none'
+								: orginalDisplay.themeEditors;
+						}
+						if ( pluginEditors ) {
+							pluginEditors.parentElement.style.display =
+								! checked
+									? 'none'
+									: orginalDisplay.pluginEditors;
+						}
+					} }
 				>
 					{ __( 'Enable File Editor', 'syntatis-feature-flipper' ) }
 				</SwitchInput>
