@@ -1,4 +1,4 @@
-=== Syntatis Feature Flipper ===
+=== Feature Flipper ===
 
 Contributors: tfirdaus
 Tags:  disable, rss, emojis, xmlrpc, gutenberg
