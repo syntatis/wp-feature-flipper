@@ -1,86 +1,349 @@
-# Copyright (C) 2024 Author Name
+# Copyright (C) 2024 Thoriq Firdaus
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
 "Project-Id-Version: Feature Flipper 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/syntatis-feature-flipper\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-05T17:27:47+00:00\n"
+"POT-Creation-Date: 2024-10-14T09:26:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: syntatis-feature-flipper\n"
 
 #. Plugin Name of the plugin
 #: syntatis-feature-flipper.php
+#: app/SettingPage.php:43
 msgid "Feature Flipper"
 msgstr ""
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
 #: syntatis-feature-flipper.php
-msgid "https://example.org"
+msgid "https://github.org/syntatis/wp-feature-flipper"
 msgstr ""
 
 #. Description of the plugin
 #: syntatis-feature-flipper.php
-msgid "The plugin short description."
+msgid "Easily switch some features in WordPress, on and off"
 msgstr ""
 
 #. Author of the plugin
 #: syntatis-feature-flipper.php
-msgid "Author Name"
+msgid "Thoriq Firdaus"
 msgstr ""
 
-#: app/SettingPage.php:50
-msgid "Howdy Settings"
+#. Author URI of the plugin
+#: syntatis-feature-flipper.php
+msgid "https://github.org/tfirdaus"
 msgstr ""
 
-#: app/SettingPage.php:51
-msgid "Howdy"
+#: app/SettingPage.php:44
+msgid "Flipper"
 msgstr ""
 
-#: app/SettingPage.php:76
+#: app/SettingPage.php:69
 msgid "This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page."
 msgstr ""
 
-#: src/blocks/static/edit.js:37
-msgid "Hello from the editor!"
+#: app/Switches/Security.php:51
+msgid "You must be logged in to access this resource."
 msgstr ""
 
-#: src/settings/Page.jsx:31
+#: src/setting-page/components/form/FormNotice.jsx:6
 msgid "Settings saved."
 msgstr ""
 
-#: src/settings/Page.jsx:32
-msgid "Settings save failed."
+#: src/setting-page/components/form/FormNotice.jsx:7
+msgid "Settings failed to save."
 msgstr ""
 
-#: src/settings/Page.jsx:53
-msgid "Greeting"
+#: src/setting-page/components/form/FormNotice.jsx:8
+msgid "No changes were made."
 msgstr ""
 
-#: src/settings/Page.jsx:72
-msgid "Enter a greeting to display."
-msgstr ""
-
-#: src/settings/Page.jsx:89
+#: src/setting-page/components/form/SubmitButton.jsx:16
 msgid "Saving Changes"
 msgstr ""
 
-#: src/settings/Page.jsx:90
+#: src/setting-page/components/form/SubmitButton.jsx:17
 msgid "Save Changes"
 msgstr ""
 
-#: src/blocks/dynamic/block.json
-msgctxt "block title"
-msgid "Dynamic Block"
+#: src/setting-page/Page.jsx:20
+msgid "General"
 msgstr ""
 
-#: src/blocks/dynamic/block.json
-msgctxt "block keyword"
-msgid "dynamic"
+#: src/setting-page/Page.jsx:26
+msgid "Admin"
+msgstr ""
+
+#: src/setting-page/Page.jsx:32
+msgid "Media"
+msgstr ""
+
+#: src/setting-page/Page.jsx:38
+msgid "Assets"
+msgstr ""
+
+#: src/setting-page/Page.jsx:44
+msgid "Webpage"
+msgstr ""
+
+#: src/setting-page/Page.jsx:50
+msgid "Security"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:17
+msgid "WordPress Logo"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:18
+msgid "When set to \"off\", the WordPress logo will be hidden from the admin bar."
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:28
+msgid "Show WordPress logo in the admin bar"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:36
+msgid "Footer Text"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:37
+msgid "When set to \"off\", the default WordPress footer text will be removed from the admin."
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:47
+msgid "Show the footer text"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:52
+msgid "Update Nags"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:53
+msgid "When set to \"off\", WordPress will not be showing notification message on the admin when update is available."
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:58
+msgid "Enable WordPress update notification message"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:9
+msgid "Control the behavior of scripts, styles, and images loaded on your site."
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:17
+msgid "Emojis"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:18
+msgid "When set to \"off\", WordPress will not load the emoji scripts, styles, and images."
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:23
+msgid "Enable WordPress built-in emojis"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:31
+msgid "Scripts Version"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:35
+msgid "When set to \"off\", WordPress will not append the version number to the enqueued scripts and styles."
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:40
+msgid "Show scripts and styles version"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:48
+msgid "jQuery Migrate"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:49
+msgid "When set to \"off\", WordPress will not load the jQuery Migrate script."
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:54
+msgid "Load jQuery Migrate script"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:13
+msgid "When set to \"off\", the block editor will be disabled for all the post types."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:18
+msgid "Enable the block editor"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:27
+msgid "When set to \"off\", the Heartbeat API will not send any requests."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:32
+msgid "Enable the Heartbeat API"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:41
+msgid "When set to \"off\", WordPress will stop sending pings from your own site to your own site."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:46
+msgid "Enable self-pingbacks"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:55
+msgid "When set to \"off\", WordPress will not run scheduled events."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:60
+msgid "Enable cron"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:66
+msgid "When set to \"off\", it will disable other sites from embedding content from your site, and vice-versa."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:71
+msgid "Enable post embedding"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:80
+msgid "When set to \"off\", it will disable the RSS feed URLs."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:85
+msgid "Enable RSS feeds"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:90
+msgid "Auto Update"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:91
+msgid "When set to \"off\", you will need to manually update WordPress."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:96
+msgid "Enable WordPress auto update"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:9
+msgid "Control the behavior of media files uploaded to your site."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:17
+msgid "Attachment Page"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:21
+msgid "When set to \"off\", WordPress will not create attachment pages for media files."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:26
+msgid "Enable page for uploaded media files"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:34
+msgid "Attachment Slug"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:38
+msgid "When set to \"off\", media files will get a randomized slug instead of taking from the original file name."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:43
+msgid "Enable default media file slug"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:51
+msgid "JPEG Compression"
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:55
+msgid "When set to \"off\", WordPress will upload the original JPEG image in its full quality, without any compression."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:60
+msgid "Enable JPEG image compression"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:23
+msgid "File Edit"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:24
+msgid "When set to \"off\", it will disable the file editor for themes and plugins."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:42
+msgid "Enable File Editor"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:47
+msgid "XML-RPC"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:48
+msgid "When set to \"off\", it will remove and disable the XML-RPC endpoint."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:53
+msgid "Enable XML-RPC"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:58
+msgid "REST API Authentication"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:62
+msgid "When set to \"off\", it will allow users to make request to the public REST API endpoint without authentication."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:67
+msgid "Enable REST API Authentication"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:10
+msgid "Control the document metadata added in the HTML head."
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:18
+msgid "RSD Link"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:19
+msgid "When set to \"off\", it will remove the Really Simple Discovery (RSD) link from the webpage head."
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:24
+msgid "Add RSD link"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:29
+msgid "Generator Meta Tag"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:33
+msgid "When set to \"off\", it will remove the generator meta tag which shows WordPress and its version."
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:38
+msgid "Add WordPress generator meta tag"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:46
+msgid "Shortlink"
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:47
+msgid "When set to \"off\", it will remove the shortlink meta tag which shows the short URL of the webpage head."
+msgstr ""
+
+#: src/setting-page/tabs/WebpageTab.jsx:52
+msgid "Add Shortlink"
 msgstr ""
