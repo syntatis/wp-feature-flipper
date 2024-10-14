@@ -20,9 +20,11 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
-						wpAdminLogo.style.display = checked
-							? wpAdminLogoDisplayStyle
-							: 'none';
+						if ( wpAdminLogo ) {
+							wpAdminLogo.style.display = checked
+								? wpAdminLogoDisplayStyle
+								: 'none';
+						}
 					} }
 				>
 					{ __(
@@ -39,9 +41,11 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
-						wpFooter.style.display = checked
-							? wpFooterDisplayStyle
-							: 'none';
+						if ( wpFooter ) {
+							wpFooter.style.display = checked
+								? wpFooterDisplayStyle
+								: 'none';
+						}
 					} }
 				>
 					{ __( 'Show the footer text', 'syntatis-feature-flipper' ) }
