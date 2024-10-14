@@ -18,7 +18,7 @@
             "homepage": "https://github.com/tfirdaus"
         }
     ],
-    "license": "GPL-2.0-or-later",
+    "license": "GPL-3.0",
     "autoload": {
         "psr-4": {
             "Syntatis\\FeatureFlipper\\": [

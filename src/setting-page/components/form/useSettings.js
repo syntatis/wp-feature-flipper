@@ -20,6 +20,7 @@ function parseExceptionMessage( errorString ) {
 export const useSettings = () => {
 	const [ values, setValues ] = useState( preloaded );
 	const [ status, setStatus ] = useState();
+	const [ updatedValues, setUpdatedValues ] = useState();
 	const [ updating, setUpdating ] = useState( false );
 	const [ errorMessages, setErrorMessages ] = useState( {} );
 	const filterValues = ( v ) => {
@@ -70,6 +71,7 @@ export const useSettings = () => {
 				setStatus( 'error' );
 			} )
 			.finally( () => {
+				setUpdatedValues( data );
 				setUpdating( false );
 			} );
 	};
@@ -84,5 +86,6 @@ export const useSettings = () => {
 		setStatus,
 		getOption,
 		initialValues: preloaded,
+		updatedValues,
 	};
 };

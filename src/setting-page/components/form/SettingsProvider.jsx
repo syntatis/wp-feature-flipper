@@ -15,6 +15,7 @@ export const SettingsProvider = ( { children } ) => {
 		submitValues,
 		getOption,
 		initialValues,
+		updatedValues,
 	} = useSettings();
 
 	return (
@@ -28,6 +29,7 @@ export const SettingsProvider = ( { children } ) => {
 				setStatus,
 				submitValues,
 				initialValues,
+				updatedValues,
 				setValues: ( name, value ) => {
 					setValues( {
 						...values,

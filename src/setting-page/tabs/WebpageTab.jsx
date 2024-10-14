@@ -24,8 +24,8 @@ export const WebpageTab = () => {
 					{ __( 'Add RSD link', 'syntatis-feature-flipper' ) }
 				</SwitchInput>
 				<SwitchInput
-					name="wordpress_generator"
-					id="wordpress-generator"
+					name="generator_tag"
+					id="generator-tag"
 					label={ __(
 						'Generator Meta Tag',
 						'syntatis-feature-flipper'
@@ -50,17 +50,6 @@ export const WebpageTab = () => {
 					) }
 				>
 					{ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
-				</SwitchInput>
-				<SwitchInput
-					name="rest_api_link"
-					id="rest_api_link"
-					label={ __( 'REST API Link', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'When set to "off", it will remove the REST API link from the webpage head.',
-						'syntatis-feature-flipper'
-					) }
-				>
-					{ __( 'Add REST API link', 'syntatis-feature-flipper' ) }
 				</SwitchInput>
 			</Fieldset>
 		</Form>

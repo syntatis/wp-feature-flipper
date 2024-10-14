@@ -50,19 +50,19 @@ return [
 	(new Setting('jquery_migrate', 'boolean'))
 		->withDefault(true),
 
-	// Webpage
+	// Webpage.
 	(new Setting('rsd_link', 'boolean'))
 		->withDefault(true),
-	(new Setting('wordpress_generator', 'boolean'))
+	(new Setting('generator_tag', 'boolean'))
 		->withDefault(true),
 	(new Setting('shortlink', 'boolean'))
 		->withDefault(true),
-	(new Setting('rest_api_link', 'boolean'))
-		->withDefault(true),
 
-	// Security
+	// Security.
 	(new Setting('xmlrpc', 'boolean'))
 		->withDefault(true),
-	(new Setting('unauthenticated_rest_api', 'boolean'))
+	(new Setting('file_edit', 'boolean'))
+		->withDefault(true),
+	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
 ];

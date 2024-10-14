@@ -23,13 +23,13 @@ class Assets implements Hookable
 			 *
 			 * @see https://make.wordpress.org/core/2023/10/17/replacing-hard-coded-style-tags-with-wp_add_inline_style/
 			 */
-			remove_action('wp_print_styles', 'print_emoji_styles');
-			remove_action('wp_head', 'print_emoji_detection_script', 7);
-			remove_action('admin_print_scripts', 'print_emoji_detection_script');
-			remove_action('admin_print_styles', 'print_emoji_styles');
-			remove_filter('the_content_feed', 'wp_staticize_emoji');
-			remove_filter('comment_text_rss', 'wp_staticize_emoji');
-			remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+			$hook->removeAction('wp_print_styles', 'print_emoji_styles');
+			$hook->removeAction('wp_head', 'print_emoji_detection_script', 7);
+			$hook->removeAction('admin_print_scripts', 'print_emoji_detection_script');
+			$hook->removeAction('admin_print_styles', 'print_emoji_styles');
+			$hook->removeFilter('the_content_feed', 'wp_staticize_emoji');
+			$hook->removeFilter('comment_text_rss', 'wp_staticize_emoji');
+			$hook->removeFilter('wp_mail', 'wp_staticize_emoji_for_email');
 		}
 
 		// 2. Scripts Version.
@@ -41,11 +41,11 @@ class Assets implements Hookable
 			$hook->addFilter('style_loader_src', $callback);
 		}
 
+		// 3. jQuery Migrate.
 		if (Option::get('jquery_migrate')) {
 			return;
 		}
 
-		// 3. jQuery Migrate.
 		$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
 			if (empty($scripts->registered['jquery'])) {
 				return;

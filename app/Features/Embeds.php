@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use WP_Scripts;
 
@@ -23,11 +24,13 @@ class Embeds implements Hookable
 
 	public function disables(Hook $hook): void
 	{
+		// phpcs:disable
 		/** @var WP $wp */
 		$wp = $GLOBALS['wp'];
-		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 		$wp->public_query_vars = array_diff($wp->public_query_vars, ['embed']);
+		// phpcs:enable
 
+		$hook->addAction('update_option_' . Config::get('app.option_prefix') . 'cron', [$this, 'flushPermalinks']);
 		$hook->addAction('enqueue_block_editor_assets', [$this, 'disableOnBlockEditor']);
 		$hook->addAction('wp_default_scripts', [$this, 'disableScriptDependencies']);
 		$hook->addFilter('embed_oembed_discover', '__return_false');
@@ -40,6 +43,11 @@ class Embeds implements Hookable
 		$hook->removeAction('wp_head', 'wp_oembed_add_host_js');
 		$hook->removeFilter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 		$hook->removeFilter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
+	}
+
+	public function flushPermalinks(): void
+	{
+		flush_rewrite_rules(false);
 	}
 
 	/**

@@ -21,6 +21,8 @@ class Plugin implements Extendable
 		yield new Switches\Assets();
 		yield new Switches\General();
 		yield new Switches\Media();
+		yield new Switches\Security();
+		yield new Switches\Webpage();
 
 		// Mark as initilized.
 		do_action('syntatis/feature-flipper/init', $container);

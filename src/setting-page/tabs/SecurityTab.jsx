@@ -7,6 +7,17 @@ export const SecurityTab = () => {
 		<Form>
 			<Fieldset>
 				<SwitchInput
+					name="file_edit"
+					id="file-edit"
+					label={ __( 'File Edit', 'syntatis-feature-flipper' ) }
+					description={ __(
+						'When set to "off", it will disable the file editor for themes and plugins.',
+						'syntatis-feature-flipper'
+					) }
+				>
+					{ __( 'Enable File Editor', 'syntatis-feature-flipper' ) }
+				</SwitchInput>
+				<SwitchInput
 					name="xmlrpc"
 					id="xmlrpc"
 					label={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
@@ -18,8 +29,8 @@ export const SecurityTab = () => {
 					{ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 				</SwitchInput>
 				<SwitchInput
-					name="unauthenticated_rest_api"
-					id="xmlrpc"
+					name="authenticated_rest_api"
+					id="authenticated-rest-api"
 					label={ __(
 						'REST API Authentication',
 						'syntatis-feature-flipper'

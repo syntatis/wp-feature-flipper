@@ -1,13 +1,13 @@
 {
-    "name": "@syntatis/wp-feature-flipper",
-    "version": "0.1.0",
+    "name": "syntatis-feature-flipper",
+    "version": "1.0.0",
     "description": "Easily switch some features in WordPress, on and off",
     "author": {
         "name": "Thoriq Firdaus",
         "url": "https://github.com/tfirdaus"
     },
     "private": true,
-    "license": "GPL-2.0-or-later",
+    "license": "GPL-3.0",
     "keywords": [
         "wordpress",
         "plugin",
@@ -22,7 +22,7 @@
         "inc",
         "dist",
         "*.php",
-        "!*.*.php"
+        "!**/*.*.php"
     ],
     "dependencies": {
         "@syntatis/kubrick": "^0.1.0-beta.3",

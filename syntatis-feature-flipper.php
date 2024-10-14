@@ -9,13 +9,13 @@ declare(strict_types=1);
  *
  * @wordpress-plugin
  * Plugin Name:       Feature Flipper
- * Plugin URI:        https://example.org
- * Description:       Easily switch WordPress feature on and off.
+ * Plugin URI:        https://github.org/syntatis/wp-feature-flipper
+ * Description:       Easily switch some features in WordPress, on and off
  * Version:           1.0.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
- * Author:            Author Name
- * Author URI:        https://example.org
+ * Author:            Thoriq Firdaus
+ * Author URI:        https://github.org/tfirdaus
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       syntatis-feature-flipper

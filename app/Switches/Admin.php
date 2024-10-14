@@ -28,9 +28,9 @@ class Admin implements Hookable
 			return;
 		}
 
-		$hook->addAction('admin_init', static function (): void {
-			remove_action('admin_notices', 'update_nag', 3);
-			remove_action('network_admin_notices', 'update_nag', 3);
+		$hook->addAction('admin_init', static function () use ($hook): void {
+			$hook->removeAction('admin_notices', 'update_nag', 3);
+			$hook->removeAction('network_admin_notices', 'update_nag', 3);
 		}, 99);
 	}
 }
