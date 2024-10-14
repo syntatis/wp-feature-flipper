@@ -22,8 +22,8 @@
         "inc",
         "dist",
         "*.php",
-        "!*.inc.php",
-        "!*.local.php",
+        "!**/*.inc.php",
+        "!**/*.local.php",
         "!*.map"
     ],
     "dependencies": {
