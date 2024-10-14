@@ -9,3 +9,11 @@ WordPress comes with a lot of features. Some of them are useful and essential, w
 - **Post Embeds**: Post Embeds allow you to embed posts from your site into another site, or within your own site. If you do not use this feature, you can disable it to prevent others from embedding your posts.
 - **Attachment Slug**: WordPress, by default, will automaically create a slug for your attachment URLs from the media file name. This could cause issues when the slug is conflicting with your post or page slug. To avoid attchment reserving the slug, you can disable this default behaviour. This plugin will randomly generate a unique slug for your attachment URLs.
 - And more...
+
+## Installation
+
+1. Upload the plugin files to the `/wp-content/plugins/syntatis-feature-flipper` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Use the Settings -> Flipper screen to configure the plugin.
+
+[More info on installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins)
