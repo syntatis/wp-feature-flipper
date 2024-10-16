@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+// If this file is called directly, abort.
+if (! defined('ABSPATH')) {
+	exit;
+}
+
 use SSFV\Codex\Settings\Setting;
 
 /**

@@ -6,7 +6,13 @@ namespace Syntatis\FeatureFlipper;
 
 use SSFV\Codex;
 
+use function defined;
 use function file_exists;
+
+// If this file is called directly, abort.
+if (! defined('ABSPATH')) {
+	exit;
+}
 
 /**
  * Load dependencies using the Composer autoloader.
