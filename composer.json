@@ -21,9 +21,7 @@
     "license": "GPL-3.0",
     "autoload": {
         "psr-4": {
-            "Syntatis\\FeatureFlipper\\": [
-                "app/"
-            ]
+            "Syntatis\\FeatureFlipper\\": "app/"
         }
     },
     "require": {
@@ -68,28 +66,6 @@
         },
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "archive": {
-        "exclude": [
-            "*.config.*",
-            "*.dev.php",
-            "*.inc.php",
-            "*.lock",
-            "*.map",
-            "*.md",
-            "*.xml*",
-            ".*",
-            "LICENSE",
-            "composer.json",
-            "node_modules",
-            "package-lock.json",
-            "package.json",
-            "src",
-            "vendor",
-            "vendor-bin",
-            "!dist/autoload/composer.json",
-            "!dist/autoload/vendor"
-        ]
     },
     "extra": {
         "bamarni-bin": {
