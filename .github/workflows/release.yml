@@ -40,9 +40,9 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
     - name: Upload release asset
+      if: github.event_name == 'release'
       uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       with:
         files: ${{ github.workspace }}/syntatis-feature-flipper.zip
