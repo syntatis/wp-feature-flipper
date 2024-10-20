@@ -1,7 +1,7 @@
-=== Syntatis Feature Flipper ===
+=== Feature Flipper ===
 
 Contributors: tfirdaus
-Tags:  disable, rss, emojis, xmlrpc, gutenberg
+Tags: disable, rss, emojis, xmlrpc, gutenberg
 Requires at least: 6.0
 Tested up to: 6.6
 Stable tag: 1.0.0

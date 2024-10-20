@@ -1,6 +1,6 @@
 {
     "name": "syntatis/wp-feature-flipper",
-    "description": "🚥 Easily switch some features in WordPress, on and off",
+    "description": "Easily switch some features in WordPress, on and off",
     "type": "wordpress-plugin",
     "keywords": [
         "wordpress",
