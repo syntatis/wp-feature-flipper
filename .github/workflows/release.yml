@@ -1,7 +1,6 @@
 name: release
 
 on:
-  workflow_dispatch:
   release:
     types: [released]
 
@@ -9,41 +8,41 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: "7.4"
-        tools: composer:v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          tools: composer:v2
 
-    - name: Build plugin
-      run: |
-        # Install dependencies
-        npm install
-        composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+      - name: Install dependencies
+        run: |
+          npm install
+          composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
-        # Build plugin
-        npm run build
-        composer build
+      - name: Build plugin
+        run: |
+          npm run build
+          composer build
 
-    - name: Deploy to WordPress.org
-      id: deploy
-      uses: 10up/action-wordpress-plugin-deploy@stable
-      with:
-        generate-zip: true
-        dry-run: ${{ github.event_name != 'release' }}
-      env:
-        SLUG: syntatis-feature-flipper
-        ASSETS_DIR: .wporg
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      - name: Deploy to WordPress.org
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
+          dry-run: ${{ github.event_name != 'release' }}
+        env:
+          SLUG: syntatis-feature-flipper
+          ASSETS_DIR: .wporg
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
-    - name: Upload release asset
-      if: github.event_name == 'release'
-      uses: softprops/action-gh-release@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: ${{ github.workspace }}/syntatis-feature-flipper.zip
+      - name: Upload release asset
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: ${{ github.workspace }}/syntatis-feature-flipper.zip
