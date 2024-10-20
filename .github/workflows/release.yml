@@ -22,7 +22,7 @@ jobs:
       run: |
         # Install dependencies
         npm install
-        composer install --prefer-dist --no-dev --no-interaction --no-progress --optimize-autoloader
+        composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
         # Build plugin
         npm run build
