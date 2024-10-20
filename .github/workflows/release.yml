@@ -35,6 +35,7 @@ jobs:
         generate-zip: true
         dry-run: ${{ github.event_name != 'release' }}
       env:
+        SLUG: syntatis-feature-flipper
         ASSETS_DIR: .wporg
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
