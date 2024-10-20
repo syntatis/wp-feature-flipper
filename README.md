@@ -1,4 +1,4 @@
-# 🚥 Feature Flipper for WordPress
+# 🚦 Feature Flipper for WordPress
 
 WordPress comes with a lot of features. Some of them are useful and essential, while there are probably some that you do not need. This plugin allows you to switch some of these features, on and off, easily. Several features that this plugin supports are:
 
