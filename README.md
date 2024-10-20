@@ -1,7 +1,7 @@
 # 🚦 Feature Flipper
 
 > [!NOTE]  
-> This plugin is built on top of [howdy](https://github.com/syntatis/howdy), a WordPress plugin starter kit that allows developer to build WordPress plugins with modern PHP practices. 
+> This plugin is built with [howdy](https://github.com/syntatis/howdy), a WordPress plugin starter kit that allows developer to build WordPress plugins with modern PHP practices. 
 
 Easily switch some features in WordPress, on and off
   
