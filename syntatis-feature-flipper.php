@@ -8,7 +8,7 @@ declare(strict_types=1);
  * This file is read by WordPress to display the plugin's information in the admin area.
  *
  * @wordpress-plugin
- * Plugin Name:       Syntatis Feature Flipper
+ * Plugin Name:       Feature Flipper
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
  * Description:       Easily switch some features in WordPress, on and off
  * Version:           1.0.0

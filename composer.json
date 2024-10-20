@@ -1,6 +1,6 @@
 {
     "name": "syntatis/wp-feature-flipper",
-    "description": "🚥 Easily switch some features in WordPress, on and off",
+    "description": "Easily switch some features in WordPress, on and off",
     "type": "wordpress-plugin",
     "keywords": [
         "wordpress",
@@ -21,9 +21,7 @@
     "license": "GPL-3.0",
     "autoload": {
         "psr-4": {
-            "Syntatis\\FeatureFlipper\\": [
-                "app/"
-            ]
+            "Syntatis\\FeatureFlipper\\": "app/"
         }
     },
     "require": {
@@ -45,8 +43,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "archive:zip": "@composer archive --format=zip --file=syntatis-feature-flipper",
         "build": [
-            "wp i18n make-pot --exclude=vendor,vendor-bin,dist . inc/languages/syntatis-feature-flipper.pot",
+            "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
             "codex scoper:init --yes --no-dev"
         ],
         "phpcs": "phpcs",

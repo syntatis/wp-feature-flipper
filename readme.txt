@@ -1,7 +1,7 @@
-=== Syntatis Feature Flipper ===
+=== Feature Flipper ===
 
 Contributors: tfirdaus
-Tags:  disable, rss, emojis, xmlrpc, gutenberg
+Tags: disable, rss, emojis, xmlrpc, gutenberg
 Requires at least: 6.0
 Tested up to: 6.6
 Stable tag: 1.0.0
@@ -25,7 +25,7 @@ WordPress comes with a lot of features. Some of them are useful and essential, w
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/feature-flipper` directory, or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/syntatis-feature-flipper` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Use the Settings -> Flipper screen to configure the plugin.
 
