@@ -49,17 +49,18 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "archive:zip": "wp dist-archive . --plugin-dirname=syntatis-feature-flipper",
         "build": [
+            "codex scoper:init --yes --no-dev",
             "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
-            "codex scoper:init --yes --no-dev"
+            "wp dist-archive . . --plugin-dirname=build --filename-format={name}"
         ],
+        "dist-archive": "wp dist-archive . . --plugin-dirname=syntatis-feature-flipper",
         "phpcs": "phpcs",
         "phpcs:fix": "phpcbf",
         "scoper": "codex scoper:init"
     },
     "scripts-descriptions": {
-        "archive:zip": "Create a zip archive of the plugin",
+        "archive:zip": "Create a distribution archive based on a project's .distignore file.",
         "build": "Build the plugin for production",
         "phpcs": "Check the codebase for coding standards violations",
         "phpcs:fix": "Fix coding standards violations",
