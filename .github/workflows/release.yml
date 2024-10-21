@@ -27,6 +27,7 @@ jobs:
         run: |
           npm run build
           composer build
+          ls -la dist/autoload
 
       - name: Deploy to WordPress.org
         id: deploy
