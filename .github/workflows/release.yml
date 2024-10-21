@@ -27,6 +27,7 @@ jobs:
         run: |
           npm run build
           composer run build
+          unzip build.zip
 
       - name: Deploy to WordPress.org
         id: deploy
@@ -35,8 +36,9 @@ jobs:
           generate-zip: true
           dry-run: ${{ github.event_name != 'release' }}
         env:
-          SLUG: syntatis-feature-flipper
           ASSETS_DIR: .wporg
+          BUILD_DIR: build
+          SLUG: syntatis-feature-flipper
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
