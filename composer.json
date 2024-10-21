@@ -24,6 +24,11 @@
             "Syntatis\\FeatureFlipper\\": "app/"
         }
     },
+    "autoload-dev": {
+        "files": [
+            "inc/bootstrap/dev.php"
+        ]
+    },
     "require": {
         "php": ">=7.4",
         "symfony/uid": "^5.4",
@@ -38,12 +43,13 @@
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "dev-main",
         "syntatis/coding-standard": "^1.4",
+        "wp-cli/dist-archive-command": "^3.0",
         "wp-cli/i18n-command": "^2.6"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "archive:zip": "@composer archive --format=zip --file=syntatis-feature-flipper",
+        "archive:zip": "wp dist-archive . --plugin-dirname=syntatis-feature-flipper",
         "build": [
             "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
             "codex scoper:init --yes --no-dev"
@@ -53,10 +59,11 @@
         "scoper": "codex scoper:init"
     },
     "scripts-descriptions": {
+        "archive:zip": "Create a zip archive of the plugin",
+        "build": "Build the plugin for production",
         "phpcs": "Check the codebase for coding standards violations",
         "phpcs:fix": "Fix coding standards violations",
-        "scoper": "Scope dependencies namespace with a prefix",
-        "scoper:prod": "Scope dependencies namespace, and exclude the development dependencies"
+        "scoper": "Scope dependencies namespace with a prefix"
     },
     "config": {
         "allow-plugins": {
