@@ -1,0 +1,13 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "preferredVersions": {
+        "php": "7.4",
+        "wp": "latest"
+    },
+    "landingPage": "/wp-admin/options-general.php?page=syntatis-feature-flipper",
+    "steps": [
+        {
+            "step": "login"
+        }
+    ]
+}
