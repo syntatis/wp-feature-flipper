@@ -26,8 +26,7 @@ jobs:
       - name: Build plugin
         run: |
           npm run build
-          composer build
-          ls -la dist/autoload
+          composer run build
 
       - name: Deploy to WordPress.org
         id: deploy
@@ -41,7 +40,7 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
-      - name: Upload release asset
+      - name: Upload release file
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         env:
