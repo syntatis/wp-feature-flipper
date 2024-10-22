@@ -5,6 +5,9 @@ on:
   release:
     types: [released]
 
+env:
+  PLUGIN_SLUG: syntatis-feature-flipper
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -20,32 +23,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
-          composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+          npm ci
+          composer i --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
       - name: Build plugin
         run: |
           npm run build
           composer run build
+          composer run plugin:zip -- --file=build.zip
           unzip build.zip
 
       - name: Deploy to WordPress.org
-        id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
-          generate-zip: true
           dry-run: ${{ github.event_name != 'release' }}
         env:
           ASSETS_DIR: .wporg
           BUILD_DIR: build
-          SLUG: syntatis-feature-flipper
+          SLUG: ${{ env.PLUGIN_SLUG }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-
-      - name: Upload release file
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: ${{ github.workspace }}/syntatis-feature-flipper.zip

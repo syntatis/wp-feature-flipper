@@ -43,7 +43,6 @@
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "dev-main",
         "syntatis/coding-standard": "^1.4",
-        "wp-cli/dist-archive-command": "^3.0",
         "wp-cli/i18n-command": "^2.6"
     },
     "minimum-stability": "dev",
@@ -51,19 +50,18 @@
     "scripts": {
         "build": [
             "codex scoper:init --yes --no-dev",
-            "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
-            "wp dist-archive . . --plugin-dirname=build --filename-format={name}"
+            "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot"
         ],
-        "dist-archive": "wp dist-archive . . --plugin-dirname=syntatis-feature-flipper",
         "phpcs": "phpcs",
         "phpcs:fix": "phpcbf",
+        "plugin:zip": "@composer archive --format=zip",
         "scoper": "codex scoper:init"
     },
     "scripts-descriptions": {
-        "archive:zip": "Create a distribution archive based on a project's .distignore file.",
         "build": "Build the plugin for production",
         "phpcs": "Check the codebase for coding standards violations",
         "phpcs:fix": "Fix coding standards violations",
+        "plugin:zip": "Create a distributable zip file of the plugin",
         "scoper": "Scope dependencies namespace with a prefix"
     },
     "config": {
@@ -74,6 +72,29 @@
         },
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "archive": {
+        "exclude": [
+            "*.zip",
+            "*.config.*",
+            "*.inc.php",
+            "*.lock",
+            "*.map",
+            "*.md",
+            "*.xml*",
+            ".*",
+            "LICENSE",
+            "composer.json",
+            "dev.php",
+            "node_modules",
+            "package-lock.json",
+            "package.json",
+            "src",
+            "vendor",
+            "vendor-bin",
+            "!dist/autoload/composer.json",
+            "!dist/autoload/vendor"
+        ]
     },
     "extra": {
         "bamarni-bin": {
