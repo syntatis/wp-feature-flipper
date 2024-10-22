@@ -17,15 +17,6 @@
         "node": ">=18",
         "npm": ">=9"
     },
-    "files": [
-        "app",
-        "inc",
-        "dist",
-        "*.php",
-        "!**/*.inc.php",
-        "!**/*.local.php",
-        "!*.map"
-    ],
     "dependencies": {
         "@syntatis/kubrick": "^0.1.0-beta.3",
         "@wordpress/api-fetch": "^7.9.0",
