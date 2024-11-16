@@ -42,7 +42,7 @@ jobs:
           echo "${HEADER_VERSION}";
           echo "${PLUGIN_VERSION}";
           echo "${README_VERSION}";
-          if [ "${LATEST_TAG}" != "${HEADER_VERSION}" ];
+          if [ "${LATEST_TAG}" != "${HEADER_VERSION}" ] || [ "${LATEST_TAG}" != "${PLUGIN_VERSION}" ];
           then
             echo "::error::Latest tag differs from current version"
             exit 10
