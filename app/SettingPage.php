@@ -136,11 +136,13 @@ class SettingPage implements Hookable
 			static fn ($key): bool => in_array($key, $keys, true),
 			ARRAY_FILTER_USE_KEY,
 		);
-		$data = apply_filters('syntatis/feature-flipper/settings', $data);
 
 		return sprintf(
-			'wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )',
-			wp_json_encode(['/wp/v2/settings' => ['body' => $data]]),
+			<<<'SCRIPT'
+			window.$syntatis = { featureFlipper: {} };
+			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
+			SCRIPT,
+			wp_json_encode(['/wp/v2/settings' => ['body' => apply_filters('syntatis/feature_flipper/settings', $data)]]),
 		);
 	}
 }
