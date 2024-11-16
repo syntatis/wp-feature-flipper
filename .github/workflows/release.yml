@@ -39,26 +39,19 @@ jobs:
           HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
           PLUGIN_VERSION="v$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)";
           README_VERSION="v$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt | tr -d '[:space:]')";
-          echo "${LATEST_TAG}x";
-          echo "${README_VERSION}x";
-          if [[ "${LATEST_TAG}" != "${README_VERSION}" ]];
-          then
-            echo "::error::Latest tag differs from current version";
-            exit 11;
-          fi
-          if [[ "${LATEST_TAG}" != "${HEADER_VERSION}" || "${LATEST_TAG}" != "${PLUGIN_VERSION}" ]];
+          if [[ "${LATEST_TAG}" != "${HEADER_VERSION}" || "${LATEST_TAG}" != "${PLUGIN_VERSION}" || "${LATEST_TAG}" != "${README_VERSION}" ]];
           then
             echo "::error::Latest tag differs from current version"
             exit 10
           fi
 
-      # - name: Deploy to WordPress.org
-      #   uses: 10up/action-wordpress-plugin-deploy@stable
-      #   with:
-      #     dry-run: ${{ github.event_name != 'release' }}
-      #   env:
-      #     ASSETS_DIR: .wporg
-      #     BUILD_DIR: build
-      #     SLUG: ${{ env.PLUGIN_SLUG }}
-      #     SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-      #     SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          dry-run: ${{ github.event_name != 'release' }}
+        env:
+          ASSETS_DIR: .wporg
+          BUILD_DIR: build
+          SLUG: ${{ env.PLUGIN_SLUG }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
