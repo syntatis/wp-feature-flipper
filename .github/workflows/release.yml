@@ -34,6 +34,7 @@ jobs:
           unzip build.zip -d build
 
       - name: "Check latest tagged version"
+        if: ${{ github.event_name == 'release' }}
         run: |
           LATEST_TAG="${{ github.ref_name }}";
           HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
