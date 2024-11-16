@@ -39,11 +39,10 @@ jobs:
           HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
           PLUGIN_VERSION="v$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)";
           README_VERSION="v$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt)";
-          echo "${README_VERSION}";
           if [[ "${LATEST_TAG}" != "${README_VERSION}" ]];
           then
-            echo "${LATEST_TAG}";
-            echo "${README_VERSION}";
+            echo "${LATEST_TAG}x";
+            echo "${README_VERSION}x";
             echo "::error::Latest tag differs from current version";
             exit 11;
           fi
