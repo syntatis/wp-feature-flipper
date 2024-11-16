@@ -136,6 +136,7 @@ class SettingPage implements Hookable
 			static fn ($key): bool => in_array($key, $keys, true),
 			ARRAY_FILTER_USE_KEY,
 		);
+		$data = apply_filters('syntatis/feature-flipper/settings', $data);
 
 		return sprintf(
 			'wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )',
