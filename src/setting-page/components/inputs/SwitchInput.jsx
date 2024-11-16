@@ -3,12 +3,13 @@ import { Switch } from '@syntatis/kubrick';
 import { useSettingsContext, useFormContext } from '../form';
 
 export const SwitchInput = ( {
-	name,
-	label,
-	id,
 	description,
-	children,
+	id,
+	label,
+	name,
 	onChange,
+	title,
+	children,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
@@ -16,7 +17,7 @@ export const SwitchInput = ( {
 	return (
 		<tr>
 			<th scope="row">
-				<label { ...labelProps( id ) }>{ label }</label>
+				<label { ...labelProps( id ) }>{ title }</label>
 			</th>
 			<td>
 				<Switch
@@ -29,8 +30,9 @@ export const SwitchInput = ( {
 					} }
 					defaultSelected={ getOption( name ) }
 					description={ description }
-					label={ children }
+					label={ label }
 				/>
+				{ children }
 			</td>
 		</tr>
 	);
