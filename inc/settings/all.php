@@ -32,6 +32,8 @@ return [
 		->withDefault(true),
 
 	// Admin.
+	(new Setting('account_menu_howdy', 'boolean'))
+		->withDefault(true),
 	(new Setting('admin_wordpress_logo', 'boolean'))
 		->withDefault(true),
 	(new Setting('admin_footer_text', 'boolean'))
