@@ -32,6 +32,11 @@ return [
 		->withDefault(true),
 
 	// Admin.
+	(new Setting('dashboard_widgets', 'boolean'))
+		->withDefault(true),
+	(new Setting('dashboard_widgets_enabled', 'array'))
+		->apiSchema(['items' => ['type' => 'string']])
+		->withDefault(null),
 	(new Setting('account_menu_howdy', 'boolean'))
 		->withDefault(true),
 	(new Setting('admin_wordpress_logo', 'boolean'))

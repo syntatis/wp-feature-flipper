@@ -6,10 +6,9 @@ namespace Syntatis\FeatureFlipper\Switches;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Features\AdminBar;
+use Syntatis\FeatureFlipper\Features\DashboardWidgets;
 use Syntatis\FeatureFlipper\Option;
-use WP_Admin_Bar;
-
-use const PHP_INT_MAX;
 
 class Admin implements Hookable
 {
@@ -27,6 +26,8 @@ class Admin implements Hookable
 			}, 99);
 		}
 
+		$dashboardWidgets = new DashboardWidgets();
+		$dashboardWidgets->hook($hook);
 
 		$adminBar = new AdminBar();
 		$adminBar->hook($hook);

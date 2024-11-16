@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../components/form';
-import { SwitchInput } from '../components/inputs';
+import { DashboardWidgetsInputs, SwitchInput } from '../components/inputs';
 
 const wpAdminLogo = document.querySelector( '#wp-admin-bar-wp-logo' );
 const wpAdminLogoDisplayStyle = wpAdminLogo?.style?.display;
@@ -11,22 +11,7 @@ export const AdminTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<SwitchInput
-					name="dashboard_widgets"
-					id="dashboard-widgets"
-					title={ __(
-						'Dashboard Widgets',
-						'syntatis-feature-flipper'
-					) }
-					label={ __(
-						'Enable Dashboard widgets',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'Customize the widgets to show or hide on the WordPress dashboard.',
-						'syntatis-feature-flipper'
-					) }
-				/>
+				<DashboardWidgetsInputs />
 				<SwitchInput
 					name="admin_footer_text"
 					id="admin-footer-text"

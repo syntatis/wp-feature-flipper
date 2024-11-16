@@ -1,1 +1,2 @@
-export * from './SwitchInput';
+export { SwitchInput } from './SwitchInput';
+export { DashboardWidgetsInputs } from './DashboardWidgetsInputs';
