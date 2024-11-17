@@ -50,8 +50,9 @@
     "scripts": {
         "build": [
             "codex scoper:init --yes --no-dev",
-            "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot"
+            "@composer make-pot"
         ],
+        "make-pot": "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
         "phpcs": "phpcs",
         "phpcs:fix": "phpcbf",
         "plugin:zip": "@composer archive --format=zip",
@@ -90,6 +91,7 @@
             "package-lock.json",
             "package.json",
             "src",
+            "build",
             "vendor",
             "vendor-bin",
             "!dist/autoload/composer.json",

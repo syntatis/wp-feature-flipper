@@ -11,7 +11,12 @@
     "keywords": [
         "wordpress",
         "plugin",
-        "boilerplate"
+        "flipper",
+        "feature",
+        "rss",
+        "gutenberg",
+        "emojis",
+        "xmlrpc"
     ],
     "engines": {
         "node": ">=18",

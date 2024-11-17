@@ -20,7 +20,11 @@ export const SecurityTab = () => {
 				<SwitchInput
 					name="file_edit"
 					id="file-edit"
-					label={ __( 'File Edit', 'syntatis-feature-flipper' ) }
+					title={ __( 'File Edit', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable the File Editor',
+						'syntatis-feature-flipper'
+					) }
 					description={ __(
 						'When set to "off", it will disable the file editor for themes and plugins.',
 						'syntatis-feature-flipper'
@@ -38,37 +42,33 @@ export const SecurityTab = () => {
 									: orginalDisplay.pluginEditors;
 						}
 					} }
-				>
-					{ __( 'Enable File Editor', 'syntatis-feature-flipper' ) }
-				</SwitchInput>
+				/>
 				<SwitchInput
 					name="xmlrpc"
 					id="xmlrpc"
-					label={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
+					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
+					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
 						'When set to "off", it will remove and disable the XML-RPC endpoint.',
 						'syntatis-feature-flipper'
 					) }
-				>
-					{ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
-				</SwitchInput>
+				/>
 				<SwitchInput
 					name="authenticated_rest_api"
 					id="authenticated-rest-api"
-					label={ __(
+					title={ __(
 						'REST API Authentication',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Enable REST API Authentication',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
 						'When set to "off", it will allow users to make request to the public REST API endpoint without authentication.',
 						'syntatis-feature-flipper'
 					) }
-				>
-					{ __(
-						'Enable REST API Authentication',
-						'syntatis-feature-flipper'
-					) }
-				</SwitchInput>
+				/>
 			</Fieldset>
 		</Form>
 	);

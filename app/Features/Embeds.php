@@ -15,14 +15,16 @@ use function defined;
 use function is_readable;
 use function strpos;
 
+use const PHP_INT_MAX;
+
 class Embeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('init', fn () => $this->disables($hook), 700);
+		$hook->addAction('init', fn () => $this->disables($hook), PHP_INT_MAX);
 	}
 
-	public function disables(Hook $hook): void
+	private function disables(Hook $hook): void
 	{
 		// phpcs:disable
 		/** @var WP $wp */

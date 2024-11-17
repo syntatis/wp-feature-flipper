@@ -32,11 +32,23 @@ return [
 		->withDefault(true),
 
 	// Admin.
-	(new Setting('admin_wordpress_logo', 'boolean'))
+	(new Setting('dashboard_widgets', 'boolean'))
 		->withDefault(true),
+	(new Setting('dashboard_widgets_enabled', 'array'))
+		->apiSchema(['items' => ['type' => 'string']])
+		->withDefault(null),
 	(new Setting('admin_footer_text', 'boolean'))
 		->withDefault(true),
 	(new Setting('update_nags', 'boolean'))
+		->withDefault(true),
+
+	// Admin: Admin Bar.
+	(new Setting('admin_bar', 'boolean'))
+		->withDefault(true),
+	(new Setting('admin_bar_menu', 'array'))
+		->apiSchema(['items' => ['type' => 'string']])
+		->withDefault(null),
+	(new Setting('admin_bar_howdy', 'boolean'))
 		->withDefault(true),
 
 	// Media.
