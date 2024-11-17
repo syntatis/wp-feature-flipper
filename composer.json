@@ -91,6 +91,7 @@
             "package-lock.json",
             "package.json",
             "src",
+            "build",
             "vendor",
             "vendor-bin",
             "!dist/autoload/composer.json",
