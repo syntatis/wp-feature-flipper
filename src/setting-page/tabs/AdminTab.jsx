@@ -89,9 +89,9 @@ export const AdminTab = () => {
 				<SwitchInput
 					name="account_menu_howdy"
 					id="account-menu-howdy"
-					title={ __( 'Show "Howdy"', 'syntatis-feature-flipper' ) }
+					title={ __( 'Howdy', 'syntatis-feature-flipper' ) }
 					label={ __(
-						'Show "Howdy" in the admin bar',
+						'Show the "Howdy" greeting in the admin bar',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
