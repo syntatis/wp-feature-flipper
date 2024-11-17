@@ -42,7 +42,7 @@
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "dev-main",
-        "syntatis/coding-standard": "^1.4",
+        "syntatis/coding-standard": "^1.5",
         "wp-cli/i18n-command": "^2.6"
     },
     "minimum-stability": "dev",
