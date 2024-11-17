@@ -62,7 +62,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", the WordPress admin bar will be hidden.',
+						'When set to "off", the WordPress admin bar will be hidden from the site front-end.',
 						'syntatis-feature-flipper'
 					) }
 				/>
