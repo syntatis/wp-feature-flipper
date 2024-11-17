@@ -18,9 +18,6 @@ export const AdminTab = () => {
 						window.$syntatis.featureFlipper.dashboardWidgets || []
 					}
 				/>
-				<AdminBarInputs
-					menu={ window.$syntatis.featureFlipper.adminBarMenu || [] }
-				/>
 				<SwitchInput
 					name="admin_footer_text"
 					id="admin-footer-text"
@@ -51,6 +48,30 @@ export const AdminTab = () => {
 					) }
 					description={ __(
 						'When set to "off", WordPress will not be showing notification message on the admin when update is available.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+			</Fieldset>
+			<Fieldset
+				title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
+				description={ __(
+					'Customize the Admin bar area',
+					'syntatis-feature-flipper'
+				) }
+			>
+				<AdminBarInputs
+					menu={ window.$syntatis.featureFlipper.adminBarMenu || [] }
+				/>
+				<SwitchInput
+					name="admin_bar_howdy"
+					id="admin-bar-howdy"
+					title={ __( 'Howdy Text', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Show the "Howdy" text',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When set to "off", the "Howdy" text in the Account menu in the admin bar will be removed.',
 						'syntatis-feature-flipper'
 					) }
 				/>

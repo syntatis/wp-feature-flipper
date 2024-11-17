@@ -48,6 +48,8 @@ return [
 	(new Setting('admin_bar_menu', 'array'))
 		->apiSchema(['items' => ['type' => 'string']])
 		->withDefault(null),
+	(new Setting('admin_bar_howdy', 'boolean'))
+		->withDefault(true),
 
 	// Media.
 	(new Setting('attachment_page', 'boolean'))

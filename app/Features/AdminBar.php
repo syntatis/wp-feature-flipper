@@ -30,7 +30,13 @@ class AdminBar implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_bar_menu', static fn () => self::$menu = self::getRegisteredMenu(), PHP_INT_MAX);
-		$hook->addAction('admin_bar_menu', [$this, 'addInlineScripts'], PHP_INT_MAX);
+		$hook->addAction('admin_bar_menu', static fn () => wp_add_inline_script(
+			App::name()	. '-settings',
+			self::getInlineScript(),
+			'before',
+		), PHP_INT_MAX);
+
+		// Admin Bar.
 		$hook->addAction('admin_bar_menu', static function ($wpAdminBar): void {
 			$adminBarMenu = Option::get('admin_bar_menu');
 
@@ -55,15 +61,6 @@ class AdminBar implements Hookable
 		}
 
 		$hook->addFilter('show_admin_bar', static fn () => (bool) Option::get('admin_bar'));
-	}
-
-	public function addInlineScripts(): void
-	{
-		wp_add_inline_script(
-			App::name()	. '-settings',
-			self::getInlineScript(),
-			'before',
-		);
 	}
 
 	private static function getInlineScript(): string
