@@ -54,7 +54,7 @@ class DashboardWidgets implements Hookable
 			return;
 		}
 
-		if (! Option::get('dashboard_widgets')) {
+		if (! (bool) Option::get('dashboard_widgets')) {
 			// phpcs:ignore
 			$GLOBALS['wp_meta_boxes']['dashboard'] = [];
 
@@ -69,6 +69,7 @@ class DashboardWidgets implements Hookable
 		$widgets = self::getRegisteredWidgets();
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
+		$values = is_array($values) ? $values : [];
 
 		foreach ($dashboardWidgets as $a => $items) {
 			foreach ($items as $b => $item) {
