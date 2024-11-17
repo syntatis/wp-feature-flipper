@@ -49,4 +49,4 @@ jobs:
     - name: Check spelling
       uses: crate-ci/typos@v1.27.3
       with:
-        files: ./**/*.{php,js,scss,md,txt}
+        config: ./typos.toml
