@@ -9,16 +9,14 @@ import {
 	WebpageTab,
 } from './tabs';
 import '@syntatis/kubrick/dist/index.css';
+import { useSettingsContext } from './components/form';
 
 export const Page = () => {
+	const { inlineData } = useSettingsContext();
+
 	return (
-		<TabsProvider
-			navigate
-			url={ window.$syntatis.featureFlipper.settingPage }
-		>
-			<Tabs
-				selectedKey={ window.$syntatis.featureFlipper.settingPageTab }
-			>
+		<TabsProvider navigate url={ inlineData.settingPage }>
+			<Tabs selectedKey={ inlineData.settingPageTab || undefined }>
 				<Tab
 					key="general"
 					title={ __( 'General', 'syntatis-feature-flipper' ) }

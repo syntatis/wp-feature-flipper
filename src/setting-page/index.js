@@ -10,7 +10,7 @@ domReady( () => {
 	);
 	if ( container ) {
 		createRoot( container ).render(
-			<SettingsProvider>
+			<SettingsProvider inlineData={ window.$syntatis.featureFlipper }>
 				<Page />
 			</SettingsProvider>
 		);
