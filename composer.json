@@ -68,6 +68,7 @@
         "build": "Build the plugin for production",
         "phpcs": "Check the codebase for coding standards violations",
         "phpcs:fix": "Fix coding standards violations",
+        "phpstan": "Analyse the codebase for static code errors",
         "plugin:zip": "Create a distributable zip file of the plugin",
         "scoper": "Scope dependencies namespace with a prefix"
     },
