@@ -57,7 +57,7 @@
             "codex scoper:init --yes --no-dev",
             "@composer make-pot"
         ],
-        "make-pot": "wp i18n make-pot --exclude=vendor,dist . inc/languages/syntatis-feature-flipper.pot",
+        "make-pot": "wp i18n make-pot --exclude=vendor,dist,build . inc/languages/syntatis-feature-flipper.pot",
         "phpcs": "phpcs",
         "phpcs:fix": "phpcbf",
         "phpstan": "phpstan",

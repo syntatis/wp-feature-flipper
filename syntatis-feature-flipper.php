@@ -11,7 +11,7 @@ declare(strict_types=1);
  * Plugin Name:       Feature Flipper
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
  * Description:       Easily switch some features in WordPress, on and off
- * Version:           1.2.0
+ * Version:           1.2.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
