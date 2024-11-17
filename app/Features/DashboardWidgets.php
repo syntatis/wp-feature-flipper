@@ -26,7 +26,7 @@ class DashboardWidgets implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+		$hook->addAction('admin_enqueue_scripts', [$this, 'addInlineScripts']);
 		$hook->addAction('admin_init', static fn () => self::$widgets = self::getRegisteredWidgets());
 		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
@@ -86,7 +86,7 @@ class DashboardWidgets implements Hookable
 		return $data;
 	}
 
-	public function enqueueAdminScripts(): void
+	public function addInlineScripts(): void
 	{
 		wp_add_inline_script(
 			App::name()	. '-settings',

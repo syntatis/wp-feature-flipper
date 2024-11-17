@@ -37,16 +37,17 @@ return [
 	(new Setting('dashboard_widgets_enabled', 'array'))
 		->apiSchema(['items' => ['type' => 'string']])
 		->withDefault(null),
-	(new Setting('account_menu_howdy', 'boolean'))
-		->withDefault(true),
-	(new Setting('admin_bar', 'boolean'))
-		->withDefault(true),
-	(new Setting('admin_wordpress_logo', 'boolean'))
-		->withDefault(true),
 	(new Setting('admin_footer_text', 'boolean'))
 		->withDefault(true),
 	(new Setting('update_nags', 'boolean'))
 		->withDefault(true),
+
+	// Admin: Admin Bar.
+	(new Setting('admin_bar', 'boolean'))
+		->withDefault(true),
+	(new Setting('admin_bar_menu', 'array'))
+		->apiSchema(['items' => ['type' => 'string']])
+		->withDefault(null),
 
 	// Media.
 	(new Setting('attachment_page', 'boolean'))

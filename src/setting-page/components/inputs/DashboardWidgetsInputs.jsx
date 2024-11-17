@@ -5,14 +5,13 @@ import { useFormContext, useSettingsContext } from '../form';
 import styles from './DashboardWidgetsInputs.module.scss';
 import { useState } from '@wordpress/element';
 
-export const DashboardWidgetsInputs = () => {
+export const DashboardWidgetsInputs = ( { widgets = [] } ) => {
 	const { getOption, inputProps } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const [ isEnabled, setEnabled ] = useState(
 		getOption( 'dashboard_widgets' )
 	);
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
-	const dashboardWidgets = window.$syntatis.featureFlipper.dashboardWidgets;
 
 	return (
 		<SwitchInput
@@ -31,7 +30,7 @@ export const DashboardWidgetsInputs = () => {
 		>
 			{ isEnabled && (
 				<CheckboxGroup
-					className={ styles.widgetsHidden }
+					className={ styles.widgetsEnabled }
 					defaultValue={ widgetsEnabled }
 					label={ __( 'Widgets', 'syntatis-feature-flipper' ) }
 					description={ __(
@@ -43,7 +42,7 @@ export const DashboardWidgetsInputs = () => {
 					} }
 					{ ...inputProps( 'dashboard_widgets_enabled' ) }
 				>
-					{ dashboardWidgets.map( ( { id, title } ) => {
+					{ widgets.map( ( { id, title } ) => {
 						return (
 							<Checkbox key={ id } value={ id } label={ title } />
 						);
