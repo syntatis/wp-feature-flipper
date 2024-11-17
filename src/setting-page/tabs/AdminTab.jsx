@@ -49,10 +49,23 @@ export const AdminTab = () => {
 			<Fieldset
 				title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Customize the WordPress admin bar.',
+					'Customize the WordPress admin bar section.',
 					'syntatis-feature-flipper'
 				) }
 			>
+				<SwitchInput
+					name="admin_bar"
+					id="admin-bar"
+					title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Show the Admin bar',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When set to "off", the WordPress admin bar will be hidden.',
+						'syntatis-feature-flipper'
+					) }
+				/>
 				<SwitchInput
 					name="admin_wordpress_logo"
 					id="admin-wordpress-logo"

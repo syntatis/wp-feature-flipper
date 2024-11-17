@@ -15,6 +15,8 @@ class AdminBar implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter('show_admin_bar', static fn () => (bool) Option::get('admin_bar'));
+
 		if (! Option::get('admin_wordpress_logo')) {
 			$hook->addAction('admin_bar_menu', static fn ($wpAdminBar) => $wpAdminBar->remove_node('wp-logo'), 99);
 		}
