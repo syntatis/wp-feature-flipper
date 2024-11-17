@@ -40,3 +40,13 @@ jobs:
         run: |
           composer run phpcs
           composer run phpstan
+  typos:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check spelling
+      uses: crate-ci/typos@v1.27.3
+      with:
+        files: ./**/*.{php,js,scss,md,txt}
