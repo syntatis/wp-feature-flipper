@@ -19,7 +19,7 @@ class General implements Hookable
 	public function hook(Hook $hook): void
 	{
 		// 1. Gutenberg.
-		if (! Option::get('gutenberg')) {
+		if (! (bool) Option::get('gutenberg')) {
 			$hook->addFilter('use_block_editor_for_post', '__return_false');
 			$hook->addFilter('use_widgets_block_editor', '__return_false');
 			$hook->addAction('wp_enqueue_scripts', static function (): void {
@@ -32,29 +32,29 @@ class General implements Hookable
 		}
 
 		// 2. Heartbeat.
-		if (! Option::get('heartbeat')) {
+		if (! (bool) Option::get('heartbeat')) {
 			$hook->addAction('init', static fn () => wp_deregister_script('heartbeat'), -99);
 		}
 
 		// 3. Self-ping.
-		if (! Option::get('self_ping')) {
+		if (! (bool) Option::get('self_ping')) {
 			$hook->addFilter('pre_ping', static function (&$links): void {
 				$links = array_filter($links, static fn ($link) => ! str_starts_with($link, home_url()));
 			}, 99);
 		}
 
 		// 4. Cron.
-		if (! Option::get('cron') && ! defined('DISABLE_WP_CRON')) {
+		if (! (bool) Option::get('cron') && ! defined('DISABLE_WP_CRON')) {
 			define('DISABLE_WP_CRON', true);
 		}
 
 		// 5. Embed.
-		if (! Option::get('embed')) {
+		if (! (bool) Option::get('embed')) {
 			(new Embeds())->hook($hook);
 		}
 
 		// 6. Feeds.
-		if (Option::get('feeds')) {
+		if ((bool) Option::get('feeds')) {
 			return;
 		}
 

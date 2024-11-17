@@ -13,8 +13,12 @@ class Plugin implements Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		// Add the setting page.
-		yield new SettingPage($container->get(Settings::class));
+		$settings = $container->get(Settings::class);
+
+		if ($settings instanceof Settings) {
+			// Add the setting page.
+			yield new SettingPage($settings);
+		}
 
 		// Apply the feature switches.
 		yield new Switches\Admin();

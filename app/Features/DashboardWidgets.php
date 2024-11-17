@@ -14,6 +14,7 @@ use WP_Screen;
 use function array_map;
 use function array_values;
 use function in_array;
+use function is_array;
 use function json_encode;
 use function preg_replace;
 use function sprintf;
@@ -135,27 +136,35 @@ class DashboardWidgets implements Hookable
 	/**
 	 * Get the list of dashboard widgets.
 	 *
-	 * @return array<{id:string,title:string,value:bool}> List of dashboard widgets.
+	 * @return array<array{id:string,title:string,value:bool}> List of dashboard widgets.
 	 * @phpstan-return list<array{id:string,title:string,value:bool}>
 	 */
 	private static function getRegisteredWidgets(): array
 	{
-		if (($GLOBALS['wp_meta_boxes']['dashboard'] ?? null) === null && get_current_screen()->id !== 'dashboard') {
+		$currentScreen = get_current_screen();
+
+		if (
+			($GLOBALS['wp_meta_boxes']['dashboard'] ?? null) === null &&
+			$currentScreen instanceof WP_Screen &&
+			$currentScreen->id !== 'dashboard'
+		) {
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			set_current_screen('dashboard');
 			wp_dashboard_setup();
 		}
 
-		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_hidden';
+		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_enabled';
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
-
-		$widgetsHidden = $settings[$optionName] ?? [];
 		$widgets = [];
 
 		if ($dashboardWidgets === null) {
 			return $widgets;
 		}
+
+		$settings = Option::get('dashboard_widgets_enabled') ?? [];
+		$settings = is_array($settings) ? $settings : [];
+		$widgetsHidden = $settings[$optionName] ?? [];
 
 		foreach ($dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
@@ -165,7 +174,7 @@ class DashboardWidgets implements Hookable
 						'title' => isset($widget['title']) ?
 							wp_strip_all_tags(preg_replace('/ <span.*span>/im', '', $widget['title'])) :
 							'-- Unknown --',
-						'value' => $widgetsHidden[$widgetId] ?? false,
+						'value' => in_array($widgetId, $widgetsHidden, true),
 					];
 				}
 			}
