@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-16T08:39:41+00:00\n"
+"POT-Creation-Date: 2024-11-17T07:47:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -76,6 +76,47 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:15
+#: src/setting-page/tabs/AdminTab.jsx:56
+msgid "Admin Bar"
+msgstr ""
+
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:16
+msgid "Show the Admin bar on the front end"
+msgstr ""
+
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:20
+msgid "When set to \"off\", the admin bar will not be shown on the front end."
+msgstr ""
+
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:31
+msgid "Menu"
+msgstr ""
+
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:32
+msgid "List of menu items registered to admin bar."
+msgstr ""
+
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:20
+msgid "Dashboard Widgets"
+msgstr ""
+
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:21
+msgid "Enable Dashboard widgets"
+msgstr ""
+
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:25
+msgid "Customize the widgets to show or hide on the WordPress dashboard."
+msgstr ""
+
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:35
+msgid "Widgets"
+msgstr ""
+
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:36
+msgid "List of widgets registered to the dashboard."
+msgstr ""
+
 #: src/setting-page/Page.jsx:20
 msgid "General"
 msgstr ""
@@ -100,72 +141,44 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:17
-msgid "Dashboard Widgets"
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:21
-msgid "Enable Dashboard widgets"
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:25
-msgid "Customize the widgets to show or hide on the WordPress dashboard."
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:33
+#: src/setting-page/tabs/AdminTab.jsx:24
 msgid "Footer Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:34
+#: src/setting-page/tabs/AdminTab.jsx:25
 msgid "Show the footer text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:38
+#: src/setting-page/tabs/AdminTab.jsx:29
 msgid "When set to \"off\", the default WordPress footer text will be removed from the admin."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:53
+#: src/setting-page/tabs/AdminTab.jsx:44
 msgid "Update Nags"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:54
+#: src/setting-page/tabs/AdminTab.jsx:45
 msgid "Enable WordPress update notification message"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:58
+#: src/setting-page/tabs/AdminTab.jsx:49
 msgid "When set to \"off\", WordPress will not be showing notification message on the admin when update is available."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:65
-msgid "Admin bar"
+#: src/setting-page/tabs/AdminTab.jsx:57
+msgid "Customize the Admin bar area"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:66
-msgid "Customize the WordPress admin bar."
+#: src/setting-page/tabs/AdminTab.jsx:68
+msgid "Howdy Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:74
-msgid "WordPress Logo"
+#: src/setting-page/tabs/AdminTab.jsx:69
+msgid "Show the \"Howdy\" text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:75
-msgid "Show WordPress logo in the admin bar"
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:79
-msgid "When set to \"off\", the WordPress logo will be hidden from the admin bar."
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:94
-msgid "Show \"Howdy\""
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:95
-msgid "Show \"Howdy\" in the admin bar"
-msgstr ""
-
-#: src/setting-page/tabs/AdminTab.jsx:99
-msgid "When set to \"off\", the \"Howdy\" text will be hidden from the admin bar."
+#: src/setting-page/tabs/AdminTab.jsx:73
+msgid "When set to \"off\", the \"Howdy\" text in the Account menu in the admin bar will be removed."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:9
