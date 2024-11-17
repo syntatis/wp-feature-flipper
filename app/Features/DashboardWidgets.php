@@ -14,6 +14,7 @@ use function array_map;
 use function array_values;
 use function in_array;
 use function json_encode;
+use function preg_replace;
 use function sprintf;
 
 use const PHP_INT_MAX;
@@ -34,28 +35,13 @@ class DashboardWidgets implements Hookable
 	public function setup(): void
 	{
 		if (! Option::get('dashboard_widgets')) {
-			self::setupAll();
+			// phpcs:ignore
+			$GLOBALS['wp_meta_boxes']['dashboard'] = [];
 
 			return;
 		}
 
 		self::setupEach();
-	}
-
-	private static function setupAll(): void
-	{
-		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
-
-		foreach ($dashboardWidgets as $a => $items) {
-			foreach ($items as $b => $item) {
-				foreach ($item as $widgetId => $widget) {
-					unset($dashboardWidgets[$a][$b][$widgetId]);
-				}
-			}
-		}
-
-		// phpcs:ignore
-		$GLOBALS['wp_meta_boxes']['dashboard'] = $dashboardWidgets;
 	}
 
 	private static function setupEach(): void
@@ -104,12 +90,12 @@ class DashboardWidgets implements Hookable
 	{
 		wp_add_inline_script(
 			App::name()	. '-settings',
-			$this->getInlineScript(),
+			self::getInlineScript(),
 			'before',
 		);
 	}
 
-	private function getInlineScript(): string
+	private static function getInlineScript(): string
 	{
 		return sprintf(
 			<<<'SCRIPT'
@@ -169,7 +155,7 @@ class DashboardWidgets implements Hookable
 					$widgets[] = [
 						'id' => $widgetId,
 						'title' => isset($widget['title']) ?
-							wp_strip_all_tags($widget['title']) :
+							wp_strip_all_tags(preg_replace('/ <span.*span>/im', '', $widget['title'])) :
 							'-- Unknown --',
 						'value' => $widgetsHidden[$widgetId] ?? false,
 					];
