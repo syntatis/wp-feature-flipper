@@ -38,7 +38,7 @@ if (! defined('ABSPATH')) {
  * It provides a clear understanding of the impact of changes between
  * versions.
  */
-const PLUGIN_VERSION = '1.2.0';
+const PLUGIN_VERSION = '1.2.1';
 
 /**
  * Define the directory path to the plugin file.
