@@ -43,10 +43,8 @@ jobs:
   typos:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Check spelling
-      uses: crate-ci/typos@v1.27.3
-      with:
-        config: ./typos.toml
+      - name: Check spelling
+        uses: crate-ci/typos@v1.27.3

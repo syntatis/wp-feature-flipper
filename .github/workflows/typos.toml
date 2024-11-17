@@ -1,5 +1,0 @@
-[files]
-ignore-files = true
-ignore-hidden = true
-ignore-vcs = true
-ignore-glob = ["*.pot"]
