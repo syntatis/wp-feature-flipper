@@ -151,9 +151,13 @@ class SettingPage implements Hookable
 
 		return sprintf(
 			<<<'SCRIPT'
-			window.$syntatis = { featureFlipper: {} };
+			window.$syntatis = { featureFlipper: %s };
 			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
 			SCRIPT,
+			wp_json_encode([
+				'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
+				'settingPageTab' => $_GET['tab'] ?? null,
+			]),
 			wp_json_encode(['/wp/v2/settings' => ['body' => apply_filters('syntatis/feature_flipper/settings', $data)]]),
 		);
 	}

@@ -23,11 +23,11 @@
         "npm": ">=9"
     },
     "dependencies": {
-        "@syntatis/kubrick": "^0.1.0-beta.3",
-        "@wordpress/api-fetch": "^7.9.0",
-        "@wordpress/dom-ready": "^4.9.0",
-        "@wordpress/element": "^6.9.0",
-        "@wordpress/i18n": "^5.9.0"
+        "@syntatis/kubrick": "^0.1.0-beta.5",
+        "@wordpress/api-fetch": "^7.12.0",
+        "@wordpress/dom-ready": "^4.12.0",
+        "@wordpress/element": "^6.12.0",
+        "@wordpress/i18n": "^5.12.0"
     },
     "devDependencies": {
         "@wordpress/scripts": "^30.1.0",
