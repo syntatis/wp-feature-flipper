@@ -142,6 +142,7 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getRegisteredWidgets(): array
 	{
+		static $dashboardWidgets = null;
 		$currentScreen = get_current_screen();
 
 		if (
@@ -153,10 +154,12 @@ class DashboardWidgets implements Hookable
 
 			set_current_screen('dashboard');
 			wp_dashboard_setup();
+
+			$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
+			unset($GLOBALS['wp_meta_boxes']['dashboard']);
 		}
 
 		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_enabled';
-		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		$widgets = [];
 
 		if ($dashboardWidgets === null) {

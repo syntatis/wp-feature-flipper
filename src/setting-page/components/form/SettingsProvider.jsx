@@ -2,7 +2,7 @@ import { createContext } from '@wordpress/element';
 import { useSettings } from './useSettings';
 
 export const SettingsContext = createContext();
-export const SettingsProvider = ( { children } ) => {
+export const SettingsProvider = ( { children, inlineData } ) => {
 	const optionPrefix = 'syntatis_feature_flipper_';
 	const attrPrefix = 'syntatis-feature-flipper-';
 	const {
@@ -29,6 +29,7 @@ export const SettingsProvider = ( { children } ) => {
 				setStatus,
 				submitValues,
 				initialValues,
+				inlineData,
 				updatedValues,
 				setValues: ( name, value ) => {
 					setValues( {

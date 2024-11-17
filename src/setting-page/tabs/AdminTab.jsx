@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form } from '../components/form';
+import { Fieldset, Form, useSettingsContext } from '../components/form';
 import {
 	AdminBarInputs,
 	DashboardWidgetsInputs,
@@ -10,13 +10,13 @@ const wpFooter = document.querySelector( '#wpfooter' );
 const wpFooterDisplayStyle = wpFooter?.style?.display;
 
 export const AdminTab = () => {
+	const { inlineData } = useSettingsContext();
+
 	return (
 		<Form>
 			<Fieldset>
 				<DashboardWidgetsInputs
-					widgets={
-						window.$syntatis.featureFlipper.dashboardWidgets || []
-					}
+					widgets={ inlineData.dashboardWidgets || [] }
 				/>
 				<SwitchInput
 					name="admin_footer_text"
@@ -59,9 +59,7 @@ export const AdminTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<AdminBarInputs
-					menu={ window.$syntatis.featureFlipper.adminBarMenu || [] }
-				/>
+				<AdminBarInputs menu={ inlineData.adminBarMenu || [] } />
 				<SwitchInput
 					name="admin_bar_howdy"
 					id="admin-bar-howdy"
