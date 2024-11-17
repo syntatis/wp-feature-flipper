@@ -49,11 +49,11 @@ class DashboardWidgets implements Hookable
 
 	public function setup(): void
 	{
-		if (! Option::get('dashboard_widgets')) {
-			if (self::$onSettingPage) {
-				return;
-			}
+		if (self::$onSettingPage) {
+			return;
+		}
 
+		if (! Option::get('dashboard_widgets')) {
 			// phpcs:ignore
 			$GLOBALS['wp_meta_boxes']['dashboard'] = [];
 
