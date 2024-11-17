@@ -9,6 +9,7 @@ use SSFV\Codex\Facades\App;
 use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Option;
+use WP_Screen;
 
 use function array_map;
 use function array_values;
@@ -21,13 +22,27 @@ use const PHP_INT_MAX;
 
 class DashboardWidgets implements Hookable
 {
+	private static bool $onSettingPage = false;
+
 	/** @phpstan-var list<array{id:string,title:string}> */
 	private static array $widgets = [];
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_enqueue_scripts', [$this, 'addInlineScripts']);
-		$hook->addAction('admin_init', static fn () => self::$widgets = self::getRegisteredWidgets());
+		$hook->addAction('admin_enqueue_scripts', static fn () => wp_add_inline_script(
+			App::name()	. '-settings',
+			self::getInlineScript(),
+			'before',
+		));
+		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
+			if ($screen->id !== 'settings_page_' . App::name()) {
+				return;
+			}
+
+			self::$onSettingPage = true;
+			self::$widgets = self::getRegisteredWidgets();
+			self::$onSettingPage = false;
+		});
 		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
 	}
@@ -35,6 +50,10 @@ class DashboardWidgets implements Hookable
 	public function setup(): void
 	{
 		if (! Option::get('dashboard_widgets')) {
+			if (self::$onSettingPage) {
+				return;
+			}
+
 			// phpcs:ignore
 			$GLOBALS['wp_meta_boxes']['dashboard'] = [];
 
@@ -46,10 +65,7 @@ class DashboardWidgets implements Hookable
 
 	private static function setupEach(): void
 	{
-		if (self::$widgets === []) {
-			return;
-		}
-
+		$widgets = self::getRegisteredWidgets();
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
 
@@ -88,11 +104,6 @@ class DashboardWidgets implements Hookable
 
 	public function addInlineScripts(): void
 	{
-		wp_add_inline_script(
-			App::name()	. '-settings',
-			self::getInlineScript(),
-			'before',
-		);
 	}
 
 	private static function getInlineScript(): string
@@ -129,11 +140,7 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getRegisteredWidgets(): array
 	{
-		if (self::$widgets !== []) {
-			return self::$widgets;
-		}
-
-		if (($GLOBALS['wp_meta_boxes']['dashboard'] ?? null) === null) {
+		if (($GLOBALS['wp_meta_boxes']['dashboard'] ?? null) === null && get_current_screen()->id !== 'dashboard') {
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			set_current_screen('dashboard');
@@ -142,6 +149,7 @@ class DashboardWidgets implements Hookable
 
 		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_hidden';
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
+
 		$widgetsHidden = $settings[$optionName] ?? [];
 		$widgets = [];
 
