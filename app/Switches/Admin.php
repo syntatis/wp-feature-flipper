@@ -14,12 +14,12 @@ class Admin implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if (! Option::get('admin_footer_text')) {
+		if (! (bool) Option::get('admin_footer_text')) {
 			$hook->addFilter('admin_footer_text', '__return_empty_string', 99);
 			$hook->addFilter('update_footer', '__return_empty_string', 99);
 		}
 
-		if (! Option::get('update_nags')) {
+		if (! (bool) Option::get('update_nags')) {
 			$hook->addAction('admin_init', static function () use ($hook): void {
 				$hook->removeAction('admin_notices', 'update_nag', 3);
 				$hook->removeAction('network_admin_notices', 'update_nag', 3);

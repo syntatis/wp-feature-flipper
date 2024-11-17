@@ -17,7 +17,7 @@ class Security implements Hookable
 	public function hook(Hook $hook): void
 	{
 		// 1. Disable XML-RPC.
-		if (! Option::get('xmlrpc')) {
+		if (! (bool) Option::get('xmlrpc')) {
 			$hook->addFilter('pings_open', '__return_false');
 			$hook->addFilter('xmlrpc_enabled', '__return_false');
 			$hook->addFilter('xmlrpc_methods', '__return_empty_array');
@@ -25,12 +25,12 @@ class Security implements Hookable
 		}
 
 		// 2. Disable file editor.
-		if (! Option::get('file_edit') && ! defined('DISALLOW_FILE_EDIT')) {
+		if (! (bool) Option::get('file_edit') && ! defined('DISALLOW_FILE_EDIT')) {
 			define('DISALLOW_FILE_EDIT', true);
 		}
 
 		// 3. Disable public REST API.
-		if (! Option::get('authenticated_rest_api')) {
+		if (! (bool) Option::get('authenticated_rest_api')) {
 			return;
 		}
 

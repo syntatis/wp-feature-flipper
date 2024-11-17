@@ -8,11 +8,13 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use WP;
 use WP_Scripts;
 
 use function array_diff;
 use function defined;
 use function is_readable;
+use function is_string;
 use function strpos;
 
 use const PHP_INT_MAX;
@@ -88,7 +90,7 @@ class Embeds implements Hookable
 	public function disableRewrite(array $rules): array
 	{
 		foreach ($rules as $rule => $rewrite) {
-			if (strpos($rewrite, 'embed=true') === false) {
+			if (is_string($rewrite) && strpos($rewrite, 'embed=true') === false) {
 				continue;
 			}
 
@@ -110,11 +112,12 @@ class Embeds implements Hookable
 
 	public function disableOnBlockEditor(): void
 	{
-		$assets = App::dir('dist/assets/embeds/index.asset.php');
-		$assets = is_readable($assets) ? require $assets : [];
+		$assetFile = App::dir('dist/assets/embeds/index.asset.php');
 
+		/** @phpstan-var array{dependencies?:array<string>,version?:string} $asset */
+		$asset = is_readable($assetFile) ? require $assetFile : [];
 		$asset['dependencies'] ??= [];
-		$asset['version'] ??= '';
+		$asset['version'] ??= null;
 
 		wp_enqueue_script(
 			App::name() . '-embeds',
@@ -127,7 +130,7 @@ class Embeds implements Hookable
 
 	public function disableScriptDependencies(WP_Scripts $scripts): void
 	{
-		if (empty($scripts->registered['wp-edit-post'])) {
+		if (! isset($scripts->registered['wp-edit-post'])) {
 			return;
 		}
 

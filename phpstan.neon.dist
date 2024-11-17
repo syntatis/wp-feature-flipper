@@ -1,0 +1,6 @@
+parameters:
+  level: 9
+  bootstrapFiles:
+    - dist/autoload/vendor/autoload.php
+  paths:
+    - app

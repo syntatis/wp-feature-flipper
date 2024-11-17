@@ -13,6 +13,7 @@ use WP_REST_Request;
 use function array_filter;
 use function array_keys;
 use function in_array;
+use function is_array;
 use function is_readable;
 use function sprintf;
 
@@ -98,14 +99,14 @@ class SettingPage implements Hookable
 			$handle,
 			App::url('dist/assets/setting-page/index.css'),
 			[],
-			$scriptVersion ?? null,
+			$assets['version'] ?? null,
 		);
 
 		wp_enqueue_script(
 			$handle,
 			App::url('dist/assets/setting-page/index.js'),
 			$assets['dependencies'] ?? [],
-			$scriptVersion ?? null,
+			$assets['version'] ?? null,
 			true,
 		);
 
@@ -123,16 +124,27 @@ class SettingPage implements Hookable
 	 */
 	public function getInlineScript(): string
 	{
+		$all = $this->settings->get('all');
+
+		if (! is_array($all) || $all === []) {
+			return '';
+		}
+
 		$request = new WP_REST_Request('GET', '/wp/v2/settings');
 		$response = rest_do_request($request);
+		$data = $response->get_data();
+
+		if (! is_array($data) || $data === []) {
+			return '';
+		}
 
 		/**
 		 * Filter the response data to only include those registered in the plugin
 		 * settings.
 		 */
-		$keys = array_keys($this->settings->get('all'));
+		$keys = array_keys($all);
 		$data = array_filter(
-			$response->get_data(),
+			$data,
 			static fn ($key): bool => in_array($key, $keys, true),
 			ARRAY_FILTER_USE_KEY,
 		);

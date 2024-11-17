@@ -10,12 +10,14 @@ use SSFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Option;
 use WP_Query;
 
+use function is_string;
+
 class Media implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
 		// 1. Attachment Page.
-		if (! Option::get('attachment_page')) {
+		if (! (bool) Option::get('attachment_page')) {
 			$hook->addAction('template_redirect', function (): void {
 				if (! is_attachment()) {
 					return;
@@ -24,13 +26,16 @@ class Media implements Hookable
 				$this->toNotFound();
 			});
 
-			$hook->addFilter('redirect_canonical', function (string $url): string {
-				if (! is_attachment()) {
-					return $url;
-				}
+			$hook->addFilter(
+				'redirect_canonical',
+				function (string $url) {
+					if (! is_attachment()) {
+						return $url;
+					}
 
-				$this->toNotFound();
-			});
+					$this->toNotFound();
+				},
+			);
 
 			/**
 			 * Replace the link to "View Attachment Page" with the actual attachment URL.
@@ -38,7 +43,7 @@ class Media implements Hookable
 			$hook->addFilter('attachment_link', static function (string $url, int $id): string {
 				$attachmentUrl = wp_get_attachment_url($id);
 
-				if ($attachmentUrl) {
+				if (is_string($attachmentUrl)) {
 					return $attachmentUrl;
 				}
 
@@ -46,7 +51,7 @@ class Media implements Hookable
 			}, 99, 2);
 		}
 
-		if (Option::get('attachment_slug')) {
+		if ((bool) Option::get('attachment_slug')) {
 			return;
 		}
 

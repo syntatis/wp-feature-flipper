@@ -13,17 +13,17 @@ class Webpage implements Hookable
 	public function hook(Hook $hook): void
 	{
 		// 1. RSD Link.
-		if (! Option::get('rsd_link')) {
+		if (! (bool) Option::get('rsd_link')) {
 			$hook->removeAction('wp_head', 'rsd_link');
 		}
 
 		// 2. WordPress Generator meta tag.
-		if (! Option::get('generator_tag')) {
+		if (! (bool) Option::get('generator_tag')) {
 			$hook->removeAction('wp_head', 'wp_generator');
 		}
 
 		// 3. Shortlink.
-		if (Option::get('shortlink')) {
+		if ((bool) Option::get('shortlink')) {
 			return;
 		}
 

@@ -11,6 +11,8 @@ use Syntatis\FeatureFlipper\Option;
 use WP_Admin_Bar;
 
 use function in_array;
+use function is_array;
+use function is_string;
 use function json_encode;
 use function sprintf;
 
@@ -40,12 +42,12 @@ class AdminBar implements Hookable
 		$hook->addAction('admin_bar_menu', static function ($wpAdminBar): void {
 			$adminBarMenu = Option::get('admin_bar_menu');
 
-			if ($adminBarMenu === null) {
+			if (! is_array($adminBarMenu)) {
 				return;
 			}
 
 			foreach (self::$menu as $menu) {
-				if ($menu['id'] && in_array($menu['id'], $adminBarMenu, true)) {
+				if (in_array($menu['id'], $adminBarMenu, true)) {
 					continue;
 				}
 
@@ -53,7 +55,7 @@ class AdminBar implements Hookable
 			}
 		}, PHP_INT_MAX);
 
-		if (! Option::get('admin_bar_howdy')) {
+		if (! (bool) Option::get('admin_bar_howdy')) {
 			$hook->addFilter('admin_bar_menu', function ($wpAdminBar) use ($hook): void {
 				$hook->removeAction('admin_bar_menu', 'wp_admin_bar_my_account_item', PHP_INT_MAX);
 				$this->addMyAccountMenu($wpAdminBar);
@@ -83,10 +85,14 @@ class AdminBar implements Hookable
 		$nodes = $wpAdminBarMenu->get_nodes();
 		$items = [];
 
-		foreach ($nodes as $node) {
-			$nodeParent = $node->parent || false;
+		if (! is_array($nodes)) {
+			return $items;
+		}
 
-			if (! $nodeParent === false || in_array($node->id, self::EXCLUDED_MENU, true)) {
+		foreach ($nodes as $node) {
+			$nodeParent = $node->parent;
+
+			if ($nodeParent !== false || in_array($node->id, self::EXCLUDED_MENU, true)) {
 				continue;
 			}
 
@@ -103,15 +109,14 @@ class AdminBar implements Hookable
 		$currentUser = wp_get_current_user();
 		$userId = get_current_user_id();
 		$avatar = get_avatar($userId, 26);
-		$class = ( $avatar ? 'with-avatar' : 'no-avatar' );
 
 		$wpAdminBar->add_menu([
-			'id'     => 'my-account',
+			'id' => 'my-account',
 			'parent' => 'top-secondary',
 			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress convention.
-			'title'  => $currentUser->display_name . $avatar,
-			'href'   => get_edit_profile_url($userId),
-			'meta'   => ['class' => $class],
+			'title' => $currentUser->display_name . $avatar,
+			'href' => get_edit_profile_url($userId),
+			'meta' => ['class' => is_string($avatar) && $avatar !== '' ? 'with-avatar' : 'no-avatar'],
 		]);
 	}
 }
