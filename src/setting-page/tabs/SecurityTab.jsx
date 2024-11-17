@@ -8,7 +8,7 @@ const themeEditors = document.querySelector(
 const pluginEditors = document.querySelector(
 	'#adminmenu a[href="plugin-editor.php"]'
 );
-const orginalDisplay = {
+const originalDisplay = {
 	themeEditors: themeEditors?.parentElement?.style?.display,
 	pluginEditors: pluginEditors?.parentElement?.style?.display,
 };
@@ -33,13 +33,13 @@ export const SecurityTab = () => {
 						if ( themeEditors ) {
 							themeEditors.parentElement.style.display = ! checked
 								? 'none'
-								: orginalDisplay.themeEditors;
+								: originalDisplay.themeEditors;
 						}
 						if ( pluginEditors ) {
 							pluginEditors.parentElement.style.display =
 								! checked
 									? 'none'
-									: orginalDisplay.pluginEditors;
+									: originalDisplay.pluginEditors;
 						}
 					} }
 				/>
