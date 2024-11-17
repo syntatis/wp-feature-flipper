@@ -16,7 +16,7 @@ class Assets implements Hookable
 	public function hook(Hook $hook): void
 	{
 		// 1. Emojis.
-		if (! Option::get('emojis')) {
+		if (! (bool) Option::get('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
 			 * been retained for backward compatibility purposes.
@@ -33,7 +33,7 @@ class Assets implements Hookable
 		}
 
 		// 2. Scripts Version.
-		if (! Option::get('scripts_version')) {
+		if (! (bool) Option::get('scripts_version')) {
 			$callback = static function (string $src): string {
 				return remove_query_arg('ver', $src);
 			};
@@ -42,17 +42,18 @@ class Assets implements Hookable
 		}
 
 		// 3. jQuery Migrate.
-		if (Option::get('jquery_migrate')) {
+		if ((bool) Option::get('jquery_migrate')) {
 			return;
 		}
 
 		$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
-			if (empty($scripts->registered['jquery'])) {
+			if (! isset($scripts->registered['jquery'])) {
 				return;
 			}
 
 			$script = $scripts->registered['jquery'];
-			if (! $script->deps) {
+
+			if ($script->deps === []) {
 				return;
 			}
 
