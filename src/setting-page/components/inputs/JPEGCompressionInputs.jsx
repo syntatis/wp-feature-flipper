@@ -28,40 +28,36 @@ export const JPEGCompressionInputs = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<details className={ styles.settingsDetails }>
-					<summary>
-						<strong>
-							{ __( 'Settings', 'syntatis-feature-flipper' ) }
-						</strong>
-					</summary>
-					<div className={ styles.settingsInputs }>
-						<TextField
-							min={ 10 }
-							max={ 100 }
-							type="number"
-							name="jpeg_compression_quality"
-							defaultValue={ getOption(
-								'jpeg_compression_quality'
-							) }
-							onChange={ ( value ) => {
-								setFieldsetValues(
-									'jpeg_compression_quality',
-									value
-								);
-							} }
-							className="code"
-							label={ __(
-								'Quality',
-								'syntatis-feature-flipper'
-							) }
-							description={ __(
-								'The quality of the compressed JPEG image. 100 is the highest quality.',
-								'syntatis-feature-flipper'
-							) }
-							suffix="%"
-						/>
-					</div>
-				</details>
+				<div className={ styles.settingsInputs }>
+					<TextField
+						min={ 10 }
+						max={ 100 }
+						type="number"
+						name="jpeg_compression_quality"
+						defaultValue={ getOption( 'jpeg_compression_quality' ) }
+						onChange={ ( value ) => {
+							setFieldsetValues(
+								'jpeg_compression_quality',
+								value
+							);
+						} }
+						className="code"
+						prefix={
+							<span aria-hidden>
+								{ __( 'Quality', 'syntatis-feature-flipper' ) }
+							</span>
+						}
+						aria-label={ __(
+							'Quality',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'The quality of the compressed JPEG image. 100 is the highest quality.',
+							'syntatis-feature-flipper'
+						) }
+						suffix="%"
+					/>
+				</div>
 			) }
 		</SwitchInput>
 	);

@@ -26,10 +26,8 @@ export const AdminBarInputs = () => {
 			) }
 		>
 			<details className={ styles.menuDetails }>
-				<summary>
-					<strong id={ labelId }>
-						{ __( 'Menu', 'syntatis-feature-flipper' ) }
-					</strong>
+				<summary id={ labelId }>
+					{ __( 'Menu', 'syntatis-feature-flipper' ) }
 				</summary>
 				<CheckboxGroup
 					defaultValue={
