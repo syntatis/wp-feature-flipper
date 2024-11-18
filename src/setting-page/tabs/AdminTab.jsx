@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form, useSettingsContext } from '../components/form';
+import { Fieldset, Form } from '../components/form';
 import {
 	AdminBarInputs,
 	DashboardWidgetsInputs,
@@ -65,7 +65,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", the "Howdy" text in the Account menu in the admin bar will be removed.',
+						'When switched off, the "Howdy" text in the Account menu in the admin bar will be removed.',
 						'syntatis-feature-flipper'
 					) }
 				/>

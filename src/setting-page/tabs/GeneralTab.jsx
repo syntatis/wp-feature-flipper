@@ -41,7 +41,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will stop sending pings from your own site to your own site.',
+						'When switched off, WordPress will not send pingbacks to your own site.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -51,7 +51,7 @@ export const GeneralTab = () => {
 					title="Cron"
 					label={ __( 'Enable cron', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'When set to "off", WordPress will not run scheduled events.',
+						'When switched off, WordPress will not run scheduled events.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -64,7 +64,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will disable other sites from embedding content from your site, and vice-versa.',
+						'When switched off, it will disable other sites from embedding content from your site, and vice-versa.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -77,7 +77,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will disable the RSS feed URLs.',
+						'When switched off, it will disable the RSS feed URLs.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -90,7 +90,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", you will need to manually update WordPress.',
+						'When switched off, you will need to manually update WordPress.',
 						'syntatis-feature-flipper'
 					) }
 				/>
