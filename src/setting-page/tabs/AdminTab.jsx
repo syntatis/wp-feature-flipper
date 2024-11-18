@@ -10,14 +10,10 @@ const wpFooter = document.querySelector( '#wpfooter' );
 const wpFooterDisplayStyle = wpFooter?.style?.display;
 
 export const AdminTab = () => {
-	const { inlineData } = useSettingsContext();
-
 	return (
 		<Form>
 			<Fieldset>
-				<DashboardWidgetsInputs
-					widgets={ inlineData.dashboardWidgets || [] }
-				/>
+				<DashboardWidgetsInputs />
 				<SwitchInput
 					name="admin_footer_text"
 					id="admin-footer-text"
@@ -59,7 +55,7 @@ export const AdminTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<AdminBarInputs menu={ inlineData.adminBarMenu || [] } />
+				<AdminBarInputs />
 				<SwitchInput
 					name="admin_bar_howdy"
 					id="admin-bar-howdy"
