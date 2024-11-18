@@ -32,10 +32,8 @@ export const DashboardWidgetsInputs = () => {
 		>
 			{ isEnabled && (
 				<details className={ styles.widgetsDetails }>
-					<summary>
-						<strong id={ labelId }>
-							{ __( 'Widgets', 'syntatis-feature-flipper' ) }
-						</strong>
+					<summary id={ labelId }>
+						{ __( 'Widgets', 'syntatis-feature-flipper' ) }
 					</summary>
 					<CheckboxGroup
 						defaultValue={ widgetsEnabled }
