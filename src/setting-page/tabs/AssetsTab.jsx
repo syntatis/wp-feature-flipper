@@ -16,11 +16,11 @@ export const AssetsTab = () => {
 					id="emojis"
 					title={ __( 'Emojis', 'syntatis-feature-flipper' ) }
 					label={ __(
-						'Enable WordPress built-in emojis',
+						'Enable the WordPress built-in emojis',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will not load the emoji scripts, styles, and images.',
+						'When switched off, WordPress will not load the emojis scripts, styles, and images.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -36,7 +36,7 @@ export const AssetsTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will not append the version number to the enqueued scripts and styles.',
+						'When switched off, WordPress will not append the version to the scripts and styles URLs.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -49,7 +49,7 @@ export const AssetsTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will not load the jQuery Migrate script.',
+						'When switched off, WordPress will not load the jQuery Migrate script.',
 						'syntatis-feature-flipper'
 					) }
 				/>

@@ -3,7 +3,7 @@ import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
 import styles from './DashboardWidgetsInputs.module.scss';
-import { useState } from '@wordpress/element';
+import { useId, useState } from '@wordpress/element';
 
 export const DashboardWidgetsInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
@@ -11,6 +11,7 @@ export const DashboardWidgetsInputs = () => {
 	const [ isEnabled, setEnabled ] = useState(
 		getOption( 'dashboard_widgets' )
 	);
+	const labelId = useId();
 	const widgets = inlineData.dashboardWidgets || [];
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
@@ -32,16 +33,13 @@ export const DashboardWidgetsInputs = () => {
 			{ isEnabled && (
 				<details className={ styles.widgetsDetails }>
 					<summary>
-						<strong>
+						<strong id={ labelId }>
 							{ __( 'Widgets', 'syntatis-feature-flipper' ) }
 						</strong>
 					</summary>
 					<CheckboxGroup
 						defaultValue={ widgetsEnabled }
-						aria-label={ __(
-							'Widgets',
-							'syntatis-feature-flipper'
-						) }
+						aria-labelledby={ labelId }
 						description={ __(
 							'Unchecked widgets will be hidden from the dashboard.',
 							'syntatis-feature-flipper'

@@ -8,7 +8,7 @@ import { useId } from '@wordpress/element';
 export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
-	const summaryId = useId();
+	const labelId = useId();
 	const menu = inlineData.adminBarMenu || [];
 
 	return (
@@ -21,13 +21,13 @@ export const AdminBarInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When set to "off", the admin bar will not be shown on the front end.',
+				'When switched off, the Admin bar will not be displayed on the front end.',
 				'syntatis-feature-flipper'
 			) }
 		>
 			<details className={ styles.menuDetails }>
-				<summary id={ summaryId }>
-					<strong>
+				<summary>
+					<strong id={ labelId }>
 						{ __( 'Menu', 'syntatis-feature-flipper' ) }
 					</strong>
 				</summary>
@@ -36,9 +36,9 @@ export const AdminBarInputs = () => {
 						getOption( 'admin_bar_menu' ) ??
 						menu.map( ( { id } ) => id )
 					}
-					aria-labelledby={ summaryId }
+					aria-labelledby={ labelId }
 					description={ __(
-						'List of menu items registered to admin bar.',
+						'Unchecked menu items will be hidden from the Admin bar.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( value ) =>
