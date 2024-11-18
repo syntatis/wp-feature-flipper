@@ -5,12 +5,7 @@ import { SwitchInput } from '../components/inputs';
 export const MediaTab = () => {
 	return (
 		<Form>
-			<Fieldset
-				description={ __(
-					'Control the behavior of media files uploaded to your site.',
-					'syntatis-feature-flipper'
-				) }
-			>
+			<Fieldset>
 				<SwitchInput
 					name="attachment_page"
 					id="attachment-page"
@@ -23,7 +18,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will not create attachment pages for media files.',
+						'When switched off, WordPress will not create attachment pages for media files.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -39,7 +34,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", media files will get a randomized slug instead of taking from the original file name.',
+						'When switched off, attachment page will get a randomized slug instead of taking from the original file name.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -55,7 +50,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will upload the original JPEG image in its full quality, without any compression.',
+						'When switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
 						'syntatis-feature-flipper'
 					) }
 				/>

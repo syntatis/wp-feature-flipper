@@ -15,7 +15,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", the block editor will be disabled for all the post types.',
+						'When switched off, the block editor will be disabled and the classic editor will be used.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -28,7 +28,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", the Heartbeat API will not send any requests.',
+						'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
 						'syntatis-feature-flipper'
 					) }
 				/>

@@ -21,7 +21,7 @@ export const WebpageTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will remove the Really Simple Discovery (RSD) link from the webpage head.',
+						'When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -37,7 +37,7 @@ export const WebpageTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will remove the generator meta tag which shows WordPress and its version.',
+						'When switched off, it will remove the generator meta tag which shows WordPress and its version.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -47,7 +47,7 @@ export const WebpageTab = () => {
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'When set to "off", it will remove the shortlink meta tag which shows the short URL of the webpage head.',
+						'When switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head.',
 						'syntatis-feature-flipper'
 					) }
 				/>

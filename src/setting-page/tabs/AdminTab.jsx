@@ -10,14 +10,10 @@ const wpFooter = document.querySelector( '#wpfooter' );
 const wpFooterDisplayStyle = wpFooter?.style?.display;
 
 export const AdminTab = () => {
-	const { inlineData } = useSettingsContext();
-
 	return (
 		<Form>
 			<Fieldset>
-				<DashboardWidgetsInputs
-					widgets={ inlineData.dashboardWidgets || [] }
-				/>
+				<DashboardWidgetsInputs />
 				<SwitchInput
 					name="admin_footer_text"
 					id="admin-footer-text"
@@ -27,7 +23,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", the default WordPress footer text will be removed from the admin.',
+						'When switched off, the footer text in the admin area will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
@@ -47,7 +43,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", WordPress will not be showing notification message on the admin when update is available.',
+						'When switched off, WordPress will not show notification message when update is available.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -59,7 +55,7 @@ export const AdminTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<AdminBarInputs menu={ inlineData.adminBarMenu || [] } />
+				<AdminBarInputs />
 				<SwitchInput
 					name="admin_bar_howdy"
 					id="admin-bar-howdy"

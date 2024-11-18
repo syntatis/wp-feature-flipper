@@ -26,7 +26,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will disable the file editor for themes and plugins.',
+						'When switched off, it will disable the file editor for themes and plugins.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
@@ -49,7 +49,7 @@ export const SecurityTab = () => {
 					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'When set to "off", it will remove and disable the XML-RPC endpoint.',
+						'When switched off, it will disable the XML-RPC endpoint.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -65,7 +65,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When set to "off", it will allow users to make request to the public REST API endpoint without authentication.',
+						'When switched off, it will allow users to make request to the public REST API endpoint without authentication.',
 						'syntatis-feature-flipper'
 					) }
 				/>
