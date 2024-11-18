@@ -69,11 +69,11 @@ class Media implements Hookable
 		$hook->addFilter(
 			'jpeg_quality',
 			static function ($quality, string $context) {
-				if ((bool) Option::get('jpeg_compression')) {
-					return Option::get('jpeg_compression_quality');
+				if (! (bool) Option::get('jpeg_compression')) {
+					return $quality;
 				}
 
-				return 100;
+				return Option::get('jpeg_compression_quality');
 			},
 			99,
 			2,
