@@ -1,8 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form } from '../components/form';
+import { Fieldset, Form, useSettingsContext } from '../components/form';
 import { SwitchInput } from '../components/inputs';
 
 export const GeneralTab = () => {
+	const { inlineData } = useSettingsContext();
+
 	return (
 		<Form>
 			<Fieldset>
@@ -20,6 +22,16 @@ export const GeneralTab = () => {
 					) }
 				/>
 				<SwitchInput
+					isSelected={
+						inlineData.themeSupport.widgetsBlockEditor === true
+							? undefined
+							: false
+					}
+					isDisabled={
+						inlineData.themeSupport.widgetsBlockEditor === true
+							? undefined
+							: true
+					}
 					name="block_based_widgets"
 					id="block-based-widgets"
 					title="Block-based Widgets"
@@ -27,10 +39,17 @@ export const GeneralTab = () => {
 						'Enable the block-based widgets',
 						'syntatis-feature-flipper'
 					) }
-					description={ __(
-						'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
-						'syntatis-feature-flipper'
-					) }
+					description={
+						inlineData.themeSupport.widgetsBlockEditor
+							? __(
+									'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
+									'syntatis-feature-flipper'
+							  )
+							: __(
+									'The current theme in-use does not support block-based widgets.',
+									'syntatis-feature-flipper'
+							  )
+					}
 				/>
 				<SwitchInput
 					name="heartbeat"
