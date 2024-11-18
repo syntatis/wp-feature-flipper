@@ -18,6 +18,15 @@ return [
 	// General.
 	(new Setting('gutenberg', 'boolean'))
 		->withDefault(true),
+	(new Setting('block_based_widgets', 'boolean'))
+		/**
+		 * Since it's too early to determine whether the current theme supports the
+		 * block-based widgets, set the default to `null`, and patch it through
+		 * the filter `syntatis/feature_flipper/settings`.
+		 *
+		 * @see \Syntatis\FeatureFlipper\Switches\General
+		 */
+		->withDefault(null),
 	(new Setting('heartbeat', 'boolean'))
 		->withDefault(true),
 	(new Setting('self_ping', 'boolean'))
