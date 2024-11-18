@@ -15,9 +15,7 @@ use function array_map;
 use function array_values;
 use function in_array;
 use function is_array;
-use function json_encode;
 use function preg_replace;
-use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -30,11 +28,8 @@ class DashboardWidgets implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_enqueue_scripts', static fn () => wp_add_inline_script(
-			App::name()	. '-settings',
-			self::getInlineScript(),
-			'before',
-		));
+		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'setInlineData']);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
 				return;
@@ -45,7 +40,6 @@ class DashboardWidgets implements Hookable
 			self::$onSettingPage = false;
 		});
 		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
-		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
 	}
 
 	public function setup(): void
@@ -104,20 +98,16 @@ class DashboardWidgets implements Hookable
 		return $data;
 	}
 
-	public function addInlineScripts(): void
+	/**
+	 * @param array<string,mixed> $data
+	 *
+	 * @return array<mixed>
+	 */
+	public function setInlineData(array $data): array
 	{
-	}
+		$data['dashboardWidgets'] = self::$widgets;
 
-	private static function getInlineScript(): string
-	{
-		return sprintf(
-			<<<'SCRIPT'
-			window.$syntatis.featureFlipper = Object.assign({}, window.$syntatis.featureFlipper, {
-				dashboardWidgets: %s,
-			});
-			SCRIPT,
-			json_encode(self::$widgets),
-		);
+		return $data;
 	}
 
 	/**

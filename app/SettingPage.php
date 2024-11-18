@@ -18,20 +18,25 @@ use function is_readable;
 use function sprintf;
 
 use const ARRAY_FILTER_USE_KEY;
+use const PHP_INT_MAX;
 
 class SettingPage implements Hookable
 {
 	private Settings $settings;
 
+	private string $handle;
+
 	public function __construct(Settings $settings)
 	{
 		$this->settings = $settings;
+		$this->handle = App::name() . '-settings';
 	}
 
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_menu', [$this, 'addMenu']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+		$hook->addAction('admin_bar_menu', [$this, 'addAdminInlineScripts'], PHP_INT_MAX);
 	}
 
 	/**
@@ -91,32 +96,34 @@ class SettingPage implements Hookable
 			return;
 		}
 
-		$handle = App::name() . '-settings';
 		$assets = App::dir('dist/assets/setting-page/index.asset.php');
 		$assets = is_readable($assets) ? require $assets : [];
 
 		wp_enqueue_style(
-			$handle,
+			$this->handle,
 			App::url('dist/assets/setting-page/index.css'),
 			[],
 			$assets['version'] ?? null,
 		);
 
 		wp_enqueue_script(
-			$handle,
+			$this->handle,
 			App::url('dist/assets/setting-page/index.js'),
 			$assets['dependencies'] ?? [],
 			$assets['version'] ?? null,
 			true,
 		);
 
+		wp_set_script_translations($this->handle, 'syntatis-feature-flipper');
+	}
+
+	public function addAdminInlineScripts(): void
+	{
 		wp_add_inline_script(
-			$handle,
+			$this->handle,
 			$this->getInlineScript(),
 			'before',
 		);
-
-		wp_set_script_translations($handle, 'syntatis-feature-flipper');
 	}
 
 	/**
@@ -154,11 +161,17 @@ class SettingPage implements Hookable
 			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
 			window.$syntatis = { featureFlipper: %s };
 			SCRIPT,
-			wp_json_encode(['/wp/v2/settings' => ['body' => apply_filters('syntatis/feature_flipper/settings', $data)]]),
 			wp_json_encode([
-				'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
-				'settingPageTab' => $_GET['tab'] ?? null,
+				'/wp/v2/settings' => [
+					'body' => apply_filters('syntatis/feature_flipper/settings', $data),
+				],
 			]),
+			wp_json_encode(
+				apply_filters('syntatis/feature_flipper/inline_data', [
+					'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
+					'settingPageTab' => $_GET['tab'] ?? null,
+				]),
+			),
 		);
 	}
 }
