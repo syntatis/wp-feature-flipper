@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Option;
 use WP_Admin_Bar;
 
+use function count;
 use function in_array;
 use function is_array;
 use function is_string;
-use function json_encode;
-use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -26,19 +24,9 @@ class AdminBar implements Hookable
 		'top-secondary',
 	];
 
-	/** @var array<array{id:string}> */
-	private static array $menu = [];
-
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_bar_menu', static fn () => self::$menu = self::getRegisteredMenu(), PHP_INT_MAX);
-		$hook->addAction('admin_bar_menu', static fn () => wp_add_inline_script(
-			App::name()	. '-settings',
-			self::getInlineScript(),
-			'before',
-		), PHP_INT_MAX);
-
-		// Admin Bar.
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'setInlineData']);
 		$hook->addAction('admin_bar_menu', static function ($wpAdminBar): void {
 			$adminBarMenu = Option::get('admin_bar_menu');
 
@@ -46,12 +34,14 @@ class AdminBar implements Hookable
 				return;
 			}
 
-			foreach (self::$menu as $menu) {
-				if (in_array($menu['id'], $adminBarMenu, true)) {
+			$menu = self::getRegisteredMenu();
+
+			foreach ($menu as $item) {
+				if (in_array($item['id'], $adminBarMenu, true)) {
 					continue;
 				}
 
-				$wpAdminBar->remove_node($menu['id']);
+				$wpAdminBar->remove_node($item['id']);
 			}
 		}, PHP_INT_MAX);
 
@@ -65,21 +55,28 @@ class AdminBar implements Hookable
 		$hook->addFilter('show_admin_bar', static fn () => (bool) Option::get('admin_bar'));
 	}
 
-	private static function getInlineScript(): string
+	/**
+	 * @param array<string,mixed> $data
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function setInlineData(array $data): array
 	{
-		return sprintf(
-			<<<'SCRIPT'
-			window.$syntatis.featureFlipper = Object.assign({}, window.$syntatis.featureFlipper, {
-				adminBarMenu: %s,
-			});
-			SCRIPT,
-			json_encode(self::$menu),
-		);
+		$data['adminBarMenu'] = self::getRegisteredMenu();
+
+		return $data;
 	}
 
 	/** @return array<array{id:string}> */
 	private static function getRegisteredMenu(): array
 	{
+		/** @var array<array{id:string}>|null $items */
+		static $items = null;
+
+		if (is_array($items) && count($items) > 0) {
+			return $items;
+		}
+
 		/** @var WP_Admin_Bar $wpAdminBarMenu */
 		$wpAdminBarMenu = $GLOBALS['wp_admin_bar'];
 		$nodes = $wpAdminBarMenu->get_nodes();
