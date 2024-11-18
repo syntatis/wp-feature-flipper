@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Switches;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Option;
@@ -18,6 +19,8 @@ class General implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
+
 		// 1. Gutenberg.
 		if (! (bool) Option::get('gutenberg')) {
 			$hook->addFilter('use_block_editor_for_post', '__return_false');
@@ -29,6 +32,12 @@ class General implements Hookable
 				wp_dequeue_style('wp-block-library');
 				wp_dequeue_style('wp-block-library-theme');
 			}, 99);
+		}
+
+		$blockBasedWidgets = Option::get('block_based_widgets');
+
+		if ($blockBasedWidgets !== null && ! (bool) $blockBasedWidgets) {
+			$hook->addFilter('use_widgets_block_editor', '__return_false');
 		}
 
 		// 2. Heartbeat.
@@ -80,5 +89,22 @@ class General implements Hookable
 	{
 		wp_redirect(home_url());
 		exit;
+	}
+
+	/**
+	 * @param array<mixed> $data
+	 *
+	 * @return array<mixed>
+	 */
+	public function setSettings(array $data): array
+	{
+		$optionName = Config::get('app.option_prefix') . 'block_based_widgets';
+		$value = Option::get('block_based_widgets');
+
+		if ($value === null) {
+			$data[$optionName] = get_theme_support('widgets-block-editor');
+		}
+
+		return $data;
 	}
 }

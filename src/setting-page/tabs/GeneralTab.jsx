@@ -20,6 +20,19 @@ export const GeneralTab = () => {
 					) }
 				/>
 				<SwitchInput
+					name="block_based_widgets"
+					id="block-based-widgets"
+					title="Block-based Widgets"
+					label={ __(
+						'Enable the block-based widgets',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+				<SwitchInput
 					name="heartbeat"
 					id="heartbeat"
 					title="Heartbeat"
