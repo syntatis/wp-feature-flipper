@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Embeds;
+use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Option;
 
 use function array_filter;
@@ -62,33 +63,7 @@ class General implements Hookable
 			(new Embeds())->hook($hook);
 		}
 
-		// 6. Feeds.
-		if ((bool) Option::get('feeds')) {
-			return;
-		}
-
-		// Disable feeds.
-		$hook->addAction('do_feed', [$this, 'toHomepage'], -99);
-		$hook->addAction('do_feed_rdf', [$this, 'toHomepage'], -99);
-		$hook->addAction('do_feed_rss', [$this, 'toHomepage'], -99);
-		$hook->addAction('do_feed_rss2', [$this, 'toHomepage'], -99);
-		$hook->addAction('do_feed_atom', [$this, 'toHomepage'], -99);
-
-		// Disable comments feeds.
-		$hook->addAction('do_feed_rss2_comments', [$this, 'toHomepage'], -99);
-		$hook->addAction('do_feed_atom_comments', [$this, 'toHomepage'], -99);
-
-		// Remove RSS feed links.
-		$hook->addFilter('feed_links_show_posts_feed', '__return_false', 99);
-
-		// Remove all extra RSS feed links.
-		$hook->addFilter('feed_links_show_comments_feed', '__return_false', 99);
-	}
-
-	public function toHomepage(): void
-	{
-		wp_redirect(home_url());
-		exit;
+		(new Feeds())->hook($hook);
 	}
 
 	/**
