@@ -14,21 +14,34 @@ class Plugin implements Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		$settings = $container->get(Settings::class);
+		$switches = $this->getSwitches();
 
 		if ($settings instanceof Settings) {
-			// Add the setting page.
 			yield new SettingPage($settings);
 		}
 
-		// Apply the feature switches.
+		foreach ($switches as $switch) {
+			yield $switch;
+
+			if (! ($switch instanceof Extendable)) {
+				continue;
+			}
+
+			yield from $switch->getInstances($container);
+		}
+
+		// Mark as initialized.
+		do_action('syntatis/feature_flipper/init', $container);
+	}
+
+	/** @return iterable<object> */
+	private function getSwitches(): iterable
+	{
 		yield new Switches\Admin();
 		yield new Switches\Assets();
 		yield new Switches\General();
 		yield new Switches\Media();
 		yield new Switches\Security();
 		yield new Switches\Webpage();
-
-		// Mark as initialized.
-		do_action('syntatis/feature-flipper/init', $container);
 	}
 }
