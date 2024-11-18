@@ -1,0 +1,68 @@
+import { __ } from '@wordpress/i18n';
+import { SwitchInput } from './SwitchInput';
+import { TextField } from '@syntatis/kubrick';
+import { useFormContext, useSettingsContext } from '../form';
+import styles from './JPEGCompressionInputs.module.scss';
+import { useState } from '@wordpress/element';
+
+export const JPEGCompressionInputs = () => {
+	const { getOption } = useSettingsContext();
+	const { setFieldsetValues } = useFormContext();
+	const [ isEnabled, setEnabled ] = useState(
+		getOption( 'jpeg_compression' )
+	);
+
+	return (
+		<SwitchInput
+			name="jpeg_compression"
+			id="jpeg-compression"
+			title={ __( 'JPEG Compression', 'syntatis-feature-flipper' ) }
+			label={ __(
+				'Enable JPEG image compression',
+				'syntatis-feature-flipper'
+			) }
+			description={ __(
+				'When switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
+				'syntatis-feature-flipper'
+			) }
+			onChange={ setEnabled }
+		>
+			{ isEnabled && (
+				<details className={ styles.settingsDetails }>
+					<summary>
+						<strong>
+							{ __( 'Settings', 'syntatis-feature-flipper' ) }
+						</strong>
+					</summary>
+					<div className={ styles.settingsInputs }>
+						<TextField
+							min={ 10 }
+							max={ 100 }
+							type="number"
+							name="jpeg_compression_quality"
+							defaultValue={ getOption(
+								'jpeg_compression_quality'
+							) }
+							onChange={ ( value ) => {
+								setFieldsetValues(
+									'jpeg_compression_quality',
+									value
+								);
+							} }
+							className="code"
+							label={ __(
+								'Quality',
+								'syntatis-feature-flipper'
+							) }
+							description={ __(
+								'The quality of the compressed JPEG image. 100 is the highest quality.',
+								'syntatis-feature-flipper'
+							) }
+							suffix="%"
+						/>
+					</div>
+				</details>
+			) }
+		</SwitchInput>
+	);
+};

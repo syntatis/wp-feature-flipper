@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../components/form';
-import { SwitchInput } from '../components/inputs';
+import { JPEGCompressionInputs, SwitchInput } from '../components/inputs';
 
 export const MediaTab = () => {
 	return (
@@ -38,22 +38,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
-					name="jpeg_compression"
-					id="jpeg-compression"
-					title={ __(
-						'JPEG Compression',
-						'syntatis-feature-flipper'
-					) }
-					label={ __(
-						'Enable JPEG image compression',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
-						'syntatis-feature-flipper'
-					) }
-				/>
+				<JPEGCompressionInputs />
 			</Fieldset>
 		</Form>
 	);

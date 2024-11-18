@@ -58,6 +58,9 @@ return [
 		->withDefault(true),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
+	/** @see https://developer.wordpress.org/reference/hooks/jpeg_quality/ */
+	(new Setting('jpeg_compression_quality', 'integer'))
+		->withDefault(apply_filters('jpeg_quality', 82)),
 
 	// Assets.
 	(new Setting('emojis', 'boolean'))
