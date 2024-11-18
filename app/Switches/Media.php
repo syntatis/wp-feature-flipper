@@ -51,21 +51,32 @@ class Media implements Hookable
 			}, 99, 2);
 		}
 
-		if ((bool) Option::get('attachment_slug')) {
-			return;
+		if (! (bool) Option::get('attachment_slug')) {
+			$hook->addFilter(
+				'wp_unique_post_slug',
+				static function (string $slug, string $id, string $status, string $type): string {
+					if ($type !== 'attachment' || Uuid::isValid($slug)) {
+						return $slug;
+					}
+
+					return (string) Uuid::v4();
+				},
+				99,
+				4,
+			);
 		}
 
 		$hook->addFilter(
-			'wp_unique_post_slug',
-			static function (string $slug, string $id, string $status, string $type): string {
-				if ($type !== 'attachment' || Uuid::isValid($slug)) {
-					return $slug;
+			'jpeg_quality',
+			static function ($quality, string $context) {
+				if ((bool) Option::get('jpeg_compression')) {
+					return Option::get('jpeg_compression_quality');
 				}
 
-				return (string) Uuid::v4();
+				return 100;
 			},
 			99,
-			4,
+			2,
 		);
 	}
 
