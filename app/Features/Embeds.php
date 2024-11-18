@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Option;
 use WP;
 use WP_Scripts;
 
@@ -23,6 +24,10 @@ class Embeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		if ((bool) Option::get('embed')) {
+			return;
+		}
+
 		$hook->addAction('init', fn () => $this->disables($hook), PHP_INT_MAX);
 	}
 

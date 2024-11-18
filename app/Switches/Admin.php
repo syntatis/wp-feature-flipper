@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Switches;
 
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\AdminBar;
 use Syntatis\FeatureFlipper\Features\DashboardWidgets;
 use Syntatis\FeatureFlipper\Option;
 
-class Admin implements Hookable
+class Admin implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
@@ -31,5 +33,12 @@ class Admin implements Hookable
 
 		$adminBar = new AdminBar();
 		$adminBar->hook($hook);
+	}
+
+	/** @return iterable<object> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		yield new DashboardWidgets();
+		yield new AdminBar();
 	}
 }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Switches;
 
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Option;
@@ -16,7 +18,7 @@ use function define;
 use function defined;
 use function str_starts_with;
 
-class General implements Hookable
+class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
@@ -54,16 +56,11 @@ class General implements Hookable
 		}
 
 		// 4. Cron.
-		if (! (bool) Option::get('cron') && ! defined('DISABLE_WP_CRON')) {
-			define('DISABLE_WP_CRON', true);
+		if ((bool) Option::get('cron') || defined('DISABLE_WP_CRON')) {
+			return;
 		}
 
-		// 5. Embed.
-		if (! (bool) Option::get('embed')) {
-			(new Embeds())->hook($hook);
-		}
-
-		(new Feeds())->hook($hook);
+		define('DISABLE_WP_CRON', true);
 	}
 
 	/**
@@ -81,5 +78,12 @@ class General implements Hookable
 		}
 
 		return $data;
+	}
+
+	/** @return iterable<object> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		yield new Embeds();
+		yield new Feeds();
 	}
 }
