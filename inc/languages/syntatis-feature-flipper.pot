@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-17T11:27:03+00:00\n"
+"POT-Creation-Date: 2024-11-18T06:48:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -72,109 +72,133 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:15
-#: src/setting-page/tabs/AdminTab.jsx:56
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:18
+#: src/setting-page/tabs/AdminTab.jsx:52
 msgid "Admin Bar"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:16
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:19
 msgid "Show the Admin bar on the front end"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:20
-msgid "When set to \"off\", the admin bar will not be shown on the front end."
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:23
+msgid "When switched off, the Admin bar will not be displayed on the front end."
 msgstr ""
 
 #: src/setting-page/components/inputs/AdminBarInputs.jsx:31
 msgid "Menu"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:32
-msgid "List of menu items registered to admin bar."
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:40
+msgid "Unchecked menu items will be hidden from the Admin bar."
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:20
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:22
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:21
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:23
 msgid "Enable Dashboard widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:25
-msgid "Customize the widgets to show or hide on the WordPress dashboard."
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:27
+msgid "When switched off, all widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:35
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:37
 msgid "Widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:36
-msgid "List of widgets registered to the dashboard."
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:43
+msgid "Unchecked widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/Page.jsx:20
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:19
+msgid "JPEG Compression"
+msgstr ""
+
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:20
+msgid "Enable JPEG image compression"
+msgstr ""
+
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:24
+msgid "When switched off, WordPress will upload the original JPEG image in its full quality, without any compression."
+msgstr ""
+
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:34
+msgid "Settings"
+msgstr ""
+
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:53
+msgid "Quality"
+msgstr ""
+
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:57
+msgid "The quality of the compressed JPEG image. 100 is the highest quality."
+msgstr ""
+
+#: src/setting-page/Page.jsx:22
 msgid "General"
 msgstr ""
 
-#: src/setting-page/Page.jsx:26
+#: src/setting-page/Page.jsx:28
 msgid "Admin"
 msgstr ""
 
-#: src/setting-page/Page.jsx:32
+#: src/setting-page/Page.jsx:34
 msgid "Media"
 msgstr ""
 
-#: src/setting-page/Page.jsx:38
+#: src/setting-page/Page.jsx:40
 msgid "Assets"
 msgstr ""
 
-#: src/setting-page/Page.jsx:44
+#: src/setting-page/Page.jsx:46
 msgid "Webpage"
 msgstr ""
 
-#: src/setting-page/Page.jsx:50
+#: src/setting-page/Page.jsx:52
 msgid "Security"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:24
+#: src/setting-page/tabs/AdminTab.jsx:20
 msgid "Footer Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:25
+#: src/setting-page/tabs/AdminTab.jsx:21
 msgid "Show the footer text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:29
-msgid "When set to \"off\", the default WordPress footer text will be removed from the admin."
+#: src/setting-page/tabs/AdminTab.jsx:25
+msgid "When switched off, the footer text in the admin area will be removed."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:44
+#: src/setting-page/tabs/AdminTab.jsx:40
 msgid "Update Nags"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:45
+#: src/setting-page/tabs/AdminTab.jsx:41
 msgid "Enable WordPress update notification message"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:49
-msgid "When set to \"off\", WordPress will not be showing notification message on the admin when update is available."
+#: src/setting-page/tabs/AdminTab.jsx:45
+msgid "When switched off, WordPress will not show notification message when update is available."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:57
+#: src/setting-page/tabs/AdminTab.jsx:53
 msgid "Customize the Admin bar area"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:68
+#: src/setting-page/tabs/AdminTab.jsx:62
 msgid "Howdy Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:69
+#: src/setting-page/tabs/AdminTab.jsx:63
 msgid "Show the \"Howdy\" text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:73
-msgid "When set to \"off\", the \"Howdy\" text in the Account menu in the admin bar will be removed."
+#: src/setting-page/tabs/AdminTab.jsx:67
+msgid "When switched off, the \"Howdy\" text in the Account menu in the admin bar will be removed."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:9
@@ -186,11 +210,11 @@ msgid "Emojis"
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:18
-msgid "Enable WordPress built-in emojis"
+msgid "Enable the WordPress built-in emojis"
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:22
-msgid "When set to \"off\", WordPress will not load the emoji scripts, styles, and images."
+msgid "When switched off, WordPress will not load the emojis scripts, styles, and images."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:30
@@ -202,7 +226,7 @@ msgid "Show scripts and styles version"
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:38
-msgid "When set to \"off\", WordPress will not append the version number to the enqueued scripts and styles."
+msgid "When switched off, WordPress will not append the version to the scripts and styles URLs."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:46
@@ -214,7 +238,7 @@ msgid "Load jQuery Migrate script"
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:51
-msgid "When set to \"off\", WordPress will not load the jQuery Migrate script."
+msgid "When switched off, WordPress will not load the jQuery Migrate script."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:13
@@ -222,7 +246,7 @@ msgid "Enable the block editor"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:17
-msgid "When set to \"off\", the block editor will be disabled for all the post types."
+msgid "When switched off, the block editor will be disabled and the classic editor will be used."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:26
@@ -230,7 +254,7 @@ msgid "Enable the Heartbeat API"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:30
-msgid "When set to \"off\", the Heartbeat API will not send any requests."
+msgid "When switched off, the Heartbeat API will be disabled; it will not be sending requests."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:39
@@ -238,7 +262,7 @@ msgid "Enable self-pingbacks"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:43
-msgid "When set to \"off\", WordPress will stop sending pings from your own site to your own site."
+msgid "When switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:52
@@ -246,7 +270,7 @@ msgid "Enable cron"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:53
-msgid "When set to \"off\", WordPress will not run scheduled events."
+msgid "When switched off, WordPress will not run scheduled events."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:62
@@ -254,7 +278,7 @@ msgid "Enable post embedding"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:66
-msgid "When set to \"off\", it will disable other sites from embedding content from your site, and vice-versa."
+msgid "When switched off, it will disable other sites from embedding content from your site, and vice-versa."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:75
@@ -262,7 +286,7 @@ msgid "Enable RSS feeds"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:79
-msgid "When set to \"off\", it will disable the RSS feed URLs."
+msgid "When switched off, it will disable the RSS feed URLs."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:87
@@ -274,47 +298,31 @@ msgid "Enable WordPress auto update"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:92
-msgid "When set to \"off\", you will need to manually update WordPress."
+msgid "When switched off, you will need to manually update WordPress."
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:9
-msgid "Control the behavior of media files uploaded to your site."
-msgstr ""
-
-#: src/setting-page/tabs/MediaTab.jsx:17
+#: src/setting-page/tabs/MediaTab.jsx:12
 msgid "Attachment Page"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:21
+#: src/setting-page/tabs/MediaTab.jsx:16
 msgid "Enable page for uploaded media files"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:25
-msgid "When set to \"off\", WordPress will not create attachment pages for media files."
+#: src/setting-page/tabs/MediaTab.jsx:20
+msgid "When switched off, WordPress will not create attachment pages for media files."
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:33
+#: src/setting-page/tabs/MediaTab.jsx:28
 msgid "Attachment Slug"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:37
+#: src/setting-page/tabs/MediaTab.jsx:32
 msgid "Enable default media file slug"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:41
-msgid "When set to \"off\", media files will get a randomized slug instead of taking from the original file name."
-msgstr ""
-
-#: src/setting-page/tabs/MediaTab.jsx:49
-msgid "JPEG Compression"
-msgstr ""
-
-#: src/setting-page/tabs/MediaTab.jsx:53
-msgid "Enable JPEG image compression"
-msgstr ""
-
-#: src/setting-page/tabs/MediaTab.jsx:57
-msgid "When set to \"off\", WordPress will upload the original JPEG image in its full quality, without any compression."
+#: src/setting-page/tabs/MediaTab.jsx:36
+msgid "When switched off, attachment page will get a randomized slug instead of taking from the original file name."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:23
@@ -326,7 +334,7 @@ msgid "Enable the File Editor"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:28
-msgid "When set to \"off\", it will disable the file editor for themes and plugins."
+msgid "When switched off, it will disable the file editor for themes and plugins."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:49
@@ -338,7 +346,7 @@ msgid "Enable XML-RPC"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:51
-msgid "When set to \"off\", it will remove and disable the XML-RPC endpoint."
+msgid "When switched off, it will disable the XML-RPC endpoint."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:59
@@ -350,7 +358,7 @@ msgid "Enable REST API Authentication"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:67
-msgid "When set to \"off\", it will allow users to make request to the public REST API endpoint without authentication."
+msgid "When switched off, it will allow users to make request to the public REST API endpoint without authentication."
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:10
@@ -366,7 +374,7 @@ msgid "Enable RSD link"
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:23
-msgid "When set to \"off\", it will remove the Really Simple Discovery (RSD) link from the webpage head."
+msgid "When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head."
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:31
@@ -378,7 +386,7 @@ msgid "Add WordPress generator meta tag"
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:39
-msgid "When set to \"off\", it will remove the generator meta tag which shows WordPress and its version."
+msgid "When switched off, it will remove the generator meta tag which shows WordPress and its version."
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:47
@@ -390,5 +398,5 @@ msgid "Add Shortlink"
 msgstr ""
 
 #: src/setting-page/tabs/WebpageTab.jsx:49
-msgid "When set to \"off\", it will remove the shortlink meta tag which shows the short URL of the webpage head."
+msgid "When switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head."
 msgstr ""
