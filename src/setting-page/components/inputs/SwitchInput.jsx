@@ -10,6 +10,8 @@ export const SwitchInput = ( {
 	onChange,
 	title,
 	children,
+	isDisabled,
+	isSelected,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
@@ -31,6 +33,8 @@ export const SwitchInput = ( {
 					defaultSelected={ getOption( name ) }
 					description={ description }
 					label={ label }
+					isDisabled={ isDisabled }
+					isSelected={ isSelected }
 				/>
 				{ children }
 			</td>

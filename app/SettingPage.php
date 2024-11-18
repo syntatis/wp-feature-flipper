@@ -170,6 +170,9 @@ class SettingPage implements Hookable
 				apply_filters('syntatis/feature_flipper/inline_data', [
 					'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
 					'settingPageTab' => $_GET['tab'] ?? null,
+					'themeSupport' => [
+						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
+					],
 				]),
 			),
 		);
