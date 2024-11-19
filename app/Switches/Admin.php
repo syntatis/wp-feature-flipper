@@ -21,18 +21,14 @@ class Admin implements Hookable, Extendable
 			$hook->addFilter('update_footer', '__return_empty_string', 99);
 		}
 
-		if (! (bool) Option::get('update_nags')) {
-			$hook->addAction('admin_init', static function () use ($hook): void {
-				$hook->removeAction('admin_notices', 'update_nag', 3);
-				$hook->removeAction('network_admin_notices', 'update_nag', 3);
-			}, 99);
+		if ((bool) Option::get('update_nags')) {
+			return;
 		}
 
-		$dashboardWidgets = new DashboardWidgets();
-		$dashboardWidgets->hook($hook);
-
-		$adminBar = new AdminBar();
-		$adminBar->hook($hook);
+		$hook->addAction('admin_init', static function () use ($hook): void {
+			$hook->removeAction('admin_notices', 'update_nag', 3);
+			$hook->removeAction('network_admin_notices', 'update_nag', 3);
+		}, 99);
 	}
 
 	/** @return iterable<object> */
