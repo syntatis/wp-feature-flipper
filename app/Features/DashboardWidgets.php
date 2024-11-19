@@ -132,10 +132,10 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getRegisteredWidgets(): array
 	{
-		static $dashboardWidgets = null;
+		static $widgets = null;
 
-		if (is_array($dashboardWidgets) && count($dashboardWidgets) > 0) {
-			return $dashboardWidgets;
+		if (is_array($widgets) && count($widgets) > 0) {
+			return $widgets;
 		}
 
 		$currentScreen = get_current_screen();
