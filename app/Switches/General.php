@@ -60,15 +60,17 @@ class General implements Hookable, Extendable
 			define('DISABLE_WP_CRON', true);
 		}
 
-		if ((bool) Option::get('revisions')) {
-			return;
+		$maxRevisions = Option::get('revisions_max');
+
+		if (! (bool) Option::get('revisions')) {
+			if (! defined('WP_POST_REVISIONS')) {
+				define('WP_POST_REVISIONS', 0);
+			}
+
+			$maxRevisions = 0;
 		}
 
-		if (! defined('WP_POST_REVISIONS')) {
-			define('WP_POST_REVISIONS', 0);
-		}
-
-		$hook->addFilter('wp_revisions_to_keep', static fn (): int => 0, PHP_INT_MAX);
+		$hook->addFilter('wp_revisions_to_keep', static fn () => $maxRevisions, PHP_INT_MAX);
 	}
 
 	/**
