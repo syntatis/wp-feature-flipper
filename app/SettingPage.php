@@ -26,10 +26,15 @@ class SettingPage implements Hookable
 
 	private string $handle;
 
+	private string $pageName;
+
 	public function __construct(Settings $settings)
 	{
+		$name = App::name();
+
 		$this->settings = $settings;
-		$this->handle = App::name() . '-settings';
+		$this->handle = $name . '-settings';
+		$this->pageName = 'settings_page_' . $name;
 	}
 
 	public function hook(Hook $hook): void
@@ -83,16 +88,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		/**
-		 * List of admin pages where the plugin scripts and stylesheet should load.
-		 */
-		$adminPages = [
-			'settings_page_' . App::name(),
-			'post.php',
-			'post-new.php',
-		];
-
-		if (! in_array($adminPage, $adminPages, true)) {
+		if ($adminPage !== $this->pageName) {
 			return;
 		}
 
@@ -119,6 +115,12 @@ class SettingPage implements Hookable
 
 	public function addAdminInlineScripts(): void
 	{
+		$currentScreen = get_current_screen();
+
+		if ($currentScreen === null || $currentScreen->id !== $this->pageName) {
+			return;
+		}
+
 		wp_add_inline_script(
 			$this->handle,
 			$this->getInlineScript(),
