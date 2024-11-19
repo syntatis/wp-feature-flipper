@@ -2,21 +2,21 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.3.0\n"
+"Project-Id-Version: Feature Flipper 1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-18T10:11:54+00:00\n"
+"POT-Creation-Date: 2024-11-19T16:28:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: syntatis-feature-flipper\n"
 
 #. Plugin Name of the plugin
 #: syntatis-feature-flipper.php
-#: app/SettingPage.php:44
+#: app/SettingPage.php:54
 msgid "Feature Flipper"
 msgstr ""
 
@@ -40,11 +40,11 @@ msgstr ""
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
-#: app/SettingPage.php:45
+#: app/SettingPage.php:55
 msgid "Flipper"
 msgstr ""
 
-#: app/SettingPage.php:70
+#: app/SettingPage.php:80
 msgid "This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page."
 msgstr ""
 
@@ -85,11 +85,11 @@ msgstr ""
 msgid "When switched off, the Admin bar will not be displayed on the front end."
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:31
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:30
 msgid "Menu"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:40
+#: src/setting-page/components/inputs/AdminBarInputs.jsx:38
 msgid "Unchecked menu items will be hidden from the Admin bar."
 msgstr ""
 
@@ -105,11 +105,11 @@ msgstr ""
 msgid "When switched off, all widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:37
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:36
 msgid "Widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:43
+#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:41
 msgid "Unchecked widgets will be hidden from the dashboard."
 msgstr ""
 
@@ -125,16 +125,34 @@ msgstr ""
 msgid "When switched off, WordPress will upload the original JPEG image in its full quality, without any compression."
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:34
-msgid "Settings"
-msgstr ""
-
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:53
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:47
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:50
 msgid "Quality"
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:57
+#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:54
 msgid "The quality of the compressed JPEG image. 100 is the highest quality."
+msgstr ""
+
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:17
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:40
+msgid "Revisions"
+msgstr ""
+
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:18
+msgid "Enable post revisions"
+msgstr ""
+
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:19
+msgid "When switched off, WordPress will not save revisions of your posts."
+msgstr ""
+
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:46
+msgid "Maximum"
+msgstr ""
+
+#: src/setting-page/components/inputs/RevisionsInputs.jsx:50
+msgid "The maximum number of revisions to keep."
 msgstr ""
 
 #: src/setting-page/Page.jsx:22
@@ -241,71 +259,75 @@ msgstr ""
 msgid "When switched off, WordPress will not load the jQuery Migrate script."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:13
+#: src/setting-page/tabs/GeneralTab.jsx:15
 msgid "Enable the block editor"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:17
+#: src/setting-page/tabs/GeneralTab.jsx:19
 msgid "When switched off, the block editor will be disabled and the classic editor will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:26
+#: src/setting-page/tabs/GeneralTab.jsx:38
 msgid "Enable the block-based widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:30
+#: src/setting-page/tabs/GeneralTab.jsx:44
 msgid "When switched off, the block-based widgets will be disabled and the classic widgets will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:39
+#: src/setting-page/tabs/GeneralTab.jsx:48
+msgid "The current theme in-use does not support block-based widgets."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:59
 msgid "Enable the Heartbeat API"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:43
+#: src/setting-page/tabs/GeneralTab.jsx:63
 msgid "When switched off, the Heartbeat API will be disabled; it will not be sending requests."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:52
+#: src/setting-page/tabs/GeneralTab.jsx:72
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:56
+#: src/setting-page/tabs/GeneralTab.jsx:76
 msgid "When switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:65
+#: src/setting-page/tabs/GeneralTab.jsx:85
 msgid "Enable cron"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:66
+#: src/setting-page/tabs/GeneralTab.jsx:86
 msgid "When switched off, WordPress will not run scheduled events."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:75
+#: src/setting-page/tabs/GeneralTab.jsx:95
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:79
+#: src/setting-page/tabs/GeneralTab.jsx:99
 msgid "When switched off, it will disable other sites from embedding content from your site, and vice-versa."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:88
+#: src/setting-page/tabs/GeneralTab.jsx:108
 msgid "Enable RSS feeds"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:92
+#: src/setting-page/tabs/GeneralTab.jsx:112
 msgid "When switched off, it will disable the RSS feed URLs."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:100
+#: src/setting-page/tabs/GeneralTab.jsx:120
 msgid "Auto Update"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:101
+#: src/setting-page/tabs/GeneralTab.jsx:121
 msgid "Enable WordPress auto update"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:105
+#: src/setting-page/tabs/GeneralTab.jsx:125
 msgid "When switched off, you will need to manually update WordPress."
 msgstr ""
 
