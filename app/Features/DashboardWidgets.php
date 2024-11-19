@@ -6,7 +6,6 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
-use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Option;
 use WP_Screen;
@@ -88,7 +87,7 @@ class DashboardWidgets implements Hookable
 	 */
 	public function setSettings(array $data): array
 	{
-		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_enabled';
+		$optionName = Option::name('dashboard_widgets_enabled');
 		$widgetsEnabled = $data[$optionName] ?? null;
 
 		if ($widgetsEnabled === null) {
@@ -149,7 +148,7 @@ class DashboardWidgets implements Hookable
 			unset($GLOBALS['wp_meta_boxes']['dashboard']);
 		}
 
-		$optionName = Config::get('app.option_prefix') . 'dashboard_widgets_enabled';
+		$optionName = Option::name('dashboard_widgets_enabled');
 		$widgets = [];
 
 		if ($dashboardWidgets === null) {

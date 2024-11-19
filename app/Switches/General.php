@@ -6,7 +6,6 @@ namespace Syntatis\FeatureFlipper\Switches;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\Config;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Embeds;
@@ -70,7 +69,7 @@ class General implements Hookable, Extendable
 	 */
 	public function setSettings(array $data): array
 	{
-		$optionName = Config::get('app.option_prefix') . 'block_based_widgets';
+		$optionName = Option::name('block_based_widgets');
 		$value = Option::get('block_based_widgets');
 
 		if ($value === null) {

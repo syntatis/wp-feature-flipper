@@ -17,4 +17,14 @@ class Option
 	{
 		return get_option(Config::get('app.option_prefix') . $name);
 	}
+
+	/**
+	 * Retrieve the option name with th prefix.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	public static function name(string $name): string
+	{
+		return Config::get('app.option_prefix') . $name;
+	}
 }
