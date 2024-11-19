@@ -15,7 +15,10 @@ use Syntatis\FeatureFlipper\Option;
 use function array_filter;
 use function define;
 use function defined;
+use function is_numeric;
 use function str_starts_with;
+
+use const PHP_INT_MAX;
 
 class General implements Hookable, Extendable
 {
@@ -54,12 +57,27 @@ class General implements Hookable, Extendable
 			}, 99);
 		}
 
-		// 4. Cron.
-		if ((bool) Option::get('cron') || defined('DISABLE_WP_CRON')) {
-			return;
+		if (! (bool) Option::get('cron') && defined('DISABLE_WP_CRON')) {
+			define('DISABLE_WP_CRON', true);
 		}
 
-		define('DISABLE_WP_CRON', true);
+		$maxRevisions = Option::get('revisions_max');
+
+		if (! (bool) Option::get('revisions')) {
+			if (! defined('WP_POST_REVISIONS')) {
+				define('WP_POST_REVISIONS', 0);
+			}
+
+			$maxRevisions = 0;
+		}
+
+		$hook->addFilter(
+			'wp_revisions_to_keep',
+			static fn ($num) => is_numeric($maxRevisions) ?
+				(int) $maxRevisions :
+				$num,
+			PHP_INT_MAX,
+		);
 	}
 
 	/**

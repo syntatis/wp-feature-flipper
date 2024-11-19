@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './DashboardWidgetsInputs.module.scss';
+import styles from './SwitchInput.module.scss';
 import { useId, useState } from '@wordpress/element';
 
 export const DashboardWidgetsInputs = () => {
@@ -31,7 +31,7 @@ export const DashboardWidgetsInputs = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<details className={ styles.widgetsDetails }>
+				<details className={ styles.inputDetails }>
 					<summary id={ labelId }>
 						{ __( 'Widgets', 'syntatis-feature-flipper' ) }
 					</summary>

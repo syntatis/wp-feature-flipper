@@ -60,7 +60,6 @@ class DashboardWidgets implements Hookable
 
 	private static function setupEach(): void
 	{
-		// $widgets = self::getRegisteredWidgets();
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
 		$values = is_array($values) ? $values : [];

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../components/form';
-import { SwitchInput } from '../components/inputs';
+import { RevisionsInputs, SwitchInput } from '../components/inputs';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -51,6 +51,7 @@ export const GeneralTab = () => {
 							  )
 					}
 				/>
+				<RevisionsInputs />
 				<SwitchInput
 					name="heartbeat"
 					id="heartbeat"
