@@ -15,6 +15,7 @@ use Syntatis\FeatureFlipper\Option;
 use function array_filter;
 use function define;
 use function defined;
+use function is_numeric;
 use function str_starts_with;
 
 use const PHP_INT_MAX;
@@ -70,7 +71,13 @@ class General implements Hookable, Extendable
 			$maxRevisions = 0;
 		}
 
-		$hook->addFilter('wp_revisions_to_keep', static fn () => $maxRevisions, PHP_INT_MAX);
+		$hook->addFilter(
+			'wp_revisions_to_keep',
+			static fn ($num) => is_numeric($maxRevisions) ?
+				(int) $maxRevisions :
+				$num,
+			PHP_INT_MAX,
+		);
 	}
 
 	/**
