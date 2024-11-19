@@ -17,6 +17,8 @@ use function define;
 use function defined;
 use function str_starts_with;
 
+use const PHP_INT_MAX;
+
 class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
@@ -54,12 +56,19 @@ class General implements Hookable, Extendable
 			}, 99);
 		}
 
-		// 4. Cron.
-		if ((bool) Option::get('cron') || defined('DISABLE_WP_CRON')) {
+		if (! (bool) Option::get('cron') && defined('DISABLE_WP_CRON')) {
+			define('DISABLE_WP_CRON', true);
+		}
+
+		if ((bool) Option::get('revisions')) {
 			return;
 		}
 
-		define('DISABLE_WP_CRON', true);
+		if (! defined('WP_POST_REVISIONS')) {
+			define('WP_POST_REVISIONS', 0);
+		}
+
+		$hook->addFilter('wp_revisions_to_keep', static fn (): int => 0, PHP_INT_MAX);
 	}
 
 	/**

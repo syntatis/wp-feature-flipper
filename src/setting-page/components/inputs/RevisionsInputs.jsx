@@ -5,24 +5,19 @@ import { useFormContext, useSettingsContext } from '../form';
 import styles from './SwitchInput.module.scss';
 import { useState } from '@wordpress/element';
 
-export const JPEGCompressionInputs = () => {
+export const RevisionsInputs = () => {
 	const { getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
-	const [ isEnabled, setEnabled ] = useState(
-		getOption( 'jpeg_compression' )
-	);
+	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
 
 	return (
 		<SwitchInput
-			name="jpeg_compression"
-			id="jpeg-compression"
-			title={ __( 'JPEG Compression', 'syntatis-feature-flipper' ) }
-			label={ __(
-				'Enable JPEG image compression',
-				'syntatis-feature-flipper'
-			) }
+			name="revisions"
+			id="revisions"
+			title={ __( 'Revisions', 'syntatis-feature-flipper' ) }
+			label={ __( 'Enable post revisions', 'syntatis-feature-flipper' ) }
 			description={ __(
-				'When switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
+				'When switched off, WordPress will not save revisions of your posts.',
 				'syntatis-feature-flipper'
 			) }
 			onChange={ setEnabled }
@@ -30,32 +25,32 @@ export const JPEGCompressionInputs = () => {
 			{ isEnabled && (
 				<div className={ styles.inputDetails }>
 					<TextField
-						min={ 10 }
+						min={ 1 }
 						max={ 100 }
+						placeholder="-"
+						defaultValue={ getOption( 'revisions_max' ) }
 						type="number"
-						name="jpeg_compression_quality"
-						defaultValue={ getOption( 'jpeg_compression_quality' ) }
+						name="revisions_max"
 						onChange={ ( value ) => {
-							setFieldsetValues(
-								'jpeg_compression_quality',
-								value
-							);
+							setFieldsetValues( 'revisions_max', value );
 						} }
 						className="code"
-						prefix={
+						suffix={
 							<span aria-hidden>
-								{ __( 'Quality', 'syntatis-feature-flipper' ) }
+								{ __(
+									'Revisions',
+									'syntatis-feature-flipper'
+								) }
 							</span>
 						}
 						aria-label={ __(
-							'Quality',
+							'Maximum',
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'The quality of the compressed JPEG image. 100 is the highest quality.',
+							'The maximum number of revisions to keep.',
 							'syntatis-feature-flipper'
 						) }
-						suffix="%"
 					/>
 				</div>
 			) }

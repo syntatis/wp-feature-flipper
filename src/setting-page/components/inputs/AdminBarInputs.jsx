@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './AdminBarInputs.module.scss';
+import styles from './SwitchInput.module.scss';
 import { useId } from '@wordpress/element';
 
 export const AdminBarInputs = () => {
@@ -25,7 +25,7 @@ export const AdminBarInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 		>
-			<details className={ styles.menuDetails }>
+			<details className={ styles.inputDetails }>
 				<summary id={ labelId }>
 					{ __( 'Menu', 'syntatis-feature-flipper' ) }
 				</summary>

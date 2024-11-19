@@ -22,10 +22,15 @@ return [
 		/**
 		 * Since it's too early to determine whether the current theme supports the
 		 * block-based widgets, set the default to `null`, and patch it through
-		 * the filter `syntatis/feature_flipper/settings`.
+		 * the filter.
 		 *
-		 * @see \Syntatis\FeatureFlipper\Switches\General
+		 * @see syntatis/feature_flipper/settings The filter to patch the setting values.
+		 * @see \Syntatis\FeatureFlipper\Switches\General The class that patches the `block_based_widgets` value.
 		 */
+		->withDefault(null),
+	(new Setting('revisions', 'boolean'))
+		->withDefault(defined('WP_POST_REVISIONS') ? ! (bool) WP_POST_REVISIONS : true),
+	(new Setting('revisions_max', 'integer'))
 		->withDefault(null),
 	(new Setting('heartbeat', 'boolean'))
 		->withDefault(true),
