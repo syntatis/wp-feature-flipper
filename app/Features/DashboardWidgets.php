@@ -12,6 +12,7 @@ use WP_Screen;
 
 use function array_map;
 use function array_values;
+use function count;
 use function in_array;
 use function is_array;
 use function preg_replace;
@@ -59,7 +60,7 @@ class DashboardWidgets implements Hookable
 
 	private static function setupEach(): void
 	{
-		$widgets = self::getRegisteredWidgets();
+		// $widgets = self::getRegisteredWidgets();
 		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
 		$values = is_array($values) ? $values : [];
@@ -119,7 +120,7 @@ class DashboardWidgets implements Hookable
 	{
 		return array_values(array_map(
 			static fn (array $widget): string => $widget['id'],
-			self::$widgets,
+			self::getRegisteredWidgets(),
 		));
 	}
 
@@ -132,6 +133,11 @@ class DashboardWidgets implements Hookable
 	private static function getRegisteredWidgets(): array
 	{
 		static $dashboardWidgets = null;
+
+		if (is_array($dashboardWidgets) && count($dashboardWidgets) > 0) {
+			return $dashboardWidgets;
+		}
+
 		$currentScreen = get_current_screen();
 
 		if (
@@ -143,9 +149,12 @@ class DashboardWidgets implements Hookable
 
 			set_current_screen('dashboard');
 			wp_dashboard_setup();
+			set_current_screen($currentScreen->id);
 
 			$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 			unset($GLOBALS['wp_meta_boxes']['dashboard']);
+		} else {
+			$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
 		}
 
 		$optionName = Option::name('dashboard_widgets_enabled');
