@@ -11,11 +11,13 @@ class Option
 	/**
 	 * Retrieve the value of the plugin option.
 	 *
+	 * @phpstan-param non-empty-string $name
+	 *
 	 * @return mixed
 	 */
 	public static function get(string $name)
 	{
-		return get_option(Config::get('app.option_prefix') . $name);
+		return get_option(self::name($name));
 	}
 
 	/**
