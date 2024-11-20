@@ -3,3 +3,4 @@ export { DashboardWidgetsInputs } from './DashboardWidgetsInputs';
 export { JPEGCompressionInputs } from './JPEGCompressionInputs';
 export { RevisionsInputs } from './RevisionsInputs';
 export { SwitchInput } from './SwitchInput';
+export { UpdatesInputs } from './UpdatesInputs';
