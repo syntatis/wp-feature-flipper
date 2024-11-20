@@ -53,19 +53,6 @@ export const GeneralTab = () => {
 				/>
 				<RevisionsInputs />
 				<SwitchInput
-					name="heartbeat"
-					id="heartbeat"
-					title="Heartbeat"
-					label={ __(
-						'Enable the Heartbeat API',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
-						'syntatis-feature-flipper'
-					) }
-				/>
-				<SwitchInput
 					name="self_ping"
 					id="self-ping"
 					title="Self-ping"
@@ -75,16 +62,6 @@ export const GeneralTab = () => {
 					) }
 					description={ __(
 						'When switched off, WordPress will not send pingbacks to your own site.',
-						'syntatis-feature-flipper'
-					) }
-				/>
-				<SwitchInput
-					name="cron"
-					id="cron"
-					title="Cron"
-					label={ __( 'Enable cron', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'When switched off, WordPress will not run scheduled events.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -128,6 +105,45 @@ export const GeneralTab = () => {
 					) }
 				/>
 			</Fieldset>
+			<details>
+				<summary>
+					{ __( 'Advanced', 'syntatis-feature-flipper' ) }
+				</summary>
+				<Fieldset
+					title={ __( 'Advanced', 'syntatis-feature-flipper' ) }
+					description={ __(
+						'These features require more caution or technical knowledge to manage.',
+						'syntatis-feature-flipper'
+					) }
+				>
+					<SwitchInput
+						name="cron"
+						id="cron"
+						title="Cron"
+						label={ __(
+							'Enable cron',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'When switched off, WordPress will not run scheduled events.',
+							'syntatis-feature-flipper'
+						) }
+					/>
+					<SwitchInput
+						name="heartbeat"
+						id="heartbeat"
+						title="Heartbeat"
+						label={ __(
+							'Enable the Heartbeat API',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
+							'syntatis-feature-flipper'
+						) }
+					/>
+				</Fieldset>
+			</details>
 		</Form>
 	);
 };
