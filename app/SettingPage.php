@@ -130,7 +130,7 @@ class SettingPage implements Hookable
 	/**
 	 * Provide the inline script content.
 	 */
-	public function getInlineScript(): string
+	private function getInlineScript(): string
 	{
 		$all = $this->settings->get('all');
 
