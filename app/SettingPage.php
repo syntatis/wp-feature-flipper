@@ -88,7 +88,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		if ($adminPage !== $this->pageName) {
+		if (! is_admin() || $adminPage !== $this->pageName) {
 			return;
 		}
 
@@ -115,6 +115,10 @@ class SettingPage implements Hookable
 
 	public function addAdminInlineScripts(): void
 	{
+		if (! is_admin()) {
+			return;
+		}
+
 		$currentScreen = get_current_screen();
 
 		if ($currentScreen === null || $currentScreen->id !== $this->pageName) {
