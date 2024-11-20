@@ -12,6 +12,7 @@ use WP_REST_Request;
 
 use function array_filter;
 use function array_keys;
+use function function_exists;
 use function in_array;
 use function is_array;
 use function is_readable;
@@ -88,7 +89,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		if (! is_admin() || $adminPage !== $this->pageName) {
+		if (! $this->isSettingPage()) {
 			return;
 		}
 
@@ -115,13 +116,7 @@ class SettingPage implements Hookable
 
 	public function addAdminInlineScripts(): void
 	{
-		if (! is_admin()) {
-			return;
-		}
-
-		$currentScreen = get_current_screen();
-
-		if ($currentScreen === null || $currentScreen->id !== $this->pageName) {
+		if (! $this->isSettingPage()) {
 			return;
 		}
 
@@ -182,5 +177,20 @@ class SettingPage implements Hookable
 				]),
 			),
 		);
+	}
+
+	private function isSettingPage(): bool
+	{
+		if (! is_admin() || ! function_exists('get_current_screen')) {
+			return false;
+		}
+
+		$currentScreen = get_current_screen();
+
+		if ($currentScreen === null) {
+			return false;
+		}
+
+		return $currentScreen->id === $this->pageName;
 	}
 }
