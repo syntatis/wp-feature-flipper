@@ -40,6 +40,8 @@ return [
 		->withDefault(true),
 	(new Setting('embed', 'boolean'))
 		->withDefault(true),
+	(new Setting('updates', 'boolean'))
+		->withDefault(true),
 	(new Setting('auto_update', 'boolean'))
 		->withDefault(true),
 	(new Setting('feeds', 'boolean'))
