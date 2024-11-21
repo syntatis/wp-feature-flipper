@@ -19,6 +19,7 @@
 	<file>syntatis-feature-flipper.php</file>
 	<file>./app</file>
 	<file>./inc</file>
+	<file>./tests</file>
 
 	<!-- Show the warning but exit with 0. The Warning is fine -->
 	<config name="ignore_warnings_on_exit" value="1"/>
@@ -35,6 +36,8 @@
 		<properties>
 			<property name="rootNamespaces" type="array">
 				<element key="app" value="Syntatis\FeatureFlipper"/>
+				<element key="tests/phpunit" value="Syntatis\Tests"/>
+				<element key="tests/phpunit/app" value="Syntatis\Tests"/>
 			</property>
 		</properties>
 	</rule>
@@ -67,4 +70,7 @@
 	<rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName">
 		<exclude-pattern>/inc/bootstrap/providers.php</exclude-pattern>
 	</rule>
+
+	<!-- Exclude directories -->
+	<exclude-pattern>/tests/phpunit/bootstrap.php</exclude-pattern>
 </ruleset>
