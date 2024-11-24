@@ -8,6 +8,7 @@ use Syntatis\FeatureFlipper\Helpers\Updates;
 use Syntatis\FeatureFlipper\Option;
 use Syntatis\Tests\WPTestCase;
 
+/** @group feature-updates */
 class UpdatesTest extends WPTestCase
 {
 	public function testGlobal(): void

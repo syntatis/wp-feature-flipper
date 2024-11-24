@@ -8,6 +8,10 @@ use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Option;
 use Syntatis\Tests\WPTestCase;
 
+/**
+ * @group feature-updates
+ * @group feature-auto-update
+ */
 class AutoUpdateTest extends WPTestCase
 {
 	public function testGlobal(): void
