@@ -37,10 +37,9 @@
     "scripts": {
         "start": "wp-scripts start --output-path=dist/assets",
         "build": "cross-env NODE_ENV=production wp-scripts build --output-path=dist/assets",
-        "lint:js": "wp-scripts lint-js ./src",
-        "lint:css": "wp-scripts lint-style ./src",
-        "composer": "wp-env run cli --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper composer",
         "format": "wp-scripts format",
-        "wp-env": "wp-env"
+        "lint:css": "wp-scripts lint-style src",
+        "lint:js": "wp-scripts lint-js src",
+        "wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper"
     }
 }

@@ -5,7 +5,7 @@ import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
 
 export const UpdatesInputs = () => {
-	const { labelProps, inputProps, getOption } = useSettingsContext();
+	const { inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const [ values, setValues ] = useState( {
 		updates: getOption( 'updates' ),
@@ -147,31 +147,6 @@ export const UpdatesInputs = () => {
 											) }
 										/>
 									) }
-								</CheckboxGroup>
-								<CheckboxGroup
-									label={ __(
-										'Translations',
-										'syntatis-feature-flipper'
-									) }
-									description={ __(
-										'Translations update configuration.',
-										'syntatis-feature-flipper'
-									) }
-								>
-									{ values.autoUpdate && (
-										<Checkbox
-											label={ __(
-												'Automatic update',
-												'syntatis-feature-flipper'
-											) }
-										/>
-									) }
-									<Checkbox
-										label={ __(
-											'Async update',
-											'syntatis-feature-flipper'
-										) }
-									/>
 								</CheckboxGroup>
 							</div>
 						</details>

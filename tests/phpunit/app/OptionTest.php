@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\Tests;
 
 use Syntatis\FeatureFlipper\Option;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class OptionTest extends TestCase
+class OptionTest extends WPTestCase
 {
 	/** @testdox should return the option name with the prefix */
 	public function testName(): void
