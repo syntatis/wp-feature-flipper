@@ -7,3 +7,17 @@
 		margin-top: 1rem;
 	}
 }
+
+.checkboxGroup {
+
+	.heading {
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	}
+
+	.inputs {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+}

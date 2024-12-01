@@ -1,16 +1,42 @@
 import { __ } from '@wordpress/i18n';
-import { Checkbox, CheckboxGroup, Switch } from '@syntatis/kubrick';
+import { Checkbox, Switch } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
 import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
 
+const OPTION_KEYS = {
+	autoUpdate: 'auto_update',
+	autoUpdateCore: 'auto_update_core',
+	autoUpdatePlugins: 'auto_update_plugins',
+	autoUpdateThemes: 'auto_update_themes',
+	updates: 'updates',
+	updatesCore: 'updates_core',
+	updatesPlugins: 'updates_plugins',
+	updatesThemes: 'updates_themes',
+};
+
 export const UpdatesInputs = () => {
 	const { inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
-	const [ values, setValues ] = useState( {
-		updates: getOption( 'updates' ),
-		autoUpdate: getOption( 'auto_update' ),
-	} );
+	const [ values, setValues ] = useState(
+		Object.keys( OPTION_KEYS ).reduce( ( acc, key ) => {
+			acc[ key ] = getOption( OPTION_KEYS[ key ] );
+			return acc;
+		}, {} )
+	);
+
+	function changeValues( keys, value ) {
+		setValues( ( currentValues ) => {
+			const newValues = { ...currentValues };
+			keys.forEach( ( key ) => {
+				newValues[ key ] = value;
+			} );
+			return newValues;
+		} );
+		keys.forEach( ( key ) => {
+			setFieldsetValues( OPTION_KEYS[ key ], value );
+		} );
+	}
 
 	return (
 		<tr>
@@ -22,18 +48,13 @@ export const UpdatesInputs = () => {
 					<div className={ styles.inputGroup }>
 						<Switch
 							{ ...inputProps( 'updates' ) }
+							isSelected={ values.updates }
 							onChange={ ( checked ) => {
-								setValues( ( currentValues ) => {
-									return {
-										...currentValues,
-										updates: checked,
-										autoUpdate: checked,
-									};
-								} );
-								setFieldsetValues( 'updates', checked );
-								setFieldsetValues( 'auto_update', checked );
+								changeValues(
+									Object.keys( OPTION_KEYS ),
+									checked
+								);
 							} }
-							defaultSelected={ getOption( 'updates' ) }
 							label={ __(
 								'Enable all updates',
 								'syntatis-feature-flipper'
@@ -43,114 +64,231 @@ export const UpdatesInputs = () => {
 								'syntatis-feature-flipper'
 							) }
 						/>
-						{ values.updates && (
-							<Switch
-								{ ...inputProps( 'auto_update' ) }
-								onChange={ ( checked ) => {
-									setValues( ( currentValues ) => {
-										return {
-											...currentValues,
-											autoUpdate: checked,
-										};
-									} );
-									setFieldsetValues( 'auto_update', checked );
-								} }
-								defaultSelected={ getOption( 'auto_update' ) }
-								description={ __(
-									'Enable automatic updates for WordPress core, plugins, themes, and translations.',
-									'syntatis-feature-flipper'
-								) }
-								label={ __(
-									'Enable all automatic updates',
-									'syntatis-feature-flipper'
-								) }
-							/>
-						) }
+						<Switch
+							{ ...inputProps( 'auto_update' ) }
+							onChange={ ( checked ) => {
+								changeValues(
+									Object.keys( OPTION_KEYS ).filter(
+										( key ) => {
+											return key.startsWith(
+												'autoUpdate'
+											);
+										}
+									),
+									checked
+								);
+							} }
+							isSelected={ values.autoUpdate }
+							isReadOnly={ ! values.updates }
+							defaultSelected={ values.autoUpdate }
+							description={ __(
+								'Enable automatic updates for WordPress core, plugins, themes, and translations.',
+								'syntatis-feature-flipper'
+							) }
+							label={ __(
+								'Enable all automatic updates',
+								'syntatis-feature-flipper'
+							) }
+						/>
 					</div>
-					{ values.updates && (
-						<details className={ styles.inputDetails }>
-							<summary>
-								{ __( 'Settings', 'syntatis-feature-flipper' ) }
-							</summary>
-							<div className={ styles.inputGroup }>
-								<CheckboxGroup
-									label={ __(
+					<details className={ styles.inputDetails }>
+						<summary>
+							{ __( 'Settings', 'syntatis-feature-flipper' ) }
+						</summary>
+						<div className={ styles.inputGroup }>
+							<div className={ styles.checkboxGroup }>
+								<div aria-hidden className={ styles.heading }>
+									{ __(
 										'WordPress',
 										'syntatis-feature-flipper'
 									) }
-									description={ __(
-										'WordPress core update configurations.',
-										'syntatis-feature-flipper'
-									) }
-								>
+								</div>
+								<div className={ styles.inputs }>
 									<Checkbox
+										{ ...inputProps( 'updates_core' ) }
+										defaultSelected={ values.updatesCore }
+										onChange={ ( checked ) => {
+											changeValues(
+												[
+													'updatesCore',
+													'autoUpdateCore',
+												],
+												checked
+											);
+										} }
+										isReadOnly={ ! values.updates }
+										isSelected={
+											values.updates && values.updatesCore
+										}
+										aria-label={ __(
+											'Enable WordPress core update',
+											'syntatis-feature-flipper'
+										) }
 										label={ __(
 											'Enable update',
 											'syntatis-feature-flipper'
 										) }
 									/>
-									{ values.autoUpdate && (
-										<Checkbox
-											label={ __(
-												'Enable automatic update',
-												'syntatis-feature-flipper'
-											) }
-										/>
+									<Checkbox
+										{ ...inputProps( 'auto_update_core' ) }
+										onChange={ ( checked ) => {
+											changeValues(
+												[ 'autoUpdateCore' ],
+												checked
+											);
+										} }
+										isReadOnly={ ! values.autoUpdate }
+										isSelected={
+											values.autoUpdateCore &&
+											values.updatesCore
+										}
+										aria-label={ __(
+											'Enable WordPress core automatic update',
+											'syntatis-feature-flipper'
+										) }
+										label={ __(
+											'Enable automatic update',
+											'syntatis-feature-flipper'
+										) }
+									/>
+								</div>
+								<p className="description" aria-hidden>
+									{ __(
+										'WordPress core updates configurations.',
+										'syntatis-feature-flipper'
 									) }
-								</CheckboxGroup>
-								<CheckboxGroup
-									label={ __(
+								</p>
+							</div>
+							<div className={ styles.checkboxGroup }>
+								<div aria-hidden className={ styles.heading }>
+									{ __(
 										'Plugins',
 										'syntatis-feature-flipper'
 									) }
-									description={ __(
+								</div>
+								<div className={ styles.inputs }>
+									<Checkbox
+										{ ...inputProps( 'updates_plugins' ) }
+										aria-label={ __(
+											'Enable plugins update',
+											'syntatis-feature-flipper'
+										) }
+										label={ __(
+											'Enable update',
+											'syntatis-feature-flipper'
+										) }
+										isReadOnly={ ! values.updates }
+										isSelected={
+											values.updatesPlugins &&
+											values.updates
+										}
+										onChange={ ( checked ) => {
+											changeValues(
+												[
+													'autoUpdatePlugins',
+													'updatesPlugins',
+												],
+												checked
+											);
+										} }
+									/>
+									<Checkbox
+										{ ...inputProps(
+											'auto_update_plugins'
+										) }
+										isReadOnly={ ! values.autoUpdate }
+										isSelected={
+											values.autoUpdatePlugins &&
+											values.updatesPlugins
+										}
+										label={ __(
+											'Enable automatic update',
+											'syntatis-feature-flipper'
+										) }
+										onChange={ ( checked ) => {
+											changeValues(
+												[ 'autoUpdatePlugins' ],
+												checked
+											);
+										} }
+									/>
+								</div>
+								<p className="description">
+									{ __(
 										'Plugins update configurations.',
 										'syntatis-feature-flipper'
 									) }
-								>
-									<Checkbox
-										label={ __(
-											'Enable update',
-											'syntatis-feature-flipper'
-										) }
-									/>
-									{ values.autoUpdate && (
-										<Checkbox
-											label={ __(
-												'Enable automatic update',
-												'syntatis-feature-flipper'
-											) }
-										/>
-									) }
-								</CheckboxGroup>
-								<CheckboxGroup
-									label={ __(
+								</p>
+							</div>
+							<div className={ styles.checkboxGroup }>
+								<div aria-hidden className={ styles.heading }>
+									{ __(
 										'Themes',
 										'syntatis-feature-flipper'
 									) }
-									description={ __(
-										'Themes update configuration.',
-										'syntatis-feature-flipper'
-									) }
-								>
+								</div>
+								<div className={ styles.inputs }>
 									<Checkbox
+										{ ...inputProps( 'updates_themes' ) }
+										isReadOnly={ ! values.updates }
+										isSelected={
+											values.updatesThemes &&
+											values.updates
+										}
+										aria-label={ __(
+											'Enable themes update',
+											'syntatis-feature-flipper'
+										) }
 										label={ __(
 											'Enable update',
 											'syntatis-feature-flipper'
 										) }
+										onChange={ ( checked ) => {
+											changeValues(
+												[
+													'autoUpdateThemes',
+													'updatesThemes',
+												],
+												checked
+											);
+										} }
 									/>
-									{ values.autoUpdate && (
+									{
 										<Checkbox
+											{ ...inputProps(
+												'auto_update_themes'
+											) }
+											isReadOnly={ ! values.autoUpdate }
+											isSelected={
+												values.autoUpdateThemes &&
+												values.updatesThemes
+											}
+											aria-label={ __(
+												'Enable themes automatic update',
+												'syntatis-feature-flipper'
+											) }
 											label={ __(
 												'Enable automatic update',
 												'syntatis-feature-flipper'
 											) }
+											onChange={ ( checked ) => {
+												changeValues(
+													[ 'autoUpdateThemes' ],
+													checked
+												);
+											} }
 										/>
+									}
+								</div>
+								<p className="description">
+									{ __(
+										'Themes update configurations.',
+										'syntatis-feature-flipper'
 									) }
-								</CheckboxGroup>
+								</p>
 							</div>
-						</details>
-					) }
+						</div>
+					</details>
 				</div>
 			</td>
 		</tr>
