@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers;
 use Syntatis\FeatureFlipper\Option;
 
-class Updates implements Hookable
+class Updates implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
@@ -67,5 +69,11 @@ class Updates implements Hookable
 	private static function defaultOptionFilterName(string $name): string
 	{
 		return 'default_option_' . Option::name($name);
+	}
+
+	/** @return iterable<object> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		yield new Updates\ManageCore();
 	}
 }

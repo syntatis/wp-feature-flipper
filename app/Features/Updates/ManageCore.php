@@ -17,8 +17,6 @@ class ManageCore implements Hookable
 	public function hook(Hook $hook): void
 	{
 		if (! (bool) Option::get('updates_core')) {
-			$hook->addAction('schedule_event', [$this, 'filterCronEvents']);
-			$hook->addFilter('send_core_update_notification_email', static fn (): bool => false);
 			$hook->addAction('admin_init', static function () use ($hook): void {
 				$hook->removeAction('admin_init', '_maybe_update_core');
 				$hook->removeAction('admin_init', 'wp_auto_update_core');
@@ -26,6 +24,9 @@ class ManageCore implements Hookable
 				$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 				$hook->removeAction('wp_version_check', 'wp_version_check');
 			});
+			$hook->addAction('schedule_event', [$this, 'filterCronEvents']);
+			$hook->addFilter('site_transient_update_core', [$this, 'filterCoreUpdateTransient']);
+			$hook->addFilter('send_core_update_notification_email', static fn (): bool => false);
 		}
 
 		if ((bool) Option::get('auto_update_core')) {
@@ -51,5 +52,18 @@ class ManageCore implements Hookable
 		}
 
 		return $event;
+	}
+
+	/**
+	 * Filter the core transient to remove updates and the update notification
+	 * in the admin area in case it already identifies an update.
+	 */
+	public function filterCoreUpdateTransient(object $cache): object
+	{
+		if (property_exists($cache, 'updates')) {
+			$cache->updates = [];
+		}
+
+		return $cache;
 	}
 }
