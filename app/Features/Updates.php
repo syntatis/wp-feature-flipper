@@ -35,13 +35,6 @@ class Updates implements Hookable, Extendable
 		$hook->addFilter(self::defaultOptionFilterName('updates_core'), $updatesFn);
 		$hook->addFilter(self::optionFilterName('auto_update_core'), $autoUpdateFn);
 		$hook->addFilter(self::optionFilterName('updates_core'), $updatesFn);
-		$hook->addAction(self::updateOptionFilterName('updates_core'), static function ($value): void {
-			if ((bool) $value) {
-				return;
-			}
-
-			wp_unschedule_hook('wp_version_check');
-		});
 
 		// Components: Plugins
 		$updatesFn = static fn ($value) => Helpers\Updates::plugins()->isEnabled((bool) $value);
@@ -62,6 +55,12 @@ class Updates implements Hookable, Extendable
 		$hook->addFilter(self::optionFilterName('updates_themes'), $updatesFn);
 	}
 
+	/** @return iterable<object> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		yield new Updates\ManageCore();
+	}
+
 	/** @phpstan-param non-empty-string $name */
 	private static function optionFilterName(string $name): string
 	{
@@ -69,20 +68,8 @@ class Updates implements Hookable, Extendable
 	}
 
 	/** @phpstan-param non-empty-string $name */
-	private static function updateOptionFilterName(string $name): string
-	{
-		return 'update_option_' . Option::name($name);
-	}
-
-	/** @phpstan-param non-empty-string $name */
 	private static function defaultOptionFilterName(string $name): string
 	{
 		return 'default_option_' . Option::name($name);
-	}
-
-	/** @return iterable<object> */
-	public function getInstances(ContainerInterface $container): iterable
-	{
-		yield new Updates\ManageCore();
 	}
 }
