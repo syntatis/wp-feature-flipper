@@ -12,6 +12,9 @@ use function define;
 use function defined;
 use function property_exists;
 
+/**
+ * Manage the core update and auto-update feature.
+ */
 class ManageCore implements Hookable
 {
 	public function hook(Hook $hook): void
@@ -24,7 +27,6 @@ class ManageCore implements Hookable
 				$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 				$hook->removeAction('wp_version_check', 'wp_version_check');
 			});
-			$hook->addAction('schedule_event', [$this, 'filterCronEvents']);
 			$hook->addFilter('site_transient_update_core', [$this, 'filterCoreUpdateTransient']);
 			$hook->addFilter('send_core_update_notification_email', static fn (): bool => false);
 		}
@@ -44,19 +46,12 @@ class ManageCore implements Hookable
 		$hook->addFilter('auto_update_core', static fn (): bool => false);
 	}
 
-	/** @return object|false */
-	public function filterCronEvents(object $event)
-	{
-		if (property_exists($event, 'hook') && $event->hook === 'wp_version_check') {
-			return false;
-		}
-
-		return $event;
-	}
-
 	/**
-	 * Filter the core transient to remove updates and the update notification
-	 * in the admin area in case it already identifies an update.
+	 * Filter the transient to remove the core update information.
+	 *
+	 * This prevents the notification from being displayed in the admin area,
+	 * in case the update information was already fetched before the update
+	 * feature was disabled.
 	 */
 	public function filterCoreUpdateTransient(object $cache): object
 	{
