@@ -27,7 +27,8 @@
         "@wordpress/api-fetch": "^7.12.0",
         "@wordpress/dom-ready": "^4.12.0",
         "@wordpress/element": "^6.12.0",
-        "@wordpress/i18n": "^5.12.0"
+        "@wordpress/i18n": "^5.12.0",
+        "@wordpress/icons": "^10.13.0"
     },
     "devDependencies": {
         "@wordpress/env": "^10.12.0",
