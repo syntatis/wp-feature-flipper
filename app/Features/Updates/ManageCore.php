@@ -27,7 +27,7 @@ class ManageCore implements Hookable
 				$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 				$hook->removeAction('wp_version_check', 'wp_version_check');
 			});
-			$hook->addFilter('site_transient_update_core', [$this, 'filterCoreUpdateTransient']);
+			$hook->addFilter('site_transient_update_core', [$this, 'filterUpdateTransient']);
 			$hook->addFilter('send_core_update_notification_email', static fn (): bool => false);
 		}
 
@@ -53,10 +53,14 @@ class ManageCore implements Hookable
 	 * in case the update information was already fetched before the update
 	 * feature was disabled.
 	 */
-	public function filterCoreUpdateTransient(object $cache): object
+	public function filterUpdateTransient(object $cache): object
 	{
 		if (property_exists($cache, 'updates')) {
 			$cache->updates = [];
+		}
+
+		if (property_exists($cache, 'translations')) {
+			$cache->translations = [];
 		}
 
 		return $cache;
