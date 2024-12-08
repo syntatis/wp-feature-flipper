@@ -58,8 +58,10 @@ class Updates implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
+		yield new Updates\ManageGlobal();
 		yield new Updates\ManageCore();
 		yield new Updates\ManagePlugins();
+		yield new Updates\ManageThemes();
 	}
 
 	/** @phpstan-param non-empty-string $name */

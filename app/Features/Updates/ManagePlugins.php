@@ -19,14 +19,13 @@ class ManagePlugins implements Hookable
 	public function hook(Hook $hook): void
 	{
 		if (! (bool) Option::get('update_plugins')) {
-			$hook->addAction('admin_init', static function () use ($hook): void {
-				$hook->removeAction('admin_init', '_maybe_update_plugins');
-				$hook->removeAction('load-plugins.php', 'wp_plugin_update_rows', 20);
-				$hook->removeAction('load-plugins.php', 'wp_update_plugins');
-				$hook->removeAction('load-update-core.php', 'wp_update_plugins');
-				$hook->removeAction('load-update.php', 'wp_update_plugins');
-				$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
-			});
+			$hook->removeAction('admin_init', '_maybe_update_plugins');
+			$hook->removeAction('load-plugins.php', 'wp_plugin_update_rows', 20);
+			$hook->removeAction('load-plugins.php', 'wp_update_plugins');
+			$hook->removeAction('load-update-core.php', 'wp_update_plugins');
+			$hook->removeAction('load-update.php', 'wp_update_plugins');
+			$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
+
 			$hook->addFilter('site_transient_update_plugins', [$this, 'filterUpdateTransient']);
 		}
 
@@ -34,7 +33,7 @@ class ManagePlugins implements Hookable
 			return;
 		}
 
-		$hook->addFilter('auto_update_plugin', static fn (): bool => false);
+		$hook->addFilter('auto_update_plugin', '__return_false');
 	}
 
 	public function filterUpdateTransient(object $cache): object
