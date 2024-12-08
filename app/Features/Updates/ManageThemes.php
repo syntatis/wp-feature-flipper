@@ -24,7 +24,6 @@ class ManageThemes implements Hookable
 			$hook->removeAction('load-themes.php', 'wp_update_themes');
 			$hook->removeAction('load-update-core.php', 'wp_update_themes');
 			$hook->removeAction('load-update.php', 'wp_update_themes');
-			$hook->removeAction('wp_update_themes', 'wp_update_themes');
 
 			$hook->addFilter('site_transient_update_themes', [$this, 'filterUpdateTransient']);
 		}

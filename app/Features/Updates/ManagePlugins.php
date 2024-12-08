@@ -24,7 +24,6 @@ class ManagePlugins implements Hookable
 			$hook->removeAction('load-plugins.php', 'wp_update_plugins');
 			$hook->removeAction('load-update-core.php', 'wp_update_plugins');
 			$hook->removeAction('load-update.php', 'wp_update_plugins');
-			$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
 
 			$hook->addFilter('site_transient_update_plugins', [$this, 'filterUpdateTransient']);
 		}
