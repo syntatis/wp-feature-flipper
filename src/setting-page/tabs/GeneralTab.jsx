@@ -1,6 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../components/form';
-import { RevisionsInputs, SwitchInput } from '../components/inputs';
+import {
+	RevisionsInputs,
+	SwitchInput,
+	UpdatesInputs,
+} from '../components/inputs';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -52,19 +56,7 @@ export const GeneralTab = () => {
 					}
 				/>
 				<RevisionsInputs />
-				<SwitchInput
-					name="self_ping"
-					id="self-ping"
-					title="Self-ping"
-					label={ __(
-						'Enable self-pingbacks',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, WordPress will not send pingbacks to your own site.',
-						'syntatis-feature-flipper'
-					) }
-				/>
+				<UpdatesInputs />
 				<SwitchInput
 					name="embed"
 					id="embed"
@@ -79,6 +71,19 @@ export const GeneralTab = () => {
 					) }
 				/>
 				<SwitchInput
+					name="self_ping"
+					id="self-ping"
+					title="Self-ping"
+					label={ __(
+						'Enable self-pingbacks',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, WordPress will not send pingbacks to your own site.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+				<SwitchInput
 					name="feeds"
 					id="feeds"
 					title="Feeds"
@@ -88,19 +93,6 @@ export const GeneralTab = () => {
 					) }
 					description={ __(
 						'When switched off, it will disable the RSS feed URLs.',
-						'syntatis-feature-flipper'
-					) }
-				/>
-				<SwitchInput
-					name="auto_update"
-					id="auto-update"
-					title={ __( 'Auto Update', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Enable WordPress auto update',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, you will need to manually update WordPress.',
 						'syntatis-feature-flipper'
 					) }
 				/>

@@ -23,21 +23,25 @@
         "npm": ">=9"
     },
     "dependencies": {
-        "@syntatis/kubrick": "^0.1.0-beta.5",
+        "@syntatis/kubrick": "^0.1.0-beta.6",
         "@wordpress/api-fetch": "^7.12.0",
         "@wordpress/dom-ready": "^4.12.0",
         "@wordpress/element": "^6.12.0",
-        "@wordpress/i18n": "^5.12.0"
+        "@wordpress/i18n": "^5.12.0",
+        "@wordpress/icons": "^10.13.0"
     },
     "devDependencies": {
+        "@wordpress/env": "^10.12.0",
         "@wordpress/scripts": "^30.1.0",
         "cross-env": "^7.0.3"
     },
     "scripts": {
         "start": "wp-scripts start --output-path=dist/assets",
         "build": "cross-env NODE_ENV=production wp-scripts build --output-path=dist/assets",
-        "lint:js": "wp-scripts lint-js ./src",
-        "lint:css": "wp-scripts lint-style ./src",
-        "format": "wp-scripts format"
+        "format": "wp-scripts format",
+        "lint:css": "wp-scripts lint-style src",
+        "lint:js": "wp-scripts lint-js src",
+        "wp-env:start": "wp-env start",
+        "wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper"
     }
 }

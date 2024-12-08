@@ -40,8 +40,31 @@ return [
 		->withDefault(true),
 	(new Setting('embed', 'boolean'))
 		->withDefault(true),
-	(new Setting('auto_update', 'boolean'))
+
+	/**
+	 * Updates
+	 */
+	(new Setting('updates', 'boolean'))
 		->withDefault(true),
+	(new Setting('update_core', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_plugins', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_themes', 'boolean'))
+		->withDefault(true),
+
+	/**
+	 * Updates: Auto Updates
+	 */
+	(new Setting('auto_updates', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_core', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_plugins', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_themes', 'boolean'))
+		->withDefault(true),
+
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
 
@@ -72,7 +95,11 @@ return [
 		->withDefault(true),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
-	/** @see https://developer.wordpress.org/reference/hooks/jpeg_quality/ */
+
+	/**
+	 * @see https://developer.wordpress.org/reference/hooks/jpeg_quality/
+	 * @see https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/class-wp-image-editor.php#L24 - Default value.
+	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
 		->withDefault(apply_filters('jpeg_quality', 82)),
 

@@ -39,9 +39,11 @@ export const Form = ( { children } ) => {
 		<FormContext.Provider
 			value={ {
 				setFieldsetValues: ( name, value ) => {
-					setFieldsetValues( {
-						...fieldsetValues,
-						[ `${ optionPrefix }${ name }` ]: value,
+					setFieldsetValues( ( currentFieldsetValues ) => {
+						return {
+							...currentFieldsetValues,
+							[ `${ optionPrefix }${ name }` ]: value,
+						};
 					} );
 				},
 			} }

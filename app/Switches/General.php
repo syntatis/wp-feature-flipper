@@ -10,6 +10,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
+use Syntatis\FeatureFlipper\Features\Updates;
 use Syntatis\FeatureFlipper\Option;
 
 use function array_filter;
@@ -100,7 +101,24 @@ class General implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
+		$features = $this->getFeatures();
+
+		foreach ($features as $feature) {
+			yield $feature;
+
+			if (! ($feature instanceof Extendable)) {
+				continue;
+			}
+
+			yield from $feature->getInstances($container);
+		}
+	}
+
+	/** @return iterable<object> */
+	private function getFeatures(): iterable
+	{
 		yield new Embeds();
 		yield new Feeds();
+		yield new Updates();
 	}
 }

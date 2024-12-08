@@ -1,0 +1,20 @@
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.2/phpunit.xsd"
+	bootstrap="tests/phpunit/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	convertDeprecationsToExceptions="true"
+	>
+	<php>
+		<env name="WORDPRESS_TABLE_PREFIX" value="wptests_" />
+	</php>
+	<testsuites>
+		<testsuite name="app">
+			<directory suffix="Test.php">tests/phpunit/app/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
