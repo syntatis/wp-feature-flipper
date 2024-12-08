@@ -46,6 +46,11 @@ class ManageThemes implements Hookable
 			$cache->translations = [];
 		}
 
+		if (property_exists($cache, 'last_checked')) {
+			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
+			$cache->last_checked = time();
+		}
+
 		return $cache;
 	}
 }

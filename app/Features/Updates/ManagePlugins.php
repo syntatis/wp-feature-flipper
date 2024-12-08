@@ -9,6 +9,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Option;
 
 use function property_exists;
+use function time;
 
 /**
  * Manage the plugins update and auto-update feature.
@@ -44,6 +45,11 @@ class ManagePlugins implements Hookable
 
 		if (property_exists($cache, 'translations')) {
 			$cache->translations = [];
+		}
+
+		if (property_exists($cache, 'last_checked')) {
+			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
+			$cache->last_checked = time();
 		}
 
 		return $cache;

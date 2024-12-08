@@ -11,6 +11,7 @@ use Syntatis\FeatureFlipper\Option;
 use function define;
 use function defined;
 use function property_exists;
+use function time;
 
 /**
  * Manage the core update and auto-update feature.
@@ -61,6 +62,11 @@ class ManageCore implements Hookable
 
 		if (property_exists($cache, 'translations')) {
 			$cache->translations = [];
+		}
+
+		if (property_exists($cache, 'last_checked')) {
+			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
+			$cache->last_checked = time();
 		}
 
 		return $cache;
