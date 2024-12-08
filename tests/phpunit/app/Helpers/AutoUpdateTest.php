@@ -38,7 +38,7 @@ class AutoUpdateTest extends WPTestCase
 	public function testCoreGlobalAutoUpdateDisabled(): void
 	{
 		// Disable global auto-update.
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		// Should return false when global auto-update is disabled, even if core update is enabled.
 		$this->assertFalse(AutoUpdate::core()->isEnabled(true));
@@ -62,7 +62,7 @@ class AutoUpdateTest extends WPTestCase
 	public function testPluginsGlobalAutoUpdateDisabled(): void
 	{
 		// Disable global auto-update.
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		// Should return false when global auto-update is disabled, even if plugins updates are enabled.
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(true));
@@ -86,7 +86,7 @@ class AutoUpdateTest extends WPTestCase
 	public function testThemesGlobalAutoUpdateDisabled(): void
 	{
 		// Disable global auto-update.
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		// Should return false when global auto-update is disabled, even if themes updates are enabled.
 		$this->assertFalse(AutoUpdate::themes()->isEnabled(true));

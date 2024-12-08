@@ -11,20 +11,20 @@ use Syntatis\FeatureFlipper\Option;
 use function property_exists;
 
 /**
- * Manage the plugins update and auto-update feature.
+ * Manage the themes update and auto-update feature.
  */
-class ManagePlugins implements Hookable
+class ManageThemes implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if (! (bool) Option::get('update_plugins')) {
+		if (! (bool) Option::get('update_themes')) {
 			$hook->addAction('admin_init', static function () use ($hook): void {
-				$hook->removeAction('admin_init', '_maybe_update_plugins');
-				$hook->removeAction('load-plugins.php', 'wp_plugin_update_rows', 20);
-				$hook->removeAction('load-plugins.php', 'wp_update_plugins');
-				$hook->removeAction('load-update-core.php', 'wp_update_plugins');
-				$hook->removeAction('load-update.php', 'wp_update_plugins');
-				$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
+				$hook->removeAction('admin_init', '_maybe_update_themes');
+				$hook->removeAction('load-themes.php', 'wp_theme_update_rows', 20);
+				$hook->removeAction('load-themes.php', 'wp_update_themes');
+				$hook->removeAction('load-update-core.php', 'wp_update_themes');
+				$hook->removeAction('load-update.php', 'wp_update_themes');
+				$hook->removeAction('wp_update_themes', 'wp_update_themes');
 			});
 			$hook->addFilter('site_transient_update_plugins', [$this, 'filterUpdateTransient']);
 		}

@@ -23,7 +23,7 @@ class Updates implements Hookable, Extendable
 			static fn ($value) => Helpers\Updates::global()->isEnabled((bool) $value),
 		);
 		$hook->addFilter(
-			self::optionFilterName('auto_update'),
+			self::optionFilterName('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 
@@ -32,27 +32,27 @@ class Updates implements Hookable, Extendable
 		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::core()->isEnabled((bool) $value);
 
 		$hook->addFilter(self::defaultOptionFilterName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionFilterName('updates_core'), $updatesFn);
+		$hook->addFilter(self::defaultOptionFilterName('update_core'), $updatesFn);
 		$hook->addFilter(self::optionFilterName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::optionFilterName('updates_core'), $updatesFn);
+		$hook->addFilter(self::optionFilterName('update_core'), $updatesFn);
 
 		// Components: Plugins
 		$updatesFn = static fn ($value) => Helpers\Updates::plugins()->isEnabled((bool) $value);
 		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::plugins()->isEnabled((bool) $value);
 
 		$hook->addFilter(self::defaultOptionFilterName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionFilterName('updates_plugins'), $updatesFn);
+		$hook->addFilter(self::defaultOptionFilterName('update_plugins'), $updatesFn);
 		$hook->addFilter(self::optionFilterName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::optionFilterName('updates_plugins'), $updatesFn);
+		$hook->addFilter(self::optionFilterName('update_plugins'), $updatesFn);
 
 		// Components: Themes
 		$updatesFn = static fn ($value) => Helpers\Updates::themes()->isEnabled((bool) $value);
 		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::themes()->isEnabled((bool) $value);
 
 		$hook->addFilter(self::defaultOptionFilterName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionFilterName('updates_themes'), $updatesFn);
+		$hook->addFilter(self::defaultOptionFilterName('update_themes'), $updatesFn);
 		$hook->addFilter(self::optionFilterName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::optionFilterName('updates_themes'), $updatesFn);
+		$hook->addFilter(self::optionFilterName('update_themes'), $updatesFn);
 	}
 
 	/** @return iterable<object> */

@@ -37,32 +37,32 @@ class UpdatesTest extends WPTestCase
 	/** @group feature-auto-update */
 	public function testGlobalAutoUpdate(): void
 	{
-		$this->assertTrue(Option::get('auto_update'));
+		$this->assertTrue(Option::get('auto_updates'));
 
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
-		$this->assertFalse(Option::get('auto_update'));
+		$this->assertFalse(Option::get('auto_updates'));
 	}
 
 	public function testCoreUpdatesDefault(): void
 	{
-		$this->assertTrue(Option::get('updates_core'));
+		$this->assertTrue(Option::get('update_core'));
 	}
 
 	public function testCoreUpdatesDisabled(): void
 	{
-		update_option(Option::name('updates_core'), false);
+		update_option(Option::name('update_core'), false);
 
-		$this->assertFalse(Option::get('updates_core'));
+		$this->assertFalse(Option::get('update_core'));
 	}
 
 	public function testCoreUpdatesGlobalDisabled(): void
 	{
-		$this->assertTrue(Option::get('updates_core'));
+		$this->assertTrue(Option::get('update_core'));
 
 		update_option(Option::name('updates'), false);
 
-		$this->assertFalse(Option::get('updates_core'));
+		$this->assertFalse(Option::get('update_core'));
 	}
 
 	/** @group feature-auto-update */
@@ -84,7 +84,7 @@ class UpdatesTest extends WPTestCase
 	{
 		$this->assertTrue(Option::get('auto_update_core'));
 
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		$this->assertFalse(Option::get('auto_update_core'));
 	}
@@ -101,23 +101,23 @@ class UpdatesTest extends WPTestCase
 
 	public function testPluginsUpdatesDefault(): void
 	{
-		$this->assertTrue(Option::get('updates_plugins'));
+		$this->assertTrue(Option::get('update_plugins'));
 	}
 
 	public function testPluginsUpdatesDisabled(): void
 	{
-		update_option(Option::name('updates_plugins'), false);
+		update_option(Option::name('update_plugins'), false);
 
-		$this->assertFalse(Option::get('updates_plugins'));
+		$this->assertFalse(Option::get('update_plugins'));
 	}
 
 	public function testPluginsUpdatesGlobalUpdatesDisabled(): void
 	{
-		$this->assertTrue(Option::get('updates_plugins'));
+		$this->assertTrue(Option::get('update_plugins'));
 
 		update_option(Option::name('updates'), false);
 
-		$this->assertFalse(Option::get('updates_plugins'));
+		$this->assertFalse(Option::get('update_plugins'));
 	}
 
 	/** @group feature-auto-update */
@@ -139,7 +139,7 @@ class UpdatesTest extends WPTestCase
 	{
 		$this->assertTrue(Option::get('auto_update_plugins'));
 
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		$this->assertFalse(Option::get('auto_update_plugins'));
 	}
@@ -156,23 +156,23 @@ class UpdatesTest extends WPTestCase
 
 	public function testThemesUpdatesDefault(): void
 	{
-		$this->assertTrue(Option::get('updates_themes'));
+		$this->assertTrue(Option::get('update_themes'));
 	}
 
 	public function testThemesUpdatesDisabled(): void
 	{
-		update_option(Option::name('updates_themes'), false);
+		update_option(Option::name('update_themes'), false);
 
-		$this->assertFalse(Option::get('updates_themes'));
+		$this->assertFalse(Option::get('update_themes'));
 	}
 
 	public function testThemesUpdatesGlobalDisabled(): void
 	{
-		$this->assertTrue(Option::get('updates_themes'));
+		$this->assertTrue(Option::get('update_themes'));
 
 		update_option(Option::name('updates'), false);
 
-		$this->assertFalse(Option::get('updates_themes'));
+		$this->assertFalse(Option::get('update_themes'));
 	}
 
 	/** @group feature-auto-update */
@@ -194,7 +194,7 @@ class UpdatesTest extends WPTestCase
 	{
 		$this->assertTrue(Option::get('auto_update_themes'));
 
-		update_option(Option::name('auto_update'), false);
+		update_option(Option::name('auto_updates'), false);
 
 		$this->assertFalse(Option::get('auto_update_themes'));
 	}

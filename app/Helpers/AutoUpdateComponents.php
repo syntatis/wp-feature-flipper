@@ -16,7 +16,7 @@ class AutoUpdateComponents implements Enable
 			return false;
 		}
 
-		if (! (bool) Option::get('auto_update')) {
+		if (! (bool) Option::get('auto_updates')) {
 			return false;
 		}
 

@@ -46,17 +46,17 @@ return [
 	 */
 	(new Setting('updates', 'boolean'))
 		->withDefault(true),
-	(new Setting('updates_core', 'boolean'))
+	(new Setting('update_core', 'boolean'))
 		->withDefault(true),
-	(new Setting('updates_plugins', 'boolean'))
+	(new Setting('update_plugins', 'boolean'))
 		->withDefault(true),
-	(new Setting('updates_themes', 'boolean'))
+	(new Setting('update_themes', 'boolean'))
 		->withDefault(true),
 
 	/**
 	 * Updates: Auto Updates
 	 */
-	(new Setting('auto_update', 'boolean'))
+	(new Setting('auto_updates', 'boolean'))
 		->withDefault(true),
 	(new Setting('auto_update_core', 'boolean'))
 		->withDefault(true),

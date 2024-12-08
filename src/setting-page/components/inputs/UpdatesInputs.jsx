@@ -5,14 +5,14 @@ import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
 
 const OPTION_KEYS = {
-	autoUpdate: 'auto_update',
+	autoUpdate: 'auto_updates',
 	autoUpdateCore: 'auto_update_core',
 	autoUpdatePlugins: 'auto_update_plugins',
 	autoUpdateThemes: 'auto_update_themes',
 	updates: 'updates',
-	updatesCore: 'updates_core',
-	updatesPlugins: 'updates_plugins',
-	updatesThemes: 'updates_themes',
+	updateCore: 'update_core',
+	updatePlugins: 'update_plugins',
+	updateThemes: 'update_themes',
 };
 
 export const UpdatesInputs = () => {
@@ -65,7 +65,7 @@ export const UpdatesInputs = () => {
 							) }
 						/>
 						<Switch
-							{ ...inputProps( 'auto_update' ) }
+							{ ...inputProps( 'auto_updates' ) }
 							onChange={ ( checked ) => {
 								changeValues(
 									Object.keys( OPTION_KEYS ).filter(
@@ -105,12 +105,12 @@ export const UpdatesInputs = () => {
 								</div>
 								<div className={ styles.inputs }>
 									<Checkbox
-										{ ...inputProps( 'updates_core' ) }
-										defaultSelected={ values.updatesCore }
+										{ ...inputProps( 'update_core' ) }
+										defaultSelected={ values.updateCore }
 										onChange={ ( checked ) => {
 											changeValues(
 												[
-													'updatesCore',
+													'updateCore',
 													'autoUpdateCore',
 												],
 												checked
@@ -118,7 +118,7 @@ export const UpdatesInputs = () => {
 										} }
 										isReadOnly={ ! values.updates }
 										isSelected={
-											values.updates && values.updatesCore
+											values.updates && values.updateCore
 										}
 										aria-label={ __(
 											'Enable WordPress core update',
@@ -140,7 +140,7 @@ export const UpdatesInputs = () => {
 										isReadOnly={ ! values.autoUpdate }
 										isSelected={
 											values.autoUpdateCore &&
-											values.updatesCore
+											values.updateCore
 										}
 										aria-label={ __(
 											'Enable WordPress core automatic update',
@@ -168,7 +168,7 @@ export const UpdatesInputs = () => {
 								</div>
 								<div className={ styles.inputs }>
 									<Checkbox
-										{ ...inputProps( 'updates_plugins' ) }
+										{ ...inputProps( 'update_plugins' ) }
 										aria-label={ __(
 											'Enable plugins update',
 											'syntatis-feature-flipper'
@@ -179,14 +179,14 @@ export const UpdatesInputs = () => {
 										) }
 										isReadOnly={ ! values.updates }
 										isSelected={
-											values.updatesPlugins &&
+											values.updatePlugins &&
 											values.updates
 										}
 										onChange={ ( checked ) => {
 											changeValues(
 												[
 													'autoUpdatePlugins',
-													'updatesPlugins',
+													'updatePlugins',
 												],
 												checked
 											);
@@ -199,7 +199,7 @@ export const UpdatesInputs = () => {
 										isReadOnly={ ! values.autoUpdate }
 										isSelected={
 											values.autoUpdatePlugins &&
-											values.updatesPlugins
+											values.updatePlugins
 										}
 										label={ __(
 											'Enable automatic update',
@@ -229,10 +229,10 @@ export const UpdatesInputs = () => {
 								</div>
 								<div className={ styles.inputs }>
 									<Checkbox
-										{ ...inputProps( 'updates_themes' ) }
+										{ ...inputProps( 'update_themes' ) }
 										isReadOnly={ ! values.updates }
 										isSelected={
-											values.updatesThemes &&
+											values.updateThemes &&
 											values.updates
 										}
 										aria-label={ __(
@@ -247,7 +247,7 @@ export const UpdatesInputs = () => {
 											changeValues(
 												[
 													'autoUpdateThemes',
-													'updatesThemes',
+													'updateThemes',
 												],
 												checked
 											);
@@ -261,7 +261,7 @@ export const UpdatesInputs = () => {
 											isReadOnly={ ! values.autoUpdate }
 											isSelected={
 												values.autoUpdateThemes &&
-												values.updatesThemes
+												values.updateThemes
 											}
 											aria-label={ __(
 												'Enable themes automatic update',
