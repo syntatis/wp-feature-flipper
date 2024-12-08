@@ -44,6 +44,7 @@ class ManageCore implements Hookable
 		$hook->addFilter('auto_core_update_send_email', '__return_false');
 		$hook->addFilter('auto_update_core', '__return_false');
 		$hook->addFilter('automatic_updates_is_vcs_checkout', '__return_false', 1);
+		$hook->addFilter('site_status_tests', [$this, 'filterSiteHealth']);
 	}
 
 	/**
@@ -86,5 +87,18 @@ class ManageCore implements Hookable
 		}
 
 		return $event;
+	}
+
+	/**
+	 * @param array<string,array<string,mixed>> $health
+	 *
+	 * @return array<string,array<string,mixed>>
+	 */
+	public function filterSiteHealth(array $health): array
+	{
+		unset($health['async']['background_updates']);
+		unset($health['direct']['plugin_theme_auto_updates']);
+
+		return $health;
 	}
 }

@@ -21,6 +21,7 @@ class ManageGlobal implements Hookable
 			$hook->addAction('admin_menu', static function (): void {
 				remove_submenu_page('index.php', 'update-core.php');
 			}, PHP_INT_MAX);
+			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
 		if ((bool) Option::get('auto_updates')) {
@@ -31,7 +32,8 @@ class ManageGlobal implements Hookable
 			define('AUTOMATIC_UPDATER_DISABLED', false);
 		}
 
-		$hook->addFilter('automatic_updater_disabled', '__return_false');
 		$hook->addFilter('auto_update_translation', '__return_false');
+		$hook->addFilter('automatic_updater_disabled', '__return_false');
+		$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 	}
 }
