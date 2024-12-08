@@ -29,7 +29,7 @@ class ManagePluginsTest extends WPTestCase
 	public function testFilterCoreUpdateTransient(): void
 	{
 		$cache = new stdClass();
-		$cache->resonse = ['test'];
+		$cache->response = ['test'];
 		$cache->translations = ['test'];
 
 		$cache = $this->instance->filterUpdateTransient($cache);
