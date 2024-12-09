@@ -1,8 +1,6 @@
-import { useSettingsContext } from './useSettingsContext';
 import styles from './Fieldset.module.css';
 
 export const Fieldset = ( { children, title, description } ) => {
-	const { updating } = useSettingsContext();
 	return (
 		<div className={ styles.section }>
 			{ title ? (
@@ -11,7 +9,7 @@ export const Fieldset = ( { children, title, description } ) => {
 			{ description ? (
 				<p className={ styles.description }>{ description }</p>
 			) : null }
-			<fieldset disabled={ updating }>
+			<fieldset>
 				<table className="form-table" role="presentation">
 					<tbody>{ children }</tbody>
 				</table>
