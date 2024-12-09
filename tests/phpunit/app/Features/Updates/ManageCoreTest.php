@@ -8,7 +8,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use stdClass;
 use Syntatis\FeatureFlipper\Features\Updates;
 use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
 /** @group feature-updates */

@@ -10,7 +10,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\AdminBar;
 use Syntatis\FeatureFlipper\Features\DashboardWidgets;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 
 class Admin implements Hookable, Extendable
 {

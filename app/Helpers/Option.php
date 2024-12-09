@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper;
+namespace Syntatis\FeatureFlipper\Helpers;
 
 use SSFV\Codex\Facades\Config;
 

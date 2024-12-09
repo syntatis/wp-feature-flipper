@@ -6,7 +6,7 @@ namespace Syntatis\FeatureFlipper\Switches;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 
 class Webpage implements Hookable
 {
