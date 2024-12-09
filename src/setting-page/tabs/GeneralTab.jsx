@@ -1,10 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form, useSettingsContext } from '../components/form';
-import {
-	RevisionsInputs,
-	SwitchInput,
-	UpdatesInputs,
-} from '../components/inputs';
+import { Fieldset, Form, useSettingsContext } from '../form';
+import { RevisionsInputs, SwitchInput, UpdatesInputs } from '../inputs';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();

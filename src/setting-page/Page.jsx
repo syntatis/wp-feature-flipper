@@ -9,7 +9,7 @@ import {
 	WebpageTab,
 } from './tabs';
 import '@syntatis/kubrick/dist/index.css';
-import { useSettingsContext } from './components/form';
+import { useSettingsContext } from './form';
 
 export const Page = () => {
 	const { inlineData } = useSettingsContext();

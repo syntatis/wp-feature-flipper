@@ -1,0 +1,1 @@
+export { UpdatesInputs } from './UpdatesInputs';

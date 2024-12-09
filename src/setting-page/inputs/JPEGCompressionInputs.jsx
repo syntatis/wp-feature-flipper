@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { TextField } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './SwitchInput.module.scss';
+import styles from './styles.module.scss';
 import { useState } from '@wordpress/element';
 
 export const JPEGCompressionInputs = () => {
