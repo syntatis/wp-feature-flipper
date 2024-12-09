@@ -86,7 +86,6 @@ export const useSettings = ( { optionPrefix } ) => {
 			} )
 			.finally( () => {
 				setUpdatedValues( data );
-				document.querySelector( 'body' ).scrollIntoView();
 				window.location.reload();
 			} );
 	};

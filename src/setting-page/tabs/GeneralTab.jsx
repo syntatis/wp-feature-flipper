@@ -56,7 +56,6 @@ export const GeneralTab = () => {
 					}
 				/>
 				<RevisionsInputs />
-				<UpdatesInputs />
 				<SwitchInput
 					name="embed"
 					id="embed"
@@ -108,6 +107,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				>
+					<UpdatesInputs />
 					<SwitchInput
 						name="cron"
 						id="cron"
