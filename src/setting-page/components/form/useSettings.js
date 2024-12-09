@@ -85,7 +85,6 @@ export const useSettings = ( { optionPrefix } ) => {
 				setStatus( '__error' );
 			} )
 			.finally( () => {
-				setUpdating( false );
 				setUpdatedValues( data );
 				document.querySelector( 'body' ).scrollIntoView();
 				window.location.reload();
