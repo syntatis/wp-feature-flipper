@@ -25,14 +25,13 @@ function getNoticeLevel( status ) {
 export const FormNotice = () => {
 	const { updating, status, setStatus } = useSettingsContext();
 
-	if ( updating ) {
+	if ( updating || ! status || status.startsWith( '__' ) ) {
 		return null;
 	}
 
 	const message = getNoticeMessage( status );
 
 	return (
-		status &&
 		message && (
 			<Notice
 				isDismissable

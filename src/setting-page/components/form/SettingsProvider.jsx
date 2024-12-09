@@ -16,7 +16,9 @@ export const SettingsProvider = ( { children, inlineData } ) => {
 		getOption,
 		initialValues,
 		updatedValues,
-	} = useSettings();
+	} = useSettings( {
+		optionPrefix,
+	} );
 
 	return (
 		<SettingsContext.Provider

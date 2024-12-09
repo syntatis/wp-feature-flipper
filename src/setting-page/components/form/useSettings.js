@@ -1,5 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
+import useSessionState from 'use-session-storage-state';
 
 const preloaded = await apiFetch( {
 	path: '/wp/v2/settings',
@@ -17,12 +18,14 @@ function parseExceptionMessage( errorString ) {
 	return null;
 }
 
-export const useSettings = () => {
+export const useSettings = ( { optionPrefix } ) => {
 	const [ values, setValues ] = useState( preloaded );
-	const [ status, setStatus ] = useState();
 	const [ updatedValues, setUpdatedValues ] = useState();
 	const [ updating, setUpdating ] = useState( false );
 	const [ errorMessages, setErrorMessages ] = useState( {} );
+	const [ status, setStatus ] = useSessionState( `${ optionPrefix }status`, {
+		defaultValue: null,
+	} );
 	const filterValues = ( v ) => {
 		for ( const name in v ) {
 			if ( ! Object.keys( values ).includes( name ) ) {
@@ -46,6 +49,17 @@ export const useSettings = () => {
 		}
 	}, [ updating ] );
 
+	useEffect( () => {
+		if ( status === null ) {
+			return;
+		}
+		if ( status.startsWith( '__' ) ) {
+			setStatus( status.replace( '__', '' ) );
+		} else {
+			setStatus( null );
+		}
+	}, [] );
+
 	const submitValues = ( data ) => {
 		setUpdating( true );
 		apiFetch( {
@@ -55,7 +69,7 @@ export const useSettings = () => {
 		} )
 			.then( ( response ) => {
 				setValues( filterValues( response ) );
-				setStatus( 'success' );
+				setStatus( '__success' );
 			} )
 			.catch( ( response ) => {
 				const errorMessage = parseExceptionMessage(
@@ -68,11 +82,13 @@ export const useSettings = () => {
 
 					return { ...currentErrorMessages, ...errorMessage };
 				} );
-				setStatus( 'error' );
+				setStatus( '__error' );
 			} )
 			.finally( () => {
-				setUpdatedValues( data );
 				setUpdating( false );
+				setUpdatedValues( data );
+				document.querySelector( 'body' ).scrollIntoView();
+				window.location.reload();
 			} );
 	};
 
