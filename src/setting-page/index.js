@@ -1,8 +1,8 @@
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
-import { SettingsProvider } from './components/form';
+import { SettingsProvider } from './form';
 import { Page } from './Page';
-import './index.scss';
+import './styles.scss';
 
 domReady( () => {
 	const container = document.querySelector(

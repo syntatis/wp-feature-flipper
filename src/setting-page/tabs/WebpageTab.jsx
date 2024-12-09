@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form } from '../components/form';
-import { SwitchInput } from '../components/inputs';
+import { Fieldset, Form } from '../form';
+import { SwitchInput } from '../inputs';
 
 export const WebpageTab = () => {
 	return (
