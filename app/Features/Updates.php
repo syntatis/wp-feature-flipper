@@ -9,7 +9,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 
 class Updates implements Hookable, Extendable
 {

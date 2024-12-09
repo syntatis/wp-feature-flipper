@@ -11,7 +11,7 @@ use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Updates;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_filter;
 use function define;

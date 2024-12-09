@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests;
+namespace Syntatis\Tests\Helpers;
 
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\Tests\WPTestCase;
 
 class OptionTest extends WPTestCase
 {

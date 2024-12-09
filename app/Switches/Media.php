@@ -7,7 +7,7 @@ namespace Syntatis\FeatureFlipper\Switches;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Symfony\Component\Uid\Uuid;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Query;
 
 use function is_string;

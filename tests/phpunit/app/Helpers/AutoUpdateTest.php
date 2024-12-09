@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Helpers;
 
 use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
-use Syntatis\FeatureFlipper\Option;
+use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
 /**

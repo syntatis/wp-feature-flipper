@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Helpers;
 
 use Syntatis\FeatureFlipper\Contracts\Enable;
-use Syntatis\FeatureFlipper\Option;
 
 class AutoUpdateComponents implements Enable
 {
