@@ -2,6 +2,7 @@ import { createContext, useEffect, useRef, useState } from '@wordpress/element';
 import { SubmitButton } from './SubmitButton';
 import { useSettingsContext } from './useSettingsContext';
 import { FormNotice } from './FormNotice';
+import styles from './Form.module.scss';
 
 export const FormContext = createContext();
 
@@ -48,9 +49,11 @@ export const Form = ( { children } ) => {
 				},
 			} }
 		>
+			<FormNotice />
 			<form
 				ref={ ref }
 				method="POST"
+				className={ styles.root }
 				onSubmit={ ( event ) => {
 					event.preventDefault();
 					const submissions = {};
@@ -75,7 +78,6 @@ export const Form = ( { children } ) => {
 					submitValues( submissions );
 				} }
 			>
-				<FormNotice />
 				{ children }
 				<SubmitButton />
 			</form>

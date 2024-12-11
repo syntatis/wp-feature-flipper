@@ -1,6 +1,7 @@
 import { Notice } from '@syntatis/kubrick';
 import { __ } from '@wordpress/i18n';
 import { useSettingsContext } from './useSettingsContext';
+import styles from './FormNotice.module.scss';
 
 const messages = {
 	success: __( 'Settings saved.', 'syntatis-feature-flipper' ),
@@ -34,6 +35,7 @@ export const FormNotice = () => {
 	return (
 		message && (
 			<Notice
+				className={ styles.root }
 				isDismissable
 				level={ getNoticeLevel( status ) }
 				onDismiss={ () => setStatus( null ) }
