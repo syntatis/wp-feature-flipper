@@ -1,0 +1,6 @@
+.root {
+	:global(.wrap) & {
+		margin-top: 15px;
+		margin-bottom: 0;
+	}
+}

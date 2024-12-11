@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
 import { Switch } from '@syntatis/kubrick';
 import { useSettingsContext, useFormContext } from '../form';
+import styles from './SwitchInput.module.scss';
 
 export const SwitchInput = ( {
 	description,
@@ -24,6 +25,7 @@ export const SwitchInput = ( {
 			<td>
 				<Switch
 					{ ...inputProps( name ) }
+					className={ styles.root }
 					onChange={ ( checked ) => {
 						if ( onChange !== undefined ) {
 							onChange( checked );

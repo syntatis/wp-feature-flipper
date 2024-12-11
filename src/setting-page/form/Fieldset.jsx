@@ -1,4 +1,4 @@
-import styles from './Fieldset.module.css';
+import styles from './Fieldset.module.scss';
 
 export const Fieldset = ( { children, title, description } ) => {
 	return (
