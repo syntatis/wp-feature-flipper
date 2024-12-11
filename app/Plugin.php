@@ -14,20 +14,20 @@ class Plugin implements Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		$settings = $container->get(Settings::class);
-		$switches = $this->getSwitches();
+		$modules = $this->getModules();
 
 		if ($settings instanceof Settings) {
 			yield new SettingPage($settings);
 		}
 
-		foreach ($switches as $switch) {
-			yield $switch;
+		foreach ($modules as $module) {
+			yield $module;
 
-			if (! ($switch instanceof Extendable)) {
+			if (! ($module instanceof Extendable)) {
 				continue;
 			}
 
-			yield from $switch->getInstances($container);
+			yield from $module->getInstances($container);
 		}
 
 		// Mark as initialized.
@@ -35,13 +35,13 @@ class Plugin implements Extendable
 	}
 
 	/** @return iterable<object> */
-	private function getSwitches(): iterable
+	private function getModules(): iterable
 	{
-		yield new Switches\Admin();
-		yield new Switches\Assets();
-		yield new Switches\General();
-		yield new Switches\Media();
-		yield new Switches\Security();
-		yield new Switches\Site();
+		yield new Modules\Admin();
+		yield new Modules\Assets();
+		yield new Modules\General();
+		yield new Modules\Media();
+		yield new Modules\Security();
+		yield new Modules\Site();
 	}
 }
