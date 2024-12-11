@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Switches;
+namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
