@@ -6,7 +6,7 @@ import {
 	GeneralTab,
 	MediaTab,
 	SecurityTab,
-	WebpageTab,
+	SiteTab,
 } from './tabs';
 import '@syntatis/kubrick/dist/index.css';
 import { useSettingsContext } from './form';
@@ -43,9 +43,9 @@ export const Page = () => {
 				</Tab>
 				<Tab
 					key="webpage"
-					title={ __( 'Webpage', 'syntatis-feature-flipper' ) }
+					title={ __( 'Site', 'syntatis-feature-flipper' ) }
 				>
-					<WebpageTab />
+					<SiteTab />
 				</Tab>
 				<Tab
 					key="security"

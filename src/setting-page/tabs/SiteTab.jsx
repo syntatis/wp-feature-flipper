@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
 import { SwitchInput } from '../inputs';
 
-export const WebpageTab = () => {
+export const SiteTab = () => {
 	return (
 		<Form>
 			<Fieldset

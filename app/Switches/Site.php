@@ -8,7 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
-class Webpage implements Hookable
+class Site implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

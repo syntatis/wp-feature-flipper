@@ -42,6 +42,6 @@ class Plugin implements Extendable
 		yield new Switches\General();
 		yield new Switches\Media();
 		yield new Switches\Security();
-		yield new Switches\Webpage();
+		yield new Switches\Site();
 	}
 }
