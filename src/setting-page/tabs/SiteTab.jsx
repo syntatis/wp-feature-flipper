@@ -44,6 +44,10 @@ export const SiteTab = () => {
 						'When switched off, it will remove the generator meta tag which shows WordPress and its version.',
 						'syntatis-feature-flipper'
 					) }
+					help={ __(
+						'The generator meta tag in WordPress reveals the CMS version used on a site, which can pose security risks by exposing potential vulnerabilities to attackers. Removing this tag can help protect your site from such threats.',
+						'syntatis-feature-flipper'
+					) }
 				/>
 				<SwitchInput
 					name="shortlink"
@@ -52,6 +56,10 @@ export const SiteTab = () => {
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
 						'When switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head.',
+						'syntatis-feature-flipper'
+					) }
+					help={ __(
+						"Shortlink is a simplified URL created for easier sharing, but they are often unnecessary. Removing shortlink can clean up your site's HTML.",
 						'syntatis-feature-flipper'
 					) }
 				/>

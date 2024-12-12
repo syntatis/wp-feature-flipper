@@ -29,6 +29,9 @@ export const SecurityTab = () => {
 						'When switched off, it will disable the file editor for themes and plugins.',
 						'syntatis-feature-flipper'
 					) }
+					help={ __(
+						"By default, WordPress allows admins to edit theme and plugin file directly from the dashboard, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data. It's generally best to disable this feature to keep your site safer."
+					) }
 					onChange={ ( checked ) => {
 						if ( themeEditors ) {
 							themeEditors.parentElement.style.display = ! checked
@@ -52,6 +55,10 @@ export const SecurityTab = () => {
 						'When switched off, it will disable the XML-RPC endpoint.',
 						'syntatis-feature-flipper'
 					) }
+					help={ __(
+						"XML-RPC is a communication protocol in WordPress that allows external applications to interact with it remotely. Originally designed to support mobile publishing and remote management, it enables operations like posting and managing content. However, due to security vulnerabilities, it's generall recommended to disable it in favor of the more secure WordPress REST API.",
+						'syntatis-feature-flipper'
+					) }
 				/>
 				<SwitchInput
 					name="authenticated_rest_api"
@@ -66,6 +73,10 @@ export const SecurityTab = () => {
 					) }
 					description={ __(
 						'When switched off, it will allow users to make request to the public REST API endpoint without authentication.',
+						'syntatis-feature-flipper'
+					) }
+					help={ __(
+						'When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints.',
 						'syntatis-feature-flipper'
 					) }
 				/>
