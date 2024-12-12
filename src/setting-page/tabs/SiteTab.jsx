@@ -24,6 +24,10 @@ export const SiteTab = () => {
 						'When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
 						'syntatis-feature-flipper'
 					) }
+					help={ __(
+						'The RSD link, or "Really Simple Discovery", helps external applications detect services like publishing APIs on your site. However, it\'s mostly outdated and rarely used today, so removing it from your site is usually safe. Note that this action only removes the link itself, not the underlying RSD endpoint. To fully disable the endpoint, you can turn off XML-RPC from "Security › XML-RPC."',
+						'syntatis-feature-flipper'
+					) }
 				/>
 				<SwitchInput
 					name="generator_tag"
