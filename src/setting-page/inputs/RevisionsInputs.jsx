@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextField } from '@syntatis/kubrick';
 import { SwitchInput } from './SwitchInput';
-import styles from './styles.module.scss';
 import { useFormContext, useSettingsContext } from '../form';
 import { HelpContent } from '../components';
 
@@ -40,7 +39,7 @@ export const RevisionsInputs = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<div className={ styles.inputDetails }>
+				<div style={ { marginTop: '1rem' } }>
 					<TextField
 						min={ 1 }
 						max={ 100 }

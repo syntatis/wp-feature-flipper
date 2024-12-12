@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import { RevisionsInputs, SwitchInput, UpdatesInputs } from '../inputs';
-import { HelpContent } from '../components';
+import { Details, HelpContent } from '../components';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -125,10 +125,7 @@ export const GeneralTab = () => {
 					}
 				/>
 			</Fieldset>
-			<details>
-				<summary>
-					{ __( 'Advanced', 'syntatis-feature-flipper' ) }
-				</summary>
+			<Details summary={ __( 'Advanced', 'syntatis-feature-flipper' ) }>
 				<Fieldset
 					title={ __( 'Advanced', 'syntatis-feature-flipper' ) }
 					description={ __(
@@ -208,7 +205,7 @@ export const GeneralTab = () => {
 						}
 					/>
 				</Fieldset>
-			</details>
+			</Details>
 		</Form>
 	);
 };

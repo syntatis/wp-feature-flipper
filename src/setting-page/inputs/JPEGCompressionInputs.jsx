@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { TextField } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './styles.module.scss';
 import { useState } from '@wordpress/element';
 
 export const JPEGCompressionInputs = () => {
@@ -28,7 +27,7 @@ export const JPEGCompressionInputs = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<div className={ styles.inputDetails }>
+				<div style={ { marginTop: '1rem' } }>
 					<TextField
 						min={ 10 }
 						max={ 100 }
