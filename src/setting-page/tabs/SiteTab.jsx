@@ -1,9 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form } from '../form';
+import { Fieldset, Form, useSettingsContext } from '../form';
 import { SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
 
 export const SiteTab = () => {
+	const { getOption } = useSettingsContext();
+
 	return (
 		<Form>
 			<Fieldset
@@ -13,35 +15,37 @@ export const SiteTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<SwitchInput
-					name="rsd_link"
-					id="rsd-link"
-					title={ __( 'RSD Link', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Enable RSD link',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									'The RSD link, or "Really Simple Discovery", helps external applications detect services like publishing APIs on your site. However, it\'s mostly outdated and rarely used today, so removing it from your site is usually safe.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'Note that this action only removes the link itself, not the underlying RSD endpoint. To fully disable the endpoint, you can turn off XML-RPC from "Security › XML-RPC".',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-				/>
+				{ getOption( 'xmlrpc' ) && (
+					<SwitchInput
+						name="rsd_link"
+						id="rsd-link"
+						title={ __( 'RSD Link', 'syntatis-feature-flipper' ) }
+						label={ __(
+							'Enable RSD link',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
+							'syntatis-feature-flipper'
+						) }
+						help={
+							<HelpContent>
+								<p>
+									{ __(
+										'The RSD link, or "Really Simple Discovery", helps external applications detect services like publishing APIs on your site. However, it\'s mostly outdated and rarely used today, so removing it from your site is usually safe.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'Note that this action only removes the link itself, not the underlying RSD endpoint. To fully disable the endpoint, you can turn off XML-RPC from "Security › XML-RPC".',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+							</HelpContent>
+						}
+					/>
+				) }
 				<SwitchInput
 					name="generator_tag"
 					id="generator-tag"
