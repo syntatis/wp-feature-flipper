@@ -20,6 +20,10 @@ export const RevisionsInputs = () => {
 				'When switched off, WordPress will not save revisions of your posts.',
 				'syntatis-feature-flipper'
 			) }
+			help={ __(
+				'WordPress revisions automatically save backups of your posts and pages every time you make changes. It allows you to easily revert to previous versions if needed. While helpful for recovering content, storing too many revisions can clutter your database, slow down performance, and use up storage space. Limiting or disabling revisions can help to improve site efficiency, especially for multi-author blogs or sites with limited hosting resources.',
+				'syntatis-feature-flipper'
+			) }
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
