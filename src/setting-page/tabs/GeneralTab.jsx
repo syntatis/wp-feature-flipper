@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import { RevisionsInputs, SwitchInput, UpdatesInputs } from '../inputs';
+import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -77,10 +78,22 @@ export const GeneralTab = () => {
 						'When switched off, WordPress will not send pingbacks to your own site.',
 						'syntatis-feature-flipper'
 					) }
-					help={ __(
-						'Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers. However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant.',
-						'syntatis-feature-flipper'
-					) }
+					help={
+						<HelpContent readmore="https://wordpress.org/documentation/article/trackbacks-and-pingbacks/#pingbacks">
+							<p>
+								{ __(
+									'Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
 				/>
 				<SwitchInput
 					name="feeds"
@@ -94,10 +107,22 @@ export const GeneralTab = () => {
 						'When switched off, it will disable the RSS feed URLs.',
 						'syntatis-feature-flipper'
 					) }
-					help={ __(
-						'An RSS feed, which stands for "Really Simple Syndication" or "Rich Site Summary", is a web feed format that allows users to access updates from various websites in a standardized, computer-readable format. It allows them to receive notifications about new content and read it without needing to visit each website individually.',
-						'syntatis-feature-flipper'
-					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'An RSS feed, which stands for "Really Simple Syndication" or "Rich Site Summary", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'Disabling feeds can help prevent content scraping and reduce server load.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
 				/>
 			</Fieldset>
 			<details>
@@ -124,10 +149,28 @@ export const GeneralTab = () => {
 							'When switched off, WordPress will not run scheduled events.',
 							'syntatis-feature-flipper'
 						) }
-						help={ __(
-							'WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically. It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more. When disabling this feature, It is recommended to set up a server cron job to trigger WP-Cron.',
-							'syntatis-feature-flipper'
-						) }
+						help={
+							<HelpContent>
+								<p>
+									{ __(
+										'WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+							</HelpContent>
+						}
 					/>
 					<SwitchInput
 						name="heartbeat"
@@ -141,10 +184,28 @@ export const GeneralTab = () => {
 							'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
 							'syntatis-feature-flipper'
 						) }
-						help={ __(
-							'The Heartbeat API enables real-time communication between the browser and server using periodic AJAX requests. It powers features like auto-saving posts, post locking to prevent simultaneous edits, session management to extend login times, and real-time dashboard updates for plugins. While it enhances interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization.',
-							'syntatis-feature-flipper'
-						) }
+						help={
+							<HelpContent>
+								<p>
+									{ __(
+										'The Heartbeat API enables real-time communication between the browser and server using periodic AJAX requests.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'It powers features like auto-saving posts, post locking to prevent simultaneous edits, session management to extend login times, and real-time dashboard updates for plugins.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+							</HelpContent>
+						}
 					/>
 				</Fieldset>
 			</details>
