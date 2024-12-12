@@ -2,9 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './styles.module.scss';
 import { useId } from '@wordpress/element';
-import { HelpContent } from '../components';
+import { Details, HelpContent } from '../components';
 
 export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
@@ -36,10 +35,13 @@ export const AdminBarInputs = () => {
 				</HelpContent>
 			}
 		>
-			<details className={ styles.inputDetails }>
-				<summary id={ labelId }>
-					{ __( 'Menu', 'syntatis-feature-flipper' ) }
-				</summary>
+			<Details
+				summary={
+					<span id={ labelId }>
+						{ __( 'Menu', 'syntatis-feature-flipper' ) }
+					</span>
+				}
+			>
 				<CheckboxGroup
 					defaultValue={
 						getOption( 'admin_bar_menu' ) ??
@@ -63,7 +65,7 @@ export const AdminBarInputs = () => {
 						/>
 					) ) }
 				</CheckboxGroup>
-			</details>
+			</Details>
 		</SwitchInput>
 	);
 };

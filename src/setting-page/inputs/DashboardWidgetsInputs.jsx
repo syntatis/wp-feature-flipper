@@ -2,8 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import styles from './styles.module.scss';
 import { useId, useState } from '@wordpress/element';
+import { Details } from '../components';
 
 export const DashboardWidgetsInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
@@ -31,10 +31,13 @@ export const DashboardWidgetsInputs = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<details className={ styles.inputDetails }>
-					<summary id={ labelId }>
-						{ __( 'Widgets', 'syntatis-feature-flipper' ) }
-					</summary>
+				<Details
+					summary={
+						<span id={ labelId }>
+							{ __( 'Widgets', 'syntatis-feature-flipper' ) }
+						</span>
+					}
+				>
 					<CheckboxGroup
 						defaultValue={ widgetsEnabled }
 						aria-labelledby={ labelId }
@@ -60,7 +63,7 @@ export const DashboardWidgetsInputs = () => {
 							);
 						} ) }
 					</CheckboxGroup>
-				</details>
+				</Details>
 			) }
 		</SwitchInput>
 	);

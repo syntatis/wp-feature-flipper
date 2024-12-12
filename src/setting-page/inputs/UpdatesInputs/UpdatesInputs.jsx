@@ -3,6 +3,7 @@ import { Checkbox, Switch } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../../form';
 import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
+import { Details } from '../../components';
 
 const OPTION_KEYS = {
 	autoUpdate: 'auto_updates',
@@ -94,10 +95,12 @@ export const UpdatesInputs = () => {
 						) }
 					</div>
 					{ values.updates && (
-						<details className={ styles.inputDetails }>
-							<summary>
-								{ __( 'Settings', 'syntatis-feature-flipper' ) }
-							</summary>
+						<Details
+							summary={ __(
+								'Settings',
+								'syntatis-feature-flipper'
+							) }
+						>
 							<div className={ styles.inputGroup }>
 								<div className={ styles.checkboxGroup }>
 									<div
@@ -317,7 +320,7 @@ export const UpdatesInputs = () => {
 									</p>
 								</div>
 							</div>
-						</details>
+						</Details>
 					) }
 				</div>
 			</td>
