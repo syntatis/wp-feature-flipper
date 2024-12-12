@@ -50,7 +50,7 @@ export const AssetsTab = () => {
 				/>
 				<SwitchInput
 					name="jquery_migrate"
-					id="scripts-version"
+					id="jquery-migrate"
 					title={ __( 'jQuery Migrate', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Load jQuery Migrate script',
