@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
 import { Switch } from '@syntatis/kubrick';
 import { useSettingsContext, useFormContext } from '../form';
+import { HelpTip } from '../components';
 import styles from './SwitchInput.module.scss';
 
 export const SwitchInput = ( {
@@ -13,6 +14,7 @@ export const SwitchInput = ( {
 	children,
 	isDisabled,
 	isSelected,
+	help,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
@@ -20,7 +22,10 @@ export const SwitchInput = ( {
 	return (
 		<tr>
 			<th scope="row">
-				<label { ...labelProps( id ) }>{ title }</label>
+				<span className={ styles.label }>
+					<label { ...labelProps( id ) }>{ title }</label>
+					{ help && <HelpTip>{ help }</HelpTip> }
+				</span>
 			</th>
 			<td>
 				<Switch

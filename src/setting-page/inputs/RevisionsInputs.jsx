@@ -4,6 +4,7 @@ import { TextField } from '@syntatis/kubrick';
 import { SwitchInput } from './SwitchInput';
 import styles from './styles.module.scss';
 import { useFormContext, useSettingsContext } from '../form';
+import { HelpContent } from '../components';
 
 export const RevisionsInputs = () => {
 	const { getOption } = useSettingsContext();
@@ -20,6 +21,22 @@ export const RevisionsInputs = () => {
 				'When switched off, WordPress will not save revisions of your posts.',
 				'syntatis-feature-flipper'
 			) }
+			help={
+				<HelpContent readmore="https://wordpress.org/documentation/article/revisions/">
+					<p>
+						{ __(
+							'While WordPress revision feature is helpful for recovering content, storing too many revisions can clutter your database, slow down performance, and use up storage space.',
+							'syntatis-feature-flipper'
+						) }
+					</p>
+					<p>
+						{ __(
+							'Limiting or disabling revisions can help to improve your site database more efficient, especially for multi-author blogs or sites with limited hosting resources.',
+							'syntatis-feature-flipper'
+						) }
+					</p>
+				</HelpContent>
+			}
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (

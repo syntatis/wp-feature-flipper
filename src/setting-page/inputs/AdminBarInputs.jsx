@@ -4,6 +4,7 @@ import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
 import styles from './styles.module.scss';
 import { useId } from '@wordpress/element';
+import { HelpContent } from '../components';
 
 export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
@@ -24,6 +25,16 @@ export const AdminBarInputs = () => {
 				'When switched off, the Admin bar will not be displayed on the front end.',
 				'syntatis-feature-flipper'
 			) }
+			help={
+				<HelpContent>
+					<p>
+						{ __(
+							'When disabling the Admin Bar through this option, it will hide the Admin Bar on the front end only. The Admin Bar will still be visible in the admin area, and you will still be able to selectively hide which items are displayed on the Admin Bar.',
+							'syntatis-feature-flipper'
+						) }
+					</p>
+				</HelpContent>
+			}
 		>
 			<details className={ styles.inputDetails }>
 				<summary id={ labelId }>

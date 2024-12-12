@@ -2,3 +2,9 @@
 	display: inline-block;
 	width: max-content;
 }
+
+.label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

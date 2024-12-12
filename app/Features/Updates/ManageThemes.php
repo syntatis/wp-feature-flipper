@@ -33,7 +33,7 @@ class ManageThemes implements Hookable
 			return;
 		}
 
-		$hook->addFilter('auto_update_plugin', '__return_false');
+		$hook->addFilter('auto_update_theme', '__return_false');
 	}
 
 	public function filterUpdateTransient(object $cache): object
