@@ -19,11 +19,15 @@ use function preg_replace;
 
 use const PHP_INT_MAX;
 
+/**
+ * @phpstan-type DashboardWidget array{id:string,title:string,callback:string,args:array<string,mixed>}
+ * @phpstan-type DashboardWidgetCollection array<"normal"|"side",array<string,array<string,DashboardWidget>>>
+ */
 class DashboardWidgets implements Hookable
 {
 	private static bool $onSettingPage = false;
 
-	/** @phpstan-var list<array{id:string,title:string}> */
+	/** @var array<array{id:string,title:string,value:bool}> */
 	private static array $widgets = [];
 
 	public function hook(Hook $hook): void
@@ -49,8 +53,8 @@ class DashboardWidgets implements Hookable
 		}
 
 		if (! (bool) Option::get('dashboard_widgets')) {
-			// phpcs:ignore
-			$GLOBALS['wp_meta_boxes']['dashboard'] = [];
+			// @phpstan-ignore offsetAccess.nonOffsetAccessible
+			$GLOBALS['wp_meta_boxes']['dashboard'] = []; // phpcs:ignore
 
 			return;
 		}
@@ -60,7 +64,7 @@ class DashboardWidgets implements Hookable
 
 	private static function setupEach(): void
 	{
-		$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
+		$dashboardWidgets = self::getRawWidgets() ?? [];
 		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
 		$values = is_array($values) ? $values : [];
 
@@ -76,8 +80,8 @@ class DashboardWidgets implements Hookable
 			}
 		}
 
-		// phpcs:ignore
-		$GLOBALS['wp_meta_boxes']['dashboard'] = $dashboardWidgets;
+		// @phpstan-ignore offsetAccess.nonOffsetAccessible
+		$GLOBALS['wp_meta_boxes']['dashboard'] = $dashboardWidgets; // phpcs:ignore
 	}
 
 	/**
@@ -117,20 +121,22 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getAllDashboardId(): array
 	{
-		return array_values(array_map(
-			static fn (array $widget): string => $widget['id'],
-			self::getRegisteredWidgets(),
-		));
+		return array_values(
+			array_map(
+				static fn (array $widget): string => $widget['id'],
+				self::getRegisteredWidgets(),
+			),
+		);
 	}
 
 	/**
 	 * Get the list of dashboard widgets.
 	 *
 	 * @return array<array{id:string,title:string,value:bool}> List of dashboard widgets.
-	 * @phpstan-return list<array{id:string,title:string,value:bool}>
 	 */
 	private static function getRegisteredWidgets(): array
 	{
+		/** @var array<array{id:string,title:string,value:bool}>|null $widgets */
 		static $widgets = null;
 
 		if (is_array($widgets) && count($widgets) > 0) {
@@ -140,20 +146,23 @@ class DashboardWidgets implements Hookable
 		$currentScreen = get_current_screen();
 
 		if (
-			($GLOBALS['wp_meta_boxes']['dashboard'] ?? null) === null &&
+			self::getRawWidgets() === null &&
 			$currentScreen instanceof WP_Screen &&
 			$currentScreen->id !== 'dashboard'
 		) {
+			// @phpstan-ignore requireOnce.fileNotFound
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			set_current_screen('dashboard');
 			wp_dashboard_setup();
 			set_current_screen($currentScreen->id);
 
-			$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
+			$dashboardWidgets = self::getRawWidgets();
+
+			// @phpstan-ignore offsetAccess.nonOffsetAccessible
 			unset($GLOBALS['wp_meta_boxes']['dashboard']);
 		} else {
-			$dashboardWidgets = $GLOBALS['wp_meta_boxes']['dashboard'] ?? null;
+			$dashboardWidgets = self::getRawWidgets();
 		}
 
 		$optionName = Option::name('dashboard_widgets_enabled');
@@ -165,16 +174,18 @@ class DashboardWidgets implements Hookable
 
 		$settings = Option::get('dashboard_widgets_enabled') ?? [];
 		$settings = is_array($settings) ? $settings : [];
-		$widgetsHidden = $settings[$optionName] ?? [];
+		$widgetsHidden = isset($settings[$optionName]) && is_array($settings[$optionName]) ?
+			$settings[$optionName] :
+			[];
 
 		foreach ($dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
 				foreach ($item as $widgetId => $widget) {
 					$widgets[] = [
 						'id' => $widgetId,
-						'title' => isset($widget['title']) ?
-							wp_strip_all_tags(preg_replace('/ <span.*span>/im', '', $widget['title'])) :
-							'-- Unknown --',
+						'title' => $widget['title'] !== ''
+							? wp_strip_all_tags((string) preg_replace('/ <span.*span>/im', '', $widget['title']))
+							: '-- ' . __('Unknown', 'syntatis-feature-flipper') . ' --',
 						'value' => in_array($widgetId, $widgetsHidden, true),
 					];
 				}
@@ -182,5 +193,25 @@ class DashboardWidgets implements Hookable
 		}
 
 		return array_values(wp_list_sort($widgets, 'title', 'ASC', true));
+	}
+
+	/**
+	 * @return array<string,array<string,array<string,array<string,mixed>>>>
+	 * @phpstan-return DashboardWidgetCollection
+	 */
+	private static function getRawWidgets(): ?array
+	{
+		if (! isset($GLOBALS['wp_meta_boxes']) || ! is_array($GLOBALS['wp_meta_boxes'])) {
+			return null;
+		}
+
+		if (isset($GLOBALS['wp_meta_boxes']['dashboard']) && is_array($GLOBALS['wp_meta_boxes']['dashboard'])) {
+			/** @phpstan-var DashboardWidgetCollection $metaboxes */
+			$metaboxes = $GLOBALS['wp_meta_boxes']['dashboard'];
+
+			return $metaboxes;
+		}
+
+		return null;
 	}
 }
