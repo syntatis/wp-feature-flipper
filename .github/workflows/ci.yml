@@ -88,7 +88,9 @@ jobs:
           composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
       - name: Start wp-env
-        run: npm run wp-env:start
+        run: |
+          npm run wp-env:start
+          npm run wp-env:tests-wordpress php -v
 
       - name: Run PHPUnit
         run: composer phpunit
