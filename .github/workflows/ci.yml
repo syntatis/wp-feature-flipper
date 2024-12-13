@@ -51,8 +51,7 @@ jobs:
 
     env:
       WP_ENV_PHP_VERSION: ${{ matrix.php }}
-      # TODO: Add the ability to run the tests against multiple the WordPress core versions.
-      WP_ENV_CORE: "WordPress/WordPress"
+      WP_ENV_CORE: "WordPress/WordPress" # TODO: Add the ability to run the tests against multiple the WordPress core versions.
 
     steps:
       - name: Checkout code
@@ -66,7 +65,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: "7.4"
           tools: composer:v2
 
       - name: Get Docker version
@@ -80,8 +79,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: php-${{ matrix.php-version }}-composer-
+          key: php-7.4-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: php-7.4-composer-
 
       - name: Install dependencies
         run: |
