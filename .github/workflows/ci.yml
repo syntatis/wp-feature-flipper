@@ -84,7 +84,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci
+          npm install
           composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
       - name: Start wp-env
