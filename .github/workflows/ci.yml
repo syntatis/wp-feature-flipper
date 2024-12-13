@@ -90,7 +90,7 @@ jobs:
       - name: Start wp-env
         run: |
           npm run wp-env:start
-          npm run wp-env:tests-wordpress php -v
+          npm run wp-env:tests-wordpress php -- -v
 
       - name: Run PHPUnit
         run: composer phpunit
