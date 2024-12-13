@@ -36,10 +36,11 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
-      - name: Run checks
-        run: |
-          composer run phpcs
-          composer run phpstan
+      - name: Run PHPCS
+        run: composer run phpcs
+
+      - name: Run PHPStan
+        run: composer run phpstan
 
   tests:
     runs-on: ubuntu-latest
@@ -90,7 +91,7 @@ jobs:
       - name: Start wp-env
         run: npm run wp-env:start
 
-      - name: Run tests
+      - name: Run PHPUnit
         run: composer phpunit
 
   typos:
