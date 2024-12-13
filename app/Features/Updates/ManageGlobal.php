@@ -18,9 +18,13 @@ class ManageGlobal implements Hookable
 	public function hook(Hook $hook): void
 	{
 		if (! (bool) Option::get('updates')) {
-			$hook->addAction('admin_menu', static function (): void {
-				remove_submenu_page('index.php', 'update-core.php');
-			}, PHP_INT_MAX);
+			$hook->addAction(
+				'admin_menu',
+				static fn () => remove_submenu_page('index.php', 'update-core.php'),
+				PHP_INT_MAX,
+				1,
+				['id' => 'features/updates/manage_global/remove_update_core_submenu'],
+			);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
