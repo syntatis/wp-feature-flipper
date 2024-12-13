@@ -42,6 +42,7 @@
         "format": "wp-scripts format",
         "lint:css": "wp-scripts lint-style src",
         "lint:js": "wp-scripts lint-js src",
+        "wp-env": "wp-env",
         "wp-env:destroy": "wp-env destroy",
         "wp-env:start": "wp-env start",
         "wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper"
