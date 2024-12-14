@@ -26,7 +26,7 @@ class ManageCoreTest extends WPTestCase
 		$this->hook = new Hook();
 	}
 
-	public function testHookCoreDisabled(): void
+	public function testHookUpdateDisabled(): void
 	{
 		$this->instance->hook($this->hook);
 

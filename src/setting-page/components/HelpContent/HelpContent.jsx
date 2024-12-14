@@ -15,7 +15,7 @@ export const HelpContent = ( { children, readmore } ) => {
 						target="_blank"
 						suffix={ <Icon icon={ external } /> }
 					>
-						{ __( 'Read More', 'syntatis-feature-flipper' ) }
+						{ __( 'Read more', 'syntatis-feature-flipper' ) }
 					</Link>
 				</p>
 			) }
