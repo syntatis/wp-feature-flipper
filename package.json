@@ -34,6 +34,7 @@
     "devDependencies": {
         "@wordpress/env": "^10.12.0",
         "@wordpress/scripts": "^30.1.0",
+        "copy-webpack-plugin": "^12.0.2",
         "cross-env": "^7.0.3"
     },
     "scripts": {
