@@ -16,6 +16,8 @@ class Plugin implements Extendable
 		$settings = $container->get(Settings::class);
 		$modules = $this->getModules();
 
+		yield new AdminPage();
+
 		if ($settings instanceof Settings) {
 			yield new SettingPage($settings);
 		}
