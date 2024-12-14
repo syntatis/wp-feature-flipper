@@ -82,6 +82,82 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
+				<SwitchInput
+					name="admin_bar_env_type"
+					id="admin-bar-env-type"
+					title={ __(
+						'Environment Type',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Show the current environment type',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, the current environment type of the site will not be shown in the Admin Bar.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'In WordPress, the "environment type" identifies the setup of a site at different stages, such as development and deployment. These types include:',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<ul>
+								<li>
+									<strong>
+										{ __(
+											'Local:',
+											'syntatis-feature-flipper'
+										) }{ ' ' }
+									</strong>
+									{ __(
+										'For development and testing on a local computer.',
+										'syntatis-feature-flipper'
+									) }
+								</li>
+								<li>
+									<strong>
+										{ __(
+											'Development:',
+											'syntatis-feature-flipper'
+										) }{ ' ' }
+									</strong>
+									{ __(
+										'For testing the site remotely before moving to staging.',
+										'syntatis-feature-flipper'
+									) }
+								</li>
+								<li>
+									<strong>
+										{ __(
+											'Staging:',
+											'syntatis-feature-flipper'
+										) }{ ' ' }
+									</strong>
+									{ __(
+										'A copy of the live site for safely testing changes.',
+										'syntatis-feature-flipper'
+									) }
+								</li>
+								<li>
+									<strong>
+										{ __(
+											'Production:',
+											'syntatis-feature-flipper'
+										) }{ ' ' }
+									</strong>
+									{ __(
+										'The live site that users visit, where stability and security are crucial.',
+										'syntatis-feature-flipper'
+									) }
+								</li>
+							</ul>
+						</HelpContent>
+					}
+				/>
 			</Fieldset>
 		</Form>
 	);
