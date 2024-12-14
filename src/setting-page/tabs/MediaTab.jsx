@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { JPEGCompressionInputs, SwitchInput } from '../inputs';
+import { ImageQualityInputs, SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
 
 export const MediaTab = () => {
@@ -77,8 +77,8 @@ export const MediaTab = () => {
 						</HelpContent>
 					}
 				/>
-				<JPEGCompressionInputs />
 			</Fieldset>
+			<ImageQualityInputs />
 		</Form>
 	);
 };
