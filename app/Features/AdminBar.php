@@ -17,6 +17,8 @@ use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
+use function md5;
+use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -160,8 +162,8 @@ class AdminBar implements Hookable
 		$envType = wp_get_environment_type();
 		$wpAdminBar->add_node(
 			[
-				'id' => 'syntatis-feature-flipper-environment-type',
-				'title' => '<div id="syntatis-feature-flipper-environment-type-root"></div>',
+				'id' => md5('syntatis-feature-flipper-environment-type'),
+				'title' => sprintf('<div id="%s-root"></div>', md5('syntatis-feature-flipper-environment-type')),
 				'parent' => 'top-secondary',
 			],
 		);

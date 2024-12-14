@@ -5,7 +5,7 @@ import '@syntatis/kubrick/dist/index.css';
 
 domReady( () => {
 	const container = document.querySelector(
-		'#syntatis-feature-flipper-environment-type-root'
+		'#fb6e5b8410f1e6ee52ac3e663f4f6c58-root'
 	);
 	if ( container ) {
 		createRoot( container ).render(
