@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-30T06:27:06+00:00\n"
+"POT-Creation-Date: 2024-12-14T03:53:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -40,6 +40,10 @@ msgstr ""
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
+#: app/Modules/Security.php:51
+msgid "You must be logged in to access this resource."
+msgstr ""
+
 #: app/SettingPage.php:60
 msgid "Flipper"
 msgstr ""
@@ -49,171 +53,207 @@ msgid "This setting page requires JavaScript to be enabled in your browser. Plea
 msgstr ""
 
 #: app/SettingPage.php:149
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:73
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:99
 msgid "Settings"
 msgstr ""
 
-#: app/Switches/Security.php:51
-msgid "You must be logged in to access this resource."
+#: src/setting-page/components/HelpContent/HelpContent.jsx:18
+msgid "Read More"
 msgstr ""
 
-#: src/setting-page/components/form/FormNotice.jsx:6
+#: src/setting-page/components/HelpTip/HelpTip.jsx:10
+msgid "Helpful information"
+msgstr ""
+
+#: src/setting-page/form/FormNotice.jsx:7
 msgid "Settings saved."
 msgstr ""
 
-#: src/setting-page/components/form/FormNotice.jsx:7
+#: src/setting-page/form/FormNotice.jsx:8
 msgid "Settings failed to save."
 msgstr ""
 
-#: src/setting-page/components/form/FormNotice.jsx:8
+#: src/setting-page/form/FormNotice.jsx:9
 msgid "No changes were made."
 msgstr ""
 
-#: src/setting-page/components/form/SubmitButton.jsx:16
+#: src/setting-page/form/SubmitButton.jsx:16
 msgid "Saving Changes"
 msgstr ""
 
-#: src/setting-page/components/form/SubmitButton.jsx:17
+#: src/setting-page/form/SubmitButton.jsx:17
 msgid "Save Changes"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:18
-#: src/setting-page/tabs/AdminTab.jsx:52
+#: src/setting-page/inputs/AdminBarInputs.jsx:18
+#: src/setting-page/tabs/AdminTab.jsx:65
 msgid "Admin Bar"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:19
+#: src/setting-page/inputs/AdminBarInputs.jsx:19
 msgid "Show the Admin bar on the front end"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:23
+#: src/setting-page/inputs/AdminBarInputs.jsx:23
 msgid "When switched off, the Admin bar will not be displayed on the front end."
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:30
+#: src/setting-page/inputs/AdminBarInputs.jsx:30
+msgid "When disabling the Admin Bar through this option, it will hide the Admin Bar on the front end only. The Admin Bar will still be visible in the admin area, and you will still be able to selectively hide which items are displayed on the Admin Bar."
+msgstr ""
+
+#: src/setting-page/inputs/AdminBarInputs.jsx:41
 msgid "Menu"
 msgstr ""
 
-#: src/setting-page/components/inputs/AdminBarInputs.jsx:38
+#: src/setting-page/inputs/AdminBarInputs.jsx:51
 msgid "Unchecked menu items will be hidden from the Admin bar."
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:22
+#: src/setting-page/inputs/DashboardWidgetsInputs.jsx:22
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:23
+#: src/setting-page/inputs/DashboardWidgetsInputs.jsx:23
 msgid "Enable Dashboard widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:27
+#: src/setting-page/inputs/DashboardWidgetsInputs.jsx:27
 msgid "When switched off, all widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:36
+#: src/setting-page/inputs/DashboardWidgetsInputs.jsx:37
 msgid "Widgets"
 msgstr ""
 
-#: src/setting-page/components/inputs/DashboardWidgetsInputs.jsx:41
+#: src/setting-page/inputs/DashboardWidgetsInputs.jsx:44
 msgid "Unchecked widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:19
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:18
 msgid "JPEG Compression"
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:20
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:19
 msgid "Enable JPEG image compression"
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:24
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:23
 msgid "When switched off, WordPress will upload the original JPEG image in its full quality, without any compression."
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:47
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:50
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:46
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:49
 msgid "Quality"
 msgstr ""
 
-#: src/setting-page/components/inputs/JPEGCompressionInputs.jsx:54
+#: src/setting-page/inputs/JPEGCompressionInputs.jsx:53
 msgid "The quality of the compressed JPEG image. 100 is the highest quality."
 msgstr ""
 
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:17
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:40
+#: src/setting-page/inputs/RevisionsInputs.jsx:17
+#: src/setting-page/inputs/RevisionsInputs.jsx:56
 msgid "Revisions"
 msgstr ""
 
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:18
+#: src/setting-page/inputs/RevisionsInputs.jsx:18
 msgid "Enable post revisions"
 msgstr ""
 
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:19
+#: src/setting-page/inputs/RevisionsInputs.jsx:19
 msgid "When switched off, WordPress will not save revisions of your posts."
 msgstr ""
 
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:46
+#: src/setting-page/inputs/RevisionsInputs.jsx:26
+msgid "While WordPress revision feature is helpful for recovering content, storing too many revisions can clutter your database, slow down performance, and use up storage space."
+msgstr ""
+
+#: src/setting-page/inputs/RevisionsInputs.jsx:32
+msgid "Limiting or disabling revisions can help to improve your site database more efficient, especially for multi-author blogs or sites with limited hosting resources."
+msgstr ""
+
+#: src/setting-page/inputs/RevisionsInputs.jsx:62
 msgid "Maximum"
 msgstr ""
 
-#: src/setting-page/components/inputs/RevisionsInputs.jsx:50
+#: src/setting-page/inputs/RevisionsInputs.jsx:66
 msgid "The maximum number of revisions to keep."
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:18
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:45
 msgid "Updates"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:37
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:59
 msgid "Enable all updates"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:41
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:63
 msgid "Enable updates for WordPress core, plugins, themes, and translations."
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:59
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:86
 msgid "Enable automatic updates for WordPress core, plugins, themes, and translations."
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:63
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:90
 msgid "Enable all automatic updates"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:77
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:110
 msgid "WordPress"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:81
-msgid "WordPress core update configurations."
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:135
+msgid "Enable WordPress core update"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:87
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:112
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:137
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:139
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:199
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:272
 msgid "Enable update"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:94
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:119
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:144
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:162
+msgid "Enable WordPress core automatic update"
+msgstr ""
+
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:166
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:230
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:302
 msgid "Enable automatic update"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:102
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:174
+msgid "WordPress core updates configurations."
+msgstr ""
+
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:185
 msgid "Plugins"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:106
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:195
+msgid "Enable plugins update"
+msgstr ""
+
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:244
 msgid "Plugins update configurations."
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:127
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:255
 msgid "Themes"
 msgstr ""
 
-#: src/setting-page/components/inputs/UpdatesInputs.jsx:131
-msgid "Themes update configuration."
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:268
+msgid "Enable themes update"
+msgstr ""
+
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:298
+msgid "Enable themes automatic update"
+msgstr ""
+
+#: src/setting-page/inputs/UpdatesInputs/UpdatesInputs.jsx:316
+msgid "Themes update configurations."
 msgstr ""
 
 #: src/setting-page/Page.jsx:22
@@ -233,50 +273,54 @@ msgid "Assets"
 msgstr ""
 
 #: src/setting-page/Page.jsx:46
-msgid "Webpage"
+msgid "Site"
 msgstr ""
 
 #: src/setting-page/Page.jsx:52
 msgid "Security"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:20
+#: src/setting-page/tabs/AdminTab.jsx:18
 msgid "Footer Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:21
+#: src/setting-page/tabs/AdminTab.jsx:19
 msgid "Show the footer text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:25
+#: src/setting-page/tabs/AdminTab.jsx:23
 msgid "When switched off, the footer text in the admin area will be removed."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:40
+#: src/setting-page/tabs/AdminTab.jsx:42
+msgid "This option will only remove the update notice that appear at the top of the admin area.It does not prevent the updates itself. To disable the updates, you can switch them off from the \"General › Advanced › Updates\" option."
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:49
 msgid "Update Nags"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:41
+#: src/setting-page/tabs/AdminTab.jsx:53
 msgid "Enable WordPress update notification message"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:45
+#: src/setting-page/tabs/AdminTab.jsx:57
 msgid "When switched off, WordPress will not show notification message when update is available."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:53
+#: src/setting-page/tabs/AdminTab.jsx:66
 msgid "Customize the Admin bar area"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:62
+#: src/setting-page/tabs/AdminTab.jsx:75
 msgid "Howdy Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:63
+#: src/setting-page/tabs/AdminTab.jsx:76
 msgid "Show the \"Howdy\" text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:67
+#: src/setting-page/tabs/AdminTab.jsx:80
 msgid "When switched off, the \"Howdy\" text in the Account menu in the admin bar will be removed."
 msgstr ""
 
@@ -296,195 +340,311 @@ msgstr ""
 msgid "When switched off, WordPress will not load the emojis scripts, styles, and images."
 msgstr ""
 
-#: src/setting-page/tabs/AssetsTab.jsx:30
-msgid "Scripts Version"
+#: src/setting-page/tabs/AssetsTab.jsx:26
+msgid "While Emojis are fun, if you're not using it in your posts or pages, you can safely disable them to reduce the number of requests from the additional scripts and styles require to load them."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:34
-msgid "Show scripts and styles version"
+msgid "Scripts Version"
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:38
+msgid "Show scripts and styles version"
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:42
 msgid "When switched off, WordPress will not append the version to the scripts and styles URLs."
 msgstr ""
 
 #: src/setting-page/tabs/AssetsTab.jsx:46
+msgid "The version script specifies the version of a enqueued script in the URL query string like \"?ver=5.9.3\". This helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly."
+msgstr ""
+
+#: src/setting-page/tabs/AssetsTab.jsx:54
 msgid "jQuery Migrate"
 msgstr ""
 
-#: src/setting-page/tabs/AssetsTab.jsx:47
+#: src/setting-page/tabs/AssetsTab.jsx:55
 msgid "Load jQuery Migrate script"
 msgstr ""
 
-#: src/setting-page/tabs/AssetsTab.jsx:51
+#: src/setting-page/tabs/AssetsTab.jsx:59
 msgid "When switched off, WordPress will not load the jQuery Migrate script."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:19
+#: src/setting-page/tabs/AssetsTab.jsx:63
+msgid "jQuery Migrate is a WordPress library that ensures older themes and plugins work with newer versions of jQuery. This helps developers update their code while keeping older sites functional. If your site is up-to-date, you can safely disable jQuery Migrate."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:16
 msgid "Enable the block editor"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:23
+#: src/setting-page/tabs/GeneralTab.jsx:20
 msgid "When switched off, the block editor will be disabled and the classic editor will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:42
+#: src/setting-page/tabs/GeneralTab.jsx:39
 msgid "Enable the block-based widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:48
+#: src/setting-page/tabs/GeneralTab.jsx:45
 msgid "When switched off, the block-based widgets will be disabled and the classic widgets will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:52
+#: src/setting-page/tabs/GeneralTab.jsx:49
 msgid "The current theme in-use does not support block-based widgets."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:64
+#: src/setting-page/tabs/GeneralTab.jsx:60
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:68
+#: src/setting-page/tabs/GeneralTab.jsx:64
 msgid "When switched off, it will disable other sites from embedding content from your site, and vice-versa."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:77
+#: src/setting-page/tabs/GeneralTab.jsx:73
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:81
+#: src/setting-page/tabs/GeneralTab.jsx:77
 msgid "When switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:90
-msgid "Enable RSS feeds"
+#: src/setting-page/tabs/GeneralTab.jsx:84
+msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:94
-msgid "When switched off, it will disable the RSS feed URLs."
+#: src/setting-page/tabs/GeneralTab.jsx:90
+msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:102
-#: src/setting-page/tabs/GeneralTab.jsx:105
-msgid "Advanced"
+msgid "Enable RSS feeds"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:106
-msgid "These features require more caution or technical knowledge to manage."
+msgid "When switched off, it will disable the RSS feed URLs."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:115
-msgid "Enable cron"
+#: src/setting-page/tabs/GeneralTab.jsx:113
+msgid "An RSS feed, which stands for \"Really Simple Syndication\" or \"Rich Site Summary\", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:119
-msgid "When switched off, WordPress will not run scheduled events."
+msgid "Disabling feeds can help prevent content scraping and reduce server load."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:128
+#: src/setting-page/tabs/GeneralTab.jsx:130
+msgid "Advanced"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:131
+msgid "These features require more caution or technical knowledge to manage."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:141
+msgid "Enable cron"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:145
+msgid "When switched off, WordPress will not run scheduled events."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:152
+msgid "WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:158
+msgid "It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:164
+msgid "When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:176
 msgid "Enable the Heartbeat API"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:132
+#: src/setting-page/tabs/GeneralTab.jsx:180
 msgid "When switched off, the Heartbeat API will be disabled; it will not be sending requests."
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:12
+#: src/setting-page/tabs/GeneralTab.jsx:187
+msgid "The Heartbeat API enables real-time communication between the browser and server using periodic AJAX requests."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:193
+msgid "It powers features like auto-saving posts, post locking to prevent simultaneous edits, session management to extend login times, and real-time dashboard updates for plugins."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:199
+msgid "While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:13
 msgid "Attachment Page"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:16
+#: src/setting-page/tabs/MediaTab.jsx:17
 msgid "Enable page for uploaded media files"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:20
+#: src/setting-page/tabs/MediaTab.jsx:21
 msgid "When switched off, WordPress will not create attachment pages for media files."
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:28
+msgid "An attachment page in WordPress is a standalone page for each uploaded file, like images or videos, showing metadata such as the file's title, description, and sometimes comments."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:34
+msgid "These pages often lack valuable content, which can negatively affect SEO and confuse visitors, especially if themes don't format them well."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:40
+msgid "When disabled, the attachment pages will be redirected to the homepage."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:51
 msgid "Attachment Slug"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:32
+#: src/setting-page/tabs/MediaTab.jsx:55
 msgid "Enable default media file slug"
 msgstr ""
 
-#: src/setting-page/tabs/MediaTab.jsx:36
+#: src/setting-page/tabs/MediaTab.jsx:59
 msgid "When switched off, attachment page will get a randomized slug instead of taking from the original file name."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:23
-msgid "File Edit"
+#: src/setting-page/tabs/MediaTab.jsx:66
+msgid "By default, WordPress will generate the attachment page slug based on the file name. This could cause conflicts with existing or future post or page slugs, as the slug may already be reserved and WordPress would append a suffix (like -2) to the post slug to make it unique."
+msgstr ""
+
+#: src/setting-page/tabs/MediaTab.jsx:72
+msgid "When disabled, WordPress will generate a random slug for the attachment page."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:24
+msgid "File Edit"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:25
 msgid "Enable the File Editor"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:28
+#: src/setting-page/tabs/SecurityTab.jsx:29
 msgid "When switched off, it will disable the file editor for themes and plugins."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:49
+#: src/setting-page/tabs/SecurityTab.jsx:36
+msgid "By default, WordPress allows admins to edit theme and plugin file directly from the dashboard, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:42
+msgid "It's generally best to disable this feature to keep your site safer."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:66
 msgid "XML-RPC"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:50
+#: src/setting-page/tabs/SecurityTab.jsx:67
 msgid "Enable XML-RPC"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:51
+#: src/setting-page/tabs/SecurityTab.jsx:68
 msgid "When switched off, it will disable the XML-RPC endpoint."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:59
+#: src/setting-page/tabs/SecurityTab.jsx:75
+msgid "XML-RPC is a communication protocol in WordPress that allows external applications to interact with it remotely. Originally designed to support mobile publishing and remote management, it enables operations like posting and managing content."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:81
+msgid "However, due to security vulnerabilities, it's generally recommended to disable it in favor of the more secure WordPress REST API."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:92
 msgid "REST API Authentication"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:63
+#: src/setting-page/tabs/SecurityTab.jsx:96
 msgid "Enable REST API Authentication"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:67
+#: src/setting-page/tabs/SecurityTab.jsx:100
 msgid "When switched off, it will allow users to make request to the public REST API endpoint without authentication."
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:10
+#: src/setting-page/tabs/SecurityTab.jsx:107
+msgid "When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:13
 msgid "Control the document metadata added in the HTML head."
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:18
+#: src/setting-page/tabs/SiteTab.jsx:22
 msgid "RSD Link"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:19
+#: src/setting-page/tabs/SiteTab.jsx:23
 msgid "Enable RSD link"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:23
+#: src/setting-page/tabs/SiteTab.jsx:27
 msgid "When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head."
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:31
+#: src/setting-page/tabs/SiteTab.jsx:34
+msgid "The RSD link, or \"Really Simple Discovery\", helps external applications detect services like publishing APIs on your site. However, it's mostly outdated and rarely used today, so removing it from your site is usually safe."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:40
+msgid "Note that this action only removes the link itself, not the underlying RSD endpoint. To fully disable the endpoint, you can turn off XML-RPC from \"Security › XML-RPC\"."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:52
 msgid "Generator Meta Tag"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:35
+#: src/setting-page/tabs/SiteTab.jsx:56
 msgid "Add WordPress generator meta tag"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:39
+#: src/setting-page/tabs/SiteTab.jsx:60
 msgid "When switched off, it will remove the generator meta tag which shows WordPress and its version."
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:47
+#: src/setting-page/tabs/SiteTab.jsx:67
+msgid "The generator meta tag in WordPress reveals the CMS version used on a site, which can pose security risks by exposing potential vulnerabilities to attackers."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:73
+msgid "Removing this tag can help protect your site from such threats."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:84
 msgid "Shortlink"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:48
+#: src/setting-page/tabs/SiteTab.jsx:85
 msgid "Add Shortlink"
 msgstr ""
 
-#: src/setting-page/tabs/WebpageTab.jsx:49
+#: src/setting-page/tabs/SiteTab.jsx:86
 msgid "When switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:93
+msgid "Shortlink is a simplified URL created for easier sharing, but they are often unnecessary."
+msgstr ""
+
+#: src/setting-page/tabs/SiteTab.jsx:99
+msgid "Removing shortlink can clean up your site's HTML."
 msgstr ""
