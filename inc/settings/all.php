@@ -87,6 +87,8 @@ return [
 		->withDefault(null),
 	(new Setting('admin_bar_howdy', 'boolean'))
 		->withDefault(true),
+	(new Setting('admin_bar_env_type', 'boolean'))
+		->withDefault(false),
 
 	// Media.
 	(new Setting('attachment_page', 'boolean'))

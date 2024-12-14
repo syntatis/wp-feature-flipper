@@ -13,6 +13,9 @@ use function count;
 use function in_array;
 use function is_array;
 use function is_string;
+use function json_decode;
+use function json_encode;
+use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -48,8 +51,12 @@ class AdminBar implements Hookable
 		if (! (bool) Option::get('admin_bar_howdy')) {
 			$hook->addFilter('admin_bar_menu', function ($wpAdminBar) use ($hook): void {
 				$hook->removeAction('admin_bar_menu', 'wp_admin_bar_my_account_item', PHP_INT_MAX);
-				$this->addMyAccountMenu($wpAdminBar);
+				$this->addMyAccountNode($wpAdminBar);
 			}, PHP_INT_MAX);
+		}
+
+		if ((bool) Option::get('admin_bar_env_type')) {
+			$hook->addFilter('admin_bar_menu', [self::class, 'addEnvironmentTypeNode'], PHP_INT_MAX);
 		}
 
 		$hook->addFilter('show_admin_bar', static fn () => (bool) Option::get('admin_bar'));
@@ -101,7 +108,7 @@ class AdminBar implements Hookable
 		return $items;
 	}
 
-	private function addMyAccountMenu(WP_Admin_Bar $wpAdminBar): void
+	private function addMyAccountNode(WP_Admin_Bar $wpAdminBar): void
 	{
 		$currentUser = wp_get_current_user();
 		$userId = get_current_user_id();
@@ -115,5 +122,40 @@ class AdminBar implements Hookable
 			'href' => get_edit_profile_url($userId),
 			'meta' => ['class' => is_string($avatar) && $avatar !== '' ? 'with-avatar' : 'no-avatar'],
 		]);
+	}
+
+	public static function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
+	{
+		$envType = wp_get_environment_type();
+		$wpAdminBar->add_node(
+			[
+				'id' => 'syntatis-feature-flipper-environment-type',
+				'title' => sprintf(
+					'<span class="screen-reader-text">%s</span><span id="syntatis-feature-flipper-environment-type" class="environment-type-%s">%s</span>',
+					__('Environment:', 'syntatis-feature-flipper'),
+					$envType,
+					$envType,
+				),
+				'parent' => 'top-secondary',
+				'meta' => ['class' => 'environment-type'],
+			],
+		);
+
+		$myAccNode = json_encode($wpAdminBar->get_node('my-account'));
+
+		if (! is_string($myAccNode)) {
+			return;
+		}
+
+		$wpAdminBar->remove_node('my-account');
+
+		/** @var array{id?:string,title?:string,parent?:string,meta?:array<string,mixed>}|false $myAccNodeDecoded */
+		$myAccNodeDecoded = json_decode($myAccNode, true);
+
+		if (! is_array($myAccNodeDecoded)) {
+			return;
+		}
+
+		$wpAdminBar->add_node($myAccNodeDecoded);
 	}
 }
