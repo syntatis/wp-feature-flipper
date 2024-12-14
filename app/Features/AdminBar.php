@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
@@ -12,10 +13,10 @@ use WP_Admin_Bar;
 use function count;
 use function in_array;
 use function is_array;
+use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
-use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -27,9 +28,18 @@ class AdminBar implements Hookable
 		'top-secondary',
 	];
 
+	private string $appName;
+
+	public function __construct()
+	{
+		$this->appName = App::name();
+	}
+
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'setInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'getInlineData']);
+		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_bar_menu', static function ($wpAdminBar): void {
 			$adminBarMenu = Option::get('admin_bar_menu');
 
@@ -67,11 +77,32 @@ class AdminBar implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function setInlineData(array $data): array
+	public function getInlineData(array $data): array
 	{
 		$data['adminBarMenu'] = self::getRegisteredMenu();
 
 		return $data;
+	}
+
+	public function enqueueScripts(): void
+	{
+		$assets = App::dir('dist/assets/admin-bar/index.asset.php');
+		$assets = is_readable($assets) ? require $assets : [];
+
+		wp_enqueue_style(
+			$this->appName . '-admin-bar',
+			App::url('dist/assets/admin-bar/index.css'),
+			[$this->appName],
+			$assets['version'] ?? null,
+		);
+
+		wp_enqueue_script(
+			$this->appName . '-admin-bar',
+			App::url('dist/assets/admin-bar/index.js'),
+			$assets['dependencies'] ?? [],
+			$assets['version'] ?? null,
+			false,
+		);
 	}
 
 	/** @return array<array{id:string}> */
@@ -130,14 +161,8 @@ class AdminBar implements Hookable
 		$wpAdminBar->add_node(
 			[
 				'id' => 'syntatis-feature-flipper-environment-type',
-				'title' => sprintf(
-					'<span class="screen-reader-text">%s</span><span id="syntatis-feature-flipper-environment-type" class="environment-type-%s">%s</span>',
-					__('Environment:', 'syntatis-feature-flipper'),
-					$envType,
-					$envType,
-				),
+				'title' => '<div id="syntatis-feature-flipper-environment-type-root"></div>',
 				'parent' => 'top-secondary',
-				'meta' => ['class' => 'environment-type'],
 			],
 		);
 

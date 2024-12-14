@@ -1,4 +1,5 @@
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const CopyPlugin = require( 'copy-webpack-plugin' );
 const path = require( 'path' );
 // eslint-disable-next-line import/no-extraneous-dependencies
 const glob = require( 'glob' );
@@ -40,4 +41,15 @@ module.exports = {
 		...defaultConfig.entry(),
 		...fileEntries( glob.sync( './src/*' ) ),
 	},
+	plugins: [
+		...defaultConfig.plugins,
+		new CopyPlugin( {
+			patterns: [
+				{
+					from: 'node_modules/@syntatis/kubrick/dist/index.css',
+					to: 'index.css',
+				},
+			],
+		} ),
+	],
 };
