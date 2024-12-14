@@ -8,7 +8,6 @@ import {
 	SecurityTab,
 	SiteTab,
 } from './tabs';
-import '@syntatis/kubrick/dist/index.css';
 import { useSettingsContext } from './form';
 
 export const Page = () => {
