@@ -8,7 +8,7 @@ Easily switch some features in WordPress, on and off
 **Tags:** [disable](http://wordpress.org/plugins/tags/disable), [rss](http://wordpress.org/plugins/tags/rss), [emojis](http://wordpress.org/plugins/tags/emojis), [xmlrpc](http://wordpress.org/plugins/tags/xmlrpc), [gutenberg](http://wordpress.org/plugins/tags/gutenberg)  
 **Requires at least:** 6.0  
 **Tested up to:** 6.7  
-**Stable tag:** 1.4.1  
+**Stable tag:** 1.5.0  
 **Requires PHP:** 7.4  
 **License:** [GPLv3 or later](https://www.gnu.org/licenses/gpl-3.0.html)  
 
