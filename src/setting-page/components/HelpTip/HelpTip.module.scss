@@ -1,7 +1,7 @@
 :global(.wp-core-ui #syntatis-feature-flipper-settings) {
 	.icon {
 		background-color: transparent;
-		color: #646970;
+		color: var(--kubrick-gray-500);
 		max-height: max-content;
 		min-height: max-content;
 		border: 0;
