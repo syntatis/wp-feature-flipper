@@ -96,6 +96,7 @@ export const UpdatesInputs = () => {
 					</div>
 					{ values.updates && (
 						<Details
+							className={ styles.details }
 							summary={ __(
 								'Settings',
 								'syntatis-feature-flipper'
@@ -172,7 +173,7 @@ export const UpdatesInputs = () => {
 									</div>
 									<p className="description" aria-hidden>
 										{ __(
-											'WordPress core updates configurations.',
+											'Manage WordPress core update configurations.',
 											'syntatis-feature-flipper'
 										) }
 									</p>
@@ -242,7 +243,7 @@ export const UpdatesInputs = () => {
 									</div>
 									<p className="description">
 										{ __(
-											'Plugins update configurations.',
+											'Manage plugins update configurations.',
 											'syntatis-feature-flipper'
 										) }
 									</p>
@@ -314,7 +315,7 @@ export const UpdatesInputs = () => {
 									</div>
 									<p className="description">
 										{ __(
-											'Themes update configurations.',
+											'Manage themes update configurations.',
 											'syntatis-feature-flipper'
 										) }
 									</p>
