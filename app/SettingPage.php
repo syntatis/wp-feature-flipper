@@ -43,9 +43,10 @@ class SettingPage implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_menu', [$this, 'addMenu']);
+		$hook->addAction('admin_bar_menu', [$this, 'addInlineScript'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
-		$hook->addAction('admin_bar_menu', [$this, 'addAdminInlineScripts'], PHP_INT_MAX);
+		$hook->addAction('admin_menu', [$this, 'addMenu']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
 		$hook->addFilter(sprintf('plugin_action_links'), [$this, 'addPluginActionLinks'], 10, 2);
 	}
 
@@ -118,7 +119,7 @@ class SettingPage implements Hookable
 		wp_set_script_translations($this->scriptHandle, 'syntatis-feature-flipper');
 	}
 
-	public function addAdminInlineScripts(): void
+	public function addInlineScript(): void
 	{
 		if (! $this->isSettingPage()) {
 			return;
@@ -128,6 +129,26 @@ class SettingPage implements Hookable
 			$this->scriptHandle,
 			$this->getInlineScript(),
 			'before',
+		);
+	}
+
+	/**
+	 * @param array<string,mixed> $data
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function addInlineData(array $data): array
+	{
+		if (! $this->isSettingPage()) {
+			return $data;
+		}
+
+		return array_merge(
+			[
+				'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
+				'settingPageTab' => $_GET['tab'] ?? null,
+			],
+			$data,
 		);
 	}
 
@@ -186,22 +207,12 @@ class SettingPage implements Hookable
 		return sprintf(
 			<<<'SCRIPT'
 			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
-			window.$syntatis = { featureFlipper: %s };
 			SCRIPT,
 			wp_json_encode([
 				'/wp/v2/settings' => [
 					'body' => apply_filters('syntatis/feature_flipper/settings', $data),
 				],
 			]),
-			wp_json_encode(
-				apply_filters('syntatis/feature_flipper/inline_data', [
-					'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
-					'settingPageTab' => $_GET['tab'] ?? null,
-					'themeSupport' => [
-						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
-					],
-				]),
-			),
 		);
 	}
 
