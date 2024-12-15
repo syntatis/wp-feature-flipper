@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
+use function is_object;
 use function property_exists;
 use function time;
 
@@ -25,7 +26,6 @@ class ManagePlugins implements Hookable
 			$hook->removeAction('load-update-core.php', 'wp_update_plugins');
 			$hook->removeAction('load-update.php', 'wp_update_plugins');
 			$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
-
 			$hook->addFilter('site_transient_update_plugins', [$this, 'filterUpdateTransient']);
 		}
 
@@ -36,8 +36,17 @@ class ManagePlugins implements Hookable
 		$hook->addFilter('auto_update_plugin', '__return_false');
 	}
 
-	public function filterUpdateTransient(object $cache): object
+	/**
+	 * @param object|bool $cache
+	 *
+	 * @return object|bool
+	 */
+	public function filterUpdateTransient($cache)
 	{
+		if (! is_object($cache)) {
+			return $cache;
+		}
+
 		if (property_exists($cache, 'response')) {
 			$cache->response = [];
 		}
