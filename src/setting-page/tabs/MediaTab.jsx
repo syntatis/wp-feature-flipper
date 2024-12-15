@@ -89,7 +89,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, the media library will use pagination instead of infinite scroll.',
+						'When switched off, the media library will use the "Load More" button instead of infinite scrolling.',
 						'syntatis-feature-flipper'
 					) }
 					help={

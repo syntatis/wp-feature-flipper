@@ -62,10 +62,6 @@ export const ImageQualityInputs = () => {
 								'Quality',
 								'syntatis-feature-flipper'
 							) }
-							description={ __(
-								'The quality of the compressed JPEG image. 100 is the highest quality.',
-								'syntatis-feature-flipper'
-							) }
 							suffix="%"
 						/>
 					</div>
@@ -112,10 +108,6 @@ export const ImageQualityInputs = () => {
 							}
 							aria-label={ __(
 								'Quality',
-								'syntatis-feature-flipper'
-							) }
-							description={ __(
-								'The quality of the compressed PNG image. 100 is the highest quality.',
 								'syntatis-feature-flipper'
 							) }
 							suffix="%"
