@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\SitePrivate;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
 use function array_diff;
 
-class Site implements Hookable
+class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if ((bool) Option::get('site_private')) {
-			(new SitePrivate())->hook($hook);
-		}
-
 		if (! (bool) Option::get('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
@@ -37,9 +35,8 @@ class Site implements Hookable
 		}
 
 		if (! (bool) Option::get('scripts_version')) {
-			$callback = static function (string $src): string {
-				return remove_query_arg('ver', $src);
-			};
+			$callback = static fn (string $src): string => remove_query_arg('ver', $src);
+
 			$hook->addFilter('script_loader_src', $callback);
 			$hook->addFilter('style_loader_src', $callback);
 		}
@@ -74,5 +71,27 @@ class Site implements Hookable
 
 		$hook->removeAction('wp_head', 'wp_shortlink_wp_head');
 		$hook->removeAction('wp_head', 'wp_shortlink_header');
+	}
+
+	/** @return iterable<object> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		$features = $this->getFeatures();
+
+		foreach ($features as $feature) {
+			yield $feature;
+
+			if (! ($feature instanceof Extendable)) {
+				continue;
+			}
+
+			yield from $feature->getInstances($container);
+		}
+	}
+
+	/** @return iterable<object> */
+	private function getFeatures(): iterable
+	{
+		yield new SitePrivate();
 	}
 }

@@ -20,7 +20,7 @@ use function preg_replace;
 use const PHP_INT_MAX;
 
 /**
- * @phpstan-type DashboardWidget array{id:string,title:string,callback:string,args:array<string,mixed>}
+ * @phpstan-type DashboardWidget array{id:string,title:string,callback:string,args:array<string,mixed>}|bool
  * @phpstan-type DashboardWidgetCollection array<"normal"|"side",array<string,array<string,DashboardWidget>>>
  */
 class DashboardWidgets implements Hookable
@@ -181,6 +181,10 @@ class DashboardWidgets implements Hookable
 		foreach ($dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
 				foreach ($item as $widgetId => $widget) {
+					if (! is_array($widget)) {
+						continue;
+					}
+
 					$widgets[] = [
 						'id' => $widgetId,
 						'title' => $widget['title'] !== ''

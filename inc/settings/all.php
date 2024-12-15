@@ -40,6 +40,8 @@ return [
 		->withDefault(true),
 	(new Setting('embed', 'boolean'))
 		->withDefault(true),
+	(new Setting('comments', 'boolean'))
+		->withDefault(true),
 
 	/**
 	 * Updates
