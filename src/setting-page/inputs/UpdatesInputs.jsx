@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { Checkbox, Switch } from '@syntatis/kubrick';
-import { useFormContext, useSettingsContext } from '../../form';
+import { useFormContext, useSettingsContext } from '../form';
 import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
-import { Details } from '../../components';
+import { Details } from '../components';
 
 const OPTION_KEYS = {
 	autoUpdate: 'auto_updates',
