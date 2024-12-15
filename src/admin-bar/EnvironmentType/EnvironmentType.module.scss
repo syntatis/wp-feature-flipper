@@ -1,6 +1,4 @@
 :global(#wpadminbar #wp-admin-bar-fb6e5b8410f1e6ee52ac3e663f4f6c58) {
-	background-color: var(--kubrick-gray-800);
-
 	> [role="menuitem"] {
 		padding: 0;
 	}
@@ -15,22 +13,13 @@
 		justify-content: center;
 		gap: 0.25rem;
 		padding: 0 0.5rem;
-		color: var(--kubrick-blue-200);
 		cursor: help;
+		color: inherit;
 
 		&:focus {
-			color: #fff;
 			box-shadow: none;
-			outline: 2px solid var(--kubrick-blue-500);
+			outline: 2px solid var(--kubrick-accent-color);
 			outline-offset: -2px;
-
-			svg {
-				fill: #fff;
-			}
-		}
-
-		svg {
-			fill: var(--kubrick-blue-200);
 		}
 	}
 
