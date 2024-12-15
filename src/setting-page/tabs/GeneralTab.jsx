@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { RevisionsInputs, SwitchInput, UpdatesInputs } from '../inputs';
-import { Details, HelpContent } from '../components';
+import { RevisionsInputs, SwitchInput } from '../inputs';
+import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -138,87 +138,6 @@ export const GeneralTab = () => {
 					}
 				/>
 			</Fieldset>
-			<Details summary={ __( 'Advanced', 'syntatis-feature-flipper' ) }>
-				<Fieldset
-					title={ __( 'Advanced', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'These features require more caution or technical knowledge to manage.',
-						'syntatis-feature-flipper'
-					) }
-				>
-					<UpdatesInputs />
-					<SwitchInput
-						name="cron"
-						id="cron"
-						title="Cron"
-						label={ __(
-							'Enable cron',
-							'syntatis-feature-flipper'
-						) }
-						description={ __(
-							'When switched off, WordPress will not run scheduled events.',
-							'syntatis-feature-flipper'
-						) }
-						help={
-							<HelpContent>
-								<p>
-									{ __(
-										'WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-							</HelpContent>
-						}
-					/>
-					<SwitchInput
-						name="heartbeat"
-						id="heartbeat"
-						title="Heartbeat"
-						label={ __(
-							'Enable the Heartbeat API',
-							'syntatis-feature-flipper'
-						) }
-						description={ __(
-							'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
-							'syntatis-feature-flipper'
-						) }
-						help={
-							<HelpContent>
-								<p>
-									{ __(
-										'The Heartbeat API enables real-time communication between the browser and server using periodic AJAX requests.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'It powers features like auto-saving posts, post locking to prevent simultaneous edits, session management to extend login times, and real-time dashboard updates for plugins.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-							</HelpContent>
-						}
-					/>
-				</Fieldset>
-			</Details>
 		</Form>
 	);
 };
