@@ -5,7 +5,7 @@ import styles from './HelpTip.module.scss';
 
 export const HelpTip = ( { children } ) => {
 	return (
-		<Tooltip content={ children } placement="right">
+		<Tooltip content={ children } placement="top">
 			<IconButton
 				label={ __(
 					'Helpful information',
