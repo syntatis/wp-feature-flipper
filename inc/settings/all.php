@@ -95,6 +95,8 @@ return [
 		->withDefault(true),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
+	(new Setting('media_infinite_scroll', 'boolean'))
+		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
 	(new Setting('png_compression', 'boolean'))
