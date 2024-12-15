@@ -42,36 +42,17 @@ class AdminBar implements Hookable
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'getInlineData']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addAction('admin_bar_menu', static function ($wpAdminBar): void {
-			$adminBarMenu = Option::get('admin_bar_menu');
-
-			if (! is_array($adminBarMenu)) {
-				return;
-			}
-
-			$menu = self::getRegisteredMenu();
-
-			foreach ($menu as $item) {
-				if (in_array($item['id'], $adminBarMenu, true)) {
-					continue;
-				}
-
-				$wpAdminBar->remove_node($item['id']);
-			}
-		}, PHP_INT_MAX);
+		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
-			$hook->addFilter('admin_bar_menu', function ($wpAdminBar) use ($hook): void {
-				$hook->removeAction('admin_bar_menu', 'wp_admin_bar_my_account_item', PHP_INT_MAX);
-				$this->addMyAccountNode($wpAdminBar);
-			}, PHP_INT_MAX);
+			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
 		if ((bool) Option::get('admin_bar_env_type')) {
-			$hook->addFilter('admin_bar_menu', [self::class, 'addEnvironmentTypeNode'], PHP_INT_MAX);
+			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode'], PHP_INT_MAX);
 		}
 
-		$hook->addFilter('show_admin_bar', static fn () => (bool) Option::get('admin_bar'));
+		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar']);
 	}
 
 	/**
@@ -141,12 +122,32 @@ class AdminBar implements Hookable
 		return $items;
 	}
 
-	private function addMyAccountNode(WP_Admin_Bar $wpAdminBar): void
+	public function removeNodes(WP_Admin_Bar $wpAdminBar): void
+	{
+		$adminBarMenu = Option::get('admin_bar_menu');
+
+		if (! is_array($adminBarMenu)) {
+			return;
+		}
+
+		$menu = self::getRegisteredMenu();
+
+		foreach ($menu as $item) {
+			if (in_array($item['id'], $adminBarMenu, true)) {
+				continue;
+			}
+
+			$wpAdminBar->remove_node($item['id']);
+		}
+	}
+
+	public function addMyAccountNode(WP_Admin_Bar $wpAdminBar): void
 	{
 		$currentUser = wp_get_current_user();
 		$userId = get_current_user_id();
 		$avatar = get_avatar($userId, 26);
 
+		$wpAdminBar->remove_node('my-account');
 		$wpAdminBar->add_menu([
 			'id' => 'my-account',
 			'parent' => 'top-secondary',
@@ -157,7 +158,7 @@ class AdminBar implements Hookable
 		]);
 	}
 
-	public static function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
+	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
 		$envType = wp_get_environment_type();
 		$wpAdminBar->add_node(
@@ -184,5 +185,10 @@ class AdminBar implements Hookable
 		}
 
 		$wpAdminBar->add_node($myAccNodeDecoded);
+	}
+
+	public function showAdminBar(bool $value): bool
+	{
+		return is_user_logged_in() ? (bool) Option::get('admin_bar') : $value;
 	}
 }
