@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Features\SitePrivate;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
@@ -15,6 +16,10 @@ class Site implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		if ((bool) Option::get('site_private')) {
+			(new SitePrivate())->hook($hook);
+		}
+
 		if (! (bool) Option::get('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
