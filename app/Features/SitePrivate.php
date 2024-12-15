@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function defined;
 use function is_string;
@@ -18,6 +19,10 @@ class SitePrivate implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		if (! (bool) Option::get('site_private')) {
+			return;
+		}
+
 		$hook->addAction('template_redirect', [$this, 'forceLogin'], PHP_INT_MIN);
 		$hook->addFilter('login_site_html_link', static fn (): string => '');
 	}
