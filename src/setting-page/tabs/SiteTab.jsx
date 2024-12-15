@@ -8,6 +8,21 @@ export const SiteTab = () => {
 
 	return (
 		<Form>
+			<Fieldset>
+				<SwitchInput
+					name="site_private"
+					id="site-private"
+					title={ __( 'Private Mode', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable private mode',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched on, it will require users to log in to view the site.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+			</Fieldset>
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
