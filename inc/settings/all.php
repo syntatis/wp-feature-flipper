@@ -95,6 +95,8 @@ return [
 		->withDefault(true),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
+	(new Setting('media_infinite_scroll', 'boolean'))
+		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
 
@@ -103,7 +105,7 @@ return [
 	 * @see https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/class-wp-image-editor.php#L24 - Default value.
 	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
-		->withDefault(apply_filters('jpeg_quality', 82)),
+		->withDefault(82),
 
 	// Assets.
 	(new Setting('emojis', 'boolean'))

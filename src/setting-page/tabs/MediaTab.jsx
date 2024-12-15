@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { JPEGCompressionInputs, SwitchInput } from '../inputs';
+import { ImageQualityInputs, SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
 
 export const MediaTab = () => {
@@ -77,8 +77,34 @@ export const MediaTab = () => {
 						</HelpContent>
 					}
 				/>
-				<JPEGCompressionInputs />
+				<SwitchInput
+					name="media_infinite_scroll"
+					id="media-infinite-scroll"
+					title={ __(
+						'Infinite Scroll',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Enable the infinite scroll for media library',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, the media library will use the "Load More" button instead of infinite scrolling.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'Starting with WordPress 5.8, infinite scrolling is disabled by default in the Media Library. This setting allows you to reenable it.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
 			</Fieldset>
+			<ImageQualityInputs />
 		</Form>
 	);
 };
