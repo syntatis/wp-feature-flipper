@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Updates;
@@ -27,7 +28,6 @@ class General implements Hookable, Extendable
 	{
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
 
-		// 1. Gutenberg.
 		if (! (bool) Option::get('gutenberg')) {
 			$hook->addFilter('use_block_editor_for_post', '__return_false');
 			$hook->addFilter('use_widgets_block_editor', '__return_false');
@@ -46,12 +46,10 @@ class General implements Hookable, Extendable
 			$hook->addFilter('use_widgets_block_editor', '__return_false');
 		}
 
-		// 2. Heartbeat.
 		if (! (bool) Option::get('heartbeat')) {
 			$hook->addAction('init', static fn () => wp_deregister_script('heartbeat'), -99);
 		}
 
-		// 3. Self-ping.
 		if (! (bool) Option::get('self_ping')) {
 			$hook->addFilter('pre_ping', static function (&$links): void {
 				$links = array_filter($links, static fn ($link) => ! str_starts_with($link, home_url()));
@@ -117,6 +115,7 @@ class General implements Hookable, Extendable
 	/** @return iterable<object> */
 	private function getFeatures(): iterable
 	{
+		yield new Comments();
 		yield new Embeds();
 		yield new Feeds();
 		yield new Updates();
