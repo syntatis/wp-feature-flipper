@@ -46,7 +46,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "filp/whoops": "^2.16",
         "nunomaduro/collision": "^5.11",
-        "php-stubs/wordpress-tests-stubs": "^6.6",
+        "php-stubs/wordpress-tests-stubs": "^6.7",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.0",
