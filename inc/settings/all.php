@@ -97,6 +97,8 @@ return [
 		->withDefault(true),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
+	(new Setting('media_infinite_scroll', 'boolean'))
+		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
 
@@ -105,9 +107,13 @@ return [
 	 * @see https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/class-wp-image-editor.php#L24 - Default value.
 	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
-		->withDefault(apply_filters('jpeg_quality', 82)),
+		->withDefault(82),
 
-	// Assets.
+	// Site.
+	(new Setting('site_private', 'boolean'))
+		->withDefault(false),
+
+	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),
 	(new Setting('scripts_version', 'boolean'))
@@ -115,7 +121,7 @@ return [
 	(new Setting('jquery_migrate', 'boolean'))
 		->withDefault(true),
 
-	// Webpage.
+	// Site: Metadata.
 	(new Setting('rsd_link', 'boolean'))
 		->withDefault(true),
 	(new Setting('generator_tag', 'boolean'))

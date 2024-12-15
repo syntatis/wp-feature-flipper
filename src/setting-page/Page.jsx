@@ -1,13 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Tab, Tabs, TabsProvider } from '@syntatis/kubrick';
-import {
-	AdminTab,
-	AssetsTab,
-	GeneralTab,
-	MediaTab,
-	SecurityTab,
-	SiteTab,
-} from './tabs';
+import { AdminTab, GeneralTab, MediaTab, SecurityTab, SiteTab } from './tabs';
 import { useSettingsContext } from './form';
 
 export const Page = () => {
@@ -33,12 +26,6 @@ export const Page = () => {
 					title={ __( 'Media', 'syntatis-feature-flipper' ) }
 				>
 					<MediaTab />
-				</Tab>
-				<Tab
-					key="assets"
-					title={ __( 'Assets', 'syntatis-feature-flipper' ) }
-				>
-					<AssetsTab />
 				</Tab>
 				<Tab
 					key="webpage"

@@ -4,33 +4,3 @@
 		cursor: pointer;
 	}
 }
-
-// See: app/Features/AdminBar.php
-#syntatis-feature-flipper-environment-type {
-	padding: 0.2rem 0.7rem;
-	border-radius: 100px;
-	font-weight: 500;
-
-	color: var(--kubrick-gray-10);
-	background-color: var(--kubrick-gray-600);
-
-	&.environment-type-local {
-		color: var(--kubrick-blue-10);
-		background-color: var(--kubrick-blue-600);
-	}
-
-	&.environment-type-development {
-		color: var(--kubrick-green-10);
-		background-color: var(--kubrick-green-600);
-	}
-
-	&.environment-type-staging {
-		color: var(--kubrick-yellow-10);
-		background-color: var(--kubrick-yellow-600);
-	}
-
-	&.environment-type-production {
-		color: var(--kubrick-red-10);
-		background-color: var(--kubrick-red-600);
-	}
-}

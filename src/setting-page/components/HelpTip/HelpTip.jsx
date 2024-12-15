@@ -13,7 +13,7 @@ export const HelpTip = ( { children } ) => {
 				) }
 				className={ styles.icon }
 			>
-				<Icon icon={ helpFilled } />
+				<Icon icon={ helpFilled } size={ 18 } />
 			</IconButton>
 		</Tooltip>
 	);
