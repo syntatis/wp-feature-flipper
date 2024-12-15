@@ -107,7 +107,11 @@ return [
 	(new Setting('jpeg_compression_quality', 'integer'))
 		->withDefault(82),
 
-	// Assets.
+	// Site.
+	(new Setting('site_private', 'boolean'))
+		->withDefault(false),
+
+	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),
 	(new Setting('scripts_version', 'boolean'))
@@ -115,7 +119,7 @@ return [
 	(new Setting('jquery_migrate', 'boolean'))
 		->withDefault(true),
 
-	// Webpage.
+	// Site: Metadata.
 	(new Setting('rsd_link', 'boolean'))
 		->withDefault(true),
 	(new Setting('generator_tag', 'boolean'))
