@@ -34,7 +34,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
+          php-version: "7.4"
           tools: composer:v2
 
       - name: Get Composer cache directory
@@ -45,8 +45,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: php-8.0-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: php-8.0-composer-
+          key: php-7.4-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: php-7.4-composer-
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
