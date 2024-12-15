@@ -42,7 +42,7 @@ export const EnvironmentType = ( { environmentType } ) => {
 			placement="bottom"
 		>
 			<Button
-				prefix={ <Icon icon={ symbolFilled } size={ 18 } /> }
+				prefix={ <span className="dashicons dashicons-cloud" /> }
 				className={ styles.trigger }
 			>
 				{ ENVIRONMENT_TYPES_LABELS[ environmentType ] }

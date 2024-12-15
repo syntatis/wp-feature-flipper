@@ -23,6 +23,12 @@
 		}
 	}
 
+	:global(.dashicons::before) {
+		font: normal 20px/1 dashicons;
+		top: 5px;
+		position: relative;
+	}
+
 	:global(.kubrick-Button-affix) {
 		display: flex;
 	}
