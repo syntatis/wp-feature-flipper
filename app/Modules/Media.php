@@ -67,16 +67,20 @@ class Media implements Hookable
 		}
 
 		$hook->addFilter(
+			'media_library_infinite_scrolling',
+			static fn (): bool => (bool) Option::get('media_infinite_scroll'),
+		);
+
+		$hook->addFilter(
 			'jpeg_quality',
-			static function ($quality, string $context) {
+			static function ($quality) {
 				if (! (bool) Option::get('jpeg_compression')) {
-					return $quality;
+					return 100;
 				}
 
 				return Option::get('jpeg_compression_quality');
 			},
 			99,
-			2,
 		);
 	}
 
