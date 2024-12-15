@@ -97,13 +97,17 @@ return [
 		->withDefault(true),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
+	(new Setting('png_compression', 'boolean'))
+		->withDefault(true),
 
 	/**
 	 * @see https://developer.wordpress.org/reference/hooks/jpeg_quality/
 	 * @see https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/class-wp-image-editor.php#L24 - Default value.
 	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
-		->withDefault(apply_filters('jpeg_quality', 82)),
+		->withDefault(82),
+	(new Setting('png_compression_quality', 'integer'))
+		->withDefault(82),
 
 	// Assets.
 	(new Setting('emojis', 'boolean'))
