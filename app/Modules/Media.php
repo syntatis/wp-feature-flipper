@@ -59,7 +59,7 @@ class Media implements Hookable
 						return $slug;
 					}
 
-					return (string) Uuid::v4();
+					return (string) Uuid::v5(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
 				},
 				99,
 				4,
