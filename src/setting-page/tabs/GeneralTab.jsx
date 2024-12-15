@@ -52,6 +52,19 @@ export const GeneralTab = () => {
 							  )
 					}
 				/>
+				<SwitchInput
+					name="comments"
+					id="comments"
+					title="Comments"
+					label={ __(
+						'Enable comments',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, comments will be disabled site-wide.',
+						'syntatis-feature-flipper'
+					) }
+				/>
 				<RevisionsInputs />
 				<SwitchInput
 					name="embed"
