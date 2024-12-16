@@ -1,7 +1,15 @@
 import { __ } from '@wordpress/i18n';
 import { Tab, Tabs, TabsProvider } from '@syntatis/kubrick';
-import { AdminTab, GeneralTab, MediaTab, SecurityTab, SiteTab } from './tabs';
+import {
+	AdminTab,
+	AdvancedTab,
+	GeneralTab,
+	MediaTab,
+	SecurityTab,
+	SiteTab,
+} from './tabs';
 import { useSettingsContext } from './form';
+import './Page.scss';
 
 export const Page = () => {
 	const { inlineData } = useSettingsContext();
@@ -28,7 +36,7 @@ export const Page = () => {
 					<MediaTab />
 				</Tab>
 				<Tab
-					key="webpage"
+					key="site"
 					title={ __( 'Site', 'syntatis-feature-flipper' ) }
 				>
 					<SiteTab />
@@ -38,6 +46,12 @@ export const Page = () => {
 					title={ __( 'Security', 'syntatis-feature-flipper' ) }
 				>
 					<SecurityTab />
+				</Tab>
+				<Tab
+					key="advanced"
+					title={ __( 'Advanced', 'syntatis-feature-flipper' ) }
+				>
+					<AdvancedTab />
 				</Tab>
 			</Tabs>
 		</TabsProvider>

@@ -58,6 +58,7 @@ export const useSettings = ( { optionPrefix } ) => {
 		} else {
 			setStatus( null );
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );
 
 	const submitValues = ( data ) => {

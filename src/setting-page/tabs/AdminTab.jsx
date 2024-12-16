@@ -40,7 +40,7 @@ export const AdminTab = () => {
 							<HelpContent>
 								<p>
 									{ __(
-										'This option will only remove the update notice that appear at the top of the admin area.It does not prevent the updates itself. To disable the updates, you can switch them off from the "General › Advanced › Updates" option.',
+										'This option will only remove the update notice that appear at the top of the admin area.It does not prevent the updates itself. To disable the updates, you can switch them off from the "Advanced › Updates" option.',
 										'syntatis-feature-flipper'
 									) }
 								</p>
