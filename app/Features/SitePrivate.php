@@ -45,10 +45,7 @@ class SitePrivate implements Hookable
 			return;
 		}
 
-		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-		$uri = isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-		$url = trim($host) !== '' ? sprintf('%s%s%s', $schema, $host, $uri) : '';
+		$url = self::getCurrentUrl();
 
 		if (preg_replace('/\?.*/', '', wp_login_url()) === preg_replace('/\?.*/', '', $url)) {
 			return;
@@ -71,5 +68,14 @@ class SitePrivate implements Hookable
 			esc_url(admin_url('options-general.php?page=' . App::name() . '&tab=site')),
 			esc_html(__('The site is currently in private mode', 'syntatis-feature-flipper')),
 		);
+	}
+
+	private static function getCurrentUrl(): string
+	{
+		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+		$uri = isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+		return trim($host) !== '' ? sprintf('%s%s%s', $schema, $host, $uri) : '';
 	}
 }
