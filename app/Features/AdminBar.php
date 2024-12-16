@@ -24,7 +24,14 @@ use const PHP_INT_MAX;
 
 class AdminBar implements Hookable
 {
-	private const EXCLUDED_MENU = [
+	/**
+	 * List of menu in the admin bar that should be excluded.
+	 *
+	 * - menu-toggle: The menu toggle button shown before the site name on small screen.
+	 * - site-name: Shows the site name that links to visit the site homepage.
+	 * - top-secondary: The top secondary menu which contains the user profile and the logout link.
+	 */
+	private const DEFAULT_EXCLUDED_MENU = [
 		'menu-toggle',
 		'site-name',
 		'top-secondary',
@@ -39,7 +46,8 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'getInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
+
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
@@ -56,11 +64,13 @@ class AdminBar implements Hookable
 	}
 
 	/**
+	 * Provide additional data to include in the plugin's global inline data.
+	 *
 	 * @param array<string,mixed> $data
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function getInlineData(array $data): array
+	public function addInlineData(array $data): array
 	{
 		$data['adminBarMenu'] = self::getRegisteredMenu();
 
@@ -110,7 +120,7 @@ class AdminBar implements Hookable
 		foreach ($nodes as $node) {
 			$nodeParent = $node->parent;
 
-			if ($nodeParent !== false || in_array($node->id, self::EXCLUDED_MENU, true)) {
+			if ($nodeParent !== false || in_array($node->id, self::getExcludedMenu(), true)) {
 				continue;
 			}
 
@@ -190,5 +200,20 @@ class AdminBar implements Hookable
 	public function showAdminBar(bool $value): bool
 	{
 		return is_user_logged_in() ? (bool) Option::get('admin_bar') : $value;
+	}
+
+	/** @return array<string> */
+	private static function getExcludedMenu(): array
+	{
+		$excludes = self::DEFAULT_EXCLUDED_MENU;
+
+		if ((bool) Option::get('comments')) {
+			$excludes = [
+				...$excludes,
+				'comments',
+			];
+		}
+
+		return $excludes;
 	}
 }
