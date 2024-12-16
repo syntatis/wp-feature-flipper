@@ -1,6 +1,5 @@
 import { Button, Tooltip } from '@syntatis/kubrick';
 import { __ } from '@wordpress/i18n';
-import { Icon, symbolFilled } from '@wordpress/icons';
 import styles from './EnvironmentType.module.scss';
 
 const ENVIRONMENT_TYPES_LABELS = {
