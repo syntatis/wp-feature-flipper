@@ -207,7 +207,7 @@ class AdminBar implements Hookable
 	{
 		$excludes = self::DEFAULT_EXCLUDED_MENU;
 
-		if ((bool) Option::get('comments')) {
+		if (! (bool) Option::get('comments')) {
 			$excludes = [
 				...$excludes,
 				'comments',
