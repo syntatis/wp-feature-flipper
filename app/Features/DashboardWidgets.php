@@ -32,8 +32,8 @@ class DashboardWidgets implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'setInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'addSettingsData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
 				return;
@@ -89,7 +89,7 @@ class DashboardWidgets implements Hookable
 	 *
 	 * @return array<mixed>
 	 */
-	public function setSettings(array $data): array
+	public function addSettingsData(array $data): array
 	{
 		$optionName = Option::name('dashboard_widgets_enabled');
 		$widgetsEnabled = $data[$optionName] ?? null;
@@ -106,7 +106,7 @@ class DashboardWidgets implements Hookable
 	 *
 	 * @return array<mixed>
 	 */
-	public function setInlineData(array $data): array
+	public function addInlineData(array $data): array
 	{
 		$data['dashboardWidgets'] = self::$widgets;
 
