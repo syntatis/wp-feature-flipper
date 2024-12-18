@@ -5,23 +5,23 @@ import styles from './UpdatesInputs.module.scss';
 import { useState } from '@wordpress/element';
 import { Details } from '../components';
 
-const OPTION_KEYS = {
-	autoUpdate: 'auto_updates',
-	autoUpdateCore: 'auto_update_core',
-	autoUpdatePlugins: 'auto_update_plugins',
-	autoUpdateThemes: 'auto_update_themes',
-	updates: 'updates',
-	updateCore: 'update_core',
-	updatePlugins: 'update_plugins',
-	updateThemes: 'update_themes',
-};
+const OPTION_KEYS = [
+	'auto_updates',
+	'auto_update_core',
+	'auto_update_plugins',
+	'auto_update_themes',
+	'updates',
+	'update_core',
+	'update_plugins',
+	'update_themes',
+];
 
 export const UpdatesInputs = () => {
 	const { inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const [ values, setValues ] = useState(
-		Object.keys( OPTION_KEYS ).reduce( ( acc, key ) => {
-			acc[ key ] = getOption( OPTION_KEYS[ key ] );
+		OPTION_KEYS.reduce( ( acc, key ) => {
+			acc[ key ] = getOption( key );
 			return acc;
 		}, {} )
 	);
@@ -35,7 +35,7 @@ export const UpdatesInputs = () => {
 			return newValues;
 		} );
 		keys.forEach( ( key ) => {
-			setFieldsetValues( OPTION_KEYS[ key ], value );
+			setFieldsetValues( key, value );
 		} );
 	}
 
@@ -51,10 +51,7 @@ export const UpdatesInputs = () => {
 							{ ...inputProps( 'updates' ) }
 							isSelected={ values.updates }
 							onChange={ ( checked ) => {
-								changeValues(
-									Object.keys( OPTION_KEYS ),
-									checked
-								);
+								changeValues( OPTION_KEYS, checked );
 							} }
 							label={ __(
 								'Enable all updates',
@@ -70,19 +67,17 @@ export const UpdatesInputs = () => {
 								{ ...inputProps( 'auto_updates' ) }
 								onChange={ ( checked ) => {
 									changeValues(
-										Object.keys( OPTION_KEYS ).filter(
-											( key ) => {
-												return key.startsWith(
-													'autoUpdate'
-												);
-											}
-										),
+										OPTION_KEYS.filter( ( key ) => {
+											return key.startsWith(
+												'auto_update'
+											);
+										} ),
 										checked
 									);
 								} }
-								isSelected={ values.autoUpdate }
+								isSelected={ values.auto_updates }
 								isReadOnly={ ! values.updates }
-								defaultSelected={ values.autoUpdate }
+								defaultSelected={ values.auto_updates }
 								description={ __(
 									'Enable automatic updates for WordPress core, plugins, themes, and translations.',
 									'syntatis-feature-flipper'
@@ -117,13 +112,13 @@ export const UpdatesInputs = () => {
 										<Checkbox
 											{ ...inputProps( 'update_core' ) }
 											defaultSelected={
-												values.updateCore
+												values.update_core
 											}
 											onChange={ ( checked ) => {
 												changeValues(
 													[
-														'updateCore',
-														'autoUpdateCore',
+														'update_core',
+														'auto_update_core',
 													],
 													checked
 												);
@@ -131,7 +126,7 @@ export const UpdatesInputs = () => {
 											isReadOnly={ ! values.updates }
 											isSelected={
 												values.updates &&
-												values.updateCore
+												values.update_core
 											}
 											aria-label={ __(
 												'Enable WordPress core update',
@@ -142,23 +137,23 @@ export const UpdatesInputs = () => {
 												'syntatis-feature-flipper'
 											) }
 										/>
-										{ values.updateCore && (
+										{ values.update_core && (
 											<Checkbox
 												{ ...inputProps(
 													'auto_update_core'
 												) }
 												onChange={ ( checked ) => {
 													changeValues(
-														[ 'autoUpdateCore' ],
+														[ 'auto_update_core' ],
 														checked
 													);
 												} }
 												isDisabled={
-													! values.autoUpdate
+													! values.auto_updates
 												}
 												isSelected={
-													values.autoUpdateCore &&
-													values.updateCore
+													values.auto_update_core &&
+													values.update_core
 												}
 												aria-label={ __(
 													'Enable WordPress core automatic update',
@@ -203,30 +198,30 @@ export const UpdatesInputs = () => {
 											) }
 											isReadOnly={ ! values.updates }
 											isSelected={
-												values.updatePlugins &&
+												values.update_plugins &&
 												values.updates
 											}
 											onChange={ ( checked ) => {
 												changeValues(
 													[
-														'autoUpdatePlugins',
-														'updatePlugins',
+														'auto_update_plugins',
+														'update_plugins',
 													],
 													checked
 												);
 											} }
 										/>
-										{ values.updatePlugins && (
+										{ values.update_plugins && (
 											<Checkbox
 												{ ...inputProps(
 													'auto_update_plugins'
 												) }
 												isDisabled={
-													! values.autoUpdate
+													! values.auto_updates
 												}
 												isSelected={
-													values.autoUpdatePlugins &&
-													values.updatePlugins
+													values.auto_update_plugins &&
+													values.update_plugins
 												}
 												label={ __(
 													'Enable automatic update',
@@ -234,7 +229,9 @@ export const UpdatesInputs = () => {
 												) }
 												onChange={ ( checked ) => {
 													changeValues(
-														[ 'autoUpdatePlugins' ],
+														[
+															'auto_update_plugins',
+														],
 														checked
 													);
 												} }
@@ -263,7 +260,7 @@ export const UpdatesInputs = () => {
 											{ ...inputProps( 'update_themes' ) }
 											isReadOnly={ ! values.updates }
 											isSelected={
-												values.updateThemes &&
+												values.update_themes &&
 												values.updates
 											}
 											aria-label={ __(
@@ -277,24 +274,24 @@ export const UpdatesInputs = () => {
 											onChange={ ( checked ) => {
 												changeValues(
 													[
-														'autoUpdateThemes',
-														'updateThemes',
+														'auto_update_themes',
+														'update_themes',
 													],
 													checked
 												);
 											} }
 										/>
-										{ values.updateThemes && (
+										{ values.update_themes && (
 											<Checkbox
 												{ ...inputProps(
 													'auto_update_themes'
 												) }
 												isDisabled={
-													! values.autoUpdate
+													! values.auto_updates
 												}
 												isSelected={
-													values.autoUpdateThemes &&
-													values.updateThemes
+													values.auto_update_themes &&
+													values.update_themes
 												}
 												aria-label={ __(
 													'Enable themes automatic update',
@@ -306,7 +303,9 @@ export const UpdatesInputs = () => {
 												) }
 												onChange={ ( checked ) => {
 													changeValues(
-														[ 'autoUpdateThemes' ],
+														[
+															'auto_update_themes',
+														],
 														checked
 													);
 												} }
