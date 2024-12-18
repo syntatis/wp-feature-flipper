@@ -8,11 +8,17 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Concerns\WPFilterNames;
+use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
+use Syntatis\FeatureFlipper\Features\Updates\ManageGlobal;
+use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
+use Syntatis\FeatureFlipper\Features\Updates\ManageThemes;
 use Syntatis\FeatureFlipper\Helpers;
-use Syntatis\FeatureFlipper\Helpers\Option;
 
 class Updates implements Hookable, Extendable
 {
+	use WPFilterNames;
+
 	public function hook(Hook $hook): void
 	{
 		/**
@@ -58,21 +64,9 @@ class Updates implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new Updates\ManageGlobal();
-		yield new Updates\ManageCore();
-		yield new Updates\ManagePlugins();
-		yield new Updates\ManageThemes();
-	}
-
-	/** @phpstan-param non-empty-string $name */
-	private static function optionFilterName(string $name): string
-	{
-		return 'option_' . Option::name($name);
-	}
-
-	/** @phpstan-param non-empty-string $name */
-	private static function defaultOptionFilterName(string $name): string
-	{
-		return 'default_option_' . Option::name($name);
+		yield new ManageGlobal();
+		yield new ManageCore();
+		yield new ManagePlugins();
+		yield new ManageThemes();
 	}
 }
