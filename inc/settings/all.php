@@ -32,8 +32,6 @@ return [
 		->withDefault(defined('WP_POST_REVISIONS') ? ! (bool) WP_POST_REVISIONS : true),
 	(new Setting('revisions_max', 'integer'))
 		->withDefault(null),
-	(new Setting('heartbeat', 'boolean'))
-		->withDefault(true),
 	(new Setting('self_ping', 'boolean'))
 		->withDefault(true),
 	(new Setting('cron', 'boolean'))
@@ -42,31 +40,6 @@ return [
 		->withDefault(true),
 	(new Setting('comments', 'boolean'))
 		->withDefault(true),
-
-	/**
-	 * Updates
-	 */
-	(new Setting('updates', 'boolean'))
-		->withDefault(true),
-	(new Setting('update_core', 'boolean'))
-		->withDefault(true),
-	(new Setting('update_plugins', 'boolean'))
-		->withDefault(true),
-	(new Setting('update_themes', 'boolean'))
-		->withDefault(true),
-
-	/**
-	 * Updates: Auto Updates
-	 */
-	(new Setting('auto_updates', 'boolean'))
-		->withDefault(true),
-	(new Setting('auto_update_core', 'boolean'))
-		->withDefault(true),
-	(new Setting('auto_update_plugins', 'boolean'))
-		->withDefault(true),
-	(new Setting('auto_update_themes', 'boolean'))
-		->withDefault(true),
-
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
 
@@ -136,4 +109,52 @@ return [
 		->withDefault(true),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
+
+	/**
+	 * ========================================================
+	 * Advanced
+	 * ========================================================
+	 */
+
+	/**
+	 * Updates
+	 */
+	(new Setting('updates', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_core', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_plugins', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_themes', 'boolean'))
+		->withDefault(true),
+
+	/**
+	 * Updates: Auto Updates
+	 */
+	(new Setting('auto_updates', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_core', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_plugins', 'boolean'))
+		->withDefault(true),
+	(new Setting('auto_update_themes', 'boolean'))
+		->withDefault(true),
+
+	/**
+	 * Heartbeat
+	 */
+	(new Setting('heartbeat', 'boolean'))
+		->withDefault(true),
+	(new Setting('heartbeat_admin', 'boolean'))
+		->withDefault(true),
+	(new Setting('heartbeat_admin_interval', 'integer'))
+		->withDefault(60),
+	(new Setting('heartbeat_post_edit', 'boolean'))
+		->withDefault(true),
+	(new Setting('heartbeat_post_edit_interval', 'integer'))
+		->withDefault(60),
+	(new Setting('heartbeat_front', 'boolean'))
+		->withDefault(true),
+	(new Setting('heartbeat_front_interval', 'integer'))
+		->withDefault(60),
 ];
