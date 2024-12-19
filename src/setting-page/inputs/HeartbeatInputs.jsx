@@ -63,7 +63,7 @@ export const HeartbeatInputs = () => {
 					</p>
 					<p>
 						{ __(
-							'While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization.',
+							'While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may customize the frequency if necessary for performance optimization.',
 							'syntatis-feature-flipper'
 						) }
 					</p>
@@ -183,7 +183,7 @@ export const HeartbeatInputs = () => {
 									);
 								} }
 								label={ __(
-									'Enable request on the admin pages once every',
+									'Set request on the admin pages once every',
 									'syntatis-feature-flipper'
 								) }
 								suffix={
