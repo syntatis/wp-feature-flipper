@@ -173,36 +173,6 @@ class HeartbeatTest extends WPTestCase
 		);
 	}
 
-	/**
-	 * Test whether the "heartbeat" global option would affect "heartbeat_post_editor"
-	 * and "heartbeat_post_editor_interval" options.
-	 *
-	 * @testdox should return `false` and `null` for "heartbeat_autosave" and "heartbeat_autosave_interval" respectively
-	 */
-	public function testPostEditorOption(): void
-	{
-		// Default.
-		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
-
-		// Update the "heartbeat" global option.
-		update_option(Option::name('heartbeat'), false);
-
-		// Reload.
-		$hook = new Hook();
-		$instance = new Heartbeat();
-		$instance->hook($hook);
-
-		$this->assertFalse(
-			Option::get('heartbeat_post_editor'),
-			'Heartbeat post editor option should be false, since the global option is false.',
-		);
-		$this->assertNull(
-			Option::get('heartbeat_post_editor_interval'),
-			'Heartbeat post editor interval should be null, since the global option is false.',
-		);
-	}
-
 	/** @testdox should return `60` as the "heartbeat_admin_interval" default */
 	public function testAdminIntervalOptionDefault(): void
 	{
@@ -245,27 +215,5 @@ class HeartbeatTest extends WPTestCase
 		update_option(Option::name('heartbeat_front'), false);
 
 		$this->assertNull(Option::get('heartbeat_front_interval'));
-	}
-
-	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
-	public function testPostEditorIntervalOptionDefault(): void
-	{
-		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
-	}
-
-	/** @testdox should return null for "heartbeat_post_editor_interval" when "heartbeat_post_editor" is set to `false` */
-	public function testPostEditorIntervalOptionNull(): void
-	{
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		$this->assertNull(Option::get('heartbeat_post_editor_interval'));
-	}
-
-	/** @testdox should return updated value for "heartbeat_post_editor_interval" */
-	public function testPostEditorIntervalOptionUpdated(): void
-	{
-		update_option(Option::name('heartbeat_post_editor_interval'), 30);
-
-		$this->assertSame(30, Option::get('heartbeat_post_editor_interval'));
 	}
 }
