@@ -24,7 +24,7 @@ class ManagePostEditor implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-		$hook->addFilter('heartbeat_settings', [$this, 'getSettings']);
+		$hook->addFilter('heartbeat_settings', [$this, 'getSettings'], PHP_INT_MAX);
 	}
 
 	public function deregisterScripts(): void
