@@ -58,10 +58,14 @@ class Heartbeat implements Hookable, Extendable
 		 * the Heartbeat API for that specific context.
 		 */
 
+		$onGlobal = fn ($value) => $this->heartbeat ? $value : $this->heartbeat;
 		$onAdminPages = fn ($value) => (bool) Option::get('heartbeat_admin') && $this->heartbeat ? $value : null;
 		$onFrontPages = fn ($value) => (bool) Option::get('heartbeat_front') && $this->heartbeat ? $value : null;
 		$onPostEditor = fn ($value) => (bool) Option::get('heartbeat_post_editor') && $this->heartbeat ? $value : null;
 
+		// Manage the "heartbeat_admin" and "heartbeat_admin_interval" options.
+		$hook->addFilter(self::optionName('heartbeat_admin'), $onGlobal);
+		$hook->addFilter(self::defaultOptionName('heartbeat_admin'), $onGlobal);
 		$hook->addFilter(
 			self::optionName('heartbeat_admin_interval'),
 			$onAdminPages,
@@ -71,6 +75,9 @@ class Heartbeat implements Hookable, Extendable
 			$onAdminPages,
 		);
 
+		// Manage the "heartbeat_front" and "heartbeat_front_interval" options.
+		$hook->addFilter(self::optionName('heartbeat_front'), $onGlobal);
+		$hook->addFilter(self::defaultOptionName('heartbeat_front'), $onGlobal);
 		$hook->addFilter(
 			self::optionName('heartbeat_front_interval'),
 			$onFrontPages,
@@ -80,11 +87,13 @@ class Heartbeat implements Hookable, Extendable
 			$onFrontPages,
 		);
 
+		// Manage the "heartbeat_post_editor" and "heartbeat_post_editor_interval" options.
+		$hook->addFilter(self::optionName('heartbeat_post_editor'), $onGlobal);
+		$hook->addFilter(self::defaultOptionName('heartbeat_post_editor'), $onGlobal);
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor_interval'),
 			$onPostEditor,
 		);
-
 		$hook->addFilter(
 			self::defaultOptionName('heartbeat_post_editor_interval'),
 			$onPostEditor,
