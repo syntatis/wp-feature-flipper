@@ -7,19 +7,19 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\HasURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function defined;
-use function is_string;
 use function preg_replace;
 use function printf;
-use function sprintf;
-use function trim;
 
 use const PHP_INT_MIN;
 
 class SitePrivate implements Hookable
 {
+	use HasURI;
+
 	public function hook(Hook $hook): void
 	{
 		if (! (bool) Option::get('site_private')) {
@@ -33,11 +33,7 @@ class SitePrivate implements Hookable
 
 	public function forceLogin(): void
 	{
-		if (
-			( defined('DOING_AJAX') && DOING_AJAX ) ||
-			( defined('DOING_CRON') && DOING_CRON ) ||
-			( defined('WP_CLI') && WP_CLI )
-		) {
+		if (wp_doing_ajax() || wp_doing_cron() || ( defined('WP_CLI') && WP_CLI )) {
 			return;
 		}
 
@@ -68,14 +64,5 @@ class SitePrivate implements Hookable
 			esc_url(admin_url('options-general.php?page=' . App::name() . '&tab=site')),
 			esc_html(__('The site is currently in private mode', 'syntatis-feature-flipper')),
 		);
-	}
-
-	private static function getCurrentUrl(): string
-	{
-		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-		$uri = isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-
-		return trim($host) !== '' ? sprintf('%s%s%s', $schema, $host, $uri) : '';
 	}
 }

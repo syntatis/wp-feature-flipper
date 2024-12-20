@@ -149,10 +149,10 @@ return [
 		->withDefault(true),
 	(new Setting('heartbeat_admin_interval', 'integer'))
 		->withDefault(60),
-	(new Setting('heartbeat_post_edit', 'boolean'))
+	(new Setting('heartbeat_post_editor', 'boolean'))
 		->withDefault(true),
-	(new Setting('heartbeat_post_edit_interval', 'integer'))
-		->withDefault(60),
+	(new Setting('heartbeat_post_editor_interval', 'integer'))
+		->withDefault(15),
 	(new Setting('heartbeat_front', 'boolean'))
 		->withDefault(true),
 	(new Setting('heartbeat_front_interval', 'integer'))

@@ -10,8 +10,8 @@ const OPTION_KEYS = [
 	'heartbeat',
 	'heartbeat_admin',
 	'heartbeat_admin_interval',
-	'heartbeat_post_edit',
-	'heartbeat_post_edit_interval',
+	'heartbeat_post_editor',
+	'heartbeat_post_editor_interval',
 	'heartbeat_front',
 	'heartbeat_front_interval',
 ];
@@ -255,32 +255,32 @@ export const HeartbeatInputs = () => {
 							</div>
 							<Select
 								{ ...inputProps(
-									'heartbeat_post_edit_interval'
+									'heartbeat_post_editor_interval'
 								) }
-								name="heartbeat_post_edit"
+								name="heartbeat_post_editor"
 								selectedItem={
-									values.heartbeat_post_edit_interval
+									values.heartbeat_post_editor_interval
 								}
-								isDisabled={ ! values.heartbeat_post_edit }
+								isDisabled={ ! values.heartbeat_post_editor }
 								onSelectionChange={ ( value ) => {
 									setFieldsetValues(
-										'heartbeat_post_edit_interval',
+										'heartbeat_post_editor_interval',
 										value
 									);
 								} }
 								prefix={
 									<Checkbox
 										{ ...inputProps(
-											'heartbeat_post_edit'
+											'heartbeat_post_editor'
 										) }
 										defaultSelected={
-											values.heartbeat_post_edit
+											values.heartbeat_post_editor
 										}
 										onChange={ ( checked ) => {
 											setValues( ( currentValues ) => {
 												return {
 													...currentValues,
-													heartbeat_post_edit:
+													heartbeat_post_editor:
 														checked,
 												};
 											} );
