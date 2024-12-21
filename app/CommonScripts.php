@@ -8,6 +8,9 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 
+use function array_filter;
+use function array_keys;
+use function in_array;
 use function sprintf;
 
 use const PHP_INT_MAX;
@@ -37,15 +40,17 @@ class CommonScripts implements Hookable
 
 	private function getInlineScript(): string
 	{
-		$envType = wp_get_environment_type();
-
 		return sprintf(
 			<<<'SCRIPT'
 			window.$syntatis = { featureFlipper: %s };
 			SCRIPT,
 			wp_json_encode(
 				apply_filters('syntatis/feature_flipper/inline_data', [
-					'environmentType' => $envType,
+					'environmentType' => wp_get_environment_type(),
+					'postTypes' => array_keys(array_filter(
+						get_post_types(['public' => true]),
+						static fn ($postType) => ! in_array($postType, ['attachment'], true),
+					)),
 					'themeSupport' => [
 						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 					],
