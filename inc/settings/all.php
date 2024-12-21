@@ -18,6 +18,9 @@ return [
 	// General.
 	(new Setting('gutenberg', 'boolean'))
 		->withDefault(true),
+	(new Setting('gutenberg_post_types', 'array'))
+		->apiSchema(['items' => ['type' => 'string']])
+		->withDefault(null),
 	(new Setting('block_based_widgets', 'boolean'))
 		/**
 		 * Since it's too early to determine whether the current theme supports the
