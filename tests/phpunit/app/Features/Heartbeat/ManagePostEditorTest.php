@@ -106,31 +106,13 @@ class ManagePostEditorTest extends WPTestCase
 
 	/**
 	 * Test whether the "heartbeat_admin" option would affect "hearbeat_front"
-	 * and "heartbeat_front_interval" options.
+	 * and "heartbeat_post_editor" options.
 	 *
-	 * @testdox should not affect "heartbeat_front" and "heartbeat_front_interval" options
+	 * @testdox should not affect "heartbeat_post_editor" and "heartbeat_post_editor_interval" options
 	 */
 	public function testAdminOption(): void
 	{
 		update_option(Option::name('heartbeat_admin'), false);
-
-		$hook = new Hook();
-		$instance = new ManagePostEditor();
-		$instance->hook($hook);
-
-		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
-	}
-
-	/**
-	 * Test whether the "heartbeat_front" option would affect "hearbeat_post_editor"
-	 * and "hearbeat_post_editor_interval" options.
-	 *
-	 * @testdox should not affect "hearbeat_post_editor" and "hearbeat_post_editor_interval" options
-	 */
-	public function testFrontOption(): void
-	{
-		update_option(Option::name('heartbeat_front'), false);
 
 		$hook = new Hook();
 		$instance = new ManagePostEditor();

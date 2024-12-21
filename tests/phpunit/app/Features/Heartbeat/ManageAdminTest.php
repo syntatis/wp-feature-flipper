@@ -110,24 +110,6 @@ class ManageAdminTest extends WPTestCase
 	}
 
 	/**
-	 * Test whether the "heartbeat_front" option would affect "heartbeat_admin"
-	 * and "heartbeat_admin_interval" options.
-	 *
-	 * @testdox should not affect "heartbeat_admin" and "heartbeat_admin_interval" options
-	 */
-	public function tesFrontOption(): void
-	{
-		update_option(Option::name('heartbeat_front'), false);
-
-		$hook = new Hook();
-		$instance = new ManageAdmin();
-		$instance->hook($hook);
-
-		$this->assertTrue(Option::get('heartbeat_admin'));
-		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
-	}
-
-	/**
 	 * Test whether the "heartbeat_post_editor" option would affect "heartbeat_admin"
 	 * and "heartbeat_admin_interval" options.
 	 *

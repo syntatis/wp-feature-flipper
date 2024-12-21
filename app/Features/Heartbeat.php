@@ -65,7 +65,6 @@ class Heartbeat implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new ManageAdmin();
-		yield new ManageFront();
 		yield new ManagePostEditor();
 	}
 }

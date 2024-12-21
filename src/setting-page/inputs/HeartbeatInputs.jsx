@@ -12,8 +12,6 @@ const OPTION_KEYS = [
 	'heartbeat_admin_interval',
 	'heartbeat_post_editor',
 	'heartbeat_post_editor_interval',
-	'heartbeat_front',
-	'heartbeat_front_interval',
 ];
 
 export const HeartbeatInputs = () => {
@@ -75,90 +73,6 @@ export const HeartbeatInputs = () => {
 					summary={ __( 'Settings', 'syntatis-feature-flipper' ) }
 				>
 					<div className={ styles.group }>
-						<div
-							id="heartbeat-on-front"
-							role="group"
-							aria-labelledby="heartbeat-on-front-head"
-						>
-							<div id="heartbeat-on-front-head">
-								<strong>{ __( 'On front pages' ) }</strong>
-							</div>
-							<Checkbox
-								{ ...inputProps( 'heartbeat_front' ) }
-								defaultSelected={ values.heartbeat_front }
-								onChange={ ( checked ) => {
-									setValues( ( currentValues ) => {
-										return {
-											...currentValues,
-											heartbeat_front: checked,
-										};
-									} );
-									setFieldsetValues(
-										'heartbeat_front',
-										checked
-									);
-								} }
-								label={ __(
-									'Enable request on the front pages once every',
-									'syntatis-feature-flipper'
-								) }
-								suffix={
-									<Select
-										{ ...inputProps(
-											'heartbeat_front_interval'
-										) }
-										selectedItem={
-											values.heartbeat_front_interval
-										}
-										isDisabled={ ! values.heartbeat_front }
-										onSelectionChange={ ( value ) => {
-											setFieldsetValues(
-												'heartbeat_front_interval',
-												value
-											);
-										} }
-										name="heartbeat_front_interval"
-									>
-										<Option value={ 15 }>
-											{ __(
-												'15 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 30 }>
-											{ __(
-												'30 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 60 }>
-											{ __(
-												'1 minute',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 120 }>
-											{ __(
-												'2 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 300 }>
-											{ __(
-												'5 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 600 }>
-											{ __(
-												'10 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-									</Select>
-								}
-							/>
-						</div>
 						<div
 							id="heartbeat-on-admin"
 							role="group"
@@ -250,7 +164,10 @@ export const HeartbeatInputs = () => {
 						>
 							<div id="heartbeat-on-post-edit-head">
 								<strong>
-									{ __( 'On post edit screens' ) }
+									{ __(
+										'On post editor',
+										'syntatis-feature-flipper'
+									) }
 								</strong>
 							</div>
 							<Select

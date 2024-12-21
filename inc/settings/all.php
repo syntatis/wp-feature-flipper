@@ -153,8 +153,4 @@ return [
 		->withDefault(true),
 	(new Setting('heartbeat_post_editor_interval', 'integer'))
 		->withDefault(15),
-	(new Setting('heartbeat_front', 'boolean'))
-		->withDefault(true),
-	(new Setting('heartbeat_front_interval', 'integer'))
-		->withDefault(60),
 ];

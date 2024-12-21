@@ -32,6 +32,8 @@ export const Form = ( { children } ) => {
 			}
 		}
 
+		console.log( fieldset );
+
 		setFieldsetValues( fieldset );
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );
