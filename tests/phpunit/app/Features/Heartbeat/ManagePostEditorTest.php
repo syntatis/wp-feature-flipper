@@ -52,7 +52,7 @@ class ManagePostEditorTest extends WPTestCase
 		$instance->hook($hook);
 
 		$this->assertSame(PHP_INT_MAX, $hook->hasAction('admin_init', [$instance, 'deregisterScripts']));
-		$this->assertSame(PHP_INT_MAX, $hook->hasFilter('heartbeat_settings', [$instance, 'getSettings']));
+		$this->assertSame(PHP_INT_MAX, $hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
 	}
 
 	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
@@ -140,55 +140,12 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
-	public function testGetSettingsOnFrontPages(): void
-	{
-		// Setup.
-		$instance = new ManagePostEditor();
-
-		// Assert.
-		$this->assertSame(70, $instance->getSettings(['minimalInterval' => 70])['minimalInterval']);
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), 60);
-
-		// Assert.
-		$this->assertSame(
-			70,
-			$instance->getSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
-		);
-	}
-
-	public function testGetSettingsOnAdminPages(): void
-	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
-		set_current_screen('dashboard');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-
-		$instance = new ManagePostEditor();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(70, $instance->getSettings(['minimalInterval' => 70])['minimalInterval']);
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), 50);
-
-		// Assert.
-		$this->assertSame(
-			70,
-			$instance->getSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
-		);
-	}
-
 	/**
 	 * Test whether the "minimalInterval" setting is changed when it's on the post editor.
 	 *
 	 * @testdox should change the "minimalInterval" setting since it's on the post editor
 	 */
-	public function testGetSettingsOnPostEditor(): void
+	public function testFilterSettingsOnPostEditor(): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
@@ -199,7 +156,7 @@ class ManagePostEditorTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame(15, $instance->getSettings(['minimalInterval' => 15])['minimalInterval']);
+		$this->assertSame(15, $instance->filterSettings(['minimalInterval' => 15])['minimalInterval']);
 
 		// Update.
 		update_option(Option::name('heartbeat_post_editor_interval'), 40);
@@ -209,8 +166,51 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertSame(40, Option::get('heartbeat_post_editor_interval'));
 		$this->assertSame(
 			40,
-			$instance->getSettings(['minimalInterval' => 70])['minimalInterval'],
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
 			'The "minimalInterval" setting should be changed since it\'s on post editor.',
+		);
+	}
+
+	public function testFilterSettingsOnFrontPages(): void
+	{
+		// Setup.
+		$instance = new ManagePostEditor();
+
+		// Assert.
+		$this->assertSame(70, $instance->filterSettings(['minimalInterval' => 70])['minimalInterval']);
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor_interval'), 60);
+
+		// Assert.
+		$this->assertSame(
+			70,
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
+			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
+		);
+	}
+
+	public function testFilterSettingsOnAdminPages(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
+		set_current_screen('dashboard');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$instance = new ManagePostEditor();
+
+		// Assert.
+		$this->assertTrue(is_admin());
+		$this->assertSame(70, $instance->filterSettings(['minimalInterval' => 70])['minimalInterval']);
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor_interval'), 50);
+
+		// Assert.
+		$this->assertSame(
+			70,
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
+			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
 		);
 	}
 
@@ -286,13 +286,14 @@ class ManagePostEditorTest extends WPTestCase
 	 *
 	 * @testdox should not deregister the "heartbeat" script on the front pages
 	 */
-	public function testDeregisterScriptsOnFrontPages(): void
+	public function testDeregisterScriptsOnFrontPage(): void
 	{
 		// Setup.
 		$instance = new ManagePostEditor();
 		$instance->deregisterScripts();
 
 		// Assert default.
+		$this->assertFalse(is_admin());
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -304,6 +305,7 @@ class ManagePostEditorTest extends WPTestCase
 		$instance->deregisterScripts();
 
 		// Assert.
+		$this->assertFalse(is_admin());
 		$this->assertFalse(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
@@ -314,7 +316,7 @@ class ManagePostEditorTest extends WPTestCase
 	 *
 	 * @testdox should not deregister the "heartbeat" script on the admin pages
 	 */
-	public function testDeregisterScriptsOnAdminPages(): void
+	public function testDeregisterScriptsOnAdminPage(): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
@@ -325,6 +327,7 @@ class ManagePostEditorTest extends WPTestCase
 		$instance->deregisterScripts();
 
 		// Assert default.
+		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 

@@ -26,16 +26,8 @@ class ManageAdmin implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter(
-			'heartbeat_settings',
-			[$this, 'getSettings'],
-			/**
-			 * Let the `heartbeat_settings` filter on `ManagePostEditor` class to run
-			 * last to ensure that the heartbeat settings are correctly applied on
-			 * the post editor.
-			 */
-			PHP_INT_MAX - 10,
-		);
+		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
+		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
 		$hook->addFilter(
 			self::optionName('heartbeat_admin'),
 			fn ($value) => $this->heartbeat ? $value : false,
@@ -54,14 +46,32 @@ class ManageAdmin implements Hookable
 		);
 	}
 
+	public function deregisterScripts(): void
+	{
+		if (! is_admin() || self::isPostEditor() || (bool) Option::get('heartbeat_admin')) {
+			return;
+		}
+
+		wp_deregister_script('heartbeat');
+	}
+
 	/**
 	 * @param array<string,mixed> $settings
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function getSettings(array $settings): array
+	public function filterSettings(array $settings): array
 	{
-		if (! is_admin()) {
+		/**
+		 * If it's not admin, return the settings as is.
+		 *
+		 * In the post editor, even though that it is on the admin area, settings
+		 * should also return as is as well, since the settings for post editor
+		 * would be applied from the `ManagePostEditor` class.
+		 *
+		 * @see \Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor::filterSettings()
+		 */
+		if (! is_admin() || self::isPostEditor()) {
 			return $settings;
 		}
 
@@ -72,5 +82,12 @@ class ManageAdmin implements Hookable
 		}
 
 		return $settings;
+	}
+
+	private static function isPostEditor(): bool
+	{
+		$pagenow = $GLOBALS['pagenow'] ?? '';
+
+		return is_admin() && ($pagenow === 'post.php' || $pagenow === 'post-new.php');
 	}
 }

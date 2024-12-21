@@ -27,7 +27,7 @@ class ManageFront implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-		$hook->addFilter('heartbeat_settings', [$this, 'getSettings'], PHP_INT_MAX);
+		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
 		$hook->addFilter(
 			self::optionName('heartbeat_front'),
 			fn ($value) => $this->heartbeat ? $value : false,
@@ -48,7 +48,7 @@ class ManageFront implements Hookable
 
 	public function deregisterScripts(): void
 	{
-		if (is_admin() || (bool) Option::get('heartbeat_post_front')) {
+		if (is_admin() || (bool) Option::get('heartbeat_front')) {
 			return;
 		}
 
@@ -56,12 +56,15 @@ class ManageFront implements Hookable
 	}
 
 	/**
+	 * Filter the Heartbeat settings on the front page.
+	 *
 	 * @param array<string,mixed> $settings
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function getSettings(array $settings): array
+	public function filterSettings(array $settings): array
 	{
+		// If it's admin, return the settings as is.
 		if (is_admin()) {
 			return $settings;
 		}

@@ -27,7 +27,7 @@ class ManagePostEditor implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-		$hook->addFilter('heartbeat_settings', [$this, 'getSettings'], PHP_INT_MAX);
+		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor'),
 			fn ($value) => $this->heartbeat ? $value : $this->heartbeat,
@@ -60,10 +60,10 @@ class ManagePostEditor implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function getSettings(array $settings): array
+	public function filterSettings(array $settings): array
 	{
 		// If it's not a post edit screen, return the settings as is.
-		if (! self::isPostEditor()) {
+		if (! is_admin() || ! self::isPostEditor()) {
 			return $settings;
 		}
 
