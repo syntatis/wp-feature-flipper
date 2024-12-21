@@ -178,7 +178,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, a more generic error message will be shown when the login fails.',
+						'When switched on, a more generic error message will be shown when the login fails.',
 						'syntatis-feature-flipper'
 					) }
 					help={
