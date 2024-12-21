@@ -11,7 +11,6 @@ use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
-use Syntatis\FeatureFlipper\Features\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_filter;
@@ -46,18 +45,10 @@ class General implements Hookable, Extendable
 			$hook->addFilter('use_widgets_block_editor', '__return_false');
 		}
 
-		if (! (bool) Option::get('heartbeat')) {
-			$hook->addAction('init', static fn () => wp_deregister_script('heartbeat'), -99);
-		}
-
 		if (! (bool) Option::get('self_ping')) {
 			$hook->addFilter('pre_ping', static function (&$links): void {
 				$links = array_filter($links, static fn ($link) => ! str_starts_with($link, home_url()));
 			}, 99);
-		}
-
-		if (! (bool) Option::get('cron') && defined('DISABLE_WP_CRON')) {
-			define('DISABLE_WP_CRON', true);
 		}
 
 		$maxRevisions = Option::get('revisions_max');
@@ -118,6 +109,5 @@ class General implements Hookable, Extendable
 		yield new Comments();
 		yield new Embeds();
 		yield new Feeds();
-		yield new Updates();
 	}
 }

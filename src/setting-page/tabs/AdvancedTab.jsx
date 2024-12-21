@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { SwitchInput, UpdatesInputs } from '../inputs';
+import { HeartbeatInputs, SwitchInput, UpdatesInputs } from '../inputs';
 import { HelpContent } from '../components';
 import { Notice } from '@syntatis/kubrick';
 import styles from './AdvancedTab.module.scss';
@@ -57,41 +57,7 @@ export const AdvancedTab = () => {
 							</HelpContent>
 						}
 					/>
-					<SwitchInput
-						name="heartbeat"
-						id="heartbeat"
-						title="Heartbeat"
-						label={ __(
-							'Enable the Heartbeat API',
-							'syntatis-feature-flipper'
-						) }
-						description={ __(
-							'When switched off, the Heartbeat API will be disabled; it will not be sending requests.',
-							'syntatis-feature-flipper'
-						) }
-						help={
-							<HelpContent>
-								<p>
-									{ __(
-										'The Heartbeat API enables real-time communication between the browser and server using periodic AJAX requests.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'It powers features like auto-saving posts, post locking to prevent simultaneous edits, session management to extend login times, and real-time dashboard updates for plugins.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										'While it improves interactivity and functionality, it can increase server load, especially on shared hosting. You may disable it if necessary for performance optimization.',
-										'syntatis-feature-flipper'
-									) }
-								</p>
-							</HelpContent>
-						}
-					/>
+					<HeartbeatInputs />
 				</Fieldset>
 			</Form>
 		</>

@@ -1,6 +1,6 @@
 {
     "name": "syntatis-feature-flipper",
-    "version": "1.0.0",
+    "version": "1.6.0",
     "description": "Easily switch some features in WordPress, on and off",
     "author": {
         "name": "Thoriq Firdaus",
@@ -23,7 +23,7 @@
         "npm": ">=10"
     },
     "dependencies": {
-        "@syntatis/kubrick": "^0.1.0-beta.11",
+        "@syntatis/kubrick": "^0.1.0-beta.13",
         "@wordpress/api-fetch": "^7.12.0",
         "@wordpress/dom-ready": "^4.12.0",
         "@wordpress/element": "^6.12.0",

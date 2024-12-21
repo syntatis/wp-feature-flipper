@@ -40,6 +40,7 @@ class Plugin implements Extendable
 	private function getModules(): iterable
 	{
 		yield new Modules\Admin();
+		yield new Modules\Advanced();
 		yield new Modules\General();
 		yield new Modules\Media();
 		yield new Modules\Security();

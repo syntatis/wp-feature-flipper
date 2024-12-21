@@ -1,10 +1,9 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/wp-env.json",
 	"phpVersion": "7.4",
 	"core": "https://wordpress.org/latest.zip",
 	"plugins": [
-		".",
-		"https://downloads.wordpress.org/plugin/user-switching.1.8.0.zip",
-		"https://downloads.wordpress.org/plugin/query-monitor.3.16.4.zip"
+		"."
 	],
 	"port": 8801,
 	"config": {
