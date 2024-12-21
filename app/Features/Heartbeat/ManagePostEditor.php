@@ -30,11 +30,11 @@ class ManagePostEditor implements Hookable
 		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor'),
-			fn ($value) => $this->heartbeat ? $value : $this->heartbeat,
+			fn ($value) => $this->heartbeat ? $value : false,
 		);
 		$hook->addFilter(
 			self::defaultOptionName('heartbeat_post_editor'),
-			fn ($value) => $this->heartbeat ? $value : $this->heartbeat,
+			fn ($value) => $this->heartbeat ? $value : false,
 		);
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor_interval'),
