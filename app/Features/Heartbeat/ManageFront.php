@@ -6,15 +6,53 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\HasHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function is_int;
 
+use const PHP_INT_MAX;
+
 class ManageFront implements Hookable
 {
+	use HasHookName;
+
+	private bool $heartbeat;
+
+	public function __construct()
+	{
+		$this->heartbeat = (bool) Option::get('heartbeat');
+	}
+
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('heartbeat_settings', [$this, 'getSettings']);
+		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
+		$hook->addFilter('heartbeat_settings', [$this, 'getSettings'], PHP_INT_MAX);
+		$hook->addFilter(
+			self::optionName('heartbeat_front'),
+			fn ($value) => $this->heartbeat ? $value : false,
+		);
+		$hook->addFilter(
+			self::defaultOptionName('heartbeat_front'),
+			fn ($value) => $this->heartbeat ? $value : false,
+		);
+		$hook->addFilter(
+			self::optionName('heartbeat_front_interval'),
+			fn ($value) => (bool) Option::get('heartbeat_front') && $this->heartbeat ? $value : null,
+		);
+		$hook->addFilter(
+			self::defaultOptionName('heartbeat_front_interval'),
+			fn ($value) => (bool) Option::get('heartbeat_front') && $this->heartbeat ? $value : null,
+		);
+	}
+
+	public function deregisterScripts(): void
+	{
+		if (is_admin() || (bool) Option::get('heartbeat_post_front')) {
+			return;
+		}
+
+		wp_deregister_script('heartbeat');
 	}
 
 	/**

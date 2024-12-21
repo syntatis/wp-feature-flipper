@@ -58,6 +58,7 @@ class ManagePostEditorTest extends WPTestCase
 	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
 	public function testPostEditorIntervalOptionDefault(): void
 	{
+		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
@@ -83,18 +84,14 @@ class ManagePostEditorTest extends WPTestCase
 	 *
 	 * @testdox should return `false` and `null` for "heartbeat_autosave" and "heartbeat_autosave_interval" respectively
 	 */
-	public function testPostEditorOption(): void
+	public function testGlobalOption(): void
 	{
-		// Default.
-		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
-
 		// Update the "heartbeat" global option.
 		update_option(Option::name('heartbeat'), false);
 
 		// Reload.
 		$hook = new Hook();
-		$instance = new Heartbeat();
+		$instance = new ManagePostEditor();
 		$instance->hook($hook);
 
 		$this->assertFalse(
@@ -108,130 +105,39 @@ class ManagePostEditorTest extends WPTestCase
 	}
 
 	/**
-	 * Test whether the "heartbeat" script is deregistered on the front pages
-	 * when the "heartbeat_post_editor" option is set to `false`.
+	 * Test whether the "heartbeat_admin" option would affect "hearbeat_front"
+	 * and "heartbeat_front_interval" options.
 	 *
-	 * @testdox should not deregister the "heartbeat" script on the front pages
+	 * @testdox should not affect "heartbeat_front" and "heartbeat_front_interval" options
 	 */
-	public function testDeregisterScriptsOnFrontPages(): void
+	public function testAdminOption(): void
 	{
-		// Setup.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		update_option(Option::name('heartbeat_admin'), false);
 
-		// Assert default.
+		$hook = new Hook();
+		$instance = new ManagePostEditor();
+		$instance->hook($hook);
+
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertFalse(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
 	/**
-	 * Test whether the "heartbeat" script is deregistered on the admin pages
-	 * when the "heartbeat_post_editor" option is set to `false`.
+	 * Test whether the "heartbeat_front" option would affect "hearbeat_post_editor"
+	 * and "hearbeat_post_editor_interval" options.
 	 *
-	 * @testdox should not deregister the "heartbeat" script on the admin pages
+	 * @testdox should not affect "hearbeat_post_editor" and "hearbeat_post_editor_interval" options
 	 */
-	public function testDeregisterScriptsOnAdminPages(): void
+	public function testFrontOption(): void
 	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
-		set_current_screen('dashboard');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		update_option(Option::name('heartbeat_front'), false);
 
+		$hook = new Hook();
 		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$instance->hook($hook);
 
-		// Assert default.
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertFalse(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-	}
-
-	/**
-	 * Test whether the "heartbeat" script is deregistered on the post editor
-	 * when the "heartbeat_post_editor" option is set to `false`.
-	 *
-	 * @testdox should deregister the "heartbeat" script on the post editor (post.php)
-	 */
-	public function testDeregisterScriptsOnPostEditor(): void
-	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
-		set_current_screen('post.php');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert default.
-		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertFalse(Option::get('heartbeat_post_editor'));
-		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
-	}
-
-	/**
-	 * Test whether the "heartbeat" script is deregistered on the post editor
-	 * (post-new.php) when the "heartbeat_post_editor" option is set to
-	 * `false`.
-	 *
-	 * @testdox should deregister the "heartbeat" script on the post editor (post-new.php)
-	 */
-	public function testDeregisterScriptsOnPostNewEditor(): void
-	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'post-new.php'; // phpcs:ignore
-		set_current_screen('post-new.php');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert default.
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertFalse(Option::get('heartbeat_post_editor'));
-		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
+		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
 	public function testGetSettingsOnFrontPages(): void
@@ -306,5 +212,132 @@ class ManagePostEditorTest extends WPTestCase
 			$instance->getSettings(['minimalInterval' => 70])['minimalInterval'],
 			'The "minimalInterval" setting should be changed since it\'s on post editor.',
 		);
+	}
+
+	/**
+	 * Test whether the "heartbeat" script is deregistered on the post editor
+	 * when the "heartbeat_post_editor" option is set to `false`.
+	 *
+	 * @testdox should deregister the "heartbeat" script on the post editor (post.php)
+	 */
+	public function testDeregisterScriptsOnPostEditor(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
+		set_current_screen('post.php');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert default.
+		$this->assertTrue(Option::get('heartbeat_post_editor'));
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor'), false);
+
+		// Reload.
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert.
+		$this->assertTrue(is_admin());
+		$this->assertFalse(Option::get('heartbeat_post_editor'));
+		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
+	}
+
+	/**
+	 * Test whether the "heartbeat" script is deregistered on the post editor
+	 * (post-new.php) when the "heartbeat_post_editor" option is set to
+	 * `false`.
+	 *
+	 * @testdox should deregister the "heartbeat" script on the post editor (post-new.php)
+	 */
+	public function testDeregisterScriptsOnPostNewEditor(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'post-new.php'; // phpcs:ignore
+		set_current_screen('post-new.php');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert default.
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor'), false);
+
+		// Reload.
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert.
+		$this->assertTrue(is_admin());
+		$this->assertFalse(Option::get('heartbeat_post_editor'));
+		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
+	}
+
+	/**
+	 * Test whether the "heartbeat" script is deregistered on the front pages
+	 * when the "heartbeat_post_editor" option is set to `false`.
+	 *
+	 * @testdox should not deregister the "heartbeat" script on the front pages
+	 */
+	public function testDeregisterScriptsOnFrontPages(): void
+	{
+		// Setup.
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert default.
+		$this->assertTrue(Option::get('heartbeat_post_editor'));
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor'), false);
+
+		// Reload.
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert.
+		$this->assertFalse(Option::get('heartbeat_post_editor'));
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+	}
+
+	/**
+	 * Test whether the "heartbeat" script is deregistered on the admin pages
+	 * when the "heartbeat_post_editor" option is set to `false`.
+	 *
+	 * @testdox should not deregister the "heartbeat" script on the admin pages
+	 */
+	public function testDeregisterScriptsOnAdminPages(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
+		set_current_screen('dashboard');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert default.
+		$this->assertTrue(Option::get('heartbeat_post_editor'));
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
+
+		// Update.
+		update_option(Option::name('heartbeat_post_editor'), false);
+
+		// Reload.
+		$instance = new ManagePostEditor();
+		$instance->deregisterScripts();
+
+		// Assert.
+		$this->assertTrue(is_admin());
+		$this->assertFalse(Option::get('heartbeat_post_editor'));
+		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 }

@@ -22,9 +22,10 @@ use const PHP_INT_MAX;
  * The WordPress Heartbeat API is a core feature in WordPress that enables
  * near real-time communication between a web browser and the server.
  *
- * It uses AJAX (Asynchronous JavaScript and XML) to send regular "pulses"
- * or "ticks" between the browser and the server, allowing for data
- * exchange and triggering events.
+ * The Heartbeat API uses AJAX to send requests to the server at intervals.
+ * By default, this is every 15 seconds in the post editor and every 60
+ * seconds on the dashboard, while a user is logged into the WordPress
+ * admin.
  *
  * @see https://developer.wordpress.org/plugins/javascript/heartbeat-api/
  */
@@ -45,46 +46,6 @@ class Heartbeat implements Hookable, Extendable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-
-		/**
-		 * The Heartbeat API uses AJAX to send requests to the server at intervals.
-		 * By default, this is every 15 seconds in the post editor and every 60
-		 * seconds on the dashboard, while a user is logged into the WordPress
-		 * admin.
-		 *
-		 * These filters manage the options that control these intervals. They set
-		 * a cascading effect in which, if the corresponding option is off, the
-		 * corresponding interval will return a `null`, effectively disabling
-		 * the Heartbeat API for that specific context.
-		 */
-
-		$onGlobal = fn ($value) => $this->heartbeat ? $value : $this->heartbeat;
-		$onAdminPages = fn ($value) => (bool) Option::get('heartbeat_admin') && $this->heartbeat ? $value : null;
-		$onFrontPages = fn ($value) => (bool) Option::get('heartbeat_front') && $this->heartbeat ? $value : null;
-
-		// Manage the "heartbeat_admin" and "heartbeat_admin_interval" options.
-		$hook->addFilter(self::optionName('heartbeat_admin'), $onGlobal);
-		$hook->addFilter(self::defaultOptionName('heartbeat_admin'), $onGlobal);
-		$hook->addFilter(
-			self::optionName('heartbeat_admin_interval'),
-			$onAdminPages,
-		);
-		$hook->addFilter(
-			self::defaultOptionName('heartbeat_admin_interval'),
-			$onAdminPages,
-		);
-
-		// Manage the "heartbeat_front" and "heartbeat_front_interval" options.
-		$hook->addFilter(self::optionName('heartbeat_front'), $onGlobal);
-		$hook->addFilter(self::defaultOptionName('heartbeat_front'), $onGlobal);
-		$hook->addFilter(
-			self::optionName('heartbeat_front_interval'),
-			$onFrontPages,
-		);
-		$hook->addFilter(
-			self::defaultOptionName('heartbeat_front_interval'),
-			$onFrontPages,
-		);
 	}
 
 	public function deregisterScripts(): void

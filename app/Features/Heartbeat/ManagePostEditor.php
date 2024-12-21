@@ -28,8 +28,6 @@ class ManagePostEditor implements Hookable
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
 		$hook->addFilter('heartbeat_settings', [$this, 'getSettings'], PHP_INT_MAX);
-
-		// Manage the "heartbeat_post_editor" and "heartbeat_post_editor_interval" options.
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor'),
 			fn ($value) => $this->heartbeat ? $value : $this->heartbeat,
@@ -50,11 +48,7 @@ class ManagePostEditor implements Hookable
 
 	public function deregisterScripts(): void
 	{
-		if (! self::isPostEditor()) {
-			return;
-		}
-
-		if ((bool) Option::get('heartbeat_post_editor')) {
+		if (! self::isPostEditor() || (bool) Option::get('heartbeat_post_editor')) {
 			return;
 		}
 

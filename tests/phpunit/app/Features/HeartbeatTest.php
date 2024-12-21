@@ -143,36 +143,6 @@ class HeartbeatTest extends WPTestCase
 		);
 	}
 
-	/**
-	 * Test whether the "heartbeat" global option would affect "hearbeat_front"
-	 * and "heartbeat_front_interval" options.
-	 *
-	 * @testdox should return `false` and `null` for "heartbeat_front" and "heartbeat_front_interval" respectively
-	 */
-	public function testFrontOption(): void
-	{
-		// Default.
-		$this->assertTrue(Option::get('heartbeat_front'));
-		$this->assertSame(60, Option::get('heartbeat_front_interval'));
-
-		// Update the "heartbeat" global option.
-		update_option(Option::name('heartbeat'), false);
-
-		// Reload.
-		$hook = new Hook();
-		$instance = new Heartbeat();
-		$instance->hook($hook);
-
-		$this->assertFalse(
-			Option::get('heartbeat_front'),
-			'Heartbeat front option should be false, since the global option is false.',
-		);
-		$this->assertNull(
-			Option::get('heartbeat_front_interval'),
-			'Heartbeat front interval should be null, since the global option is false.',
-		);
-	}
-
 	/** @testdox should return `60` as the "heartbeat_admin_interval" default */
 	public function testAdminIntervalOptionDefault(): void
 	{
@@ -193,27 +163,5 @@ class HeartbeatTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		$this->assertNull(Option::get('heartbeat_admin_interval'));
-	}
-
-	/** @testdox should return `60` as the "heartbeat_front_interval" default */
-	public function testFrontIntervalOptionDefault(): void
-	{
-		$this->assertSame(60, Option::get('heartbeat_front_interval'));
-	}
-
-	/** @testdox should return updated value for "heartbeat_front_interval" */
-	public function testFrontIntervalOptionUpdated(): void
-	{
-		update_option(Option::name('heartbeat_front_interval'), 120);
-
-		$this->assertSame(120, Option::get('heartbeat_front_interval'));
-	}
-
-	/** @testdox should return `null` for "heartbeat_front_interval" when "heartbeat_front" is set to `false` */
-	public function testFrontIntervalOptionNull(): void
-	{
-		update_option(Option::name('heartbeat_front'), false);
-
-		$this->assertNull(Option::get('heartbeat_front_interval'));
 	}
 }
