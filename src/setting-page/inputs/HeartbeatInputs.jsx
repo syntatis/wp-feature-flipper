@@ -79,7 +79,12 @@ export const HeartbeatInputs = () => {
 							aria-labelledby="heartbeat-on-admin-head"
 						>
 							<div id="heartbeat-on-admin-head">
-								<strong>{ __( 'On admin pages' ) }</strong>
+								<strong>
+									{ __(
+										'On admin',
+										'syntatis-feature-flipper'
+									) }
+								</strong>
 							</div>
 							<Checkbox
 								{ ...inputProps( 'heartbeat_admin' ) }
@@ -97,7 +102,7 @@ export const HeartbeatInputs = () => {
 									);
 								} }
 								label={ __(
-									'Set request on the admin pages once every',
+									'Enable request on the admin area once every',
 									'syntatis-feature-flipper'
 								) }
 								suffix={
@@ -158,11 +163,11 @@ export const HeartbeatInputs = () => {
 							/>
 						</div>
 						<div
-							id="heartbeat-on-post-edit"
+							id="heartbeat-on-post-editor"
 							role="group"
-							aria-labelledby="heartbeat-on-post-edit-head"
+							aria-labelledby="heartbeat-on-post-editor-head"
 						>
-							<div id="heartbeat-on-post-edit-head">
+							<div id="heartbeat-on-post-editor-head">
 								<strong>
 									{ __(
 										'On post editor',
@@ -207,7 +212,7 @@ export const HeartbeatInputs = () => {
 											);
 										} }
 										label={ __(
-											'Enable request on the post edit screen once every',
+											'Enable request on the post editor once every',
 											'syntatis-feature-flipper'
 										) }
 									/>
