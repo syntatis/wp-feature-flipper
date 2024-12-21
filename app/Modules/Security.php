@@ -16,7 +16,6 @@ class Security implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		// 1. Disable XML-RPC.
 		if (! (bool) Option::get('xmlrpc')) {
 			$hook->addFilter('pings_open', '__return_false');
 			$hook->addFilter('xmlrpc_enabled', '__return_false');
@@ -24,9 +23,12 @@ class Security implements Hookable
 			$hook->removeAction('wp_head', 'rsd_link');
 		}
 
-		// 2. Disable file editor.
 		if (! (bool) Option::get('file_edit') && ! defined('DISALLOW_FILE_EDIT')) {
 			define('DISALLOW_FILE_EDIT', true);
+		}
+
+		if (! (bool) Option::get('application_passwords')) {
+			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
 		}
 
 		// 3. Disable public REST API.

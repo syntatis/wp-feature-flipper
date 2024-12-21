@@ -107,6 +107,8 @@ return [
 		->withDefault(true),
 	(new Setting('file_edit', 'boolean'))
 		->withDefault(true),
+	(new Setting('application_passwords', 'boolean'))
+		->withDefault(true),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
 
