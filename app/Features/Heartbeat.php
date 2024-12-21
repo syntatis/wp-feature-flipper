@@ -10,7 +10,6 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Concerns\HasHookName;
 use Syntatis\FeatureFlipper\Features\Heartbeat\ManageAdmin;
-use Syntatis\FeatureFlipper\Features\Heartbeat\ManageFront;
 use Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
