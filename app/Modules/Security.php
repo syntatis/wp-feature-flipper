@@ -31,7 +31,10 @@ class Security implements Hookable
 			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
 		}
 
-		// 3. Disable public REST API.
+		if ((bool) Option::get('obfuscate_login_error')) {
+			$hook->addFilter('login_errors', [$this, 'filterLoginErrorMessage']);
+		}
+
 		if (! (bool) Option::get('authenticated_rest_api')) {
 			return;
 		}
@@ -55,5 +58,10 @@ class Security implements Hookable
 					'status' => rest_authorization_required_code(),
 				],
 			);
+	}
+
+	public function filterLoginErrorMessage(): string
+	{
+		return __('Invalid username or password.', 'syntatis-feature-flipper');
 	}
 }

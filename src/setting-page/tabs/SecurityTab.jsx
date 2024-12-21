@@ -159,6 +159,46 @@ export const SecurityTab = () => {
 					}
 				/>
 			</Fieldset>
+			<Fieldset
+				title={ __( 'Login', 'syntatis-feature-flipper' ) }
+				description={ __(
+					'Options to harden the login page on the site.',
+					'syntatis-feature-flipper'
+				) }
+			>
+				<SwitchInput
+					name="obfuscate_login_error"
+					id="obfuscate-login-error"
+					title={ __(
+						'Obfuscate Error',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Obfuscate the error message when login fails',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, a more generic error message will be shown when the login fails.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'WordPress shows detailed error messages on the login page when someone types the wrong username or password. These messages are helpful for users but can also give hackers clues to break into your site.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'This setting, when enabled, will obfuscate the error message to make it less informative, which can help protect your site and makes it harder for hackers to guess the correct username or password.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
+			</Fieldset>
 		</Form>
 	);
 };

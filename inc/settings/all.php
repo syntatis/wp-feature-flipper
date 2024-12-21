@@ -109,6 +109,8 @@ return [
 		->withDefault(true),
 	(new Setting('application_passwords', 'boolean'))
 		->withDefault(true),
+	(new Setting('obfuscate_login_error', 'boolean'))
+		->withDefault(false),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
 
