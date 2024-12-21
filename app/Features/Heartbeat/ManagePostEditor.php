@@ -9,7 +9,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\HasHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
-use function is_int;
+use function is_numeric;
 
 use const PHP_INT_MAX;
 
@@ -69,8 +69,8 @@ class ManagePostEditor implements Hookable
 
 		$interval = Option::get('heartbeat_post_editor_interval');
 
-		if (is_int($interval)) {
-			$settings['minimalInterval'] = $interval;
+		if (is_numeric($interval)) {
+			$settings['interval'] = absint($interval);
 		}
 
 		return $settings;

@@ -123,9 +123,9 @@ class ManagePostEditorTest extends WPTestCase
 	}
 
 	/**
-	 * Test whether the "minimalInterval" setting is changed when it's on the post editor.
+	 * Test whether the "interval" setting is changed when it's on the post editor.
 	 *
-	 * @testdox should change the "minimalInterval" setting since it's on the post editor
+	 * @testdox should change the "interval" setting since it's on the post editor
 	 */
 	public function testFilterSettingsOnPostEditor(): void
 	{
@@ -138,7 +138,7 @@ class ManagePostEditorTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame(15, $instance->filterSettings(['minimalInterval' => 15])['minimalInterval']);
+		$this->assertSame(15, $instance->filterSettings(['interval' => 15])['interval']);
 
 		// Update.
 		update_option(Option::name('heartbeat_post_editor_interval'), 40);
@@ -148,27 +148,34 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertSame(40, Option::get('heartbeat_post_editor_interval'));
 		$this->assertSame(
 			40,
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on post editor.',
+			$instance->filterSettings(['interval' => 70])['interval'],
+			'The "interval" setting should be changed since it\'s on post editor.',
 		);
 	}
 
-	public function testFilterSettingsOnFrontPages(): void
+	/**
+	 * Test whether the "interval" setting update with numeric string
+	 *
+	 * @testdox should update the "interval" setting with numeric string
+	 */
+	public function testFilterSettingsUpdateNumericString(): void
 	{
 		// Setup.
+		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
+		set_current_screen('post.php');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
 		$instance = new ManagePostEditor();
 
-		// Assert.
-		$this->assertSame(70, $instance->filterSettings(['minimalInterval' => 70])['minimalInterval']);
-
 		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), 60);
+		update_option(Option::name('heartbeat_post_editor_interval'), '45');
 
 		// Assert.
+		$this->assertSame('45', Option::get('heartbeat_post_editor_interval'));
 		$this->assertSame(
-			70,
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
+			45, // Casted to integer.
+			$instance->filterSettings(['interval' => 70])['interval'],
+			'The "interval" setting should be changed since it\'s on post editor.',
 		);
 	}
 
@@ -183,7 +190,7 @@ class ManagePostEditorTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame(70, $instance->filterSettings(['minimalInterval' => 70])['minimalInterval']);
+		$this->assertSame(70, $instance->filterSettings(['interval' => 70])['interval']);
 
 		// Update.
 		update_option(Option::name('heartbeat_post_editor_interval'), 50);
@@ -191,8 +198,8 @@ class ManagePostEditorTest extends WPTestCase
 		// Assert.
 		$this->assertSame(
 			70,
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
+			$instance->filterSettings(['interval' => 70])['interval'],
+			'The "interval" setting should not be changed since it\'s not on post editor.',
 		);
 	}
 

@@ -127,7 +127,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
-	/** @testdox should change "minimalInterval" on the admin pages */
+	/** @testdox should change "interval" on the admin pages */
 	public function testFilterSettingsOnAdminPages(): void
 	{
 		// Setup.
@@ -138,7 +138,7 @@ class ManageAdminTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame(60, $instance->filterSettings(['minimalInterval' => 60])['minimalInterval']);
+		$this->assertSame(60, $instance->filterSettings(['interval' => 60])['interval']);
 
 		// Update.
 		update_option(Option::name('heartbeat_admin_interval'), 10);
@@ -146,28 +146,8 @@ class ManageAdminTest extends WPTestCase
 		// Assert.
 		$this->assertSame(
 			10,
-			$instance->filterSettings(['minimalInterval' => 10])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on the admin.',
-		);
-	}
-
-	/** @testdox should not change "minimalInterval" on the front pages */
-	public function testFilterSettingsOnFrontPages(): void
-	{
-		// Setup.
-		$instance = new ManageAdmin();
-
-		// Assert.
-		$this->assertSame(60, $instance->filterSettings(['minimalInterval' => 60])['minimalInterval']);
-
-		// Update.
-		update_option(Option::name('heartbeat_admin_interval'), 10);
-
-		// Assert.
-		$this->assertSame(
-			60,
-			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on the admin.',
+			$instance->filterSettings(['interval' => 10])['interval'],
+			'The "interval" setting should be changed since it\'s on the admin.',
 		);
 	}
 
@@ -182,7 +162,7 @@ class ManageAdminTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame(60, $instance->filterSettings(['minimalInterval' => 60])['minimalInterval']);
+		$this->assertSame(60, $instance->filterSettings(['interval' => 60])['interval']);
 
 		// Update.
 		update_option(Option::name('heartbeat_admin_interval'), 20);
@@ -192,8 +172,34 @@ class ManageAdminTest extends WPTestCase
 		$this->assertSame(20, Option::get('heartbeat_admin_interval'));
 		$this->assertSame(
 			60,
-			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s on post editor.',
+			$instance->filterSettings(['interval' => 60])['interval'],
+			'The "interval" setting should not be changed since it\'s on post editor.',
+		);
+	}
+
+	/**
+	 * Test whether the "interval" setting update with numeric string
+	 *
+	 * @testdox should update the "interval" setting with numeric string
+	 */
+	public function testFilterSettingsUpdateNumericString(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
+		set_current_screen('dashboard');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$instance = new ManageAdmin();
+
+		// Update.
+		update_option(Option::name('heartbeat_admin_interval'), '15');
+
+		// Assert.
+		$this->assertSame('15', Option::get('heartbeat_admin_interval'));
+		$this->assertSame(
+			15, // Casted to integer.
+			$instance->filterSettings(['interval' => 10])['interval'],
+			'The "interval" setting should be changed since it\'s on the admin.',
 		);
 	}
 
