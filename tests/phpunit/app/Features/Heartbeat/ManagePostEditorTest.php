@@ -56,18 +56,23 @@ class ManagePostEditorTest extends WPTestCase
 	}
 
 	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
-	public function testPostEditorIntervalOptionDefault(): void
+	public function testPostEditorOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
+	}
+
+	/** @testdox should return default interval */
+	public function testPostEditorIntervalOptionDefault(): void
+	{
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
-	/** @testdox should return null for "heartbeat_post_editor_interval" when "heartbeat_post_editor" is set to `false` */
-	public function testPostEditorIntervalOptionNull(): void
+	/** @testdox should return interval value when "heartbeat_post_editor" is `false` */
+	public function testPostEditorOptionFalseInterval(): void
 	{
 		update_option(Option::name('heartbeat_post_editor'), false);
 
-		$this->assertNull(Option::get('heartbeat_post_editor_interval'));
+		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
 	/** @testdox should return updated value for "heartbeat_post_editor_interval" */
@@ -98,9 +103,10 @@ class ManagePostEditorTest extends WPTestCase
 			Option::get('heartbeat_post_editor'),
 			'Heartbeat post editor option should be false, since the global option is false.',
 		);
-		$this->assertNull(
+		$this->assertSame(
+			15,
 			Option::get('heartbeat_post_editor_interval'),
-			'Heartbeat post editor interval should be null, since the global option is false.',
+			'Heartbeat post editor interval should be returned, even if the global option is false.',
 		);
 	}
 
