@@ -27,7 +27,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will disable the file editor for themes and plugins.',
+						'When switched off, it will disable the WordPress built-in file editor for themes and plugins.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -85,6 +85,57 @@ export const SecurityTab = () => {
 							</p>
 						</HelpContent>
 					}
+				/>
+				<SwitchInput
+					name="application_passwords"
+					id="application-passwords"
+					title={ __(
+						'Application Passwords',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Enable the Application Passwords',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, third-party applications will not be able to authenticate with the site using the Application Passwords.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									"The Application Passwords in WordPress is a security feature that's first introduced in WordPress 5.6.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									"If you don't use any third-party applications that require this feature, it's generally safe to disable it.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+					onChange={ ( checked ) => {
+						if ( themeEditors ) {
+							themeEditors.parentElement.style.display = ! checked
+								? 'none'
+								: originalDisplay.themeEditors;
+						}
+						if ( pluginEditors ) {
+							pluginEditors.parentElement.style.display =
+								! checked
+									? 'none'
+									: originalDisplay.pluginEditors;
+						}
+					} }
 				/>
 				<SwitchInput
 					name="authenticated_rest_api"
