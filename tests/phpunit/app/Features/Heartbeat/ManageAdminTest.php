@@ -146,8 +146,13 @@ class ManageAdminTest extends WPTestCase
 		// Assert.
 		$this->assertSame(
 			10,
-			$instance->filterSettings(['interval' => 10])['interval'],
+			$instance->filterSettings(['interval' => 60])['interval'],
 			'The "interval" setting should be changed since it\'s on the admin.',
+		);
+		$this->assertSame(
+			10,
+			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
+			'The "minimalInterval" setting should be changed since it\'s on the admin.',
 		);
 	}
 
@@ -175,12 +180,17 @@ class ManageAdminTest extends WPTestCase
 			$instance->filterSettings(['interval' => 60])['interval'],
 			'The "interval" setting should not be changed since it\'s on post editor.',
 		);
+		$this->assertSame(
+			60,
+			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
+			'The "minimalInterval" setting should not be changed since it\'s on post editor.',
+		);
 	}
 
 	/**
 	 * Test whether the "interval" setting update with numeric string
 	 *
-	 * @testdox should update the "interval" setting with numeric string
+	 * @testdox should update the interval setting with numeric string
 	 */
 	public function testFilterSettingsUpdateNumericString(): void
 	{
@@ -200,6 +210,11 @@ class ManageAdminTest extends WPTestCase
 			15, // Casted to integer.
 			$instance->filterSettings(['interval' => 10])['interval'],
 			'The "interval" setting should be changed since it\'s on the admin.',
+		);
+		$this->assertSame(
+			15, // Casted to integer.
+			$instance->filterSettings(['minimalInterval' => 10])['minimalInterval'],
+			'The "minimalInterval" setting should be changed since it\'s on the admin.',
 		);
 	}
 

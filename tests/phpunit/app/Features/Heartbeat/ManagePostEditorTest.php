@@ -151,6 +151,11 @@ class ManagePostEditorTest extends WPTestCase
 			$instance->filterSettings(['interval' => 70])['interval'],
 			'The "interval" setting should be changed since it\'s on post editor.',
 		);
+		$this->assertSame(
+			40,
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
+			'The "minimalInterval" setting should be changed since it\'s on post editor.',
+		);
 	}
 
 	/**
@@ -177,6 +182,11 @@ class ManagePostEditorTest extends WPTestCase
 			$instance->filterSettings(['interval' => 70])['interval'],
 			'The "interval" setting should be changed since it\'s on post editor.',
 		);
+		$this->assertSame(
+			45, // Casted to integer.
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
+			'The "minimalInterval" setting should be changed since it\'s on post editor.',
+		);
 	}
 
 	public function testFilterSettingsOnAdminPages(): void
@@ -198,8 +208,13 @@ class ManagePostEditorTest extends WPTestCase
 		// Assert.
 		$this->assertSame(
 			70,
-			$instance->filterSettings(['interval' => 70])['interval'],
+			$instance->filterSettings(['interval' => 70]),
 			'The "interval" setting should not be changed since it\'s not on post editor.',
+		);
+		$this->assertSame(
+			70,
+			$instance->filterSettings(['minimalInterval' => 70]),
+			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
 		);
 	}
 

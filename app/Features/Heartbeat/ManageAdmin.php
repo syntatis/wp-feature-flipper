@@ -78,7 +78,10 @@ class ManageAdmin implements Hookable
 		$interval = Option::get('heartbeat_admin_interval');
 
 		if (is_numeric($interval)) {
-			$settings['interval'] = absint($interval);
+			$interval = absint($interval);
+
+			$settings['interval'] = $interval;
+			$settings['minimalInterval'] = $interval;
 		}
 
 		return $settings;
