@@ -61,9 +61,17 @@ class ManageAdminTest extends WPTestCase
 		$this->assertTrue(Option::get('heartbeat_admin'));
 	}
 
-	/** @testdox should return `60` as the "heartbeat_admin_interval" default */
+	/** @testdox should return default interval */
 	public function testAdminIntervalOptionDefault(): void
 	{
+		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
+	}
+
+	/** @testdox should return the interval value when "heartbeat_admin" is `false` */
+	public function testAdminOptionFalseInterval(): void
+	{
+		update_option(Option::name('heartbeat_admin'), false);
+
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
@@ -73,14 +81,6 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin_interval'), 240);
 
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
-	}
-
-	/** @testdox should return `null` for "heartbeat_admin_interval" when "heartbeat_admin" is set to `false` */
-	public function testAdminIntervalOptionNull(): void
-	{
-		update_option(Option::name('heartbeat_admin'), false);
-
-		$this->assertNull(Option::get('heartbeat_admin_interval'));
 	}
 
 	/**
@@ -103,9 +103,10 @@ class ManageAdminTest extends WPTestCase
 			Option::get('heartbeat_admin'),
 			'Heartbeat admin option should be false, since the global option is false.',
 		);
-		$this->assertNull(
+		$this->assertSame(
+			60,
 			Option::get('heartbeat_admin_interval'),
-			'Heartbeat admin interval should be null, since the global option is false.',
+			'Heartbeat admin interval should be returned, even if the global option is false.',
 		);
 	}
 

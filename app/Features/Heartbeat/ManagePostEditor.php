@@ -36,14 +36,6 @@ class ManagePostEditor implements Hookable
 			self::defaultOptionName('heartbeat_post_editor'),
 			fn ($value) => $this->heartbeat ? $value : false,
 		);
-		$hook->addFilter(
-			self::optionName('heartbeat_post_editor_interval'),
-			fn ($value) => (bool) Option::get('heartbeat_post_editor') && $this->heartbeat ? $value : null,
-		);
-		$hook->addFilter(
-			self::defaultOptionName('heartbeat_post_editor_interval'),
-			fn ($value) => (bool) Option::get('heartbeat_post_editor') && $this->heartbeat ? $value : null,
-		);
 	}
 
 	public function deregisterScripts(): void

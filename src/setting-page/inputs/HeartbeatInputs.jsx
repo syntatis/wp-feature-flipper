@@ -32,7 +32,9 @@ export const HeartbeatInputs = () => {
 			onChange={ ( checked ) => {
 				setValues( ( currentValues ) => {
 					OPTION_KEYS.forEach( ( key ) => {
-						currentValues[ key ] = checked;
+						if ( ! key.endsWith( '_interval' ) ) {
+							currentValues[ key ] = checked;
+						}
 					} );
 
 					return currentValues;
