@@ -31,10 +31,11 @@ export const HeartbeatInputs = () => {
 			title="Heartbeat"
 			onChange={ ( checked ) => {
 				setValues( ( currentValues ) => {
-					return {
-						...currentValues,
-						heartbeat: checked,
-					};
+					OPTION_KEYS.forEach( ( key ) => {
+						currentValues[ key ] = checked;
+					} );
+
+					return currentValues;
 				} );
 			} }
 			label={ __(
