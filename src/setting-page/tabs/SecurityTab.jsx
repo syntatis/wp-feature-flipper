@@ -87,6 +87,40 @@ export const SecurityTab = () => {
 					}
 				/>
 				<SwitchInput
+					name="authenticated_rest_api"
+					id="authenticated-rest-api"
+					title={ __(
+						'REST API Authentication',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Enable REST API Authentication',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, it will allow users to make request to the public REST API endpoint without authentication.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent readmore="https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/">
+							<p>
+								{ __(
+									'When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
+			</Fieldset>
+			<Fieldset
+				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
+				description={ __(
+					'Control the passwords used on the site.',
+					'syntatis-feature-flipper'
+				) }
+			>
+				<SwitchInput
 					name="application_passwords"
 					id="application-passwords"
 					title={ __(
@@ -118,45 +152,6 @@ export const SecurityTab = () => {
 							<p>
 								{ __(
 									"If you don't use any third-party applications that require this feature, it's generally safe to disable it.",
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-					onChange={ ( checked ) => {
-						if ( themeEditors ) {
-							themeEditors.parentElement.style.display = ! checked
-								? 'none'
-								: originalDisplay.themeEditors;
-						}
-						if ( pluginEditors ) {
-							pluginEditors.parentElement.style.display =
-								! checked
-									? 'none'
-									: originalDisplay.pluginEditors;
-						}
-					} }
-				/>
-				<SwitchInput
-					name="authenticated_rest_api"
-					id="authenticated-rest-api"
-					title={ __(
-						'REST API Authentication',
-						'syntatis-feature-flipper'
-					) }
-					label={ __(
-						'Enable REST API Authentication',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, it will allow users to make request to the public REST API endpoint without authentication.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent readmore="https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/">
-							<p>
-								{ __(
-									'When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
