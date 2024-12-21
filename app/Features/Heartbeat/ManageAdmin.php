@@ -36,14 +36,6 @@ class ManageAdmin implements Hookable
 			self::defaultOptionName('heartbeat_admin'),
 			fn ($value) => $this->heartbeat ? $value : false,
 		);
-		$hook->addFilter(
-			self::optionName('heartbeat_admin_interval'),
-			fn ($value) => (bool) Option::get('heartbeat_admin') && $this->heartbeat ? $value : null,
-		);
-		$hook->addFilter(
-			self::defaultOptionName('heartbeat_admin_interval'),
-			fn ($value) => (bool) Option::get('heartbeat_admin') && $this->heartbeat ? $value : null,
-		);
 	}
 
 	public function deregisterScripts(): void
