@@ -43,7 +43,7 @@ export const RevisionsInputs = () => {
 					<TextField
 						min={ 1 }
 						max={ 100 }
-						placeholder="-"
+						placeholder="∞"
 						defaultValue={ getOption( 'revisions_max' ) }
 						type="number"
 						name="revisions_max"
