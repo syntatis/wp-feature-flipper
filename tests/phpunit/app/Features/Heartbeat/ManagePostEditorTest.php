@@ -208,12 +208,12 @@ class ManagePostEditorTest extends WPTestCase
 		// Assert.
 		$this->assertSame(
 			70,
-			$instance->filterSettings(['interval' => 70]),
+			$instance->filterSettings(['interval' => 70])['interval'],
 			'The "interval" setting should not be changed since it\'s not on post editor.',
 		);
 		$this->assertSame(
 			70,
-			$instance->filterSettings(['minimalInterval' => 70]),
+			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
 			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
 		);
 	}
