@@ -105,7 +105,7 @@ class ManagePostEditorTest extends WPTestCase
 	}
 
 	/**
-	 * Test whether the "heartbeat_admin" option would affect "hearbeat_front"
+	 * Test whether the "heartbeat_admin" option would affect "heartbeat_front"
 	 * and "heartbeat_post_editor" options.
 	 *
 	 * @testdox should not affect "heartbeat_post_editor" and "heartbeat_post_editor_interval" options
