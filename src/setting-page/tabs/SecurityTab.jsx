@@ -116,7 +116,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Control the passwords used on the site.',
+					'Options to configure the passwords used on the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
