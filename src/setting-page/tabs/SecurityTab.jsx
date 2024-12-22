@@ -114,52 +114,6 @@ export const SecurityTab = () => {
 				/>
 			</Fieldset>
 			<Fieldset
-				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
-				description={ __(
-					'Options to configure the passwords used on the site.',
-					'syntatis-feature-flipper'
-				) }
-			>
-				<SwitchInput
-					name="application_passwords"
-					id="application-passwords"
-					title={ __(
-						'Application Passwords',
-						'syntatis-feature-flipper'
-					) }
-					label={ __(
-						'Enable the Application Passwords',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, third-party applications will not be able to authenticate with the site using the Application Passwords.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									"The Application Passwords in WordPress is a security feature that's first introduced in WordPress 5.6.",
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									"If you don't use any third-party applications that require this feature, it's generally safe to disable it.",
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-				/>
-			</Fieldset>
-			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
 				description={ __(
 					'Options to harden the login page on the site.',
@@ -192,6 +146,87 @@ export const SecurityTab = () => {
 							<p>
 								{ __(
 									'This setting, when enabled, will obfuscate the error message to make it less informative, which can help protect your site and makes it harder for hackers to guess the correct username or password.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
+				<SwitchInput
+					name="login_block_bots"
+					id="login-block-bots"
+					title={ __( 'Block Bots', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Block bots from the login page',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched on, common bots, crawlers, and spiders will be blocked from accessing the login page.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'Your login page should only be accessed by humans, not bots or crawlers. Bots can try to brute-force their way into your site by guessing usernames and passwords.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'This setting, when enabled, will block known bots and crawlers from accessing the login page, which can help protect your site from brute-force attacks.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'Keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
+			</Fieldset>
+			<Fieldset
+				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
+				description={ __(
+					'Options to configure the passwords used on the site.',
+					'syntatis-feature-flipper'
+				) }
+			>
+				<SwitchInput
+					name="application_passwords"
+					id="application-passwords"
+					title={ __(
+						'Application Passwords',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Enable the Application Passwords',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'When switched off, third-party applications will not be able to use Application Passwords for authentication.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									"The Application Passwords in WordPress is a security feature that's first introduced in WordPress 5.6.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									"If you don't use any third-party applications that require this feature, it's generally safe to disable it.",
 									'syntatis-feature-flipper'
 								) }
 							</p>

@@ -6,11 +6,14 @@ namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Error;
 
 use function define;
 use function defined;
+
+use const PHP_INT_MIN;
 
 class Security implements Hookable
 {
@@ -33,6 +36,10 @@ class Security implements Hookable
 
 		if ((bool) Option::get('obfuscate_login_error')) {
 			$hook->addFilter('login_errors', [$this, 'filterLoginErrorMessage']);
+		}
+
+		if ((bool) Option::get('login_block_bots')) {
+			$hook->addAction('init', [$this, 'blockBots'], PHP_INT_MIN);
 		}
 
 		if (! (bool) Option::get('authenticated_rest_api')) {
@@ -63,5 +70,24 @@ class Security implements Hookable
 	public function filterLoginErrorMessage(): string
 	{
 		return __('Invalid username or password.', 'syntatis-feature-flipper');
+	}
+
+	public function blockBots(): void
+	{
+		if (! is_login()) {
+			return;
+		}
+
+		$crawlerDetect = new CrawlerDetect();
+
+		if (! $crawlerDetect->isCrawler()) {
+			return;
+		}
+
+		wp_die(
+			esc_html(__('You are not allowed to access this page.', 'syntatis-feature-flipper')),
+			esc_html(__('Forbidden', 'syntatis-feature-flipper')),
+			403,
+		);
 	}
 }

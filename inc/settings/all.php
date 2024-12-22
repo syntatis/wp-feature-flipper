@@ -37,7 +37,6 @@ return [
 		 * site, the default value will be applied through the plugin filter.
 		 *
 		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
-		 * @see \Syntatis\FeatureFlipper\Modules\General::getGutenbergPostTypesDefault()
 		 */
 		->withDefault(null),
 	(new Setting('block_based_widgets', 'boolean'))
@@ -131,6 +130,8 @@ return [
 	(new Setting('application_passwords', 'boolean'))
 		->withDefault(true),
 	(new Setting('obfuscate_login_error', 'boolean'))
+		->withDefault(false),
+	(new Setting('login_block_bots', 'boolean'))
 		->withDefault(false),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
