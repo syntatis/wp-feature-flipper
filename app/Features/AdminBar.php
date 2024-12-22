@@ -21,6 +21,8 @@ use function json_encode;
 use function md5;
 use function sprintf;
 
+use const PHP_INT_MAX;
+
 class AdminBar implements Hookable
 {
 	/**
@@ -45,21 +47,20 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
-
-		$hook->addAction('admin_bar_menu', [$this, 'removeNodes']);
+		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode']);
+			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
 		if ((bool) Option::get('admin_bar_env_type')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
+			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode'], PHP_INT_MAX);
 		}
 
-		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar']);
+		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 	}
 
 	/**
