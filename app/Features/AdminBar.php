@@ -10,6 +10,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
+use function array_merge;
 use function count;
 use function in_array;
 use function is_array;
@@ -46,7 +47,7 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/inline_data', [$this, 'addInlineData']);
+		$hook->addFilter('syntatis/inline_data', [$this, 'filterInlineData']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
@@ -69,9 +70,13 @@ class AdminBar implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function addInlineData(array $data): array
+	public function filterInlineData(array $data): array
 	{
-		$data['adminBarMenu'] = self::getRegisteredMenu();
+		$curr = $data['wp'] ?? [];
+		$data['wp'] = array_merge(
+			is_array($curr) ? $curr : [],
+			['adminBarMenu' => self::getRegisteredMenu()],
+		);
 
 		return $data;
 	}

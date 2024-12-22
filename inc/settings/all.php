@@ -15,11 +15,30 @@ use SSFV\Codex\Settings\Setting;
  * modify it to suit your needs.
  */
 return [
-	// General.
+	/**
+	 * --------------------------------------------------------
+	 * General
+	 * --------------------------------------------------------
+	 *
+	 * Defines the options to manage features grouped in the General section.
+	 *
+	 * Features in the General section are those that are not specific to
+	 * any particular area of the WordPress site. They also generally
+	 * are safe to be disabled.
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\General
+	 */
 	(new Setting('gutenberg', 'boolean'))
 		->withDefault(true),
 	(new Setting('gutenberg_post_types', 'array'))
 		->apiSchema(['items' => ['type' => 'string']])
+		/**
+		 * Since it is too early to determine all the post types registered on the
+		 * site, the default value will be applied through the plugin filter.
+		 *
+		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
+		 * @see \Syntatis\FeatureFlipper\Modules\General::getGutenbergPostTypesDefault()
+		 */
 		->withDefault(null),
 	(new Setting('block_based_widgets', 'boolean'))
 		/**
@@ -27,8 +46,7 @@ return [
 		 * block-based widgets, set the default to `null`, and patch it through
 		 * the filter.
 		 *
-		 * @see syntatis/feature_flipper/settings The filter to patch the setting values.
-		 * @see \Syntatis\FeatureFlipper\Switches\General The class that patches the `block_based_widgets` value.
+		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
 		 */
 		->withDefault(null),
 	(new Setting('revisions', 'boolean'))

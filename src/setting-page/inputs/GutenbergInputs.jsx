@@ -9,7 +9,7 @@ const PostTypesInputs = () => {
 	const { getOption, inlineData } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 
-	const postTypes = inlineData?.postTypes;
+	const postTypes = inlineData.wp.postTypes;
 
 	if ( ! postTypes ) {
 		return null;

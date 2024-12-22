@@ -16,7 +16,7 @@ trait WithPostEditor
 		return is_admin() && ($pagenow === 'post.php' || $pagenow === 'post-new.php');
 	}
 
-	private static function getPostEditorType(): ?string
+	private static function getEditorPostType(): ?string
 	{
 		if (! self::isPostEditor()) {
 			return null;

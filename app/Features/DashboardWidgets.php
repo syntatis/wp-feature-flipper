@@ -11,6 +11,7 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
 
 use function array_map;
+use function array_merge;
 use function array_values;
 use function count;
 use function in_array;
@@ -33,7 +34,7 @@ class DashboardWidgets implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'addSettingsData']);
-		$hook->addFilter('syntatis/inline_data', [$this, 'addInlineData']);
+		$hook->addFilter('syntatis/inline_data', [$this, 'filterInlineData']);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
 				return;
@@ -106,9 +107,15 @@ class DashboardWidgets implements Hookable
 	 *
 	 * @return array<mixed>
 	 */
-	public function addInlineData(array $data): array
+	public function filterInlineData(array $data): array
 	{
-		$data['dashboardWidgets'] = self::$widgets;
+		$curr = $data['wp'] ?? [];
+		$data['wp'] = array_merge(
+			is_array($curr) ? $curr : [],
+			[
+				'dashboardWidgets' => self::$widgets,
+			],
+		);
 
 		return $data;
 	}

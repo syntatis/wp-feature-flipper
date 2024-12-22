@@ -46,8 +46,8 @@ class SettingPage implements Hookable
 		$hook->addAction('admin_bar_menu', [$this, 'addInlineScript'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
 		$hook->addAction('admin_menu', [$this, 'addMenu']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
-		$hook->addFilter(sprintf('plugin_action_links'), [$this, 'addPluginActionLinks'], 10, 2);
+		$hook->addFilter('syntatis/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter(sprintf('plugin_action_links'), [$this, 'filterPluginActionLinks'], 10, 2);
 	}
 
 	/**
@@ -137,19 +137,22 @@ class SettingPage implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function addInlineData(array $data): array
+	public function filterInlineData(array $data): array
 	{
 		if (! $this->isSettingPage()) {
 			return $data;
 		}
 
-		return array_merge(
+		$current = $data['featureFlipper'] ?? [];
+		$data['featureFlipper'] = array_merge(
+			is_array($current) ? $current : [],
 			[
 				'settingPage' => get_admin_url(null, 'options-general.php?page=' . App::name()),
 				'settingPageTab' => $_GET['tab'] ?? null,
 			],
-			$data,
 		);
+
+		return $data;
 	}
 
 	/**
@@ -157,7 +160,7 @@ class SettingPage implements Hookable
 	 *
 	 * @return array<string>
 	 */
-	public function addPluginActionLinks(array $links, string $pluginFile): array
+	public function filterPluginActionLinks(array $links, string $pluginFile): array
 	{
 		if (basename($pluginFile, '.php') !== $this->appName) {
 			return $links;

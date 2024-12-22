@@ -9,7 +9,7 @@ export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const labelId = useId();
-	const menu = inlineData.adminBarMenu || [];
+	const menu = inlineData.wp.adminBarMenu || [];
 
 	return (
 		<SwitchInput

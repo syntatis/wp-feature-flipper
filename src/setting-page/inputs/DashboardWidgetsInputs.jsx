@@ -12,7 +12,7 @@ export const DashboardWidgetsInputs = () => {
 		getOption( 'dashboard_widgets' )
 	);
 	const labelId = useId();
-	const widgets = inlineData.dashboardWidgets || [];
+	const widgets = inlineData.wp.dashboardWidgets || [];
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (

@@ -12,12 +12,12 @@ export const GeneralTab = () => {
 				<GutenbergInputs />
 				<SwitchInput
 					isSelected={
-						inlineData.themeSupport.widgetsBlockEditor === true
+						inlineData.wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: false
 					}
 					isDisabled={
-						inlineData.themeSupport.widgetsBlockEditor === true
+						inlineData.wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: true
 					}
@@ -29,7 +29,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={
-						inlineData.themeSupport.widgetsBlockEditor
+						inlineData.wp.themeSupport.widgetsBlockEditor
 							? __(
 									'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
 									'syntatis-feature-flipper'
