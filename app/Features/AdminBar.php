@@ -46,8 +46,7 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
-
+		$hook->addFilter('syntatis/inline_data', [$this, 'addInlineData']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
