@@ -2,25 +2,42 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { Details } from '../components';
+import { useFormContext, useSettingsContext } from '../form';
+import { useState } from '@wordpress/element';
 
 const PostTypesInputs = () => {
-	const postTypes = window.$syntatis?.featureFlipper?.postTypes;
+	const { getOption, inlineData } = useSettingsContext();
+	const { setFieldsetValues } = useFormContext();
+
+	const postTypes = inlineData?.postTypes;
 
 	if ( ! postTypes ) {
 		return null;
 	}
 
+	for ( const postTypeKey in postTypes ) {
+		if ( ! postTypes[ postTypeKey ].supports?.editor ) {
+			delete postTypes[ postTypeKey ];
+			continue;
+		}
+	}
+
+	const postTypesValues = getOption( 'gutenberg_post_types' );
+	const postTypesSelected =
+		postTypesValues === null ? Object.keys( postTypes ) : postTypesValues;
+
 	return (
 		<CheckboxGroup
+			defaultValue={ postTypesSelected }
 			name="gutenberg_post_types"
+			onChange={ ( value ) => {
+				setFieldsetValues( 'gutenberg_post_types', value );
+			} }
 			description={ __(
 				'Select the post types that will use the block editor.',
 				'syntatis-feature-flipper'
 			) }
-			aria-label={ __(
-				'Gutenberg Post Types',
-				'syntatis-feature-flipper'
-			) }
+			label={ __( 'Post Types', 'syntatis-feature-flipper' ) }
 		>
 			{ Object.keys( postTypes ).map( ( postTypeKey ) => {
 				const postType = postTypes[ postTypeKey ];
@@ -42,9 +59,18 @@ const PostTypesInputs = () => {
 };
 
 export const GutenbergInputs = () => {
+	const { getOption } = useSettingsContext();
+	const { setFieldsetValues } = useFormContext();
+	const [ value, setValue ] = useState( getOption( 'gutenberg' ) );
+
 	return (
 		<SwitchInput
 			name="gutenberg"
+			isSelected={ value }
+			onChange={ ( changedValue ) => {
+				setValue( changedValue );
+				setFieldsetValues( 'gutenberg', changedValue );
+			} }
 			id="gutenberg"
 			title="Gutenberg"
 			label={ __(
@@ -56,9 +82,13 @@ export const GutenbergInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 		>
-			<Details summary={ __( 'Post Types', 'syntatis-feature-flipper' ) }>
-				<PostTypesInputs />
-			</Details>
+			{ value && (
+				<Details
+					summary={ __( 'Settings', 'syntatis-feature-flipper' ) }
+				>
+					<PostTypesInputs />
+				</Details>
+			) }
 		</SwitchInput>
 	);
 };

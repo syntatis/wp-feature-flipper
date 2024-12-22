@@ -8,7 +8,7 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Concerns\HasHookName;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
 use Syntatis\FeatureFlipper\Features\Updates\ManageGlobal;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
@@ -17,7 +17,7 @@ use Syntatis\FeatureFlipper\Helpers;
 
 class Updates implements Hookable, Extendable
 {
-	use HasHookName;
+	use WithHookName;
 
 	public function hook(Hook $hook): void
 	{

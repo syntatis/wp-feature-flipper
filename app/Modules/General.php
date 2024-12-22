@@ -11,6 +11,7 @@ use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
+use Syntatis\FeatureFlipper\Features\Gutenberg;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_filter;
@@ -26,18 +27,6 @@ class General implements Hookable, Extendable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'setSettings']);
-
-		if (! (bool) Option::get('gutenberg')) {
-			$hook->addFilter('use_block_editor_for_post', '__return_false');
-			$hook->addFilter('use_widgets_block_editor', '__return_false');
-			$hook->addAction('wp_enqueue_scripts', static function (): void {
-				wp_dequeue_style('classic-theme-styles');
-				wp_dequeue_style('core-block-supports');
-				wp_dequeue_style('global-styles');
-				wp_dequeue_style('wp-block-library');
-				wp_dequeue_style('wp-block-library-theme');
-			}, 99);
-		}
 
 		$blockBasedWidgets = Option::get('block_based_widgets');
 
@@ -77,11 +66,8 @@ class General implements Hookable, Extendable
 	 */
 	public function setSettings(array $data): array
 	{
-		$optionName = Option::name('block_based_widgets');
-		$value = Option::get('block_based_widgets');
-
-		if ($value === null) {
-			$data[$optionName] = get_theme_support('widgets-block-editor');
+		if (Option::get('block_based_widgets') === null) {
+			$data[Option::name('block_based_widgets')] = get_theme_support('widgets-block-editor');
 		}
 
 		return $data;
@@ -106,6 +92,7 @@ class General implements Hookable, Extendable
 	/** @return iterable<object> */
 	private function getFeatures(): iterable
 	{
+		yield new Gutenberg();
 		yield new Comments();
 		yield new Embeds();
 		yield new Feeds();

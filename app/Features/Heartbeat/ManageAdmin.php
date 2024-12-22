@@ -6,7 +6,8 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\HasHookName;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Concerns\WithPostEditor;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function is_numeric;
@@ -15,7 +16,8 @@ use const PHP_INT_MAX;
 
 class ManageAdmin implements Hookable
 {
-	use HasHookName;
+	use WithHookName;
+	use WithPostEditor;
 
 	private bool $heartbeat;
 
@@ -77,12 +79,5 @@ class ManageAdmin implements Hookable
 		}
 
 		return $settings;
-	}
-
-	private static function isPostEditor(): bool
-	{
-		$pagenow = $GLOBALS['pagenow'] ?? '';
-
-		return is_admin() && ($pagenow === 'post.php' || $pagenow === 'post-new.php');
 	}
 }

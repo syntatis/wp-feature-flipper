@@ -11,7 +11,7 @@ use function trim;
 
 use const PHP_URL_PATH;
 
-trait HasURI
+trait WithURI
 {
 	private static function getCurrentUrl(): string
 	{
