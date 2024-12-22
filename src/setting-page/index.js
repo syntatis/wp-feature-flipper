@@ -8,8 +8,10 @@ domReady( () => {
 		'#syntatis-feature-flipper-settings'
 	);
 	if ( container ) {
+		const inlineData = JSON.parse( container.dataset.inline );
+
 		createRoot( container ).render(
-			<SettingsProvider inlineData={ window.$syntatis.featureFlipper }>
+			<SettingsProvider inlineData={ inlineData }>
 				<Page />
 			</SettingsProvider>
 		);

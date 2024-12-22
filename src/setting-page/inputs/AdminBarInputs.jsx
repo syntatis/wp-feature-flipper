@@ -9,7 +9,7 @@ export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const labelId = useId();
-	const menu = inlineData.adminBarMenu || [];
+	const menu = inlineData.wp.adminBarMenu || [];
 
 	return (
 		<SwitchInput
@@ -35,19 +35,13 @@ export const AdminBarInputs = () => {
 				</HelpContent>
 			}
 		>
-			<Details
-				summary={
-					<span id={ labelId }>
-						{ __( 'Menu', 'syntatis-feature-flipper' ) }
-					</span>
-				}
-			>
+			<Details summary={ __( 'Settings', 'syntatis-feature-flipper' ) }>
 				<CheckboxGroup
 					defaultValue={
 						getOption( 'admin_bar_menu' ) ??
 						menu.map( ( { id } ) => id )
 					}
-					aria-labelledby={ labelId }
+					label={ __( 'Menu', 'syntatis-feature-flipper' ) }
 					description={ __(
 						'Unchecked menu items will be hidden from the Admin bar.',
 						'syntatis-feature-flipper'

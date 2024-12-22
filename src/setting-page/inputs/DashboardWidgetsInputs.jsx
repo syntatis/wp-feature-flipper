@@ -12,7 +12,7 @@ export const DashboardWidgetsInputs = () => {
 		getOption( 'dashboard_widgets' )
 	);
 	const labelId = useId();
-	const widgets = inlineData.dashboardWidgets || [];
+	const registeredWidgets = inlineData.wp.dashboardWidgets || [];
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (
@@ -34,13 +34,13 @@ export const DashboardWidgetsInputs = () => {
 				<Details
 					summary={
 						<span id={ labelId }>
-							{ __( 'Widgets', 'syntatis-feature-flipper' ) }
+							{ __( 'Settings', 'syntatis-feature-flipper' ) }
 						</span>
 					}
 				>
 					<CheckboxGroup
 						defaultValue={ widgetsEnabled }
-						aria-labelledby={ labelId }
+						label={ __( 'Widgets', 'syntatis-feature-flipper' ) }
 						description={ __(
 							'Unchecked widgets will be hidden from the dashboard.',
 							'syntatis-feature-flipper'
@@ -53,12 +53,12 @@ export const DashboardWidgetsInputs = () => {
 						} }
 						{ ...inputProps( 'dashboard_widgets_enabled' ) }
 					>
-						{ widgets.map( ( { id, title } ) => {
+						{ Object.keys( registeredWidgets ).map( ( id ) => {
 							return (
 								<Checkbox
 									key={ id }
-									value={ id }
-									label={ title }
+									value={ registeredWidgets[ id ].id }
+									label={ registeredWidgets[ id ].title }
 								/>
 							);
 						} ) }

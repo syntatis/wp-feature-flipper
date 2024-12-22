@@ -7,7 +7,7 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\HasURI;
+use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function defined;
@@ -18,7 +18,7 @@ use const PHP_INT_MIN;
 
 class SitePrivate implements Hookable
 {
-	use HasURI;
+	use WithURI;
 
 	public function hook(Hook $hook): void
 	{

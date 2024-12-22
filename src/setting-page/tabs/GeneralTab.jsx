@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { RevisionsInputs, SwitchInput } from '../inputs';
+import { GutenbergInputs, RevisionsInputs, SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
@@ -9,27 +9,15 @@ export const GeneralTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<SwitchInput
-					name="gutenberg"
-					id="gutenberg"
-					title="Gutenberg"
-					label={ __(
-						'Enable the block editor',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'When switched off, the block editor will be disabled and the classic editor will be used.',
-						'syntatis-feature-flipper'
-					) }
-				/>
+				<GutenbergInputs />
 				<SwitchInput
 					isSelected={
-						inlineData.themeSupport.widgetsBlockEditor === true
+						inlineData.wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: false
 					}
 					isDisabled={
-						inlineData.themeSupport.widgetsBlockEditor === true
+						inlineData.wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: true
 					}
@@ -41,7 +29,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={
-						inlineData.themeSupport.widgetsBlockEditor
+						inlineData.wp.themeSupport.widgetsBlockEditor
 							? __(
 									'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
 									'syntatis-feature-flipper'

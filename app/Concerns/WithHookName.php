@@ -6,7 +6,7 @@ namespace Syntatis\FeatureFlipper\Concerns;
 
 use Syntatis\FeatureFlipper\Helpers\Option;
 
-trait HasHookName
+trait WithHookName
 {
 	/** @phpstan-param non-empty-string $name */
 	private static function optionName(string $name): string

@@ -90,7 +90,7 @@ export const SecurityTab = () => {
 					name="authenticated_rest_api"
 					id="authenticated-rest-api"
 					title={ __(
-						'REST API Authentication',
+						'API Authentication',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
@@ -98,7 +98,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will allow users to make request to the public REST API endpoint without authentication.',
+						'When switched off, it will allow users to make request to the public API endpoints without authentication.',
 						'syntatis-feature-flipper'
 					) }
 					help={

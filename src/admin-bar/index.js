@@ -7,12 +7,10 @@ domReady( () => {
 		'#fb6e5b8410f1e6ee52ac3e663f4f6c58-root'
 	);
 	if ( container ) {
+		const data = JSON.parse( container.dataset.inline );
+
 		createRoot( container ).render(
-			<EnvironmentType
-				environmentType={
-					window.$syntatis.featureFlipper.environmentType
-				}
-			/>
+			<EnvironmentType environmentType={ data.environmentType } />
 		);
 	}
 } );

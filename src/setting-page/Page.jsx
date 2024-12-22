@@ -15,8 +15,12 @@ export const Page = () => {
 	const { inlineData } = useSettingsContext();
 
 	return (
-		<TabsProvider navigate url={ inlineData.settingPage }>
-			<Tabs selectedKey={ inlineData.settingPageTab || undefined }>
+		<TabsProvider navigate url={ inlineData.featureFlipper?.settingPage }>
+			<Tabs
+				selectedKey={
+					inlineData.featureFlipper?.settingPageTab || undefined
+				}
+			>
 				<Tab
 					key="general"
 					title={ __( 'General', 'syntatis-feature-flipper' ) }
