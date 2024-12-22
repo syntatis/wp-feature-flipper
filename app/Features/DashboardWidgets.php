@@ -14,7 +14,7 @@ use WP_Screen;
 use function array_map;
 use function array_merge;
 use function array_values;
-use function count;
+use function function_exists;
 use function in_array;
 use function is_array;
 use function preg_replace;
@@ -32,7 +32,7 @@ class DashboardWidgets implements Hookable
 	private static bool $onSettingPage = false;
 
 	/** @var array<string,array{id:string,title:string}> */
-	private static array $widgets = [];
+	private static ?array $widgets = null;
 
 	public function hook(Hook $hook): void
 	{
@@ -40,18 +40,19 @@ class DashboardWidgets implements Hookable
 		$hook->addFilter(
 			self::defaultOptionName('dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
+			PHP_INT_MAX,
 		);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
 				return;
 			}
 
-			if (count(self::$widgets) > 0) {
+			if (is_array(self::$widgets)) {
 				return;
 			}
 
 			self::$onSettingPage = true;
-			self::$widgets = self::getRegisteredWidgets();
+			self::$widgets = self::getRegisteredWidgets($screen);
 			self::$onSettingPage = false;
 		});
 		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
@@ -127,10 +128,20 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getAllDashboardId(): array
 	{
+		if (! function_exists('get_current_screen')) {
+			return [];
+		}
+
+		$screen = get_current_screen();
+
+		if (! $screen instanceof WP_Screen) {
+			return [];
+		}
+
 		return array_values(
 			array_map(
 				static fn (array $widget): string => $widget['id'],
-				self::$widgets,
+				self::getRegisteredWidgets($screen) ?? [],
 			),
 		);
 	}
@@ -138,25 +149,23 @@ class DashboardWidgets implements Hookable
 	/**
 	 * Get the list of dashboard widgets.
 	 *
-	 * @return array<string,array{id:string,title:string}> List of dashboard widgets.
+	 * @return array<string,array{id:string,title:string}>|null List of dashboard widgets.
 	 */
-	private static function getRegisteredWidgets(): array
+	private static function getRegisteredWidgets(WP_Screen $screen): ?array
 	{
-		/** @var array<string,array{id:string,title:string}> $widgets */
-		$widgets = [];
-		$currentScreen = get_current_screen();
+		/** @var array<string,array{id:string,title:string}>|null $widgets */
+		static $widgets = null;
 
-		if (
-			self::getRawWidgets() === null &&
-			$currentScreen instanceof WP_Screen &&
-			$currentScreen->id !== 'dashboard'
-		) {
+		if (is_array($widgets)) {
+			return $widgets;
+		}
+
+		if (self::getRawWidgets() === null && $screen->id !== 'dashboard') {
 			// @phpstan-ignore requireOnce.fileNotFound
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			set_current_screen('dashboard');
 			wp_dashboard_setup();
-			set_current_screen($currentScreen->id);
 
 			$dashboardWidgets = self::getRawWidgets();
 
@@ -183,7 +192,9 @@ class DashboardWidgets implements Hookable
 			}
 		}
 
-		return wp_list_sort($widgets, 'title', 'ASC', true);
+		set_current_screen($screen->id);
+
+		return is_array($widgets) ? wp_list_sort($widgets, 'title', 'ASC', true) : null;
 	}
 
 	/**

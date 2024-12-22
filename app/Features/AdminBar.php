@@ -46,9 +46,10 @@ class AdminBar implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
-		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
+
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes']);
+		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
+		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
 			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode']);
