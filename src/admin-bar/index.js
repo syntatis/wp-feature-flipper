@@ -9,9 +9,7 @@ domReady( () => {
 	if ( container ) {
 		createRoot( container ).render(
 			<EnvironmentType
-				environmentType={
-					window.$syntatis.featureFlipper.environmentType
-				}
+				environmentType={ window.$syntatis.environmentType }
 			/>
 		);
 	}

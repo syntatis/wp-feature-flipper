@@ -44,10 +44,10 @@ class CommonScripts implements Hookable
 	{
 		return sprintf(
 			<<<'SCRIPT'
-			window.$syntatis = { featureFlipper: %s };
+			window.$syntatis = %s;
 			SCRIPT,
 			wp_json_encode(
-				apply_filters('syntatis/feature_flipper/inline_data', [
+				apply_filters('syntatis/inline_data', [
 					'environmentType' => wp_get_environment_type(),
 					'postTypes' => $this->getPostTypes(),
 					'themeSupport' => [
