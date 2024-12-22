@@ -132,6 +132,8 @@ return [
 		->withDefault(true),
 	(new Setting('obfuscate_login_error', 'boolean'))
 		->withDefault(false),
+	(new Setting('login_block_bots', 'boolean'))
+		->withDefault(false),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
 
