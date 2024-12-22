@@ -21,8 +21,6 @@ use function json_encode;
 use function md5;
 use function sprintf;
 
-use const PHP_INT_MAX;
-
 class AdminBar implements Hookable
 {
 	/**
@@ -47,17 +45,17 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
+		$hook->addAction('admin_bar_menu', [$this, 'removeNodes']);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
+			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode']);
 		}
 
 		if ((bool) Option::get('admin_bar_env_type')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode'], PHP_INT_MAX);
+			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 		}
 
 		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar']);
@@ -72,6 +70,12 @@ class AdminBar implements Hookable
 	 */
 	public function filterInlineData(array $data): array
 	{
+		$tab = $_GET['tab'] ?? null;
+
+		if ($tab !== 'admin') {
+			return $data;
+		}
+
 		$curr = $data['wp'] ?? [];
 		$data['wp'] = array_merge(
 			is_array($curr) ? $curr : [],
@@ -174,11 +178,17 @@ class AdminBar implements Hookable
 
 	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
-		$envType = wp_get_environment_type();
+		$id = md5(App::name() . '-environment-type');
+		$inlineData = wp_json_encode(['environmentType' => wp_get_environment_type()]);
 		$wpAdminBar->add_node(
 			[
-				'id' => md5('syntatis-feature-flipper-environment-type'),
-				'title' => sprintf('<div id="%s-root"></div>', md5('syntatis-feature-flipper-environment-type')),
+				'id' => $id,
+				'title' => sprintf(
+					<<<HTML
+					<div id="%s-root" data-inline='$inlineData'></div>
+					HTML,
+					$id,
+				),
 				'parent' => 'top-secondary',
 			],
 		);

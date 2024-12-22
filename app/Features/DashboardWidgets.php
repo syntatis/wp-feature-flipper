@@ -7,6 +7,7 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
 
@@ -26,17 +27,26 @@ use const PHP_INT_MAX;
  */
 class DashboardWidgets implements Hookable
 {
+	use WithHookName;
+
 	private static bool $onSettingPage = false;
 
-	/** @var array<array{id:string,title:string,value:bool}> */
+	/** @var array<string,array{id:string,title:string}> */
 	private static array $widgets = [];
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'addSettingsData']);
-		$hook->addFilter('syntatis/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter(
+			self::defaultOptionName('dashboard_widgets_enabled'),
+			static fn (): array => self::getAllDashboardId(),
+		);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
+				return;
+			}
+
+			if (count(self::$widgets) > 0) {
 				return;
 			}
 
@@ -66,7 +76,7 @@ class DashboardWidgets implements Hookable
 	private static function setupEach(): void
 	{
 		$dashboardWidgets = self::getRawWidgets() ?? [];
-		$values = Option::get('dashboard_widgets_enabled') ?? self::getAllDashboardId();
+		$values = Option::get('dashboard_widgets_enabled');
 		$values = is_array($values) ? $values : [];
 
 		foreach ($dashboardWidgets as $a => $items) {
@@ -86,29 +96,18 @@ class DashboardWidgets implements Hookable
 	}
 
 	/**
-	 * @param array<mixed> $data
-	 *
-	 * @return array<mixed>
-	 */
-	public function addSettingsData(array $data): array
-	{
-		$optionName = Option::name('dashboard_widgets_enabled');
-		$widgetsEnabled = $data[$optionName] ?? null;
-
-		if ($widgetsEnabled === null) {
-			$data[$optionName] = self::getAllDashboardId();
-		}
-
-		return $data;
-	}
-
-	/**
 	 * @param array<string,mixed> $data
 	 *
 	 * @return array<mixed>
 	 */
 	public function filterInlineData(array $data): array
 	{
+		$tab = $_GET['tab'] ?? null;
+
+		if ($tab !== 'admin') {
+			return $data;
+		}
+
 		$curr = $data['wp'] ?? [];
 		$data['wp'] = array_merge(
 			is_array($curr) ? $curr : [],
@@ -131,7 +130,7 @@ class DashboardWidgets implements Hookable
 		return array_values(
 			array_map(
 				static fn (array $widget): string => $widget['id'],
-				self::getRegisteredWidgets(),
+				self::$widgets,
 			),
 		);
 	}
@@ -139,17 +138,12 @@ class DashboardWidgets implements Hookable
 	/**
 	 * Get the list of dashboard widgets.
 	 *
-	 * @return array<array{id:string,title:string,value:bool}> List of dashboard widgets.
+	 * @return array<string,array{id:string,title:string}> List of dashboard widgets.
 	 */
 	private static function getRegisteredWidgets(): array
 	{
-		/** @var array<array{id:string,title:string,value:bool}>|null $widgets */
-		static $widgets = null;
-
-		if (is_array($widgets) && count($widgets) > 0) {
-			return $widgets;
-		}
-
+		/** @var array<string,array{id:string,title:string}> $widgets */
+		$widgets = [];
 		$currentScreen = get_current_screen();
 
 		if (
@@ -172,38 +166,24 @@ class DashboardWidgets implements Hookable
 			$dashboardWidgets = self::getRawWidgets();
 		}
 
-		$optionName = Option::name('dashboard_widgets_enabled');
-		$widgets = [];
-
-		if ($dashboardWidgets === null) {
-			return $widgets;
-		}
-
-		$settings = Option::get('dashboard_widgets_enabled') ?? [];
-		$settings = is_array($settings) ? $settings : [];
-		$widgetsHidden = isset($settings[$optionName]) && is_array($settings[$optionName]) ?
-			$settings[$optionName] :
-			[];
-
-		foreach ($dashboardWidgets as $items) {
+		foreach ((array) $dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
 				foreach ($item as $widgetId => $widget) {
 					if (! is_array($widget)) {
 						continue;
 					}
 
-					$widgets[] = [
+					$widgets[$widgetId] = [
 						'id' => $widgetId,
 						'title' => $widget['title'] !== ''
 							? wp_strip_all_tags((string) preg_replace('/ <span.*span>/im', '', $widget['title']))
 							: '-- ' . __('Unknown', 'syntatis-feature-flipper') . ' --',
-						'value' => in_array($widgetId, $widgetsHidden, true),
 					];
 				}
 			}
 		}
 
-		return array_values(wp_list_sort($widgets, 'title', 'ASC', true));
+		return wp_list_sort($widgets, 'title', 'ASC', true);
 	}
 
 	/**

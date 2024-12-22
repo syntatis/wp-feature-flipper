@@ -25,6 +25,7 @@ trait WithPostTypes
 
 		return array_map(
 			static fn (WP_Post_Type $postTypeObject): array => [
+				'name' => $postTypeObject->name,
 				'label' => $postTypeObject->label,
 				'supports' => get_all_post_type_supports($postTypeObject->name),
 			],
