@@ -27,6 +27,7 @@ class GeneralTest extends WPTestCase
 		$this->instance->hook($this->hook);
 	}
 
+	/** @testdox should have callback attached to hooks */
 	public function testHook(): void
 	{
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('use_block_editor_for_post', [$this->instance, 'filterUseBlockEditorForPost']));
@@ -69,5 +70,33 @@ class GeneralTest extends WPTestCase
 		update_option(Option::name('block_based_widgets'), true);
 
 		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(false));
+	}
+
+	/** @testdox should return inherited value when post is invalid */
+	public function testFilterUseBlockEditorForPostInvalidPost(): void
+	{
+		$this->assertFalse($this->instance->filterUseBlockEditorForPost(false, 0));
+	}
+
+	/** @testdox should return updated value when post is valid */
+	public function testFilterUseBlockEditorForPostValidPost(): void
+	{
+		$postId = self::factory()->post->create();
+
+		$this->assertTrue($this->instance->filterUseBlockEditorForPost(false, $postId));
+
+		$wpPost = self::factory()->post->create_and_get();
+
+		$this->assertTrue($this->instance->filterUseBlockEditorForPost(false, $wpPost));
+	}
+
+	/** @testdox should return return `false` when post is not in "gutenberg_post_types" */
+	public function testFilterUseBlockEditorForPostUpdated(): void
+	{
+		update_option(Option::name('gutenberg_post_types'), ['page']);
+
+		$postId = self::factory()->post->create();
+
+		$this->assertFalse($this->instance->filterUseBlockEditorForPost(true, $postId));
 	}
 }
