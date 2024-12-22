@@ -33,7 +33,7 @@ class DashboardWidgets implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter('syntatis/feature_flipper/settings', [$this, 'addSettingsData']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'addInlineData']);
+		$hook->addFilter('syntatis/inline_data', [$this, 'addInlineData']);
 		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
 			if ($screen->id !== 'settings_page_' . App::name()) {
 				return;
