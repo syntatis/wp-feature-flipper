@@ -37,7 +37,6 @@ return [
 		 * site, the default value will be applied through the plugin filter.
 		 *
 		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
-		 * @see \Syntatis\FeatureFlipper\Modules\General::getGutenbergPostTypesDefault()
 		 */
 		->withDefault(null),
 	(new Setting('block_based_widgets', 'boolean'))
