@@ -38,7 +38,7 @@ class General implements Hookable, Extendable
 		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
 			self::defaultOptionName('gutenberg_post_types'),
-			static fn () => array_keys(self::getPostTypes()),
+			static fn () => array_keys(self::getRegisteredPostTypes()),
 		);
 		$hook->addFilter(
 			self::defaultOptionName('block_based_widgets'),
