@@ -71,22 +71,14 @@ class ManageAdminTest extends WPTestCase
 	}
 
 	/** @testdox should return `true` as the "heartbeat_admin" default */
-	public function testAdminOptionDefault(): void
+	public function testOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_admin'));
 	}
 
-	/** @testdox should return default interval */
-	public function testAdminIntervalOptionDefault(): void
+	/** @testdox should return interval default value */
+	public function testIntervalOptionDefault(): void
 	{
-		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
-	}
-
-	/** @testdox should return the interval value when "heartbeat_admin" is `false` */
-	public function testAdminOptionFalseInterval(): void
-	{
-		update_option(Option::name('heartbeat_admin'), false);
-
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
@@ -96,6 +88,14 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin_interval'), 240);
 
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
+	}
+
+	/** @testdox should return the interval value even if "heartbeat_admin" is `false` */
+	public function testIntervalOptionAgainstGlobalOption(): void
+	{
+		update_option(Option::name('heartbeat_admin'), false);
+
+		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
 	/** @testdox should affect the "heartbeat_admin" and "heartbeat_admin_interval" value */

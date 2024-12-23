@@ -66,9 +66,9 @@ class ManageAdmin implements Hookable
 		 *
 		 * In the post editor, even though that it is on the admin area, settings
 		 * should also return as is as well, since the settings for post editor
-		 * would be applied from the `ManagePostEditor` class.
+		 * would be applied from a separate class.
 		 *
-		 * @see \Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor::filterSettings()
+		 * @see \Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor
 		 */
 		if (! is_admin() || self::isPostEditor()) {
 			return $settings;
