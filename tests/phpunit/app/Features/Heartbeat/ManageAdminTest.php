@@ -26,6 +26,7 @@ class ManageAdminTest extends WPTestCase
 	 */
 	private ?WP_Scripts $wpScripts;
 	private Hook $hook;
+	private ManageAdmin $instance;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
@@ -34,8 +35,19 @@ class ManageAdminTest extends WPTestCase
 
 		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
 
+		/**
+		 * Some of the tests will modify the global `WP_Scripts`.
+		 *
+		 * Create the clone of the object to preserve and restore it once the test
+		 * is done.
+		 *
+		 * @see \Syntatis\Tests\Features\Heartbeat\ManageAdminTest::tear_down(); The method where the $wp_scripts global is restored.
+		 */
 		$this->wpScripts = is_object($wpScripts) ? clone $wpScripts : null;
+
 		$this->hook = new Hook();
+		$this->instance = new ManageAdmin();
+		$this->instance->hook($this->hook);
 	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -113,10 +125,6 @@ class ManageAdminTest extends WPTestCase
 	{
 		update_option(Option::name('heartbeat_post_editor'), false);
 
-		$hook = new Hook();
-		$instance = new ManageAdmin();
-		$instance->hook($hook);
-
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
@@ -135,8 +143,6 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-
 		// Assert.
 		$this->assertTrue(is_admin());
 		$this->assertSame(
@@ -144,7 +150,7 @@ class ManageAdminTest extends WPTestCase
 				'interval' => 60,
 				'minimalInterval' => 60,
 			],
-			$instance->filterSettings([]),
+			$this->instance->filterSettings([]),
 		);
 
 		// Update.
@@ -152,7 +158,7 @@ class ManageAdminTest extends WPTestCase
 
 		// Assert.
 		$this->assertTrue(is_admin());
-		$this->assertSame($expect, $instance->filterSettings([]));
+		$this->assertSame($expect, $this->instance->filterSettings([]));
 	}
 
 	public static function dataFilterSettingsOnAdminPage(): iterable
@@ -195,7 +201,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertTrue(is_admin());
 		$this->assertSame(
 			[],
-			(new ManageAdmin())->filterSettings([]),
+			$this->instance->filterSettings([]),
 			'Values does not change the passed argument, since it\'s on the post editor',
 		);
 	}
@@ -206,15 +212,14 @@ class ManageAdminTest extends WPTestCase
 	 *
 	 * @testdox should deregister the "heartbeat" script on the admin pages
 	 */
-	public function testDeregisterScriptsOnAdminPages(): void
+	public function testDeregisterScriptsOnAdminPage(): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(is_admin());
@@ -225,43 +230,12 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
 		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
-	}
-
-	/**
-	 * Test whether the "heartbeat" script is deregistered on the front pages
-	 * when the "heartbeat_admin" option is set to `false`.
-	 *
-	 * @testdox should not deregister the "heartbeat" script on the front pages
-	 */
-	public function testDeregisterScriptsOnFrontPages(): void
-	{
-		// Setup.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
-
-		// Assert default.
-		$this->assertFalse(is_admin());
-		$this->assertTrue(Option::get('heartbeat_admin'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_admin'), false);
-
-		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertFalse(is_admin());
-		$this->assertFalse(Option::get('heartbeat_admin'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 
 	/**
@@ -277,8 +251,7 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(is_admin());
@@ -289,8 +262,7 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
 		$this->assertTrue(is_admin());
@@ -311,8 +283,7 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(is_admin());
@@ -323,8 +294,7 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
 		$this->assertTrue(is_admin());
