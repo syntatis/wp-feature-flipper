@@ -110,7 +110,7 @@ class DashboardWidgets implements Hookable
 		}
 
 		$curr = $data['wp'] ?? [];
-		$data['wp'] = array_merge(
+		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
 			[
 				'dashboardWidgets' => self::$widgets,

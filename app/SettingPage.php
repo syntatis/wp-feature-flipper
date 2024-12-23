@@ -76,16 +76,14 @@ class SettingPage implements Hookable
 		$this->inlineData = (string) wp_json_encode(
 			/** For internal use. Subject to change. External plugin should not rely on this data. */
 			apply_filters('syntatis/feature_flipper/inline_data', [
-				'featureFlipper' => [
-					'settingPage' => esc_url(get_admin_url(null, 'options-general.php?page=' . App::name())) ,
-					'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
-				],
-				'wp' => [
-					'postTypes' => self::getPostTypes(),
+				'$wp' => [
+					'postTypes' => self::getRegisteredPostTypes(),
 					'themeSupport' => [
 						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 					],
 				],
+				'settingPage' => esc_url(get_admin_url(null, 'options-general.php?page=' . App::name())) ,
+				'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
 			]),
 		);
 	}
