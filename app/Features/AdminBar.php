@@ -180,7 +180,7 @@ class AdminBar implements Hookable
 
 	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
-		$id = md5(App::name() . '-environment-type');
+		$id = md5($this->appName . '-environment-type');
 		$inlineData = wp_json_encode(['environmentType' => wp_get_environment_type()]);
 		$wpAdminBar->add_node(
 			[
