@@ -33,8 +33,6 @@ class ManageAdminTest extends WPTestCase
 	{
 		parent::set_up();
 
-		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
-
 		/**
 		 * Some of the tests will modify the global `WP_Scripts`.
 		 *
@@ -43,6 +41,7 @@ class ManageAdminTest extends WPTestCase
 		 *
 		 * @see \Syntatis\Tests\Features\Heartbeat\ManageAdminTest::tear_down(); The method where the $wp_scripts global is restored.
 		 */
+		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
 		$this->wpScripts = is_object($wpScripts) ? clone $wpScripts : null;
 
 		$this->hook = new Hook();
@@ -90,7 +89,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
 	}
 
-	/** @testdox should affect "heartbeat_admin" but not "heartbeat_admin_interval" option */
+	/** @testdox should affect "heartbeat_admin", not "heartbeat_admin_interval" option */
 	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
 		update_option(Option::name('heartbeat'), false);
@@ -106,7 +105,7 @@ class ManageAdminTest extends WPTestCase
 		);
 	}
 
-	/** @testdox should affect not "heartbeat_admin_interval" option */
+	/** @testdox should not affect "heartbeat_admin_interval" option */
 	public function testIntervalOptionWhenAdminOptionIsFalse(): void
 	{
 		update_option(Option::name('heartbeat_admin'), false);
@@ -193,6 +192,7 @@ class ManageAdminTest extends WPTestCase
 		yield ['foo', []];
 	}
 
+	/** @testdox should not affect interval on the post editor */
 	public function testFilterSettingsOnPostEditor(): void
 	{
 		// Setup.
@@ -200,13 +200,9 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post.php');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		// Assert.
+		// Assert default.
 		$this->assertTrue(is_admin());
-		$this->assertSame(
-			[],
-			$this->instance->filterSettings([]),
-			'Values does not change the passed argument, since it\'s on the post editor',
-		);
+		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
 	/**
