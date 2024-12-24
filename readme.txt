@@ -31,6 +31,15 @@ WordPress comes with a lot of features. Some of them are useful and essential, w
 
 [More info on installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins)
 
+== Screenshots ==
+
+1. The "General" section provides an easy way to enable and disable features in like the Block Editor, Block-based Widgets, Comments, etc.
+2. The "Admin" section allows you to manage features that are in the WordPress admin area, like the Admin Bar, Dashboard Widgets, etc.
+3. In "Media" section, you can manage the Media library as well as how the media upload is handled.
+4. Needs to put your site in "Provide Mode"? it's only a click away in the "Site" section.
+5. Hardening your site? The "Security" section provides an easy way to disable some features that could be a security risk.
+6. And more...
+
 == Frequently Asked Questions ==
 
 = How do I disable a feature? =
