@@ -60,7 +60,7 @@ class AdminBar implements Hookable
 		}
 
 		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
 	}
 
 	/**
@@ -78,8 +78,8 @@ class AdminBar implements Hookable
 			return $data;
 		}
 
-		$curr = $data['wp'] ?? [];
-		$data['wp'] = array_merge(
+		$curr = $data['$wp'] ?? [];
+		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
 			['adminBarMenu' => self::getRegisteredMenu()],
 		);
