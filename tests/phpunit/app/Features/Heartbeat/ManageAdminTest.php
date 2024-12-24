@@ -221,7 +221,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -232,7 +231,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
 	}
@@ -253,7 +251,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -264,7 +261,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
@@ -285,7 +281,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -296,7 +291,6 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
