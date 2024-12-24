@@ -19,7 +19,7 @@ export const AdminBarInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When switched off, the Admin bar will not be displayed on the front end.',
+				'If switched off, the Admin bar will not be displayed on the front end.',
 				'syntatis-feature-flipper'
 			) }
 			help={

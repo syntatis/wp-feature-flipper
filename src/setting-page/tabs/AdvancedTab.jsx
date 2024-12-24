@@ -31,7 +31,7 @@ export const AdvancedTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'When switched off, WordPress will not run scheduled events.',
+							'If switched off, WordPress will not run scheduled events.',
 							'syntatis-feature-flipper'
 						) }
 						help={

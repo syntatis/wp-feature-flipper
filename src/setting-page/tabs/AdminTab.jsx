@@ -21,7 +21,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, the footer text in the admin area will be removed.',
+						'If switched off, the footer text in the admin area will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
@@ -55,7 +55,7 @@ export const AdminTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'When switched off, WordPress will not show notification message when update is available.',
+							'If switched off, WordPress will not show notification message when update is available.',
 							'syntatis-feature-flipper'
 						) }
 					/>
@@ -78,7 +78,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, the "Howdy" text in the Account menu in the admin bar will be removed.',
+						'If switched off, the "Howdy" text in the Account menu in the admin bar will be removed.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -94,7 +94,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, the current environment type of the site will not be shown in the Admin Bar.',
+						'If switched off, the current environment type of the site will not be shown in the Admin Bar.',
 						'syntatis-feature-flipper'
 					) }
 					help={

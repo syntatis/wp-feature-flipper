@@ -28,7 +28,7 @@ export const ImageQualityInputs = () => {
 					'syntatis-feature-flipper'
 				) }
 				description={ __(
-					'When switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
+					'If switched off, WordPress will upload the original JPEG image in its full quality, without any compression.',
 					'syntatis-feature-flipper'
 				) }
 				onChange={ ( value ) => {

@@ -25,7 +25,7 @@ export const DashboardWidgetsInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When switched off, all widgets will be hidden from the dashboard.',
+				'If switched off, all widgets will be hidden from the dashboard.',
 				'syntatis-feature-flipper'
 			) }
 			onChange={ setEnabled }

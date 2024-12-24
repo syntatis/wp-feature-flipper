@@ -18,7 +18,7 @@ export const RevisionsInputs = () => {
 			title={ __( 'Revisions', 'syntatis-feature-flipper' ) }
 			label={ __( 'Enable post revisions', 'syntatis-feature-flipper' ) }
 			description={ __(
-				'When switched off, WordPress will not save revisions of your posts.',
+				'If switched off, WordPress will not save revisions of your posts.',
 				'syntatis-feature-flipper'
 			) }
 			help={

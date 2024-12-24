@@ -72,13 +72,13 @@ export const GutenbergInputs = () => {
 				setFieldsetValues( 'gutenberg', changedValue );
 			} }
 			id="gutenberg"
-			title="Gutenberg"
+			title={ __( 'Block Editor', 'syntatis-feature-flipper' ) }
 			label={ __(
-				'Enable the block editor',
+				'Enable the block editor (a.k.a Gutenberg)',
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When switched off, the block editor will be disabled and the classic editor will be used.',
+				'If switched off, the block editor will be disabled and the classic editor will be used.',
 				'syntatis-feature-flipper'
 			) }
 		>
