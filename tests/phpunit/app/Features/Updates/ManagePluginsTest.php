@@ -119,7 +119,7 @@ class ManagePluginsTest extends WPTestCase
 		$this->assertTrue(Option::get('update_plugins'));
 	}
 
-	/** @testdox should affect affect "auto_update_plugins" when "update_plugins" is `false` */
+	/** @testdox should affect "auto_update_plugins" when "update_plugins" is `false` */
 	public function testAutoUpdateWhenMainOptionIsFalse(): void
 	{
 		update_option(Option::name('update_plugins'), false);

@@ -11,7 +11,6 @@ use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\Updates;
 
-use function is_object;
 use function time;
 
 /**
@@ -64,15 +63,9 @@ class ManagePlugins implements Hookable
 	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L409
 	 *
 	 * @param object|bool $cache
-	 *
-	 * @return object|bool
 	 */
-	public function filterSiteTransientUpdate($cache)
+	public function filterSiteTransientUpdate($cache): object
 	{
-		if (! is_object($cache)) {
-			return $cache;
-		}
-
 		return (object) [
 			'response' => [],
 			'translations' => [],

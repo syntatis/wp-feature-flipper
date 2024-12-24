@@ -27,13 +27,12 @@ class AdminBarTest extends WPTestCase
 
 		$this->hook = new Hook();
 		$this->instance = new AdminBar();
+		$this->instance->hook($this->hook);
 	}
 
 	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
-		$this->instance->hook($this->hook);
-
 		/**
 		 * Test that callbacks should be attached to hooks with the highest priority,
 		 * otherwise changes on the Admin Bar might not be properly applied.

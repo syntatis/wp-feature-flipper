@@ -42,6 +42,7 @@ class GeneralTest extends WPTestCase
 	{
 		$this->assertTrue(Option::get('gutenberg'));
 		$this->assertTrue(Option::get('block_based_widgets'));
+		$this->assertTrue(Option::get('revisions'));
 		$this->assertEquals(['post', 'page'], Option::get('gutenberg_post_types'));
 	}
 
@@ -51,10 +52,12 @@ class GeneralTest extends WPTestCase
 		update_option(Option::name('gutenberg'), false);
 		update_option(Option::name('gutenberg_post_types'), ['post']);
 		update_option(Option::name('block_based_widgets'), false);
+		update_option(Option::name('revisions'), false);
 
 		$this->assertFalse(Option::get('gutenberg'));
 		$this->assertEquals(['post'], Option::get('gutenberg_post_types'));
 		$this->assertFalse(Option::get('block_based_widgets'));
+		$this->assertFalse(Option::get('revisions'));
 	}
 
 	/** @testdox should return inherited value */
