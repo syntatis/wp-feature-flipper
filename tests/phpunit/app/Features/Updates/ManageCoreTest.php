@@ -53,7 +53,7 @@ class ManageCoreTest extends WPTestCase
 		$cache->updates = ['test'];
 		$cache->translations = ['test'];
 
-		$cache = $this->instance->filterUpdateTransient($cache);
+		$cache = $this->instance->filterSiteTransientUpdate($cache);
 
 		$this->assertEmpty($cache->updates);
 		$this->assertEmpty($cache->translations);

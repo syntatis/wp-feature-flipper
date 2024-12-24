@@ -6,8 +6,10 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use stdClass;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
+use function is_object;
 use function property_exists;
 use function time;
 
@@ -26,7 +28,7 @@ class ManageThemes implements Hookable
 			$hook->removeAction('load-update.php', 'wp_update_themes');
 			$hook->removeAction('wp_update_themes', 'wp_update_themes');
 
-			$hook->addFilter('site_transient_update_themes', [$this, 'filterUpdateTransient']);
+			$hook->addFilter('site_transient_update_themes', [$this, 'filterSiteTransientUpdate']);
 		}
 
 		if ((bool) Option::get('auto_update_themes')) {
@@ -36,8 +38,19 @@ class ManageThemes implements Hookable
 		$hook->addFilter('auto_update_theme', '__return_false');
 	}
 
-	public function filterUpdateTransient(object $cache): object
+	/**
+	 * Prune the Plugins update information cache fetched from WordPress.org
+	 *
+	 * This will effectively also remove the Update notification in the admin
+	 * area, in case the update information was already fetched before the
+	 * Themes update feature is disabled.
+	 *
+	 * @param mixed $cache The Plugins update information cache.
+	 */
+	public function filterSiteTransientUpdate($cache): object
 	{
+		$cache = is_object($cache) ? $cache : new stdClass();
+
 		if (property_exists($cache, 'response')) {
 			$cache->response = [];
 		}

@@ -6,10 +6,12 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use stdClass;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function define;
 use function defined;
+use function is_object;
 use function property_exists;
 use function time;
 
@@ -27,7 +29,7 @@ class ManageCore implements Hookable
 
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
 			$hook->addFilter('send_core_update_notification_email', '__return_false');
-			$hook->addFilter('site_transient_update_core', [$this, 'filterUpdateTransient']);
+			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
 		}
 
 		if ((bool) Option::get('auto_update_core')) {
@@ -44,19 +46,25 @@ class ManageCore implements Hookable
 		$hook->addFilter('auto_core_update_send_email', '__return_false');
 		$hook->addFilter('auto_update_core', '__return_false');
 		$hook->addFilter('automatic_updates_is_vcs_checkout', '__return_false', 1);
-		$hook->addFilter('site_status_tests', [$this, 'filterSiteHealth']);
+		$hook->addFilter('site_status_tests', [$this, 'filterSiteStatusTests']);
 	}
 
 	/**
-	 * Filter the transient to remove the core update information.
+	 * Prune the transient the Core update information.
 	 *
-	 * This prevents the notification from being displayed in the admin area,
-	 * in case the update information was already fetched before the update
-	 * feature was disabled.
+	 * This will effectively also remove the Update notification in the admin
+	 * area, in case the update information was already fetched before the
+	 * Core update feature is disabled.
+	 *
+	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L54
+	 *
+	 * @param mixed $cache The WordPress Core update information cache.
 	 */
-	public function filterUpdateTransient(object $cache): object
+	public function filterSiteTransientUpdate($cache): object
 	{
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
+
+		$cache = is_object($cache) ? $cache : new stdClass();
 
 		if (property_exists($cache, 'updates')) {
 			$cache->updates = [];
@@ -79,7 +87,11 @@ class ManageCore implements Hookable
 		return $cache;
 	}
 
-	/** @return object|false */
+	/**
+	 * Prevent the Core update check from being scheduled.
+	 *
+	 * @return object|false
+	 */
 	public function filterScheduleEvent(object $event)
 	{
 		if (property_exists($event, 'hook') && $event->hook === 'wp_version_check') {
@@ -90,15 +102,22 @@ class ManageCore implements Hookable
 	}
 
 	/**
-	 * @param array<string,array<string,mixed>> $health
+	 * Remove the Core update from the "Site Health" tests and report.
+	 *
+	 * WordPress will check for the Core update status in and will report it as
+	 * in the "Site Health" status. This filter will exclude these tests and
+	 * will remove them from the report since the Core update is disabled
+	 * intentionally.
+	 *
+	 * @param array<string,array<string,mixed>> $tests
 	 *
 	 * @return array<string,array<string,mixed>>
 	 */
-	public function filterSiteHealth(array $health): array
+	public function filterSiteStatusTests(array $tests): array
 	{
-		unset($health['async']['background_updates']);
-		unset($health['direct']['plugin_theme_auto_updates']);
+		unset($tests['async']['background_updates']);
+		unset($tests['direct']['plugin_theme_auto_updates']);
 
-		return $health;
+		return $tests;
 	}
 }

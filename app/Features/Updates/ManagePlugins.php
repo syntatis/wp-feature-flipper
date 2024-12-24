@@ -26,7 +26,7 @@ class ManagePlugins implements Hookable
 			$hook->removeAction('load-update-core.php', 'wp_update_plugins');
 			$hook->removeAction('load-update.php', 'wp_update_plugins');
 			$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
-			$hook->addFilter('site_transient_update_plugins', [$this, 'filterUpdateTransient']);
+			$hook->addFilter('site_transient_update_plugins', [$this, 'filterSiteTransientUpdate']);
 		}
 
 		if ((bool) Option::get('auto_update_plugins')) {
@@ -37,11 +37,19 @@ class ManagePlugins implements Hookable
 	}
 
 	/**
+	 * Prune the Themes update information cache fetched from WordPress.org
+	 *
+	 * This will effectively also remove the Update notification in the admin
+	 * area, in case the update information was already fetched before the
+	 * Plugins update feature is disabled.
+	 *
+	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L409
+	 *
 	 * @param object|bool $cache
 	 *
 	 * @return object|bool
 	 */
-	public function filterUpdateTransient($cache)
+	public function filterSiteTransientUpdate($cache)
 	{
 		if (! is_object($cache)) {
 			return $cache;

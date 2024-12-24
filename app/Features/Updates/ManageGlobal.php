@@ -18,13 +18,7 @@ class ManageGlobal implements Hookable
 	public function hook(Hook $hook): void
 	{
 		if (! (bool) Option::get('updates')) {
-			$hook->addAction(
-				'admin_menu',
-				static fn () => remove_submenu_page('index.php', 'update-core.php'),
-				PHP_INT_MAX,
-				1,
-				['id' => 'features/updates/manage_global/remove_update_core_submenu'],
-			);
+			$hook->addAction('admin_menu', [$this, 'removeUpdateAdminMenu'], PHP_INT_MAX);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
@@ -39,5 +33,13 @@ class ManageGlobal implements Hookable
 		$hook->addFilter('auto_update_translation', '__return_false');
 		$hook->addFilter('automatic_updater_disabled', '__return_false');
 		$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
+	}
+
+	/**
+	 * Remove the "Updates" menu from the Menu in the admin area.
+	 */
+	public function removeUpdateAdminMenu(): void
+	{
+		remove_submenu_page('index.php', 'update-core.php');
 	}
 }
