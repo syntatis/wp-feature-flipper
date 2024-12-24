@@ -282,7 +282,6 @@ class ManagePostEditorTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 

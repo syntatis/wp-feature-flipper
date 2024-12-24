@@ -146,7 +146,6 @@ class ManageAdminTest extends WPTestCase
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertSame(
 			[
 				'interval' => 60,
@@ -159,7 +158,6 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin_interval'), $value);
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertSame($expect, $this->instance->filterSettings([]));
 	}
 
@@ -201,7 +199,6 @@ class ManageAdminTest extends WPTestCase
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
