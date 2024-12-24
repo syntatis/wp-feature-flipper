@@ -11,10 +11,11 @@ use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function defined;
-use function preg_replace;
+use function parse_url;
 use function printf;
 
 use const PHP_INT_MIN;
+use const PHP_URL_PATH;
 
 class SitePrivate implements Hookable
 {
@@ -33,17 +34,20 @@ class SitePrivate implements Hookable
 
 	public function forceLogin(): void
 	{
-		if (wp_doing_ajax() || wp_doing_cron() || ( defined('WP_CLI') && WP_CLI )) {
-			return;
-		}
-
-		if (is_user_logged_in()) {
+		if (
+			is_user_logged_in() ||
+			is_login() ||
+			wp_doing_ajax() ||
+			wp_doing_cron() ||
+			( defined('WP_CLI') && WP_CLI )
+		) {
 			return;
 		}
 
 		$url = self::getCurrentUrl();
+		$urlPath = parse_url($url, PHP_URL_PATH);
 
-		if (preg_replace('/\?.*/', '', wp_login_url()) === preg_replace('/\?.*/', '', $url)) {
+		if (parse_url(wp_login_url(), PHP_URL_PATH) === $urlPath) {
 			return;
 		}
 

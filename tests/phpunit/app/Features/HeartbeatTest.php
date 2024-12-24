@@ -24,6 +24,8 @@ class HeartbeatTest extends WPTestCase
 	 * Stores the original `WP_Scripts` instance.
 	 */
 	private ?WP_Scripts $wpScripts;
+	private Hook $hook;
+	private Heartbeat $instance;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
@@ -32,6 +34,10 @@ class HeartbeatTest extends WPTestCase
 
 		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
 		$this->wpScripts = is_object($wpScripts) ? clone $wpScripts : null;
+
+		$this->hook = new Hook();
+		$this->instance = new Heartbeat();
+		$this->instance->hook($this->hook);
 	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -43,14 +49,10 @@ class HeartbeatTest extends WPTestCase
 		$GLOBALS['wp_scripts'] = $this->wpScripts;
 	}
 
+	/** @testdox should have the callback attached to hook */
 	public function testHook(): void
 	{
-		// Setup.
-		$hook = new Hook();
-		$instance = new Heartbeat();
-		$instance->hook($hook);
-
-		$this->assertSame(PHP_INT_MAX, $hook->hasAction('init', [$instance, 'deregisterScripts']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('init', [$this->instance, 'deregisterScripts']));
 	}
 
 	/**
@@ -62,8 +64,7 @@ class HeartbeatTest extends WPTestCase
 	public function testDeregisterScripts(): void
 	{
 		// Setup.
-		$heartbeat = new Heartbeat();
-		$heartbeat->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
@@ -72,8 +73,7 @@ class HeartbeatTest extends WPTestCase
 		update_option(Option::name('heartbeat'), false);
 
 		// Reload.
-		$heartbeat = new Heartbeat();
-		$heartbeat->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
 		$this->assertFalse(

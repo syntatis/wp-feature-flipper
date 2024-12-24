@@ -14,11 +14,20 @@ use const ARRAY_FILTER_USE_BOTH;
 
 trait WithPostTypes
 {
-	/** @return array<string,array<string,mixed>> */
-	private static function getPostTypes(): array
+	/**
+	 * Retrieve the list of registered post types on the site.
+	 *
+	 * @see register_post_type() for accepted arguments.
+	 *
+	 * @param array<string,mixed> $args Optional. An array of key => value arguments to match against
+	 *                                  the post type objects.
+	 *
+	 * @return array<string,array<string,mixed>>
+	 */
+	private static function getRegisteredPostTypes(array $args = ['public' => true]): array
 	{
 		$postTypes = array_filter(
-			get_post_types(['public' => true], 'objects'),
+			get_post_types($args, 'objects'),
 			static fn (WP_Post_Type $postTypeObject, string $postType) => ! in_array($postTypeObject->name, ['attachment'], true),
 			ARRAY_FILTER_USE_BOTH,
 		);

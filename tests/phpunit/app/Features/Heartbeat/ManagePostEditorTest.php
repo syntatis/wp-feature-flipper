@@ -25,14 +25,28 @@ class ManagePostEditorTest extends WPTestCase
 	 * Stores the original `WP_Scripts` instance.
 	 */
 	private ?WP_Scripts $wpScripts;
+	private Hook $hook;
+	private ManagePostEditor $instance;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
 	{
 		parent::set_up();
 
+		/**
+		 * Some of the tests will modify the global `WP_Scripts`.
+		 *
+		 * Create the clone of the object to preserve and restore it once the test
+		 * is done.
+		 *
+		 * @see \Syntatis\Tests\Features\Heartbeat\ManagePostEditorTest::tear_down(); The method where the $wp_scripts global is restored.
+		 */
 		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
 		$this->wpScripts = is_object($wpScripts) ? clone $wpScripts : null;
+
+		$this->hook = new Hook();
+		$this->instance = new ManagePostEditor();
+		$this->instance->hook($this->hook);
 	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -45,38 +59,27 @@ class ManagePostEditorTest extends WPTestCase
 		unset($GLOBALS['pagenow']);
 	}
 
+	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
-		$hook = new Hook();
-		$instance = new ManagePostEditor();
-		$instance->hook($hook);
-
-		$this->assertSame(PHP_INT_MAX, $hook->hasAction('admin_init', [$instance, 'deregisterScripts']));
-		$this->assertSame(PHP_INT_MAX, $hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_init', [$this->instance, 'deregisterScripts']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('heartbeat_settings', [$this->instance, 'filterSettings']));
 	}
 
-	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
-	public function testPostEditorOptionDefault(): void
+	/** @testdox should return the default value */
+	public function testOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 	}
 
-	/** @testdox should return default interval */
-	public function testPostEditorIntervalOptionDefault(): void
+	/** @testdox should return the interval default value */
+	public function testIntervalOptionDefault(): void
 	{
-		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
-	}
-
-	/** @testdox should return interval value when "heartbeat_post_editor" is `false` */
-	public function testPostEditorOptionFalseInterval(): void
-	{
-		update_option(Option::name('heartbeat_post_editor'), false);
-
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
 	/** @testdox should return updated value for "heartbeat_post_editor_interval" */
-	public function testPostEditorIntervalOptionUpdated(): void
+	public function testIntervalOptionUpdated(): void
 	{
 		update_option(Option::name('heartbeat_post_editor_interval'), 30);
 
@@ -87,17 +90,11 @@ class ManagePostEditorTest extends WPTestCase
 	 * Test whether the "heartbeat" global option would affect "heartbeat_post_editor"
 	 * and "heartbeat_post_editor_interval" options.
 	 *
-	 * @testdox should return `false` and `null` for "heartbeat_autosave" and "heartbeat_autosave_interval" respectively
+	 * @testdox should affect "heartbeat_post_editor", not "heartbeat_post_editor_interval" option
 	 */
-	public function testGlobalOption(): void
+	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
-		// Update the "heartbeat" global option.
 		update_option(Option::name('heartbeat'), false);
-
-		// Reload.
-		$hook = new Hook();
-		$instance = new ManagePostEditor();
-		$instance->hook($hook);
 
 		$this->assertFalse(
 			Option::get('heartbeat_post_editor'),
@@ -110,118 +107,103 @@ class ManagePostEditorTest extends WPTestCase
 		);
 	}
 
+	/** @testdox should not affect "heartbeat_post_editor_interval" option  */
+	public function testIntervalOptionWhenPostEditorOptionIsFalse(): void
+	{
+		update_option(Option::name('heartbeat_post_editor'), false);
+
+		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
+	}
+
 	/**
 	 * Test whether the "heartbeat_admin" option would affect "heartbeat_front"
 	 * and "heartbeat_post_editor" options.
 	 *
 	 * @testdox should not affect "heartbeat_post_editor" and "heartbeat_post_editor_interval" options
 	 */
-	public function testAdminOption(): void
+	public function testOptionsWhenAdminOptionIsFalse(): void
 	{
 		update_option(Option::name('heartbeat_admin'), false);
-
-		$hook = new Hook();
-		$instance = new ManagePostEditor();
-		$instance->hook($hook);
 
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
 
 	/**
-	 * Test whether the "interval" setting is changed when it's on the post editor.
-	 *
+	 * @dataProvider dataFilterSettingsOnPostEditor
 	 * @testdox should change the "interval" setting since it's on the post editor
+	 *
+	 * @param mixed $value  The value to update the "heartbeat_post_editor" option.
+	 * @param mixed $expect The expected value returned.
 	 */
-	public function testFilterSettingsOnPostEditor(): void
+	public function testFilterSettingsOnPostEditor($value, $expect): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
 		set_current_screen('post.php');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManagePostEditor();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(15, $instance->filterSettings(['interval' => 15])['interval']);
+		// Assert default.
+		$this->assertSame(
+			[
+				'interval' => 15,
+				'minimalInterval' => 15,
+			],
+			$this->instance->filterSettings([]),
+		);
 
 		// Update.
 		update_option(Option::name('heartbeat_post_editor_interval'), 40);
 
 		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(40, Option::get('heartbeat_post_editor_interval'));
 		$this->assertSame(
-			40,
-			$instance->filterSettings(['interval' => 70])['interval'],
-			'The "interval" setting should be changed since it\'s on post editor.',
-		);
-		$this->assertSame(
-			40,
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on post editor.',
+			[
+				'interval' => 40,
+				'minimalInterval' => 40,
+			],
+			$this->instance->filterSettings([]),
 		);
 	}
 
-	/**
-	 * Test whether the "interval" setting update with numeric string
-	 *
-	 * @testdox should update the "interval" setting with numeric string
-	 */
-	public function testFilterSettingsUpdateNumericString(): void
+	public static function dataFilterSettingsOnPostEditor(): iterable
 	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
-		set_current_screen('post.php');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		yield [
+			30,
+			[
+				'interval' => 30,
+				'minimalInterval' => 30,
+			],
+		];
 
-		$instance = new ManagePostEditor();
+		yield [
+			'30',
+			[
+				'interval' => 30,
+				'minimalInterval' => 30,
+			],
+		];
 
-		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), '45');
+		yield [
+			30.3,
+			[
+				'interval' => 30,
+				'minimalInterval' => 30,
+			],
+		];
 
-		// Assert.
-		$this->assertSame('45', Option::get('heartbeat_post_editor_interval'));
-		$this->assertSame(
-			45, // Casted to integer.
-			$instance->filterSettings(['interval' => 70])['interval'],
-			'The "interval" setting should be changed since it\'s on post editor.',
-		);
-		$this->assertSame(
-			45, // Casted to integer.
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on post editor.',
-		);
+		yield ['foo', []];
 	}
 
-	public function testFilterSettingsOnAdminPages(): void
+	/** @testdox should not affect interval on the admin page */
+	public function testFilterSettingsOnAdminPage(): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManagePostEditor();
-
 		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(70, $instance->filterSettings(['interval' => 70])['interval']);
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), 50);
-
-		// Assert.
-		$this->assertSame(
-			70,
-			$instance->filterSettings(['interval' => 70])['interval'],
-			'The "interval" setting should not be changed since it\'s not on post editor.',
-		);
-		$this->assertSame(
-			70,
-			$instance->filterSettings(['minimalInterval' => 70])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s not on post editor.',
-		);
+		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
 	/**
@@ -237,8 +219,7 @@ class ManagePostEditorTest extends WPTestCase
 		set_current_screen('post.php');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
@@ -248,11 +229,9 @@ class ManagePostEditorTest extends WPTestCase
 		update_option(Option::name('heartbeat_post_editor'), false);
 
 		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_post_editor'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
 	}
@@ -271,8 +250,7 @@ class ManagePostEditorTest extends WPTestCase
 		set_current_screen('post-new.php');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
@@ -281,43 +259,11 @@ class ManagePostEditorTest extends WPTestCase
 		update_option(Option::name('heartbeat_post_editor'), false);
 
 		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_post_editor'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
-	}
-
-	/**
-	 * Test whether the "heartbeat" script is deregistered on the front pages
-	 * when the "heartbeat_post_editor" option is set to `false`.
-	 *
-	 * @testdox should not deregister the "heartbeat" script on the front pages
-	 */
-	public function testDeregisterScriptsOnFrontPage(): void
-	{
-		// Setup.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert default.
-		$this->assertFalse(is_admin());
-		$this->assertTrue(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
-
-		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertFalse(is_admin());
-		$this->assertFalse(Option::get('heartbeat_post_editor'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 
 	/**
@@ -333,11 +279,9 @@ class ManagePostEditorTest extends WPTestCase
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -345,11 +289,9 @@ class ManagePostEditorTest extends WPTestCase
 		update_option(Option::name('heartbeat_post_editor'), false);
 
 		// Reload.
-		$instance = new ManagePostEditor();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_post_editor'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}

@@ -9,6 +9,9 @@ use function is_string;
 
 trait WithPostEditor
 {
+	/**
+	 * Whether the current view is a post editor.
+	 */
 	private static function isPostEditor(): bool
 	{
 		$pagenow = $GLOBALS['pagenow'] ?? '';
@@ -16,6 +19,9 @@ trait WithPostEditor
 		return is_admin() && ($pagenow === 'post.php' || $pagenow === 'post-new.php');
 	}
 
+	/**
+	 * Retrieve the post type of the current post editor.
+	 */
 	private static function getEditorPostType(): ?string
 	{
 		if (! self::isPostEditor()) {

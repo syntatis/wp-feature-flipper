@@ -37,11 +37,6 @@ class AutoUpdate implements Enable
 		return self::components();
 	}
 
-	public static function translations(): Enable
-	{
-		return self::components();
-	}
-
 	private static function components(): Enable
 	{
 		return new AutoUpdateComponents();
@@ -50,6 +45,10 @@ class AutoUpdate implements Enable
 	/** @param bool $value Current value of the option passed from the `option_` filter argument. */
 	public function isEnabled(bool $value): bool
 	{
+		if (! (bool) Option::get('updates')) {
+			return false;
+		}
+
 		return $value;
 	}
 }

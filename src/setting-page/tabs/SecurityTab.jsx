@@ -27,7 +27,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will disable the WordPress built-in file editor for themes and plugins.',
+						'If switched off, it will disable the WordPress built-in file editor for themes and plugins.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -66,7 +66,7 @@ export const SecurityTab = () => {
 					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'When switched off, it will disable the XML-RPC endpoint.',
+						'If switched off, it will disable the XML-RPC endpoint.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -98,7 +98,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will allow users to make request to the public API endpoints without authentication.',
+						'If switched off, it will allow users to make request to the public API endpoints without authentication.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -132,7 +132,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched on, a more generic error message will be shown when the login fails.',
+						'If switched on, a more generic error message will be shown when the login fails.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -161,7 +161,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched on, common bots, crawlers, and spiders will be blocked from accessing the login page.',
+						'If switched on, known bots, crawlers, and spiders will be blocked from accessing the login page.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -207,7 +207,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, third-party applications will not be able to use Application Passwords for authentication.',
+						'If switched off, third-party applications will not be able to use Application Passwords for authentication.',
 						'syntatis-feature-flipper'
 					) }
 					help={

@@ -10,10 +10,15 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
-use Syntatis\FeatureFlipper\Features\Updates\ManageGlobal;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
 use Syntatis\FeatureFlipper\Features\Updates\ManageThemes;
 use Syntatis\FeatureFlipper\Helpers;
+use Syntatis\FeatureFlipper\Helpers\Option;
+
+use function define;
+use function defined;
+
+use const PHP_INT_MAX;
 
 class Updates implements Hookable, Extendable
 {
@@ -21,50 +26,48 @@ class Updates implements Hookable, Extendable
 
 	public function hook(Hook $hook): void
 	{
-		/**
-		 * Globals
-		 */
 		$hook->addFilter(
 			self::optionName('updates'),
 			static fn ($value) => Helpers\Updates::global()->isEnabled((bool) $value),
+		);
+		$hook->addFilter(
+			self::defaultOptionName('auto_updates'),
+			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 		$hook->addFilter(
 			self::optionName('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 
-		// Components: Core
-		$updatesFn = static fn ($value) => Helpers\Updates::core()->isEnabled((bool) $value);
-		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::core()->isEnabled((bool) $value);
+		if (! (bool) Option::get('updates')) {
+			$hook->addAction('admin_menu', [$this, 'removeUpdateAdminMenu'], PHP_INT_MAX);
+			$hook->removeAction('init', 'wp_schedule_update_checks');
+		}
 
-		$hook->addFilter(self::defaultOptionName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_core'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_core'), $updatesFn);
+		if ((bool) Option::get('auto_updates')) {
+			return;
+		}
 
-		// Components: Plugins
-		$updatesFn = static fn ($value) => Helpers\Updates::plugins()->isEnabled((bool) $value);
-		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::plugins()->isEnabled((bool) $value);
+		if (! defined('AUTOMATIC_UPDATER_DISABLED')) {
+			define('AUTOMATIC_UPDATER_DISABLED', false);
+		}
 
-		$hook->addFilter(self::defaultOptionName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_plugins'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_plugins'), $updatesFn);
+		$hook->addFilter('auto_update_translation', '__return_false');
+		$hook->addFilter('automatic_updater_disabled', '__return_false');
+		$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
+	}
 
-		// Components: Themes
-		$updatesFn = static fn ($value) => Helpers\Updates::themes()->isEnabled((bool) $value);
-		$autoUpdateFn = static fn ($value) => Helpers\AutoUpdate::themes()->isEnabled((bool) $value);
-
-		$hook->addFilter(self::defaultOptionName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_themes'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_themes'), $updatesFn);
+	/**
+	 * Remove the "Updates" menu from the Menu in the admin area.
+	 */
+	public function removeUpdateAdminMenu(): void
+	{
+		remove_submenu_page('index.php', 'update-core.php');
 	}
 
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new ManageGlobal();
 		yield new ManageCore();
 		yield new ManagePlugins();
 		yield new ManageThemes();

@@ -12,7 +12,7 @@ export const DashboardWidgetsInputs = () => {
 		getOption( 'dashboard_widgets' )
 	);
 	const labelId = useId();
-	const registeredWidgets = inlineData.wp.dashboardWidgets || [];
+	const registeredWidgets = inlineData.$wp.dashboardWidgets || [];
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (
@@ -25,7 +25,7 @@ export const DashboardWidgetsInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When switched off, all widgets will be hidden from the dashboard.',
+				'If switched off, all widgets will be hidden from the dashboard.',
 				'syntatis-feature-flipper'
 			) }
 			onChange={ setEnabled }

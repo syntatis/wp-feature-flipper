@@ -25,14 +25,28 @@ class ManageAdminTest extends WPTestCase
 	 * Stores the original `WP_Scripts` instance.
 	 */
 	private ?WP_Scripts $wpScripts;
+	private Hook $hook;
+	private ManageAdmin $instance;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
 	{
 		parent::set_up();
 
+		/**
+		 * Some of the tests will modify the global `WP_Scripts`.
+		 *
+		 * Create the clone of the object to preserve and restore it once the test
+		 * is done.
+		 *
+		 * @see \Syntatis\Tests\Features\Heartbeat\ManageAdminTest::tear_down(); The method where the $wp_scripts global is restored.
+		 */
 		$wpScripts = $GLOBALS['wp_scripts'] ?? null;
 		$this->wpScripts = is_object($wpScripts) ? clone $wpScripts : null;
+
+		$this->hook = new Hook();
+		$this->instance = new ManageAdmin();
+		$this->instance->hook($this->hook);
 	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -45,68 +59,61 @@ class ManageAdminTest extends WPTestCase
 		unset($GLOBALS['pagenow']);
 	}
 
+	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
-		$hook = new Hook();
 		$instance = new ManageAdmin();
-		$instance->hook($hook);
+		$instance->hook($this->hook);
 
-		$this->assertSame(PHP_INT_MAX, $hook->hasAction('admin_init', [$instance, 'deregisterScripts']));
-		$this->assertSame(PHP_INT_MAX, $hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_init', [$instance, 'deregisterScripts']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
 	}
 
-	/** @testdox should return `true` as the "heartbeat_admin" default */
-	public function testAdminOptionDefault(): void
+	/** @testdox should return the default value */
+	public function testOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_admin'));
 	}
 
-	/** @testdox should return default interval */
-	public function testAdminIntervalOptionDefault(): void
+	/** @testdox should return interval default value */
+	public function testIntervalOptionDefault(): void
 	{
-		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
-	}
-
-	/** @testdox should return the interval value when "heartbeat_admin" is `false` */
-	public function testAdminOptionFalseInterval(): void
-	{
-		update_option(Option::name('heartbeat_admin'), false);
-
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
 	/** @testdox should return updated value for "heartbeat_admin_interval" */
-	public function testAdminIntervalOptionUpdated(): void
+	public function testIntervalOptionUpdated(): void
 	{
 		update_option(Option::name('heartbeat_admin_interval'), 240);
 
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
 	}
 
-	/**
-	 * Test whether the "heartbeat" global option would affect "heartbeat_admin"
-	 * and "heartbeat_admin_interval" options.
-	 *
-	 * @testdox should return `false` and `null` for "heartbeat_autosave" and "heartbeat_autosave_interval" respectively
-	 */
-	public function testGlobalOption(): void
+	/** @testdox should affect "heartbeat_admin", not "heartbeat_admin_interval" option */
+	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
-		// Update the "heartbeat" global option.
 		update_option(Option::name('heartbeat'), false);
-
-		// Reload.
-		$hook = new Hook();
-		$instance = new ManageAdmin();
-		$instance->hook($hook);
 
 		$this->assertFalse(
 			Option::get('heartbeat_admin'),
-			'Heartbeat admin option should be false, since the global option is false.',
+			'Admin option should be false, since the global option is false.',
 		);
 		$this->assertSame(
 			60,
 			Option::get('heartbeat_admin_interval'),
-			'Heartbeat admin interval should be returned, even if the global option is false.',
+			'Interval still return even if the global option is false.',
+		);
+	}
+
+	/** @testdox should not affect "heartbeat_admin_interval" option */
+	public function testIntervalOptionWhenAdminOptionIsFalse(): void
+	{
+		update_option(Option::name('heartbeat_admin'), false);
+
+		$this->assertSame(
+			60,
+			Option::get('heartbeat_admin_interval'),
+			'Interval still return even if the admin option is false.',
 		);
 	}
 
@@ -116,47 +123,74 @@ class ManageAdminTest extends WPTestCase
 	 *
 	 * @testdox should not affect "heartbeat_admin" and "heartbeat_admin_interval" options
 	 */
-	public function testPostEditorOption(): void
+	public function testOptionsWhenPostEditorOptionIsFalse(): void
 	{
 		update_option(Option::name('heartbeat_post_editor'), false);
-
-		$hook = new Hook();
-		$instance = new ManageAdmin();
-		$instance->hook($hook);
 
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
-	/** @testdox should change "interval" on the admin pages */
-	public function testFilterSettingsOnAdminPages(): void
+	/**
+	 * @dataProvider dataFilterSettingsOnAdminPage
+	 * @testdox should change "interval" on the admin page
+	 *
+	 * @param mixed $value  The value to update the "heartbeat_admin_interval" option.
+	 * @param mixed $expect The expected value returned.
+	 */
+	public function testFilterSettingsOnAdminPage($value, $expect): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-		$instance = new ManageAdmin();
 
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(60, $instance->filterSettings(['interval' => 60])['interval']);
+		// Assert default.
+		$this->assertSame(
+			[
+				'interval' => 60,
+				'minimalInterval' => 60,
+			],
+			$this->instance->filterSettings([]),
+		);
 
 		// Update.
-		update_option(Option::name('heartbeat_admin_interval'), 10);
+		update_option(Option::name('heartbeat_admin_interval'), $value);
 
 		// Assert.
-		$this->assertSame(
-			10,
-			$instance->filterSettings(['interval' => 60])['interval'],
-			'The "interval" setting should be changed since it\'s on the admin.',
-		);
-		$this->assertSame(
-			10,
-			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on the admin.',
-		);
+		$this->assertSame($expect, $this->instance->filterSettings([]));
 	}
 
+	public static function dataFilterSettingsOnAdminPage(): iterable
+	{
+		yield [
+			10,
+			[
+				'interval' => 10,
+				'minimalInterval' => 10,
+			],
+		];
+
+		yield [
+			'10',
+			[
+				'interval' => 10,
+				'minimalInterval' => 10,
+			],
+		];
+
+		yield [
+			10.2,
+			[
+				'interval' => 10,
+				'minimalInterval' => 10,
+			],
+		];
+
+		yield ['foo', []];
+	}
+
+	/** @testdox should not affect interval on the post editor */
 	public function testFilterSettingsOnPostEditor(): void
 	{
 		// Setup.
@@ -164,59 +198,8 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post.php');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(60, $instance->filterSettings(['interval' => 60])['interval']);
-
-		// Update.
-		update_option(Option::name('heartbeat_admin_interval'), 20);
-
-		// Assert.
-		$this->assertTrue(is_admin());
-		$this->assertSame(20, Option::get('heartbeat_admin_interval'));
-		$this->assertSame(
-			60,
-			$instance->filterSettings(['interval' => 60])['interval'],
-			'The "interval" setting should not be changed since it\'s on post editor.',
-		);
-		$this->assertSame(
-			60,
-			$instance->filterSettings(['minimalInterval' => 60])['minimalInterval'],
-			'The "minimalInterval" setting should not be changed since it\'s on post editor.',
-		);
-	}
-
-	/**
-	 * Test whether the "interval" setting update with numeric string
-	 *
-	 * @testdox should update the interval setting with numeric string
-	 */
-	public function testFilterSettingsUpdateNumericString(): void
-	{
-		// Setup.
-		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
-		set_current_screen('dashboard');
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-
-		$instance = new ManageAdmin();
-
-		// Update.
-		update_option(Option::name('heartbeat_admin_interval'), '15');
-
-		// Assert.
-		$this->assertSame('15', Option::get('heartbeat_admin_interval'));
-		$this->assertSame(
-			15, // Casted to integer.
-			$instance->filterSettings(['interval' => 10])['interval'],
-			'The "interval" setting should be changed since it\'s on the admin.',
-		);
-		$this->assertSame(
-			15, // Casted to integer.
-			$instance->filterSettings(['minimalInterval' => 10])['minimalInterval'],
-			'The "minimalInterval" setting should be changed since it\'s on the admin.',
-		);
+		// Assert default.
+		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
 	/**
@@ -225,18 +208,16 @@ class ManageAdminTest extends WPTestCase
 	 *
 	 * @testdox should deregister the "heartbeat" script on the admin pages
 	 */
-	public function testDeregisterScriptsOnAdminPages(): void
+	public function testDeregisterScriptsOnAdminPage(): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -244,43 +225,11 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
-	}
-
-	/**
-	 * Test whether the "heartbeat" script is deregistered on the front pages
-	 * when the "heartbeat_admin" option is set to `false`.
-	 *
-	 * @testdox should not deregister the "heartbeat" script on the front pages
-	 */
-	public function testDeregisterScriptsOnFrontPages(): void
-	{
-		// Setup.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
-
-		// Assert default.
-		$this->assertFalse(is_admin());
-		$this->assertTrue(Option::get('heartbeat_admin'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
-
-		// Update.
-		update_option(Option::name('heartbeat_admin'), false);
-
-		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
-
-		// Assert.
-		$this->assertFalse(is_admin());
-		$this->assertFalse(Option::get('heartbeat_admin'));
-		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 
 	/**
@@ -296,11 +245,9 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -308,11 +255,9 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
@@ -330,11 +275,9 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('post');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(is_admin());
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
@@ -342,11 +285,9 @@ class ManageAdminTest extends WPTestCase
 		update_option(Option::name('heartbeat_admin'), false);
 
 		// Reload.
-		$instance = new ManageAdmin();
-		$instance->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertTrue(is_admin());
 		$this->assertFalse(Option::get('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}

@@ -49,12 +49,15 @@ return [
 		 */
 		->withDefault(null),
 	(new Setting('revisions', 'boolean'))
-		->withDefault(defined('WP_POST_REVISIONS') ? ! (bool) WP_POST_REVISIONS : true),
+		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
 	(new Setting('revisions_max', 'integer'))
-		->withDefault(null),
+		/**
+		 * The default value will be set to the value of the `WP_POST_REVISIONS`.
+		 *
+		 * @see https://wordpress.org/documentation/article/revisions/#revision-options
+		 */
+		->withDefault(defined('WP_POST_REVISIONS') && is_numeric(WP_POST_REVISIONS) ? (int) WP_POST_REVISIONS : null),
 	(new Setting('self_ping', 'boolean'))
-		->withDefault(true),
-	(new Setting('cron', 'boolean'))
 		->withDefault(true),
 	(new Setting('embed', 'boolean'))
 		->withDefault(true),
@@ -63,7 +66,19 @@ return [
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
 
-	// Admin.
+	/**
+	 * --------------------------------------------------------
+	 * Admin
+	 * --------------------------------------------------------
+	 *
+	 * Defines the options to manage features grouped in the Admin section.
+	 *
+	 * Features in the Admin section are those that are specific to the
+	 * WordPress admin area. Users won't see the changes unless they
+	 * have access to the admin area.
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\Admin
+	 */
 	(new Setting('dashboard_widgets', 'boolean'))
 		->withDefault(true),
 	(new Setting('dashboard_widgets_enabled', 'array'))
@@ -85,7 +100,18 @@ return [
 	(new Setting('admin_bar_env_type', 'boolean'))
 		->withDefault(false),
 
-	// Media.
+	/**
+	 * --------------------------------------------------------
+	 * Media
+	 * --------------------------------------------------------
+	 *
+	 * Defines the options to manage the WordPress Media features.
+	 *
+	 * These features generally will affect the Media library screen, and how
+	 * WordPress will handle the uploaded media files.
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\Media
+	 */
 	(new Setting('attachment_page', 'boolean'))
 		->withDefault(true),
 	(new Setting('attachment_slug', 'boolean'))
@@ -94,7 +120,6 @@ return [
 		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
-
 	/**
 	 * @see https://developer.wordpress.org/reference/hooks/jpeg_quality/
 	 * @see https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/class-wp-image-editor.php#L24 - Default value.
@@ -102,7 +127,18 @@ return [
 	(new Setting('jpeg_compression_quality', 'integer'))
 		->withDefault(82),
 
-	// Site.
+	/**
+	 * --------------------------------------------------------
+	 * Site
+	 * --------------------------------------------------------
+	 *
+	 * Defines the options to manage features affecting the site, in general.
+	 *
+	 * Features in this section will manage how the site will handle scripts, styles,
+	 * content, and anything in between that's rendered on the site page.
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\Site
+	 */
 	(new Setting('site_private', 'boolean'))
 		->withDefault(false),
 
@@ -122,7 +158,13 @@ return [
 	(new Setting('shortlink', 'boolean'))
 		->withDefault(true),
 
-	// Security.
+	/**
+	 * --------------------------------------------------------
+	 * Security
+	 * --------------------------------------------------------
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\Security
+	 */
 	(new Setting('xmlrpc', 'boolean'))
 		->withDefault(true),
 	(new Setting('file_edit', 'boolean'))
@@ -137,14 +179,16 @@ return [
 		->withDefault(false),
 
 	/**
-	 * ========================================================
-	 * Advanced
-	 * ========================================================
+	 * --------------------------------------------------------
+	 * Security
+	 * --------------------------------------------------------
+	 *
+	 * @see \Syntatis\FeatureFlipper\Modules\Advanced
 	 */
+	(new Setting('cron', 'boolean'))
+		->withDefault(true),
 
-	/**
-	 * Updates
-	 */
+	// Updates.
 	(new Setting('updates', 'boolean'))
 		->withDefault(true),
 	(new Setting('update_core', 'boolean'))
@@ -154,9 +198,7 @@ return [
 	(new Setting('update_themes', 'boolean'))
 		->withDefault(true),
 
-	/**
-	 * Updates: Auto Updates
-	 */
+	// Updates: Auto Updates
 	(new Setting('auto_updates', 'boolean'))
 		->withDefault(true),
 	(new Setting('auto_update_core', 'boolean'))
@@ -166,9 +208,7 @@ return [
 	(new Setting('auto_update_themes', 'boolean'))
 		->withDefault(true),
 
-	/**
-	 * Heartbeat
-	 */
+	// Heartbeat.
 	(new Setting('heartbeat', 'boolean'))
 		->withDefault(true),
 	(new Setting('heartbeat_admin', 'boolean'))

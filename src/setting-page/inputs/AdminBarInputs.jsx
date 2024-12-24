@@ -2,14 +2,12 @@ import { __ } from '@wordpress/i18n';
 import { SwitchInput } from './SwitchInput';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
-import { useId } from '@wordpress/element';
 import { Details, HelpContent } from '../components';
 
 export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
-	const labelId = useId();
-	const menu = inlineData.wp.adminBarMenu || [];
+	const menu = inlineData.$wp.adminBarMenu || [];
 
 	return (
 		<SwitchInput
@@ -21,7 +19,7 @@ export const AdminBarInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'When switched off, the Admin bar will not be displayed on the front end.',
+				'If switched off, the Admin bar will not be displayed on the front end.',
 				'syntatis-feature-flipper'
 			) }
 			help={

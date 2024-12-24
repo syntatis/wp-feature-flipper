@@ -12,12 +12,12 @@ export const GeneralTab = () => {
 				<GutenbergInputs />
 				<SwitchInput
 					isSelected={
-						inlineData.wp.themeSupport.widgetsBlockEditor === true
+						inlineData.$wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: false
 					}
 					isDisabled={
-						inlineData.wp.themeSupport.widgetsBlockEditor === true
+						inlineData.$wp.themeSupport.widgetsBlockEditor === true
 							? undefined
 							: true
 					}
@@ -29,9 +29,9 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={
-						inlineData.wp.themeSupport.widgetsBlockEditor
+						inlineData.$wp.themeSupport.widgetsBlockEditor
 							? __(
-									'When switched off, the block-based widgets will be disabled and the classic widgets will be used.',
+									'If switched off, the block-based widgets will be disabled and the classic widgets will be used.',
 									'syntatis-feature-flipper'
 							  )
 							: __(
@@ -49,7 +49,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, comments will be disabled site-wide.',
+						'If switched off, comments will be disabled site-wide.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -63,7 +63,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will disable other sites from embedding content from your site, and vice-versa.',
+						'If switched off, it will disable other sites from embedding content from your site, and vice-versa.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -76,7 +76,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, WordPress will not send pingbacks to your own site.',
+						'If switched off, WordPress will not send pingbacks to your own site.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -105,7 +105,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will disable the RSS feed URLs.',
+						'If switched off, it will disable the RSS feed URLs.',
 						'syntatis-feature-flipper'
 					) }
 					help={

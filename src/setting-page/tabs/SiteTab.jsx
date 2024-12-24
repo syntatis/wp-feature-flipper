@@ -18,7 +18,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched on, it will require users to log in to view the site.',
+						'If switched on, it will require users to log in to view the site.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -39,7 +39,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, WordPress will not load the emojis scripts, styles, and images.',
+						'If switched off, WordPress will not load the emojis scripts, styles, and images.',
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
@@ -59,7 +59,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, WordPress will not append the version to the scripts and styles URLs.',
+						'If switched off, WordPress will not append the version to the scripts and styles URLs.',
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
@@ -76,7 +76,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, WordPress will not load the jQuery Migrate script.',
+						'If switched off, WordPress will not load the jQuery Migrate script.',
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
@@ -102,7 +102,7 @@ export const SiteTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'When switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
+							'If switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head.',
 							'syntatis-feature-flipper'
 						) }
 						help={
@@ -135,7 +135,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, it will remove the generator meta tag which shows WordPress and its version.',
+						'If switched off, it will remove the generator meta tag which shows WordPress and its version.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -161,7 +161,7 @@ export const SiteTab = () => {
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'When switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head.',
+						'If switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head.',
 						'syntatis-feature-flipper'
 					) }
 					help={

@@ -19,7 +19,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, WordPress will not create attachment pages for media files.',
+						'If switched off, WordPress will not create attachment pages for media files.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -57,7 +57,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, attachment page will get a randomized slug instead of taking from the original file name.',
+						'If switched off, attachment page will get a randomized slug instead of taking from the original file name.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -89,7 +89,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched off, the media library will use the "Load More" button instead of infinite scrolling.',
+						'If switched off, the media library will use the "Load More" button instead of infinite scrolling.',
 						'syntatis-feature-flipper'
 					) }
 					help={

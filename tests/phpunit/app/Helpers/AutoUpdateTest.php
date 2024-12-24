@@ -10,85 +10,102 @@ use Syntatis\Tests\WPTestCase;
 
 /**
  * @group feature-updates
- * @group feature-auto-update
+ * @group module-advanced
  */
 class AutoUpdateTest extends WPTestCase
 {
+	/** @testdox should return inherited value */
 	public function testGlobal(): void
 	{
+		$this->assertTrue(Option::get('updates'));
+
 		$this->assertTrue(AutoUpdate::global()->isEnabled(true));
 		$this->assertFalse(AutoUpdate::global()->isEnabled(false));
+
+		// Disable global updates.
+		update_option(Option::name('updates'), false);
+
+		// Should return false when global updates are disabled.
+		$this->assertFalse(Option::get('updates'));
+		$this->assertFalse(AutoUpdate::global()->isEnabled(true));
 	}
 
+	/** @testdox should return core inherited value */
 	public function testCore(): void
 	{
 		$this->assertTrue(AutoUpdate::core()->isEnabled(true));
 		$this->assertFalse(AutoUpdate::core()->isEnabled(false));
 	}
 
-	public function testCoreGlobalUpdatesDisabled(): void
+	/** @testdox should return `false` when global "updates" is disabled */
+	public function testCoreWhenGlobalUpdatesIsFalse(): void
 	{
 		// Disable global updates.
 		update_option(Option::name('updates'), false);
 
-		// Should return false when global updates are disabled, even if core update is enabled.
+		$this->assertFalse(Option::get('updates'));
 		$this->assertFalse(AutoUpdate::core()->isEnabled(true));
 	}
 
-	public function testCoreGlobalAutoUpdateDisabled(): void
+	/** @testdox should return `false` when global "auto_updates" is `false` */
+	public function testCoreWhenGlobalAutoUpdatesIsFalse(): void
 	{
 		// Disable global auto-update.
 		update_option(Option::name('auto_updates'), false);
 
-		// Should return false when global auto-update is disabled, even if core update is enabled.
+		$this->assertTrue(Option::get('updates'));
+		$this->assertFalse(Option::get('auto_updates'));
 		$this->assertFalse(AutoUpdate::core()->isEnabled(true));
 	}
 
+	/** @testdox should return plugins inherited value */
 	public function testPlugins(): void
 	{
 		$this->assertTrue(AutoUpdate::plugins()->isEnabled(true));
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(false));
 	}
 
-	public function testPluginsGlobaleUpdatesDisabled(): void
+	/** @testdox should return `false` when global "updates" is `false` */
+	public function testPluginsWhenGlobalUpdatesIsFalse(): void
 	{
 		// Disable global updates.
 		update_option(Option::name('updates'), false);
 
-		// Should return false when global updates are disabled, even if plugins updates are enabled.
+		$this->assertFalse(Option::get('updates'));
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(true));
 	}
 
-	public function testPluginsGlobalAutoUpdateDisabled(): void
+	/** @testdox should return `false` when global "auto_updates" is `false` */
+	public function testPluginsWhenGlobalAutoUpdatesIsFalse(): void
 	{
 		// Disable global auto-update.
 		update_option(Option::name('auto_updates'), false);
 
-		// Should return false when global auto-update is disabled, even if plugins updates are enabled.
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(true));
 	}
 
+	/** @testdox should return themes inherited value */
 	public function testThemes(): void
 	{
 		$this->assertTrue(AutoUpdate::themes()->isEnabled(true));
 		$this->assertFalse(AutoUpdate::themes()->isEnabled(false));
 	}
 
-	public function testThemesGlobalUpdatesDisabled(): void
+	/** @testdox should return `false` when global "updates" is `false` */
+	public function testThemesWhenGlobalUpdatesIsFalse(): void
 	{
 		// Disable global updates.
 		update_option(Option::name('updates'), false);
 
-		// Should return false when global updates are disabled, even if themes updates are enabled.
 		$this->assertFalse(AutoUpdate::themes()->isEnabled(true));
 	}
 
+	/** @testdox should return `false` when global "auto_updates" is `false` */
 	public function testThemesGlobalAutoUpdateDisabled(): void
 	{
 		// Disable global auto-update.
 		update_option(Option::name('auto_updates'), false);
 
-		// Should return false when global auto-update is disabled, even if themes updates are enabled.
 		$this->assertFalse(AutoUpdate::themes()->isEnabled(true));
 	}
 }

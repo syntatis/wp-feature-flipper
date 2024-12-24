@@ -6,7 +6,10 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function define;
 use function defined;
@@ -14,20 +17,36 @@ use function property_exists;
 use function time;
 
 /**
- * Manage the core update and auto-update feature.
+ * Manage Core update and auto-update feature.
  */
 class ManageCore implements Hookable
 {
+	use WithHookName;
+
 	public function hook(Hook $hook): void
 	{
+		$updatesFn = static fn ($value) => Updates::core()->isEnabled((bool) $value);
+		$autoUpdateFn = static function ($value): bool {
+			if (! (bool) Option::get('update_core')) {
+				return false;
+			}
+
+			return AutoUpdate::core()->isEnabled((bool) $value);
+		};
+
+		$hook->addFilter(self::defaultOptionName('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionName('update_core'), $updatesFn);
+		$hook->addFilter(self::optionName('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::optionName('update_core'), $updatesFn);
+
 		if (! (bool) Option::get('update_core')) {
+			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
+			$hook->addFilter('send_core_update_notification_email', '__return_false');
+			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
+			$hook->addFilter('site_status_tests', [$this, 'filterSiteStatusTests']);
 			$hook->removeAction('admin_init', '_maybe_update_core');
 			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 			$hook->removeAction('wp_version_check', 'wp_version_check');
-
-			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
-			$hook->addFilter('send_core_update_notification_email', '__return_false');
-			$hook->addFilter('site_transient_update_core', [$this, 'filterUpdateTransient']);
 		}
 
 		if ((bool) Option::get('auto_update_core')) {
@@ -44,42 +63,34 @@ class ManageCore implements Hookable
 		$hook->addFilter('auto_core_update_send_email', '__return_false');
 		$hook->addFilter('auto_update_core', '__return_false');
 		$hook->addFilter('automatic_updates_is_vcs_checkout', '__return_false', 1);
-		$hook->addFilter('site_status_tests', [$this, 'filterSiteHealth']);
 	}
 
 	/**
-	 * Filter the transient to remove the core update information.
+	 * Prune the transient the Core update information.
 	 *
-	 * This prevents the notification from being displayed in the admin area,
-	 * in case the update information was already fetched before the update
-	 * feature was disabled.
+	 * This will effectively also remove the Update notification in the admin
+	 * area, in case the update information was already fetched before the
+	 * Core update feature is disabled.
+	 *
+	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L54
+	 *
+	 * @param mixed $cache The WordPress Core update information cache.
 	 */
-	public function filterUpdateTransient(object $cache): object
+	public function filterSiteTransientUpdate($cache = null): object
 	{
-		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
-
-		if (property_exists($cache, 'updates')) {
-			$cache->updates = [];
-		}
-
-		if (property_exists($cache, 'translations')) {
-			$cache->translations = [];
-		}
-
-		if (property_exists($cache, 'last_checked')) {
-			$cache->last_checked = time();
-		}
-
-		if (property_exists($cache, 'version_checked') && isset($GLOBALS['wp_version'])) {
-			$cache->version_checked = $GLOBALS['wp_version'];
-		}
-
-		// phpcs:enable
-
-		return $cache;
+		return (object) [
+			'updates' => [],
+			'translations' => [],
+			'version_checked' => $GLOBALS['wp_version'] ?? '',
+			'last_checked' => time(),
+		];
 	}
 
-	/** @return object|false */
+	/**
+	 * Prevent the Core update check from being scheduled.
+	 *
+	 * @return object|false
+	 */
 	public function filterScheduleEvent(object $event)
 	{
 		if (property_exists($event, 'hook') && $event->hook === 'wp_version_check') {
@@ -90,15 +101,22 @@ class ManageCore implements Hookable
 	}
 
 	/**
-	 * @param array<string,array<string,mixed>> $health
+	 * Remove the Core update from the "Site Health" tests and report.
+	 *
+	 * WordPress will check for the Core update status in and will report it as
+	 * in the "Site Health" status. This filter will exclude these tests and
+	 * will remove them from the report since the Core update is disabled
+	 * intentionally.
+	 *
+	 * @param array<string,array<string,mixed>> $tests
 	 *
 	 * @return array<string,array<string,mixed>>
 	 */
-	public function filterSiteHealth(array $health): array
+	public function filterSiteStatusTests(array $tests): array
 	{
-		unset($health['async']['background_updates']);
-		unset($health['direct']['plugin_theme_auto_updates']);
+		unset($tests['async']['background_updates']);
+		unset($tests['direct']['plugin_theme_auto_updates']);
 
-		return $health;
+		return $tests;
 	}
 }

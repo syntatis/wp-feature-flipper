@@ -27,18 +27,16 @@ class AdminBarTest extends WPTestCase
 
 		$this->hook = new Hook();
 		$this->instance = new AdminBar();
+		$this->instance->hook($this->hook);
 	}
 
-	/**
-	 * Test that callbacks should be attached to hooks with the highest priority,
-	 * otherwise it changes on the Admin Bar might not be applied as intended.
-	 *
-	 * @testdox should has the callback attached to hook with the highest priority
-	 */
+	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
-		$this->instance->hook($this->hook);
-
+		/**
+		 * Test that callbacks should be attached to hooks with the highest priority,
+		 * otherwise changes on the Admin Bar might not be properly applied.
+		 */
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_bar_menu', [$this->instance, 'removeNodes']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('show_admin_bar', [$this->instance, 'showAdminBar']));
 		$this->assertFalse($this->hook->hasAction('admin_bar_menu', [$this->instance, 'addMyAccountNode']));

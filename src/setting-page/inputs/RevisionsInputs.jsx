@@ -9,6 +9,7 @@ export const RevisionsInputs = () => {
 	const { getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
+	const revisionMax = getOption( 'revisions_max' );
 
 	return (
 		<SwitchInput
@@ -17,7 +18,7 @@ export const RevisionsInputs = () => {
 			title={ __( 'Revisions', 'syntatis-feature-flipper' ) }
 			label={ __( 'Enable post revisions', 'syntatis-feature-flipper' ) }
 			description={ __(
-				'When switched off, WordPress will not save revisions of your posts.',
+				'If switched off, WordPress will not save revisions of your posts.',
 				'syntatis-feature-flipper'
 			) }
 			help={
@@ -43,8 +44,8 @@ export const RevisionsInputs = () => {
 					<TextField
 						min={ 1 }
 						max={ 100 }
-						placeholder="∞"
-						defaultValue={ getOption( 'revisions_max' ) }
+						placeholder={ revisionMax === null ? '∞' : undefined }
+						defaultValue={ revisionMax }
 						type="number"
 						name="revisions_max"
 						onChange={ ( value ) => {

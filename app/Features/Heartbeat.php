@@ -32,16 +32,6 @@ class Heartbeat implements Hookable, Extendable
 {
 	use WithHookName;
 
-	/**
-	 * Whether the Heartbeat API is enabled.
-	 */
-	private bool $heartbeat;
-
-	public function __construct()
-	{
-		$this->heartbeat = (bool) Option::get('heartbeat');
-	}
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('init', [$this, 'deregisterScripts'], PHP_INT_MAX);
@@ -49,7 +39,7 @@ class Heartbeat implements Hookable, Extendable
 
 	public function deregisterScripts(): void
 	{
-		if ($this->heartbeat) {
+		if ((bool) Option::get('heartbeat')) {
 			return;
 		}
 
