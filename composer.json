@@ -143,6 +143,7 @@
                 ],
                 "finder": {
                     "not-path": [
+                        "psalm.xml",
                         "jaybizzle/crawler-detect/raw",
 		                "jaybizzle/crawler-detect/export.php"
                     ]
