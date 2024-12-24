@@ -26,7 +26,13 @@ class ManageCore implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$updatesFn = static fn ($value) => Updates::core()->isEnabled((bool) $value);
-		$autoUpdateFn = static fn ($value) => AutoUpdate::core()->isEnabled((bool) $value);
+		$autoUpdateFn = static function ($value): bool {
+			if (! (bool) Option::get('update_core')) {
+				return false;
+			}
+
+			return AutoUpdate::core()->isEnabled((bool) $value);
+		};
 
 		$hook->addFilter(self::defaultOptionName('auto_update_core'), $autoUpdateFn);
 		$hook->addFilter(self::defaultOptionName('update_core'), $updatesFn);

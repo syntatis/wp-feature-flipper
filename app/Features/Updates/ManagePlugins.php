@@ -7,11 +7,11 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function is_object;
-use function property_exists;
 use function time;
 
 /**
@@ -24,7 +24,13 @@ class ManagePlugins implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$updatesFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
-		$autoUpdateFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
+		$autoUpdateFn = static function ($value): bool {
+			if (! (bool) Option::get('update_plugins')) {
+				return false;
+			}
+
+			return AutoUpdate::plugins()->isEnabled((bool) $value);
+		};
 
 		$hook->addFilter(self::defaultOptionName('auto_update_plugins'), $autoUpdateFn);
 		$hook->addFilter(self::defaultOptionName('update_plugins'), $updatesFn);
@@ -67,19 +73,10 @@ class ManagePlugins implements Hookable
 			return $cache;
 		}
 
-		if (property_exists($cache, 'response')) {
-			$cache->response = [];
-		}
-
-		if (property_exists($cache, 'translations')) {
-			$cache->translations = [];
-		}
-
-		if (property_exists($cache, 'last_checked')) {
-			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
-			$cache->last_checked = time();
-		}
-
-		return $cache;
+		return (object) [
+			'response' => [],
+			'translations' => [],
+			'last_checked' => time(),
+		];
 	}
 }

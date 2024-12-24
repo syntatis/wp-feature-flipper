@@ -37,11 +37,6 @@ class AutoUpdate implements Enable
 		return self::components();
 	}
 
-	public static function translations(): Enable
-	{
-		return self::components();
-	}
-
 	private static function components(): Enable
 	{
 		return new AutoUpdateComponents();

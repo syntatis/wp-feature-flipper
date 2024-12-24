@@ -11,7 +11,10 @@ use Syntatis\Tests\WPTestCase;
 
 use const PHP_INT_MAX;
 
-/** @group module-general */
+/**
+ * @group feature-gutenberg
+ * @group module-general
+ */
 class GeneralTest extends WPTestCase
 {
 	private Hook $hook;

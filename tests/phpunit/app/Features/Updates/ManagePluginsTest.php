@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Features\Updates;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use stdClass;
 use Syntatis\FeatureFlipper\Features\Updates;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -27,10 +26,10 @@ class ManagePluginsTest extends WPTestCase
 		$this->instance->hook($this->hook);
 	}
 
-	public function testHookUpdateDisabled(): void
+	/** @testdox should has the callback attached to hook */
+	public function testHook(): void
 	{
-		$this->instance->hook($this->hook);
-
+		// Plugin updates related hooks.
 		$this->assertSame(10, $this->hook->hasAction('admin_init', '_maybe_update_plugins'));
 		$this->assertSame(20, $this->hook->hasAction('load-plugins.php', 'wp_plugin_update_rows'));
 		$this->assertSame(10, $this->hook->hasAction('load-plugins.php', 'wp_update_plugins'));
@@ -38,10 +37,15 @@ class ManagePluginsTest extends WPTestCase
 		$this->assertSame(10, $this->hook->hasAction('load-update.php', 'wp_update_plugins'));
 		$this->assertSame(10, $this->hook->hasAction('wp_update_plugins', 'wp_update_plugins'));
 
+		// Plugin auto-updates related hooks.
+		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
+		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
+
 		update_option(Option::name('update_plugins'), false);
 
 		$this->instance->hook($this->hook);
 
+		// Plugin updates related hooks.
 		$this->assertFalse($this->hook->hasAction('admin_init', '_maybe_update_plugins'));
 		$this->assertFalse($this->hook->hasAction('load-plugins.php', 'wp_plugin_update_rows'));
 		$this->assertFalse($this->hook->hasAction('load-plugins.php', 'wp_update_plugins'));
@@ -49,14 +53,15 @@ class ManagePluginsTest extends WPTestCase
 		$this->assertFalse($this->hook->hasAction('load-update.php', 'wp_update_plugins'));
 		$this->assertFalse($this->hook->hasAction('wp_update_plugins', 'wp_update_plugins'));
 
-		// Ensure that we do not accidentally disable auto updates.
-		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
+		// Plugin auto-updates related hooks.
+		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
+		$this->assertSame(10, $this->hook->hasFilter('auto_update_plugin', '__return_false'));
 	}
 
-	public function testHookAutoUpdateDisabled(): void
+	/** @testdox should has the callback attached to auto-update related hook */
+	public function testHookAutoUpdate(): void
 	{
-		$this->instance->hook($this->hook);
-
+		// Plugin auto-updates related hooks.
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
 		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
 
@@ -64,17 +69,71 @@ class ManagePluginsTest extends WPTestCase
 
 		$this->instance->hook($this->hook);
 
+		// Plugin auto-updates related hooks.
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
 		$this->assertSame(10, $this->hook->hasFilter('auto_update_plugin', '__return_false'));
 	}
 
-	public function testFilterCoreUpdateTransient(): void
+	/** @testdox should return default values */
+	public function testOptionsDefault(): void
 	{
-		$cache = new stdClass();
-		$cache->response = ['test'];
-		$cache->translations = ['test'];
+		$this->assertTrue(Option::get('update_plugins'));
+		$this->assertTrue(Option::get('auto_update_plugins'));
+	}
 
-		$cache = $this->instance->filterUpdateTransient($cache);
+	/** @testdox should return updated values */
+	public function testOptionsUpdated(): void
+	{
+		update_option(Option::name('update_plugins'), false);
+		update_option(Option::name('auto_update_plugins'), false);
+
+		$this->assertFalse(Option::get('update_plugins'));
+		$this->assertFalse(Option::get('auto_update_plugins'));
+	}
+
+	/** @testdox should not affect "update_plugins" when "auto_update_plugins" is `false` */
+	public function testMainOptionWhenAutoUpdateIsFalse(): void
+	{
+		update_option(Option::name('auto_update_plugins'), false);
+
+		$this->assertFalse(Option::get('auto_update_plugins'));
+		$this->assertTrue(Option::get('update_plugins'));
+	}
+
+	/** @testdox should affect affect "auto_update_plugins" when "update_plugins" is `false` */
+	public function testAutoUpdateWhenMainOptionIsFalse(): void
+	{
+		update_option(Option::name('update_plugins'), false);
+
+		$this->assertFalse(Option::get('update_plugins'));
+		$this->assertFalse(Option::get('auto_update_plugins'));
+	}
+
+	/** @testdox should affect all options when "updates" option is `false` */
+	public function testOptionsWhenGlobalUpdatesOptionIsFalse(): void
+	{
+		update_option(Option::name('updates'), false);
+
+		$this->assertFalse(Option::get('update_plugins'));
+		$this->assertFalse(Option::get('auto_update_plugins'));
+	}
+
+	/** @testdox should affect "auto_update_plugins" when "auto_updates" option is `false` */
+	public function testOptionsWhenGlobalAutoUpdatesOptionIsFalse(): void
+	{
+		update_option(Option::name('auto_updates'), false);
+
+		$this->assertTrue(Option::get('update_plugins'));
+		$this->assertFalse(Option::get('auto_update_plugins'));
+	}
+
+	/** @testdox should prune the plugins update transient information */
+	public function testFilterSiteTransientUpdate(): void
+	{
+		$cache = $this->instance->filterSiteTransientUpdate((object) [
+			'translations' => ['test'],
+			'response' => ['test'],
+		]);
 
 		$this->assertEmpty($cache->response);
 		$this->assertEmpty($cache->translations);

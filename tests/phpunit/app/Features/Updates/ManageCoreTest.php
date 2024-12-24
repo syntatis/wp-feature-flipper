@@ -46,6 +46,60 @@ class ManageCoreTest extends WPTestCase
 		$this->assertSame(10, $this->hook->hasFilter('send_core_update_notification_email', '__return_false'));
 	}
 
+	/** @testdox should return default values */
+	public function testOptionsDefault(): void
+	{
+		$this->assertTrue(Option::get('update_core'));
+		$this->assertTrue(Option::get('auto_update_core'));
+	}
+
+	/** @testdox should return updated values */
+	public function testOptionsUpdated(): void
+	{
+		update_option(Option::name('update_core'), false);
+		update_option(Option::name('auto_update_core'), false);
+
+		$this->assertFalse(Option::get('update_core'));
+		$this->assertFalse(Option::get('auto_update_core'));
+	}
+
+	/** @testdox should not affect "update_core" when "auto_update_core" is `false` */
+	public function testMainOptionWhenAutoUpdateIsFalse(): void
+	{
+		update_option(Option::name('auto_update_core'), false);
+
+		$this->assertFalse(Option::get('auto_update_core'));
+		$this->assertTrue(Option::get('update_core'));
+	}
+
+	/** @testdox should affect affect "auto_update_core" when "update_core" is `false` */
+	public function testAutoUpdateWhenMainOptionIsFalse(): void
+	{
+		update_option(Option::name('update_core'), false);
+
+		$this->assertFalse(Option::get('update_core'));
+		$this->assertFalse(Option::get('auto_update_core'));
+	}
+
+	/** @testdox should affect all options when "updates" option is `false` */
+	public function testOptionsWhenGlobalUpdatesOptionIsFalse(): void
+	{
+		update_option(Option::name('updates'), false);
+
+		$this->assertFalse(Option::get('update_core'));
+		$this->assertFalse(Option::get('auto_update_core'));
+	}
+
+	/** @testdox should affect "auto_update_core" when "auto_updates" option is `false` */
+	public function testOptionsWhenGlobalAutoUpdatesOptionIsFalse(): void
+	{
+		update_option(Option::name('auto_updates'), false);
+
+		$this->assertTrue(Option::get('update_core'));
+		$this->assertFalse(Option::get('auto_update_core'));
+	}
+
+	/** @testdox should prune the core update transient information */
 	public function testFilterCoreUpdateTransient(): void
 	{
 		$cache = $this->instance->filterSiteTransientUpdate(
