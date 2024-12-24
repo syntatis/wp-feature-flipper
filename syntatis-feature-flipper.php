@@ -11,7 +11,7 @@ declare(strict_types=1);
  * Plugin Name:       Feature Flipper
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
  * Description:       Easily switch some features in WordPress, on and off
- * Version:           1.6.0
+ * Version:           1.7.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
@@ -38,7 +38,7 @@ if (! defined('ABSPATH')) {
  * It provides a clear understanding of the impact of changes between
  * versions.
  */
-const PLUGIN_VERSION = '1.6.0';
+const PLUGIN_VERSION = '1.7.0';
 
 /**
  * Define the directory path to the plugin file.
