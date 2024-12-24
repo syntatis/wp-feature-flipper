@@ -161,7 +161,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'When switched on, common bots, crawlers, and spiders will be blocked from accessing the login page.',
+						'When switched on, known bots, crawlers, and spiders will be blocked from accessing the login page.',
 						'syntatis-feature-flipper'
 					) }
 					help={
