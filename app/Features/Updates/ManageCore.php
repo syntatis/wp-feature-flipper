@@ -6,30 +6,40 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use stdClass;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function define;
 use function defined;
-use function is_object;
 use function property_exists;
 use function time;
 
 /**
- * Manage the core update and auto-update feature.
+ * Manage Core update and auto-update feature.
  */
 class ManageCore implements Hookable
 {
+	use WithHookName;
+
 	public function hook(Hook $hook): void
 	{
-		if (! (bool) Option::get('update_core')) {
-			$hook->removeAction('admin_init', '_maybe_update_core');
-			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
-			$hook->removeAction('wp_version_check', 'wp_version_check');
+		$updatesFn = static fn ($value) => Updates::core()->isEnabled((bool) $value);
+		$autoUpdateFn = static fn ($value) => AutoUpdate::core()->isEnabled((bool) $value);
 
+		$hook->addFilter(self::defaultOptionName('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionName('update_core'), $updatesFn);
+		$hook->addFilter(self::optionName('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::optionName('update_core'), $updatesFn);
+
+		if (! (bool) Option::get('update_core')) {
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
 			$hook->addFilter('send_core_update_notification_email', '__return_false');
 			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
+			$hook->removeAction('admin_init', '_maybe_update_core');
+			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
+			$hook->removeAction('wp_version_check', 'wp_version_check');
 		}
 
 		if ((bool) Option::get('auto_update_core')) {
@@ -60,31 +70,14 @@ class ManageCore implements Hookable
 	 *
 	 * @param mixed $cache The WordPress Core update information cache.
 	 */
-	public function filterSiteTransientUpdate($cache): object
+	public function filterSiteTransientUpdate($cache = null): object
 	{
-		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- Core WordPress convention.
-
-		$cache = is_object($cache) ? $cache : new stdClass();
-
-		if (property_exists($cache, 'updates')) {
-			$cache->updates = [];
-		}
-
-		if (property_exists($cache, 'translations')) {
-			$cache->translations = [];
-		}
-
-		if (property_exists($cache, 'last_checked')) {
-			$cache->last_checked = time();
-		}
-
-		if (property_exists($cache, 'version_checked') && isset($GLOBALS['wp_version'])) {
-			$cache->version_checked = $GLOBALS['wp_version'];
-		}
-
-		// phpcs:enable
-
-		return $cache;
+		return (object) [
+			'updates' => [],
+			'translations' => [],
+			'version_checked' => $GLOBALS['wp_version'] ?? '',
+			'last_checked' => time(),
+		];
 	}
 
 	/**

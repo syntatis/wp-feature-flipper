@@ -7,19 +7,32 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use stdClass;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function is_object;
 use function property_exists;
 use function time;
 
 /**
- * Manage the themes update and auto-update feature.
+ * Manage the Themes update and auto-update feature.
  */
 class ManageThemes implements Hookable
 {
+	use WithHookName;
+
 	public function hook(Hook $hook): void
 	{
+		$updatesFn = static fn ($value) => Updates::themes()->isEnabled((bool) $value);
+		$autoUpdateFn = static fn ($value) => AutoUpdate::themes()->isEnabled((bool) $value);
+
+		$hook->addFilter(self::defaultOptionName('auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionName('update_themes'), $updatesFn);
+		$hook->addFilter(self::optionName('auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(self::optionName('update_themes'), $updatesFn);
+
 		if (! (bool) Option::get('update_themes')) {
 			$hook->removeAction('admin_init', '_maybe_update_themes');
 			$hook->removeAction('load-themes.php', 'wp_theme_update_rows', 20);

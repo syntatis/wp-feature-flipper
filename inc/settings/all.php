@@ -49,9 +49,10 @@ return [
 		 */
 		->withDefault(null),
 	(new Setting('revisions', 'boolean'))
-		->withDefault(defined('WP_POST_REVISIONS') ? ! (bool) WP_POST_REVISIONS : true),
+		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
 	(new Setting('revisions_max', 'integer'))
-		->withDefault(null),
+		/** @see https://wordpress.org/documentation/article/revisions/#revision-options */
+		->withDefault(defined('WP_POST_REVISIONS') && is_numeric(WP_POST_REVISIONS) ? (int) WP_POST_REVISIONS : null),
 	(new Setting('self_ping', 'boolean'))
 		->withDefault(true),
 	(new Setting('cron', 'boolean'))

@@ -6,19 +6,31 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function is_object;
 use function property_exists;
 use function time;
 
 /**
- * Manage the plugins update and auto-update feature.
+ * Manage the Plugins update and auto-update feature.
  */
 class ManagePlugins implements Hookable
 {
+	use WithHookName;
+
 	public function hook(Hook $hook): void
 	{
+		$updatesFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
+		$autoUpdateFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
+
+		$hook->addFilter(self::defaultOptionName('auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionName('update_plugins'), $updatesFn);
+		$hook->addFilter(self::optionName('auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(self::optionName('update_plugins'), $updatesFn);
+
 		if (! (bool) Option::get('update_plugins')) {
 			$hook->removeAction('admin_init', '_maybe_update_plugins');
 			$hook->removeAction('load-plugins.php', 'wp_plugin_update_rows', 20);

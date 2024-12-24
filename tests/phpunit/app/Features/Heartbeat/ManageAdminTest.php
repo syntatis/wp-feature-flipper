@@ -154,8 +154,6 @@ class ManageAdminTest extends WPTestCase
 			$this->instance->filterSettings([]),
 		);
 
-
-
 		// Update.
 		update_option(Option::name('heartbeat_admin_interval'), $value);
 
