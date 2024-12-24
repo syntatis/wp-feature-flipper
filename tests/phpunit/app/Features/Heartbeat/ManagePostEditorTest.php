@@ -45,6 +45,7 @@ class ManagePostEditorTest extends WPTestCase
 		unset($GLOBALS['pagenow']);
 	}
 
+	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
 		$hook = new Hook();
@@ -55,14 +56,14 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
 	}
 
-	/** @testdox should return `15` as the "heartbeat_post_editor_interval" default */
-	public function testPostEditorOptionDefault(): void
+	/** @testdox should return the default value */
+	public function testOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_post_editor'));
 	}
 
-	/** @testdox should return default interval */
-	public function testPostEditorIntervalOptionDefault(): void
+	/** @testdox should return the interval default value */
+	public function testIntervalOptionDefault(): void
 	{
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}

@@ -70,7 +70,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('heartbeat_settings', [$instance, 'filterSettings']));
 	}
 
-	/** @testdox should return `true` as the "heartbeat_admin" default */
+	/** @testdox should return the default value */
 	public function testOptionDefault(): void
 	{
 		$this->assertTrue(Option::get('heartbeat_admin'));
@@ -83,25 +83,16 @@ class ManageAdminTest extends WPTestCase
 	}
 
 	/** @testdox should return updated value for "heartbeat_admin_interval" */
-	public function testAdminIntervalOptionUpdated(): void
+	public function testIntervalOptionUpdated(): void
 	{
 		update_option(Option::name('heartbeat_admin_interval'), 240);
 
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
 	}
 
-	/** @testdox should return the interval value even if "heartbeat_admin" is `false` */
-	public function testIntervalOptionAgainstGlobalOption(): void
+	/** @testdox should affect "heartbeat_admin" but not "heartbeat_admin_interval" option */
+	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat_admin'), false);
-
-		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
-	}
-
-	/** @testdox should affect the "heartbeat_admin" and "heartbeat_admin_interval" value */
-	public function testGlobalOption(): void
-	{
-		// Update the "heartbeat" global option.
 		update_option(Option::name('heartbeat'), false);
 
 		$this->assertFalse(
@@ -115,13 +106,25 @@ class ManageAdminTest extends WPTestCase
 		);
 	}
 
+	/** @testdox should affect not "heartbeat_admin_interval" option */
+	public function testIntervalOptionWhenAdminOptionIsFalse(): void
+	{
+		update_option(Option::name('heartbeat_admin'), false);
+
+		$this->assertSame(
+			60,
+			Option::get('heartbeat_admin_interval'),
+			'Interval still return even if the admin option is false.',
+		);
+	}
+
 	/**
 	 * Test whether the "heartbeat_post_editor" option would affect "heartbeat_admin"
 	 * and "heartbeat_admin_interval" options.
 	 *
 	 * @testdox should not affect "heartbeat_admin" and "heartbeat_admin_interval" options
 	 */
-	public function testPostEditorOption(): void
+	public function testOptionsWhenPostEditorOptionIsFalse(): void
 	{
 		update_option(Option::name('heartbeat_post_editor'), false);
 
@@ -143,7 +146,7 @@ class ManageAdminTest extends WPTestCase
 		set_current_screen('dashboard');
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 
-		// Assert.
+		// Assert default.
 		$this->assertTrue(is_admin());
 		$this->assertSame(
 			[

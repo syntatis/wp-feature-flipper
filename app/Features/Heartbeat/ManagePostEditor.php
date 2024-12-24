@@ -19,27 +19,30 @@ class ManagePostEditor implements Hookable
 	use WithHookName;
 	use WithPostEditor;
 
-	private bool $heartbeat;
-
-	public function __construct()
-	{
-		$this->heartbeat = (bool) Option::get('heartbeat');
-	}
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
 		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
+
+		/**
+		 * Filter the Heartbeat settings for the post editor screen.
+		 *
+		 * When Heartbeat is disabled from the global option, it should also disable
+		 * the "heartbeat_post_editor" option.
+		 */
 		$hook->addFilter(
 			self::optionName('heartbeat_post_editor'),
-			fn ($value) => $this->heartbeat ? $value : false,
+			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			self::defaultOptionName('heartbeat_post_editor'),
-			fn ($value) => $this->heartbeat ? $value : false,
+			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 	}
 
+	/**
+	 * Deregister the Heartbeat script in the post editor screen.
+	 */
 	public function deregisterScripts(): void
 	{
 		if (! self::isPostEditor() || (bool) Option::get('heartbeat_post_editor')) {
@@ -50,14 +53,15 @@ class ManagePostEditor implements Hookable
 	}
 
 	/**
+	 * Filter the Heartbeat settings for the post editor area.
+	 *
 	 * @param array<string,mixed> $settings
 	 *
 	 * @return array<string,mixed>
 	 */
 	public function filterSettings(array $settings): array
 	{
-		// If it's not a post edit screen, return the settings as is.
-		if (! is_admin() || ! self::isPostEditor()) {
+		if (! self::isPostEditor()) {
 			return $settings;
 		}
 
