@@ -1,4 +1,4 @@
-# 🚦 Feature Flipper
+# 🚥 Feature Flipper
 
 ![Banner](.wporg/banner-1544x500.png)
 
