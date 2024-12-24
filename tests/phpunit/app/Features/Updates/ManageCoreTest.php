@@ -21,11 +21,12 @@ class ManageCoreTest extends WPTestCase
 	{
 		parent::set_up();
 
-		$this->instance = new ManageCore();
 		$this->hook = new Hook();
+		$this->instance = new ManageCore();
 		$this->instance->hook($this->hook);
 	}
 
+	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
 		$this->assertSame(10, $this->hook->hasAction('admin_init', '_maybe_update_core'));
@@ -51,7 +52,7 @@ class ManageCoreTest extends WPTestCase
 			(object) [
 				'translations' => ['test'],
 				'updates' => ['test'],
-				'version_checked' => '6.8',
+				'version_checked' => '6.8-rc.10000',
 			],
 		);
 

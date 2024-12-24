@@ -31,6 +31,10 @@ class Updates implements Hookable, Extendable
 			static fn ($value) => Helpers\Updates::global()->isEnabled((bool) $value),
 		);
 		$hook->addFilter(
+			self::defaultOptionName('auto_updates'),
+			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
+		);
+		$hook->addFilter(
 			self::optionName('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
