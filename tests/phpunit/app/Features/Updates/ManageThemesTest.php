@@ -29,6 +29,7 @@ class ManageThemesTest extends WPTestCase
 		$this->instance->hook($this->hook);
 	}
 
+	/** @testdox should have the callback attached to hook */
 	public function testHook(): void
 	{
 		// Themes update related hooks.
@@ -60,6 +61,7 @@ class ManageThemesTest extends WPTestCase
 		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
 	}
 
+	/** @testdox should have the callback attached to auto-update related hook */
 	public function testHookAutoUpdate(): void
 	{
 		// Themes update related hooks.

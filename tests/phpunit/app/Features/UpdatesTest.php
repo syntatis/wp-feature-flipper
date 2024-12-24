@@ -75,7 +75,7 @@ class UpdatesTest extends WPTestCase
 		$this->assertFalse(Option::get('auto_updates'));
 	}
 
-	/** @testdox should return `false` for `auto_updates` when `updates` option is `false` */
+	/** @testdox should return `false` for "auto_updates" when "updates" option is `false` */
 	public function testAutoUpdateWhenMainOptionIsFalse(): void
 	{
 		update_option(Option::name('updates'), false);

@@ -135,7 +135,7 @@ class ManageCoreTest extends WPTestCase
 		$this->assertTrue(Option::get('update_core'));
 	}
 
-	/** @testdox should affect affect "auto_update_core" when "update_core" is `false` */
+	/** @testdox should affect "auto_update_core" when "update_core" is `false` */
 	public function testAutoUpdateWhenMainOptionIsFalse(): void
 	{
 		update_option(Option::name('update_core'), false);

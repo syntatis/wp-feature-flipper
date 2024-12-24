@@ -15,7 +15,7 @@ class OptionTest extends WPTestCase
 		$this->assertEquals('syntatis_feature_flipper_foo', Option::name('foo'));
 	}
 
-	/** @testdox should return false when the option does not exist */
+	/** @testdox should return `false` when the option does not exist */
 	public function testGet(): void
 	{
 		$this->assertFalse(Option::get('foo'));
