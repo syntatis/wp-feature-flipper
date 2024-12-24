@@ -10,7 +10,10 @@ use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
-/** @group feature-updates */
+/**
+ * @group feature-updates
+ * @group module-advanced
+ */
 class ManagePluginsTest extends WPTestCase
 {
 	private ManagePlugins $instance;
@@ -61,6 +64,14 @@ class ManagePluginsTest extends WPTestCase
 	/** @testdox should has the callback attached to auto-update related hook */
 	public function testHookAutoUpdate(): void
 	{
+		// Plugin updates related hooks.
+		$this->assertSame(10, $this->hook->hasAction('admin_init', '_maybe_update_plugins'));
+		$this->assertSame(20, $this->hook->hasAction('load-plugins.php', 'wp_plugin_update_rows'));
+		$this->assertSame(10, $this->hook->hasAction('load-plugins.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('load-update-core.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('load-update.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('wp_update_plugins', 'wp_update_plugins'));
+
 		// Plugin auto-updates related hooks.
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
 		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
@@ -68,6 +79,14 @@ class ManagePluginsTest extends WPTestCase
 		update_option(Option::name('auto_update_plugins'), false);
 
 		$this->instance->hook($this->hook);
+
+		// Plugin updates related hooks.
+		$this->assertSame(10, $this->hook->hasAction('admin_init', '_maybe_update_plugins'));
+		$this->assertSame(20, $this->hook->hasAction('load-plugins.php', 'wp_plugin_update_rows'));
+		$this->assertSame(10, $this->hook->hasAction('load-plugins.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('load-update-core.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('load-update.php', 'wp_update_plugins'));
+		$this->assertSame(10, $this->hook->hasAction('wp_update_plugins', 'wp_update_plugins'));
 
 		// Plugin auto-updates related hooks.
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));

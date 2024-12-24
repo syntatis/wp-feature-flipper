@@ -43,6 +43,7 @@ class ManageCore implements Hookable
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
 			$hook->addFilter('send_core_update_notification_email', '__return_false');
 			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
+			$hook->addFilter('site_status_tests', [$this, 'filterSiteStatusTests']);
 			$hook->removeAction('admin_init', '_maybe_update_core');
 			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 			$hook->removeAction('wp_version_check', 'wp_version_check');
@@ -62,7 +63,6 @@ class ManageCore implements Hookable
 		$hook->addFilter('auto_core_update_send_email', '__return_false');
 		$hook->addFilter('auto_update_core', '__return_false');
 		$hook->addFilter('automatic_updates_is_vcs_checkout', '__return_false', 1);
-		$hook->addFilter('site_status_tests', [$this, 'filterSiteStatusTests']);
 	}
 
 	/**
