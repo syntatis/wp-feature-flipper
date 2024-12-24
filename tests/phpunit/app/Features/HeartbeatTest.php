@@ -64,8 +64,7 @@ class HeartbeatTest extends WPTestCase
 	public function testDeregisterScripts(): void
 	{
 		// Setup.
-		$heartbeat = new Heartbeat();
-		$heartbeat->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert default.
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
@@ -74,8 +73,7 @@ class HeartbeatTest extends WPTestCase
 		update_option(Option::name('heartbeat'), false);
 
 		// Reload.
-		$heartbeat = new Heartbeat();
-		$heartbeat->deregisterScripts();
+		$this->instance->deregisterScripts();
 
 		// Assert.
 		$this->assertFalse(
