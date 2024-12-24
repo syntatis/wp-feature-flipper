@@ -14,7 +14,7 @@ use Syntatis\Tests\WPTestCase;
  */
 class AutoUpdateTest extends WPTestCase
 {
-	/** @testdox should return inherted value */
+	/** @testdox should return inherited value */
 	public function testGlobal(): void
 	{
 		$this->assertTrue(Option::get('updates'));
@@ -84,7 +84,7 @@ class AutoUpdateTest extends WPTestCase
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(true));
 	}
 
-	/** @testdox should return themes inherted value */
+	/** @testdox should return themes inherited value */
 	public function testThemes(): void
 	{
 		$this->assertTrue(AutoUpdate::themes()->isEnabled(true));

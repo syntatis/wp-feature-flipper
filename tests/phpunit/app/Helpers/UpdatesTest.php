@@ -14,7 +14,7 @@ use Syntatis\Tests\WPTestCase;
  */
 class UpdatesTest extends WPTestCase
 {
-	/** @testdox should return global inherted value */
+	/** @testdox should return global inherited value */
 	public function testGlobal(): void
 	{
 		$this->assertTrue(Updates::global()->isEnabled(true));
