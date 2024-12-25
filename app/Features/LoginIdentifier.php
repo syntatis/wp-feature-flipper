@@ -32,6 +32,10 @@ class LoginIdentifier implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		if ($this->identifier === 'both') {
+			return;
+		}
+
 		$hook->addFilter('gettext', [$this, 'filterGetText'], PHP_INT_MAX, 3);
 
 		switch ($this->identifier) {

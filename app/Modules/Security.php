@@ -72,7 +72,10 @@ class Security implements Hookable, Extendable
 
 	public function filterLoginErrorMessage(): string
 	{
-		return __('Invalid username or password.', 'syntatis-feature-flipper');
+		return __(
+			'<strong>Error:</strong> Login failed. Please ensure your credentials are correct.',
+			'syntatis-feature-flipper',
+		);
 	}
 
 	public function blockBots(): void

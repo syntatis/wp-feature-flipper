@@ -48,7 +48,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
-		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('gettext', [$instance, 'filterGetText']));
+		$this->assertFalse($this->hook->hasFilter('gettext', [$instance, 'filterGetText']));
 		$this->assertSame(20, $this->hook->hasAction('authenticate', 'wp_authenticate_username_password'));
 		$this->assertSame(20, $this->hook->hasAction('authenticate', 'wp_authenticate_email_password'));
 	}
@@ -61,6 +61,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('gettext', [$instance, 'filterGetText']));
 		$this->assertFalse($this->hook->hasAction('authenticate', 'wp_authenticate_username_password'));
 		$this->assertSame(20, $this->hook->hasAction('authenticate', 'wp_authenticate_email_password'));
 	}
@@ -73,6 +74,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('gettext', [$instance, 'filterGetText']));
 		$this->assertSame(20, $this->hook->hasAction('authenticate', 'wp_authenticate_username_password'));
 		$this->assertFalse($this->hook->hasAction('authenticate', 'wp_authenticate_email_password'));
 	}
