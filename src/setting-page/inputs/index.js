@@ -6,3 +6,4 @@ export { ImageQualityInputs } from './ImageQualityInputs';
 export { RevisionsInputs } from './RevisionsInputs';
 export { SwitchInput } from './SwitchInput';
 export { UpdatesInputs } from './UpdatesInputs';
+export { RadioGroupInput } from './RadioGroupInput';
