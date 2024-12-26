@@ -49,5 +49,41 @@ class PrivateModeTest extends WPTestCase
 	/** @testdox should carry lagacy option */
 	public function testOptionLegacy(): void
 	{
+		$this->assertFalse(Option::get('site_private'));
+		$this->assertSame('public', Option::get('site_access'));
+
+		// Set the legacy option.
+		$this->assertTrue(Option::update('site_private', '1'));
+		$this->assertSame('1', Option::get('site_private'));
+		$this->assertSame('private', Option::get('site_access'));
+	}
+
+	/** @testdox should remove the legacy option and return the added value */
+	public function testOptionAdded(): void
+	{
+		$this->assertFalse(Option::get('site_private'));
+		$this->assertTrue(Option::update('site_private', '1'));
+		$this->assertSame('1', Option::get('site_private'));
+
+		$this->assertTrue(Option::add('site_access', 'maintenance'));
+		$this->assertFalse(Option::get('site_private'));
+		$this->assertSame('maintenance', Option::get('site_access'));
+	}
+
+	/** @testdox should remove the legacy option and return the added value */
+	public function testOptionUpdated(): void
+	{
+		$this->assertTrue(Option::add('site_access', 'maintenance'));
+		$this->assertSame('maintenance', Option::get('site_access'));
+
+		// Update legacy option.
+		$this->assertFalse(Option::get('site_private'));
+		$this->assertTrue(Option::update('site_private', '1'));
+		$this->assertSame('1', Option::get('site_private'));
+
+		// Assert.
+		$this->assertTrue(Option::update('site_access', 'public'));
+		$this->assertFalse(Option::get('site_private'));
+		$this->assertSame('public', Option::get('site_access'));
 	}
 }

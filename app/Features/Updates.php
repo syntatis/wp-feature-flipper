@@ -27,15 +27,15 @@ class Updates implements Hookable, Extendable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(
-			self::optionName('updates'),
+			self::optionHook('updates'),
 			static fn ($value) => Helpers\Updates::global()->isEnabled((bool) $value),
 		);
 		$hook->addFilter(
-			self::defaultOptionName('auto_updates'),
+			self::defaultOptionHook('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 		$hook->addFilter(
-			self::optionName('auto_updates'),
+			self::optionHook('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 

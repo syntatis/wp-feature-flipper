@@ -31,10 +31,10 @@ class ManagePlugins implements Hookable
 			return AutoUpdate::plugins()->isEnabled((bool) $value);
 		};
 
-		$hook->addFilter(self::defaultOptionName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_plugins'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_plugins'), $updatesFn);
+		$hook->addFilter(self::defaultOptionHook('auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionHook('update_plugins'), $updatesFn);
+		$hook->addFilter(self::optionHook('auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(self::optionHook('update_plugins'), $updatesFn);
 
 		if (! (bool) Option::get('update_plugins')) {
 			$hook->removeAction('admin_init', '_maybe_update_plugins');

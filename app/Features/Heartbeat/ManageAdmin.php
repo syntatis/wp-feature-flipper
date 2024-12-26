@@ -31,11 +31,11 @@ class ManageAdmin implements Hookable
 		 * the "heartbeat_admin" option.
 		 */
 		$hook->addFilter(
-			self::optionName('heartbeat_admin'),
+			self::optionHook('heartbeat_admin'),
 			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
-			self::defaultOptionName('heartbeat_admin'),
+			self::defaultOptionHook('heartbeat_admin'),
 			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 	}

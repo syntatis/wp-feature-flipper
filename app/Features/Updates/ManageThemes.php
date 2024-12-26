@@ -31,10 +31,10 @@ class ManageThemes implements Hookable
 			return AutoUpdate::themes()->isEnabled((bool) $value);
 		};
 
-		$hook->addFilter(self::defaultOptionName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_themes'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_themes'), $updatesFn);
+		$hook->addFilter(self::defaultOptionHook('auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionHook('update_themes'), $updatesFn);
+		$hook->addFilter(self::optionHook('auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(self::optionHook('update_themes'), $updatesFn);
 
 		if (! (bool) Option::get('update_themes')) {
 			$hook->addFilter('site_transient_update_themes', [$this, 'filterSiteTransientUpdate']);

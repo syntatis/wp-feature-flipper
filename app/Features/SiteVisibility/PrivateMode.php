@@ -38,45 +38,41 @@ class PrivateMode implements Hookable
 		 * This filter will ensure that the old value from the `site_private` will
 		 * be carried over and mapped to the `site_access` option.
 		 */
-		$hook->addFilter(
-			self::optionName('site_access'),
-			static function ($value) {
-				/**
-				 * The `site_private` option stores a boolean, which will be stored as
-				 * `1` or `""`. If it is `1`, it means that the option is already set.
-				 *
-				 * If it is already set, respect the value and return it. Otherwise,
-				 * fallback to the `site_access` option.
-				 *
-				 * @see https://developer.wordpress.org/reference/functions/get_option/#description For how WordPress handles option values.
-				 */
+		$optionCallback = static function ($value) {
+			/**
+			 * The `site_private` option stores a boolean, which will be stored as
+			 * `1` or `""`. If it is `1`, it means that the option is already set.
+			 *
+			 * If it is already set, respect the value and return it. Otherwise,
+			 * fallback to the `site_access` option.
+			 *
+			 * @see https://developer.wordpress.org/reference/functions/get_option/#description For how WordPress handles option values.
+			 */
 
-				if (Option::get('site_private') === '1') {
-					return 'private';
-				}
+			if (Option::get('site_private') === '1') {
+				return 'private';
+			}
 
-				return $value;
-			},
-			PHP_INT_MIN,
-		);
+			return $value;
+		};
+		$hook->addFilter(self::defaultOptionHook('site_access'), $optionCallback, PHP_INT_MAX);
+		$hook->addFilter(self::optionHook('site_access'), $optionCallback, PHP_INT_MAX);
 
 		/**
 		 * Remove the `site_private` option, after the `site_access` option has been
 		 * updated, since the `site_private` option is now deprecated.
 		 */
-		$hook->addAction(
-			self::updateOptionName('site_access'),
-			static function ($value): void {
-				$private = Option::get('site_private');
+		$updateOptionCallback = static function (): void {
+			$private = Option::get('site_private');
 
-				if ($private !== '1' && $private !== '') {
-					return;
-				}
+			if ($private !== '1' && $private !== '') {
+				return;
+			}
 
-				delete_option(Option::name('site_private'));
-			},
-			PHP_INT_MIN,
-		);
+			delete_option(Option::name('site_private'));
+		};
+		$hook->addAction(self::addOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
+		$hook->addAction(self::updateOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
 
 		if (Option::get('site_access') !== 'private') {
 			return;
