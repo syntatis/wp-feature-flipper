@@ -61,6 +61,10 @@
         "wp-cli/i18n-command": "^2.6",
         "yoast/wp-test-utils": "^1.2"
     },
+    "suggest": {
+        "filp/whoops": "Provide better error handling in the browser",
+        "nunomaduro/collision": "Provide better error handling in the console"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
@@ -145,7 +149,7 @@
                     "not-path": [
                         "psalm.xml",
                         "jaybizzle/crawler-detect/raw",
-		                "jaybizzle/crawler-detect/export.php"
+                        "jaybizzle/crawler-detect/export.php"
                     ]
                 }
             }
