@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { SwitchInput } from '../inputs';
+import { RadioGroupInput, SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
+import { Radio } from '@syntatis/kubrick';
 
 const themeEditors = document.querySelector(
 	'#adminmenu a[href="theme-editor.php"]'
@@ -120,6 +121,44 @@ export const SecurityTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
+				<RadioGroupInput
+					name="login_identifier"
+					id="login-identifier"
+					title={ __( 'Identifier', 'syntatis-feature-flipper' ) }
+					description={ __(
+						'Select which user identifier to use for login.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'By default, WordPress allows users to log in using either their username or email address. This setting allows you to restrict the login to only one of these options.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									"It's generally recommended to use only the email address to make it harder for attackers to guess the login credentials.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				>
+					<Radio value="both">
+						{ __(
+							'Both username and email',
+							'syntatis-feature-flipper'
+						) }
+					</Radio>
+					<Radio value="username">
+						{ __( 'Only username', 'syntatis-feature-flipper' ) }
+					</Radio>
+					<Radio value="email">
+						{ __( 'Only email', 'syntatis-feature-flipper' ) }
+					</Radio>
+				</RadioGroupInput>
 				<SwitchInput
 					name="obfuscate_login_error"
 					id="obfuscate-login-error"

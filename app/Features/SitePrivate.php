@@ -11,11 +11,9 @@ use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function defined;
-use function parse_url;
 use function printf;
 
 use const PHP_INT_MIN;
-use const PHP_URL_PATH;
 
 class SitePrivate implements Hookable
 {
@@ -36,7 +34,6 @@ class SitePrivate implements Hookable
 	{
 		if (
 			is_user_logged_in() ||
-			is_login() ||
 			wp_doing_ajax() ||
 			wp_doing_cron() ||
 			( defined('WP_CLI') && WP_CLI )
@@ -44,15 +41,12 @@ class SitePrivate implements Hookable
 			return;
 		}
 
-		$url = self::getCurrentUrl();
-		$urlPath = parse_url($url, PHP_URL_PATH);
-
-		if (parse_url(wp_login_url(), PHP_URL_PATH) === $urlPath) {
+		if (self::isLoginUrl()) {
 			return;
 		}
 
 		nocache_headers();
-		wp_safe_redirect(wp_login_url($url), 302);
+		wp_safe_redirect(wp_login_url(self::getCurrentUrl()), 302);
 		exit;
 	}
 
