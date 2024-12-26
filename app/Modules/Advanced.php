@@ -29,22 +29,6 @@ class Advanced implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		$features = $this->getFeatures();
-
-		foreach ($features as $feature) {
-			yield $feature;
-
-			if (! ($feature instanceof Extendable)) {
-				continue;
-			}
-
-			yield from $feature->getInstances($container);
-		}
-	}
-
-	/** @return iterable<object> */
-	private function getFeatures(): iterable
-	{
 		yield new Heartbeat();
 		yield new Updates();
 	}
