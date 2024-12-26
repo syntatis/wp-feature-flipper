@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { SwitchInput } from '../inputs';
+import { RadioGroupInput, SwitchInput } from '../inputs';
 import { HelpContent } from '../components';
+import { Radio } from '@syntatis/kubrick';
 
 export const SiteTab = () => {
 	const { getOption } = useSettingsContext();
@@ -9,19 +10,25 @@ export const SiteTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<SwitchInput
-					name="site_private"
-					id="site-private"
-					title={ __( 'Private Mode', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Enable private mode',
-						'syntatis-feature-flipper'
-					) }
+				<RadioGroupInput
+					name="site_access"
+					id="site-access"
+					title={ __( 'Access', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched on, it will require users to log in to view the site.',
+						'Select how accessible your site should be to visitors.',
 						'syntatis-feature-flipper'
 					) }
-				/>
+				>
+					<Radio value="public">
+						{ __( 'Public', 'syntais-feature-flipper' ) }
+					</Radio>
+					<Radio value="private">
+						{ __( 'Private', 'syntais-feature-flipper' ) }
+					</Radio>
+					<Radio value="maintenance">
+						{ __( 'Maintenance', 'syntais-feature-flipper' ) }
+					</Radio>
+				</RadioGroupInput>
 			</Fieldset>
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }

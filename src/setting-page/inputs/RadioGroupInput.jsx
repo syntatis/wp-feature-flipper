@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
-import { RadioGroup, Switch } from '@syntatis/kubrick';
+import { RadioGroup } from '@syntatis/kubrick';
 import { useSettingsContext, useFormContext } from '../form';
 import { HelpTip } from '../components';
 import styles from './styles.module.scss';

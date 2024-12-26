@@ -139,8 +139,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
-	(new Setting('site_private', 'boolean'))
-		->withDefault(false),
+	(new Setting('site_access', 'string'))
+		->withDefault('public'),
 
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))

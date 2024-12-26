@@ -21,6 +21,18 @@ class Option
 	}
 
 	/**
+	 * Update the plugin option.
+	 *
+	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
+	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
+	 * @phpstan-param non-empty-string $name
+	 */
+	public static function update(string $name, $value): bool
+	{
+		return update_option(self::name($name), $value);
+	}
+
+	/**
 	 * Retrieve the option name with th prefix.
 	 *
 	 * @phpstan-param non-empty-string $name
