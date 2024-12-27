@@ -1,10 +1,10 @@
-:global(#wpadminbar #wp-admin-bar-fb6e5b8410f1e6ee52ac3e663f4f6c58) {
+:global(#wpadminbar #wp-admin-bar-syntatis-feature-flipper-env-type) {
 	> [role="menuitem"] {
 		padding: 0;
 	}
 }
 
-:global(#wpadminbar #fb6e5b8410f1e6ee52ac3e663f4f6c58-root) {
+:global(#wpadminbar #syntatis-feature-flipper-env-type-root) {
 	.trigger {
 		background-color: transparent;
 		border: 0;
@@ -23,14 +23,8 @@
 		}
 	}
 
-	:global(.dashicons::before) {
-		font: normal 20px/1 dashicons;
-		top: 5px;
-		position: relative;
-	}
-
-	:global(.kubrick-Button-affix) {
-		display: flex;
+	:global(.dashicons) {
+		margin-right: 0;
 	}
 }
 
