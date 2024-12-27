@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
 import { RadioGroupFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
-import { Radio } from '@syntatis/kubrick';
 
 const themeEditors = document.querySelector(
 	'#adminmenu a[href="theme-editor.php"]'
@@ -145,20 +144,30 @@ export const SecurityTab = () => {
 							</p>
 						</HelpContent>
 					}
-				>
-					<Radio value="both">
-						{ __(
-							'Both username and email',
-							'syntatis-feature-flipper'
-						) }
-					</Radio>
-					<Radio value="username">
-						{ __( 'Only username', 'syntatis-feature-flipper' ) }
-					</Radio>
-					<Radio value="email">
-						{ __( 'Only email', 'syntatis-feature-flipper' ) }
-					</Radio>
-				</RadioGroupFieldset>
+					options={ [
+						{
+							label: __(
+								'Both username and email',
+								'syntatis-feature-flipper'
+							),
+							value: 'both',
+						},
+						{
+							label: __(
+								'Only username',
+								'syntatis-feature-flipper'
+							),
+							value: 'username',
+						},
+						{
+							label: __(
+								'Only email',
+								'syntatis-feature-flipper'
+							),
+							value: 'email',
+						},
+					] }
+				/>
 				<SwitchFieldset
 					name="obfuscate_login_error"
 					id="obfuscate-login-error"

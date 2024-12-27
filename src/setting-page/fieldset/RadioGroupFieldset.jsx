@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
-import { RadioGroup } from '@syntatis/kubrick';
+import { Radio, RadioGroup } from '@syntatis/kubrick';
 import { useSettingsContext, useFormContext } from '../form';
 import { HelpTip } from '../components';
 import styles from './styles.module.scss';
@@ -14,6 +14,7 @@ export const RadioGroupFieldset = ( {
 	isDisabled,
 	isSelected,
 	help,
+	options,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 	const { setFieldsetValues } = useFormContext();
@@ -41,8 +42,13 @@ export const RadioGroupFieldset = ( {
 					isDisabled={ isDisabled }
 					isSelected={ isSelected }
 				>
-					{ children }
+					{ options.map( ( { label, value, ...props } ) => (
+						<Radio key={ value } value={ value } { ...props }>
+							{ label }
+						</Radio>
+					) ) }
 				</RadioGroup>
+				{ children }
 			</td>
 		</tr>
 	);
