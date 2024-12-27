@@ -9,9 +9,10 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 trait WithHookName
 {
 	/**
-	 * Retrieve the plugin option name filter, added with the prefix.
+	 * Retrieve option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
@@ -21,9 +22,10 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve the plugin default option name filter, added with the prefix.
+	 * Retrieve default option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
@@ -33,12 +35,10 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve the plugin update option filter name, added with the prefix.
-	 *
-	 * The filter runs after the option is successfully updated.
+	 * Retrieve update option filter name, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
-	 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/option.php#L1011 Where the hook is applied.
+	 * @see https://developer.wordpress.org/reference/hooks/update_option_option/For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
@@ -48,11 +48,10 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve the plugin add option filter name, added with the prefix.
-	 *
-	 * The filter runs after the option is successfully updated.
+	 * Retrieve add option filter name, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/add_option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
