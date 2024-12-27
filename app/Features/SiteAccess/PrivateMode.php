@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Features\SiteVisibility;
+namespace Syntatis\FeatureFlipper\Features\SiteAccess;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithAdmin;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use WP_Admin_Bar;
 
 use function defined;
 use function printf;
+use function sprintf;
 
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -24,6 +27,7 @@ use const PHP_INT_MIN;
  */
 class PrivateMode implements Hookable
 {
+	use WithAdmin;
 	use WithHookName;
 	use WithURI;
 
@@ -78,8 +82,9 @@ class PrivateMode implements Hookable
 			return;
 		}
 
-		$hook->addAction('template_redirect', [$this, 'forceLogin'], PHP_INT_MIN);
+		$hook->addAction('admin_bar_menu', [$this, 'adminBarMenu'], PHP_INT_MIN);
 		$hook->addAction('rightnow_end', [$this, 'showRightNowStatus'], PHP_INT_MIN);
+		$hook->addAction('template_redirect', [$this, 'forceLogin'], PHP_INT_MIN);
 		$hook->addFilter('login_site_html_link', '__return_empty_string', PHP_INT_MAX);
 	}
 
@@ -104,19 +109,58 @@ class PrivateMode implements Hookable
 	}
 
 	/**
+	 * Show the "Maintenance" status on the admin bar menu.
+	 */
+	public function adminBarMenu(WP_Admin_Bar $wpAdminBar): void
+	{
+		if (! is_admin()) {
+			return;
+		}
+
+		$node = [
+			'id' => App::name() . '-site-access',
+			'title' => sprintf(
+				<<<'HTML'
+				<div style="display: flex; align-items: center;">
+					<span class="dashicons dashicons-warning ab-icon"></span>
+					%s
+				</div>
+				HTML,
+				_x('Private', 'Site access mode', 'syntatis-feature-flipper'),
+			),
+			'parent' => 'top-secondary',
+		];
+
+		if (current_user_can('manage_options') && ! self::isSettingPage()) {
+			$node['href'] = self::getSettingPageURL(['tab' => 'site']);
+		}
+
+		$wpAdminBar->add_node($node);
+	}
+
+	/**
 	 * Show the "Private" status at the "At a glance" dashboard widget.
 	 */
 	public function showRightNowStatus(): void
 	{
+		$message = __('The site is currently in private mode', 'syntatis-feature-flipper');
+
+		if (current_user_can('manage_options')) {
+			$message = sprintf(
+				'<a href="%s">%s</a>',
+				self::getSettingPageURL(['tab' => 'site']),
+				$message,
+			);
+		}
+
 		printf(
 			<<<'HTML'
-			<div style="color: var(--kubrick-gray-500);">
+			<div style="margin-bottom: 5px;">
 				<span class="dashicons dashicons-warning"></span>
-				<a href="%s">%s</a>
+				%s
 			</div>
 			HTML,
-			esc_url(admin_url('options-general.php?page=' . App::name() . '&tab=site')),
-			esc_html(__('The site is currently in private mode', 'syntatis-feature-flipper')),
+			wp_kses($message, ['a' => ['href' => true]]),
 		);
 	}
 }
