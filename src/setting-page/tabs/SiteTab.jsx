@@ -1,35 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { RadioGroupInput, SwitchInput } from '../inputs';
+import { SiteAccessFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
-import { Radio } from '@syntatis/kubrick';
 
 export const SiteTab = () => {
 	const { getOption } = useSettingsContext();
 
 	return (
 		<Form>
-			<Fieldset>
-				<RadioGroupInput
-					name="site_access"
-					id="site-access"
-					title={ __( 'Access', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'Select how accessible your site should be to visitors.',
-						'syntatis-feature-flipper'
-					) }
-				>
-					<Radio value="public">
-						{ __( 'Public', 'syntais-feature-flipper' ) }
-					</Radio>
-					<Radio value="private">
-						{ __( 'Private', 'syntais-feature-flipper' ) }
-					</Radio>
-					<Radio value="maintenance">
-						{ __( 'Maintenance', 'syntais-feature-flipper' ) }
-					</Radio>
-				</RadioGroupInput>
-			</Fieldset>
+			<SiteAccessFieldset />
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
@@ -37,7 +16,7 @@ export const SiteTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<SwitchInput
+				<SwitchFieldset
 					name="emojis"
 					id="emojis"
 					title={ __( 'Emojis', 'syntatis-feature-flipper' ) }
@@ -54,7 +33,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="scripts_version"
 					id="scripts-version"
 					title={ __(
@@ -74,7 +53,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="jquery_migrate"
 					id="jquery-migrate"
 					title={ __( 'jQuery Migrate', 'syntatis-feature-flipper' ) }
@@ -100,7 +79,7 @@ export const SiteTab = () => {
 				) }
 			>
 				{ getOption( 'xmlrpc' ) && (
-					<SwitchInput
+					<SwitchFieldset
 						name="rsd_link"
 						id="rsd-link"
 						title={ __( 'RSD Link', 'syntatis-feature-flipper' ) }
@@ -130,7 +109,7 @@ export const SiteTab = () => {
 						}
 					/>
 				) }
-				<SwitchInput
+				<SwitchFieldset
 					name="generator_tag"
 					id="generator-tag"
 					title={ __(
@@ -162,7 +141,7 @@ export const SiteTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="shortlink"
 					id="shortlink"
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }

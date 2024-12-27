@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useFormContext, useSettingsContext } from '../form';
 import { useId, useState } from '@wordpress/element';
@@ -16,7 +16,7 @@ export const DashboardWidgetsInputs = () => {
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="dashboard_widgets"
 			id="dashboard-widgets"
 			title={ __( 'Dashboard Widgets', 'syntatis-feature-flipper' ) }
@@ -65,6 +65,6 @@ export const DashboardWidgetsInputs = () => {
 					</CheckboxGroup>
 				</Details>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { GutenbergInputs, RevisionsInputs, SwitchInput } from '../inputs';
+import { GutenbergInputs, RevisionsInputs, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
@@ -10,7 +10,7 @@ export const GeneralTab = () => {
 		<Form>
 			<Fieldset>
 				<GutenbergInputs />
-				<SwitchInput
+				<SwitchFieldset
 					isSelected={
 						inlineData.$wp.themeSupport.widgetsBlockEditor === true
 							? undefined
@@ -40,7 +40,7 @@ export const GeneralTab = () => {
 							  )
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="comments"
 					id="comments"
 					title="Comments"
@@ -54,7 +54,7 @@ export const GeneralTab = () => {
 					) }
 				/>
 				<RevisionsInputs />
-				<SwitchInput
+				<SwitchFieldset
 					name="embed"
 					id="embed"
 					title="Embed"
@@ -67,7 +67,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="self_ping"
 					id="self-ping"
 					title="Self-ping"
@@ -96,7 +96,7 @@ export const GeneralTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="feeds"
 					id="feeds"
 					title="Feeds"

@@ -1,10 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
-import { Details, HelpContent } from '../components';
 import { Checkbox, Option, Select } from '@syntatis/kubrick';
-import { useFormContext, useSettingsContext } from '../form';
-import styles from './HeartbeatInputs.module.scss';
 import { useState } from '@wordpress/element';
+import { SwitchFieldset } from './SwitchFieldset';
+import { Details, HelpContent } from '../components';
+import { useFormContext, useSettingsContext } from '../form';
+import styles from './HeartbeatFieldset.module.scss';
 
 const OPTION_KEYS = [
 	'heartbeat',
@@ -25,7 +25,7 @@ export const HeartbeatInputs = () => {
 	);
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="heartbeat"
 			id="heartbeat"
 			title="Heartbeat"
@@ -247,6 +247,6 @@ export const HeartbeatInputs = () => {
 					</div>
 				</Details>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };

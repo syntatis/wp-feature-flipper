@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { RadioGroupInput, SwitchInput } from '../inputs';
+import { RadioGroupFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 import { Radio } from '@syntatis/kubrick';
 
@@ -19,7 +19,7 @@ export const SecurityTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<SwitchInput
+				<SwitchFieldset
 					name="file_edit"
 					id="file-edit"
 					title={ __( 'File Edit', 'syntatis-feature-flipper' ) }
@@ -61,7 +61,7 @@ export const SecurityTab = () => {
 						}
 					} }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="xmlrpc"
 					id="xmlrpc"
 					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
@@ -87,7 +87,7 @@ export const SecurityTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="authenticated_rest_api"
 					id="authenticated-rest-api"
 					title={ __(
@@ -121,7 +121,7 @@ export const SecurityTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<RadioGroupInput
+				<RadioGroupFieldset
 					name="login_identifier"
 					id="login-identifier"
 					title={ __( 'Identifier', 'syntatis-feature-flipper' ) }
@@ -158,8 +158,8 @@ export const SecurityTab = () => {
 					<Radio value="email">
 						{ __( 'Only email', 'syntatis-feature-flipper' ) }
 					</Radio>
-				</RadioGroupInput>
-				<SwitchInput
+				</RadioGroupFieldset>
+				<SwitchFieldset
 					name="obfuscate_login_error"
 					id="obfuscate-login-error"
 					title={ __(
@@ -191,7 +191,7 @@ export const SecurityTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="login_block_bots"
 					id="login-block-bots"
 					title={ __( 'Block Bots', 'syntatis-feature-flipper' ) }
@@ -234,7 +234,7 @@ export const SecurityTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<SwitchInput
+				<SwitchFieldset
 					name="application_passwords"
 					id="application-passwords"
 					title={ __(

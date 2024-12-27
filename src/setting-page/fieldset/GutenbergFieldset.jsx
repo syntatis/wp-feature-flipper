@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { Details } from '../components';
 import { useFormContext, useSettingsContext } from '../form';
@@ -64,7 +64,7 @@ export const GutenbergInputs = () => {
 	const [ value, setValue ] = useState( getOption( 'gutenberg' ) );
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="gutenberg"
 			isSelected={ value }
 			onChange={ ( changedValue ) => {
@@ -89,6 +89,6 @@ export const GutenbergInputs = () => {
 					<PostTypesInputs />
 				</Details>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };

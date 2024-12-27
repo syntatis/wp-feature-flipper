@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextField } from '@syntatis/kubrick';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
 import { useFormContext, useSettingsContext } from '../form';
 import { HelpContent } from '../components';
 
@@ -12,7 +12,7 @@ export const RevisionsInputs = () => {
 	const revisionMax = getOption( 'revisions_max' );
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="revisions"
 			id="revisions"
 			title={ __( 'Revisions', 'syntatis-feature-flipper' ) }
@@ -71,6 +71,6 @@ export const RevisionsInputs = () => {
 					/>
 				</div>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };
