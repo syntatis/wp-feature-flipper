@@ -141,6 +141,17 @@ return [
 	 */
 	(new Setting('site_access', 'string'))
 		->withDefault('public'),
+	(new Setting('site_maintenance_args', 'object'))
+		->apiSchema([
+			'properties' => [
+				'headline' => ['type' => 'string'],
+				'description' => ['type' => 'string'],
+			],
+		])
+		->withDefault([
+			'headline' => __('Down for Maintenance 🚧', 'syntatis-feature-flipper'),
+			'description' => __('We are currently performing some scheduled maintenance. We will be back as soon as possible.', 'syntatis-feature-flipper'),
+		]),
 
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
