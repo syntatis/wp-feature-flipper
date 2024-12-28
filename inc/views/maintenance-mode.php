@@ -2,7 +2,8 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
-	<?php wp_head(); // Allow for remote-login on mapped domains. ?>
+	<title><?php wp_title(); ?></title>
+	<?php wp_head(); ?>
 	<style>
 	.mm-wrapper {
 		display: flex;
