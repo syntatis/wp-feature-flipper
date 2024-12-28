@@ -1,30 +1,32 @@
-:global(#wpadminbar #wp-admin-bar-syntatis-feature-flipper-env-type) {
-	> [role="menuitem"] {
-		padding: 0;
-	}
-}
-
-:global(#wpadminbar #syntatis-feature-flipper-env-type-root) {
-	.trigger {
-		background-color: transparent;
-		border: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.25rem;
-		padding: 0 0.5rem;
-		cursor: help;
-		color: inherit;
-
-		&:focus {
-			box-shadow: none;
-			outline: 2px solid var(--kubrick-accent-color);
-			outline-offset: -2px;
+:global(#wpadminbar) {
+	:global(#wp-admin-bar-syntatis-feature-flipper-environment-type) {
+		> [role="menuitem"] {
+			padding: 0;
 		}
 	}
 
-	:global(.dashicons) {
-		margin-right: 0;
+	:global(#syntatis-feature-flipper-environment-type) {
+		.trigger {
+			background-color: transparent;
+			border: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.25rem;
+			padding: 0 0.5rem;
+			cursor: help;
+			color: inherit;
+
+			&:focus {
+				box-shadow: none;
+				outline: 2px solid var(--kubrick-accent-color);
+				outline-offset: -2px;
+			}
+		}
+
+		:global(.dashicons) {
+			margin-right: 0;
+		}
 	}
 }
 

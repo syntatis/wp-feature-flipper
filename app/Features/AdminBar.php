@@ -186,7 +186,7 @@ class AdminBar implements Hookable
 				'id' => $id,
 				'title' => sprintf(
 					<<<HTML
-					<div id="%s-root" data-inline='$inlineData'></div>
+					<div id="%s" data-inline='$inlineData'></div>
 					HTML,
 					$id,
 				),
