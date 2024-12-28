@@ -8,10 +8,13 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\WithAdmin;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
 use function header;
+use function is_array;
+use function is_string;
 use function printf;
 use function sprintf;
 
@@ -21,9 +24,12 @@ use const PHP_INT_MIN;
 class MaintenanceMode implements Hookable
 {
 	use WithAdmin;
+	use WithHookName;
 
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter(self::sanitizeOptionHook('site_maintenance_args'), [$this, 'sanitizeArgsOption'], PHP_INT_MAX);
+
 		if (Option::get('site_access') !== 'maintenance') {
 			return;
 		}
@@ -112,5 +118,22 @@ class MaintenanceMode implements Hookable
 			HTML,
 			wp_kses($message, ['a' => ['href' => true]]),
 		);
+	}
+
+	/**
+	 * @param mixed $value The value of the "site_maintenance_args" option.
+	 *
+	 * @return array<string,string>
+	 */
+	public function sanitizeArgsOption($value): array
+	{
+		$value = is_array($value) ? $value : [];
+		$headline = $value['headline'] ?? '';
+		$description = $value['description'] ?? '';
+
+		return [
+			'headline' => wp_strip_all_tags(is_string($headline) ? $headline : ''),
+			'description' => wp_strip_all_tags(is_string($description) ? $description : ''),
+		];
 	}
 }
