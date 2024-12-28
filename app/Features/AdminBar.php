@@ -18,7 +18,6 @@ use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
-use function md5;
 use function sprintf;
 
 use const PHP_INT_MAX;
@@ -180,7 +179,7 @@ class AdminBar implements Hookable
 
 	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
-		$id = md5($this->appName . '-environment-type');
+		$id = $this->appName . '-environment-type';
 		$inlineData = wp_json_encode(['environmentType' => wp_get_environment_type()]);
 		$wpAdminBar->add_node(
 			[
