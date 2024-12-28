@@ -9,7 +9,7 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 trait WithHookName
 {
 	/**
-	 * Retrieve option name filter, added with plugin the prefix.
+	 * Retrieve the option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
 	 * @see https://developer.wordpress.org/reference/hooks/option_option/ For the hook documentation.
@@ -22,7 +22,7 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve default option name filter, added with plugin the prefix.
+	 * Retrieve the default option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
 	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/ For the hook documentation.
@@ -35,7 +35,7 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve update option filter name, added with plugin the prefix.
+	 * Retrieve the update option filter name, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
 	 * @see https://developer.wordpress.org/reference/hooks/update_option_option/For the hook documentation.
@@ -48,7 +48,7 @@ trait WithHookName
 	}
 
 	/**
-	 * Retrieve add option filter name, added with plugin the prefix.
+	 * Retrieve the add option filter name, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
 	 * @see https://developer.wordpress.org/reference/hooks/add_option_option/ For the hook documentation.
@@ -58,5 +58,18 @@ trait WithHookName
 	private static function addOptionHook(string $name): string
 	{
 		return 'add_option_' . Option::name($name);
+	}
+
+	/**
+	 * Retrieve the sanitize option filter name, added with plugin the prefix.
+	 *
+	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/sanitize_option_option/
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function sanitizeOptionHook(string $name): string
+	{
+		return 'sanitize_option_' . Option::name($name);
 	}
 }
