@@ -5,10 +5,13 @@
 	<title><?php wp_title(); ?></title>
 	<?php wp_head(); ?>
 	<style>
-	.mm-wrapper {
+	#syntatis-feature-flipper-site-maintenance {
 		display: flex;
 		width: 100vw;
 		height: 100vh;
+		padding-inline: 20vw;
+		box-sizing: border-box;
+		text-align: center;
 		justify-content: center;
 		align-items: center;
 		flex-flow: column wrap;
