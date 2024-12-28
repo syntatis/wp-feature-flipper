@@ -2,12 +2,11 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
-import { useFormContext, useSettingsContext } from '../form';
+import { useSettingsContext } from '../form';
 import { HelpContent } from '../components';
 
 export const RevisionsInputs = () => {
-	const { getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
+	const { getOption, optionPrefix } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
 	const revisionMax = getOption( 'revisions_max' );
 
@@ -47,10 +46,7 @@ export const RevisionsInputs = () => {
 						placeholder={ revisionMax === null ? '∞' : undefined }
 						defaultValue={ revisionMax }
 						type="number"
-						name="revisions_max"
-						onChange={ ( value ) => {
-							setFieldsetValues( 'revisions_max', value );
-						} }
+						name={ `${ optionPrefix }revisions_max` }
 						className="code"
 						suffix={
 							<span aria-hidden>

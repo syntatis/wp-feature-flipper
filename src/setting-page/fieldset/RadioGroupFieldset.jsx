@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
 import { Radio, RadioGroup } from '@syntatis/kubrick';
-import { useSettingsContext, useFormContext } from '../form';
+import { useSettingsContext } from '../form';
 import { HelpTip } from '../components';
 import styles from './styles.module.scss';
 
@@ -17,7 +17,6 @@ export const RadioGroupFieldset = ( {
 	options,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 
 	return (
 		<tr>
@@ -35,7 +34,6 @@ export const RadioGroupFieldset = ( {
 						if ( onChange !== undefined ) {
 							onChange( checked );
 						}
-						setFieldsetValues( name, checked );
 					} }
 					defaultValue={ getOption( name ) }
 					description={ description }

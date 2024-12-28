@@ -3,7 +3,7 @@ import { Checkbox, Option, Select } from '@syntatis/kubrick';
 import { useState } from '@wordpress/element';
 import { SwitchFieldset } from './SwitchFieldset';
 import { Details, HelpContent } from '../components';
-import { useFormContext, useSettingsContext } from '../form';
+import { useSettingsContext } from '../form';
 import styles from './HeartbeatFieldset.module.scss';
 
 const OPTION_KEYS = [
@@ -16,7 +16,6 @@ const OPTION_KEYS = [
 
 export const HeartbeatInputs = () => {
 	const { inputProps, getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const [ values, setValues ] = useState(
 		OPTION_KEYS.reduce( ( acc, key ) => {
 			acc[ key ] = getOption( key );
@@ -99,10 +98,6 @@ export const HeartbeatInputs = () => {
 											heartbeat_admin: checked,
 										};
 									} );
-									setFieldsetValues(
-										'heartbeat_admin',
-										checked
-									);
 								} }
 								label={ __(
 									'Enable request on the admin area once every',
@@ -113,17 +108,10 @@ export const HeartbeatInputs = () => {
 										{ ...inputProps(
 											'heartbeat_admin_interval'
 										) }
-										name="heartbeat_admin"
 										selectedItem={
 											values.heartbeat_admin_interval
 										}
 										isDisabled={ ! values.heartbeat_admin }
-										onSelectionChange={ ( value ) => {
-											setFieldsetValues(
-												'heartbeat_admin_interval',
-												value
-											);
-										} }
 									>
 										<Option value={ 15 }>
 											{ __(
@@ -188,10 +176,6 @@ export const HeartbeatInputs = () => {
 											heartbeat_post_editor: checked,
 										};
 									} );
-									setFieldsetValues(
-										'heartbeat_post_editor',
-										checked
-									);
 								} }
 								label={ __(
 									'Enable request on the post editor once every',
@@ -202,19 +186,12 @@ export const HeartbeatInputs = () => {
 										{ ...inputProps(
 											'heartbeat_post_editor_interval'
 										) }
-										name="heartbeat_post_editor"
 										selectedItem={
 											values.heartbeat_post_editor_interval
 										}
 										isDisabled={
 											! values.heartbeat_post_editor
 										}
-										onSelectionChange={ ( value ) => {
-											setFieldsetValues(
-												'heartbeat_post_editor_interval',
-												value
-											);
-										} }
 									>
 										<Option value={ 15 }>
 											{ __(

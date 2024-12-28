@@ -1,12 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { SwitchFieldset } from './SwitchFieldset';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
-import { useFormContext, useSettingsContext } from '../form';
+import { useSettingsContext } from '../form';
 import { Details, HelpContent } from '../components';
 
 export const AdminBarInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const menu = inlineData.$wp.adminBarMenu || [];
 
 	return (
@@ -44,9 +43,6 @@ export const AdminBarInputs = () => {
 						'Unchecked menu items will be hidden from the Admin bar.',
 						'syntatis-feature-flipper'
 					) }
-					onChange={ ( value ) =>
-						setFieldsetValues( 'admin_bar_menu', value )
-					}
 					{ ...inputProps( 'admin_bar_menu' ) }
 				>
 					{ menu.map( ( { id } ) => (

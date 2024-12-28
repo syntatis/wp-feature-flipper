@@ -61,7 +61,7 @@ export const useSettings = ( { optionPrefix } ) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );
 
-	const submitValues = ( data ) => {
+	const submit = ( data ) => {
 		setUpdating( true );
 		apiFetch( {
 			path: '/wp/v2/settings',
@@ -96,7 +96,7 @@ export const useSettings = ( { optionPrefix } ) => {
 		status,
 		errorMessages,
 		updating,
-		submitValues,
+		submit,
 		setValues,
 		setStatus,
 		getOption,

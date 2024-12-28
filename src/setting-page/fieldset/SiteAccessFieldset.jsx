@@ -2,17 +2,13 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextArea, TextField } from '@syntatis/kubrick';
 import { RadioGroupFieldset } from './RadioGroupFieldset';
-import { Fieldset, useFormContext, useSettingsContext } from '../form';
+import { Fieldset, useSettingsContext } from '../form';
 import styles from './SiteAccessFieldset.module.scss';
 
 export const SiteAccessFieldset = () => {
-	const { getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
+	const { getOption, optionPrefix } = useSettingsContext();
 	const [ siteAccess, setSiteAccess ] = useState(
 		getOption( 'site_access' )
-	);
-	const [ siteMaintenanceArgs, setSiteMaintenanceArgs ] = useState(
-		getOption( 'site_maintenance_args' )
 	);
 
 	return (
@@ -53,18 +49,7 @@ export const SiteAccessFieldset = () => {
 								'Headline',
 								'syntatis-feature-flipper'
 							) }
-							onChange={ ( value ) => {
-								setSiteMaintenanceArgs( ( currentValues ) => {
-									return {
-										...currentValues,
-										headline: value,
-									};
-								} );
-								setFieldsetValues( 'site_maintenance_args', {
-									...siteMaintenanceArgs,
-									headline: value,
-								} );
-							} }
+							name={ `${ optionPrefix }site_maintenance_args[headline]` }
 							defaultValue={
 								getOption( 'site_maintenance_args' ).headline
 							}
@@ -89,18 +74,7 @@ export const SiteAccessFieldset = () => {
 								'Description',
 								'syntatis-feature-flipper'
 							) }
-							onChange={ ( value ) => {
-								setSiteMaintenanceArgs( ( currentValues ) => {
-									return {
-										...currentValues,
-										description: value,
-									};
-								} );
-								setFieldsetValues( 'site_maintenance_args', {
-									...siteMaintenanceArgs,
-									description: value,
-								} );
-							} }
+							name={ `${ optionPrefix }site_maintenance_args[description]` }
 							defaultValue={
 								getOption( 'site_maintenance_args' ).description
 							}
