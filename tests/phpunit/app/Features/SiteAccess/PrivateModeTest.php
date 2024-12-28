@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features\SiteVisibility;
+namespace Syntatis\Tests\Features\SiteAccess;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode;
@@ -13,7 +13,7 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
- * @group feature-site-visibility
+ * @group feature-site-access
  * @group module-site
  */
 class PrivateModeTest extends WPTestCase
@@ -21,7 +21,7 @@ class PrivateModeTest extends WPTestCase
 	private PrivateMode $instance;
 	private Hook $hook;
 
-	// phpcs:ignore
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
 	{
 		parent::set_up();
