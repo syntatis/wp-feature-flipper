@@ -149,8 +149,14 @@ return [
 			],
 		])
 		->withDefault([
-			'headline' => __('Under Maintenance 🚧', 'syntatis-feature-flipper'),
-			'description' => __('We are currently performing some scheduled maintenance. We will be back as soon as possible.', 'syntatis-feature-flipper'),
+			'headline' => __(
+				'Under Maintenance 🚧',
+				'syntatis-feature-flipper',
+			),
+			'description' => __(
+				'We are currently performing some scheduled maintenance. We will be back as soon as possible.',
+				'syntatis-feature-flipper',
+			),
 		]),
 
 	// Site: Assets.
