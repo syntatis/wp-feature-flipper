@@ -1,3 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+use Syntatis\FeatureFlipper\Helpers\Option;
+
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -20,9 +27,9 @@
 	</style>
 </head>
 <body>
-	<div class="mm-wrapper">
-		<h1><?php esc_html_e('Howdy!', 'maintenance-mode'); ?></h1>
-		<p><?php esc_html_e("We're just freshening things up a bit; back in a few!", 'maintenance-mode'); ?></p>
+	<div id="syntatis-feature-flipper-site-maintenance">
+		<h1><?php echo esc_html(Option::get('site_maintenance_args')['headline'] ?? ''); ?></h1>
+		<?php echo wp_kses_post(wpautop(Option::get('site_maintenance_args')['description'] ?? '')); ?>
 	</div>
 	<?php wp_footer(); ?>
 </body>
