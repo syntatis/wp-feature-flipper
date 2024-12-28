@@ -52,11 +52,11 @@ class AdminBar implements Hookable
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
+			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
 		if ((bool) Option::get('admin_bar_env_type')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode'], PHP_INT_MAX);
+			$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 		}
 
 		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
