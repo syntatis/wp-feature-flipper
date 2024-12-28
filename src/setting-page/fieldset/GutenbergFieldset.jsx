@@ -55,12 +55,12 @@ const PostTypesInputs = () => {
 
 export const GutenbergInputs = () => {
 	const { getOption } = useSettingsContext();
-	const [ value ] = useState( getOption( 'gutenberg' ) );
+	const [ value, setValue ] = useState( getOption( 'gutenberg' ) );
 
 	return (
 		<SwitchFieldset
 			name="gutenberg"
-			isSelected={ value }
+			onChange={ setValue }
 			id="gutenberg"
 			title={ __( 'Block Editor', 'syntatis-feature-flipper' ) }
 			label={ __(
