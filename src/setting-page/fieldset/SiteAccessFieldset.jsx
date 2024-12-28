@@ -2,13 +2,17 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextArea, TextField } from '@syntatis/kubrick';
 import { RadioGroupFieldset } from './RadioGroupFieldset';
-import { Fieldset, useSettingsContext } from '../form';
+import { Fieldset, useFormContext, useSettingsContext } from '../form';
 import styles from './SiteAccessFieldset.module.scss';
 
 export const SiteAccessFieldset = () => {
 	const { getOption } = useSettingsContext();
+	const { setFieldsetValues } = useFormContext();
 	const [ siteAccess, setSiteAccess ] = useState(
 		getOption( 'site_access' )
+	);
+	const [ siteMaintenanceArgs, setSiteMaintenanceArgs ] = useState(
+		getOption( 'site_maintenance_args' )
 	);
 
 	return (
@@ -49,6 +53,18 @@ export const SiteAccessFieldset = () => {
 								'Headline',
 								'syntatis-feature-flipper'
 							) }
+							onChange={ ( value ) => {
+								setSiteMaintenanceArgs( ( currentValues ) => {
+									return {
+										...currentValues,
+										headline: value,
+									};
+								} );
+								setFieldsetValues( 'site_maintenance_args', {
+									...siteMaintenanceArgs,
+									headline: value,
+								} );
+							} }
 							defaultValue={
 								getOption( 'site_maintenance_args' ).headline
 							}
@@ -56,6 +72,16 @@ export const SiteAccessFieldset = () => {
 								'The title to display on the maintenance page.',
 								'syntatis-feature-flipper'
 							) }
+							isRequired
+							validate={ ( value ) => {
+								if ( ! value ) {
+									return __(
+										'Please provide a headline for the maintenance page.',
+										'syntatis-feature-flipper'
+									);
+								}
+							} }
+							validationBehavior="native"
 						/>
 						<TextArea
 							className="regular-text"
@@ -63,6 +89,18 @@ export const SiteAccessFieldset = () => {
 								'Description',
 								'syntatis-feature-flipper'
 							) }
+							onChange={ ( value ) => {
+								setSiteMaintenanceArgs( ( currentValues ) => {
+									return {
+										...currentValues,
+										description: value,
+									};
+								} );
+								setFieldsetValues( 'site_maintenance_args', {
+									...siteMaintenanceArgs,
+									description: value,
+								} );
+							} }
 							defaultValue={
 								getOption( 'site_maintenance_args' ).description
 							}
@@ -70,6 +108,16 @@ export const SiteAccessFieldset = () => {
 								'The message to display on the maintenance page.',
 								'syntatis-feature-flipper'
 							) }
+							isRequired
+							validationBehavior="native"
+							validate={ ( value ) => {
+								if ( ! value ) {
+									return __(
+										'Please provide a description for the maintenance page.',
+										'syntatis-feature-flipper'
+									);
+								}
+							} }
 						/>
 					</div>
 				) }
