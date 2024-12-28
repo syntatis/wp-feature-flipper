@@ -59,7 +59,7 @@ export const SiteAccessFieldset = () => {
 							) }
 							isRequired
 							validate={ ( value ) => {
-								if ( ! value ) {
+								if ( ! value.trim() ) {
 									return __(
 										'Please provide a headline for the maintenance page.',
 										'syntatis-feature-flipper'
@@ -85,7 +85,7 @@ export const SiteAccessFieldset = () => {
 							isRequired
 							validationBehavior="native"
 							validate={ ( value ) => {
-								if ( ! value ) {
+								if ( ! value.trim() ) {
 									return __(
 										'Please provide a description for the maintenance page.',
 										'syntatis-feature-flipper'
