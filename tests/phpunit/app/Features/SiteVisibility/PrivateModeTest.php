@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Features\SiteVisibility;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\SiteVisibility\PrivateMode;
+use Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
