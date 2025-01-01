@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
+use _WP_Dependency;
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
@@ -46,11 +47,10 @@ class Site implements Hookable, Extendable
 			$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
 				$jquery = $scripts->query('jquery', 'registered');
 
-				if ($jquery === false) {
+				if (! $jquery instanceof _WP_Dependency) {
 					return;
 				}
 
-				/** @phpstan-var \_WP_Dependency $jquery */
 				$jquery->deps = array_diff($jquery->deps, ['jquery-migrate']);
 			});
 		}
