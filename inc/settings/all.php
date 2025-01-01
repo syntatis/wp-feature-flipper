@@ -113,7 +113,7 @@ return [
 	 * @see \Syntatis\FeatureFlipper\Modules\Media
 	 */
 	(new Setting('attachment_page', 'boolean'))
-		->withDefault(true),
+		->withDefault(null),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
 	(new Setting('media_infinite_scroll', 'boolean'))
