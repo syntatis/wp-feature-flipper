@@ -47,8 +47,14 @@ class MaintenanceMode implements Hookable
 		}
 
 		status_header(503);
-
 		header('Retry-After: ' . 3600);
+
+		$args = Option::get('site_maintenance_args');
+		$args = is_array($args) ? $args : [];
+		$args = [
+			'headline' => $args['headline'] ?? '',
+			'message' => $args['message'] ?? '',
+		];
 
 		include App::dir('inc/views/maintenance-mode.php');
 
@@ -129,11 +135,11 @@ class MaintenanceMode implements Hookable
 	{
 		$value = is_array($value) ? $value : [];
 		$headline = $value['headline'] ?? '';
-		$description = $value['description'] ?? '';
+		$message = $value['message'] ?? '';
 
 		return [
 			'headline' => wp_strip_all_tags(is_string($headline) ? $headline : ''),
-			'description' => wp_strip_all_tags(is_string($description) ? $description : ''),
+			'message' => wp_strip_all_tags(is_string($message) ? $message : ''),
 		];
 	}
 }

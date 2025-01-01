@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use Syntatis\FeatureFlipper\Helpers\Option;
-
-$args = Option::get('site_maintenance_args');
-
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -30,7 +26,7 @@ $args = Option::get('site_maintenance_args');
 <body>
 	<div id="syntatis-feature-flipper-maintenance">
 		<h1><?php echo esc_html($args['headline'] ?? ''); ?></h1>
-		<?php echo wp_kses_post(wpautop($args['description'] ?? '')); ?>
+		<?php echo wp_kses_post(wpautop($args['message'] ?? '')); ?>
 	</div>
 	<?php wp_footer(); ?>
 </body>
