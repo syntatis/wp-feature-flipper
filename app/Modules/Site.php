@@ -50,7 +50,7 @@ class Site implements Hookable, Extendable
 					return;
 				}
 
-				/** @var \_WP_Dependency $jquery */
+				/** @phpstan-var \_WP_Dependency $jquery */
 				$jquery->deps = array_diff($jquery->deps, ['jquery-migrate']);
 			});
 		}
