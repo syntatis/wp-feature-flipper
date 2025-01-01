@@ -47,7 +47,7 @@ class Option
 	/**
 	 * Delete the plugin option.
 	 *
-	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
+	 * @param string $name Name of the option to update. Expected to not be SQL-escaped.
 	 * @phpstan-param non-empty-string $name
 	 */
 	public static function delete(string $name): bool
