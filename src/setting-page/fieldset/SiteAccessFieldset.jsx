@@ -71,12 +71,12 @@ export const SiteAccessFieldset = () => {
 						<TextArea
 							className="regular-text"
 							label={ __(
-								'Description',
+								'Message',
 								'syntatis-feature-flipper'
 							) }
-							name={ `${ optionPrefix }site_maintenance_args[description]` }
+							name={ `${ optionPrefix }site_maintenance_args[message]` }
 							defaultValue={
-								getOption( 'site_maintenance_args' ).description
+								getOption( 'site_maintenance_args' ).message
 							}
 							description={ __(
 								'The message to display on the maintenance page.',
@@ -87,7 +87,7 @@ export const SiteAccessFieldset = () => {
 							validate={ ( value ) => {
 								if ( ! value.trim() ) {
 									return __(
-										'Please provide a description for the maintenance page.',
+										'Please provide a brief message for the maintenance page.',
 										'syntatis-feature-flipper'
 									);
 								}

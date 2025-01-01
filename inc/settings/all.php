@@ -145,7 +145,7 @@ return [
 		->apiSchema([
 			'properties' => [
 				'headline' => ['type' => 'string'],
-				'description' => ['type' => 'string'],
+				'message' => ['type' => 'string'],
 			],
 		])
 		->withDefault([
@@ -153,7 +153,7 @@ return [
 				'Under Maintenance 🚧',
 				'syntatis-feature-flipper',
 			),
-			'description' => __(
+			'message' => __(
 				'We are currently performing some scheduled maintenance. We will be back as soon as possible.',
 				'syntatis-feature-flipper',
 			),
