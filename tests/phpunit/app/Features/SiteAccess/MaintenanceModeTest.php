@@ -87,7 +87,7 @@ class MaintenanceModeTest extends WPTestCase
 	 * @dataProvider dataSanitizeArgsOption
 	 *
 	 * @param mixed               $value    The value to sanitize.
-	 * @param array<string,mixed> $expected The exected returned value.
+	 * @param array<string,mixed> $expected The expected returned value.
 	 */
 	public function testSanitizeArgsOption($value, array $expected): void
 	{

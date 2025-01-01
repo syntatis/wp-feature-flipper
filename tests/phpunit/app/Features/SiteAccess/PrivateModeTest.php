@@ -46,7 +46,7 @@ class PrivateModeTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('login_site_html_link', '__return_empty_string'));
 	}
 
-	/** @testdox should carry lagacy option */
+	/** @testdox should carry legacy option */
 	public function testOptionLegacy(): void
 	{
 		$this->assertFalse(Option::get('site_private'));
