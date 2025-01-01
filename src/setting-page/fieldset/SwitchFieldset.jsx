@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
-import { RadioGroup, Switch } from '@syntatis/kubrick';
-import { useSettingsContext, useFormContext } from '../form';
+import { Switch } from '@syntatis/kubrick';
+import { useSettingsContext } from '../form';
 import { HelpTip } from '../components';
 import styles from './styles.module.scss';
 
-export const RadioGroupInput = ( {
+export const SwitchFieldset = ( {
 	description,
 	id,
+	label,
 	name,
 	onChange,
 	title,
@@ -16,7 +17,6 @@ export const RadioGroupInput = ( {
 	help,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 
 	return (
 		<tr>
@@ -27,22 +27,21 @@ export const RadioGroupInput = ( {
 				</span>
 			</th>
 			<td>
-				<RadioGroup
+				<Switch
 					{ ...inputProps( name ) }
 					className={ styles.root }
 					onChange={ ( checked ) => {
 						if ( onChange !== undefined ) {
 							onChange( checked );
 						}
-						setFieldsetValues( name, checked );
 					} }
-					defaultValue={ getOption( name ) }
+					defaultSelected={ getOption( name ) }
 					description={ description }
+					label={ label }
 					isDisabled={ isDisabled }
 					isSelected={ isSelected }
-				>
-					{ children }
-				</RadioGroup>
+				/>
+				{ children }
 			</td>
 		</tr>
 	);

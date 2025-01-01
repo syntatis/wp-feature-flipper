@@ -1,14 +1,12 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
+import { useState } from '@wordpress/element';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { Details } from '../components';
-import { useFormContext, useSettingsContext } from '../form';
-import { useState } from '@wordpress/element';
+import { useSettingsContext } from '../form';
 
 const PostTypesInputs = () => {
-	const { getOption, inlineData } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
-
+	const { getOption, inlineData, inputProps } = useSettingsContext();
 	const postTypes = inlineData.$wp.postTypes;
 
 	if ( ! postTypes ) {
@@ -29,15 +27,12 @@ const PostTypesInputs = () => {
 	return (
 		<CheckboxGroup
 			defaultValue={ postTypesSelected }
-			name="gutenberg_post_types"
-			onChange={ ( value ) => {
-				setFieldsetValues( 'gutenberg_post_types', value );
-			} }
 			description={ __(
 				'Select the post types that will use the block editor.',
 				'syntatis-feature-flipper'
 			) }
 			label={ __( 'Post Types', 'syntatis-feature-flipper' ) }
+			{ ...inputProps( 'gutenberg_post_types' ) }
 		>
 			{ Object.keys( postTypes ).map( ( postTypeKey ) => {
 				const postType = postTypes[ postTypeKey ];
@@ -60,17 +55,12 @@ const PostTypesInputs = () => {
 
 export const GutenbergInputs = () => {
 	const { getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const [ value, setValue ] = useState( getOption( 'gutenberg' ) );
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="gutenberg"
-			isSelected={ value }
-			onChange={ ( changedValue ) => {
-				setValue( changedValue );
-				setFieldsetValues( 'gutenberg', changedValue );
-			} }
+			onChange={ setValue }
 			id="gutenberg"
 			title={ __( 'Block Editor', 'syntatis-feature-flipper' ) }
 			label={ __(
@@ -89,6 +79,6 @@ export const GutenbergInputs = () => {
 					<PostTypesInputs />
 				</Details>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };

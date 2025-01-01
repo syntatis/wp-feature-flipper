@@ -1,6 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { AdminBarInputs, DashboardWidgetsInputs, SwitchInput } from '../inputs';
+import {
+	AdminBarInputs,
+	DashboardWidgetsInputs,
+	SwitchFieldset,
+} from '../fieldset';
 import { HelpContent } from '../components';
 
 const wpFooter = document.querySelector( '#wpfooter' );
@@ -12,7 +16,7 @@ export const AdminTab = () => {
 		<Form>
 			<Fieldset>
 				<DashboardWidgetsInputs />
-				<SwitchInput
+				<SwitchFieldset
 					name="admin_footer_text"
 					id="admin-footer-text"
 					title={ __( 'Footer Text', 'syntatis-feature-flipper' ) }
@@ -33,7 +37,7 @@ export const AdminTab = () => {
 					} }
 				/>
 				{ getOption( 'updates' ) && (
-					<SwitchInput
+					<SwitchFieldset
 						name="update_nags"
 						id="update-nags"
 						help={
@@ -69,7 +73,7 @@ export const AdminTab = () => {
 				) }
 			>
 				<AdminBarInputs />
-				<SwitchInput
+				<SwitchFieldset
 					name="admin_bar_howdy"
 					id="admin-bar-howdy"
 					title={ __( 'Howdy Text', 'syntatis-feature-flipper' ) }
@@ -82,7 +86,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="admin_bar_env_type"
 					id="admin-bar-env-type"
 					title={ __(

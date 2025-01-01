@@ -1,13 +1,12 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
 import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
-import { useFormContext, useSettingsContext } from '../form';
+import { useSettingsContext } from '../form';
 import { useId, useState } from '@wordpress/element';
 import { Details } from '../components';
 
 export const DashboardWidgetsInputs = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const [ isEnabled, setEnabled ] = useState(
 		getOption( 'dashboard_widgets' )
 	);
@@ -16,7 +15,7 @@ export const DashboardWidgetsInputs = () => {
 	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (
-		<SwitchInput
+		<SwitchFieldset
 			name="dashboard_widgets"
 			id="dashboard-widgets"
 			title={ __( 'Dashboard Widgets', 'syntatis-feature-flipper' ) }
@@ -45,12 +44,6 @@ export const DashboardWidgetsInputs = () => {
 							'Unchecked widgets will be hidden from the dashboard.',
 							'syntatis-feature-flipper'
 						) }
-						onChange={ ( value ) => {
-							setFieldsetValues(
-								'dashboard_widgets_enabled',
-								value
-							);
-						} }
 						{ ...inputProps( 'dashboard_widgets_enabled' ) }
 					>
 						{ Object.keys( registeredWidgets ).map( ( id ) => {
@@ -65,6 +58,6 @@ export const DashboardWidgetsInputs = () => {
 					</CheckboxGroup>
 				</Details>
 			) }
-		</SwitchInput>
+		</SwitchFieldset>
 	);
 };

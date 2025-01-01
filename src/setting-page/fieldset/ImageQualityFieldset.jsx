@@ -1,12 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchInput } from './SwitchInput';
+import { SwitchFieldset } from './SwitchFieldset';
 import { TextField } from '@syntatis/kubrick';
-import { Fieldset, useFormContext, useSettingsContext } from '../form';
+import { Fieldset, useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
 
-export const ImageQualityInputs = () => {
+export const ImageQualityFieldset = () => {
 	const { getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const [ values, setValues ] = useState( {
 		jpegCompression: getOption( 'jpeg_compression' ),
 	} );
@@ -19,7 +18,7 @@ export const ImageQualityInputs = () => {
 				'syntatis-feature-flipper'
 			) }
 		>
-			<SwitchInput
+			<SwitchFieldset
 				name="jpeg_compression"
 				id="jpeg-compression"
 				title="JPEG"
@@ -50,12 +49,6 @@ export const ImageQualityInputs = () => {
 							defaultValue={ getOption(
 								'jpeg_compression_quality'
 							) }
-							onChange={ ( value ) => {
-								setFieldsetValues(
-									'jpeg_compression_quality',
-									value
-								);
-							} }
 							className="code"
 							prefix={
 								<span aria-hidden>
@@ -73,7 +66,7 @@ export const ImageQualityInputs = () => {
 						/>
 					</div>
 				) }
-			</SwitchInput>
+			</SwitchFieldset>
 		</Fieldset>
 	);
 };

@@ -139,8 +139,25 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
-	(new Setting('site_private', 'boolean'))
-		->withDefault(false),
+	(new Setting('site_access', 'string'))
+		->withDefault('public'),
+	(new Setting('site_maintenance_args', 'object'))
+		->apiSchema([
+			'properties' => [
+				'headline' => ['type' => 'string'],
+				'message' => ['type' => 'string'],
+			],
+		])
+		->withDefault([
+			'headline' => __(
+				'Under Maintenance 🚧',
+				'syntatis-feature-flipper',
+			),
+			'message' => __(
+				'We are currently performing some scheduled maintenance. We will be back as soon as possible.',
+				'syntatis-feature-flipper',
+			),
+		]),
 
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))

@@ -9,26 +9,67 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 trait WithHookName
 {
 	/**
-	 * Retrieve the plugin option name filter, added with the prefix.
+	 * Retrieve the option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
-	private static function optionName(string $name): string
+	private static function optionHook(string $name): string
 	{
 		return 'option_' . Option::name($name);
 	}
 
 	/**
-	 * Retrieve the plugin option name filter, added with the prefix.
+	 * Retrieve the default option name filter, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
-	private static function defaultOptionName(string $name): string
+	private static function defaultOptionHook(string $name): string
 	{
 		return 'default_option_' . Option::name($name);
+	}
+
+	/**
+	 * Retrieve the update option filter name, added with plugin the prefix.
+	 *
+	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/update_option_option/For the hook documentation.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function updateOptionHook(string $name): string
+	{
+		return 'update_option_' . Option::name($name);
+	}
+
+	/**
+	 * Retrieve the add option filter name, added with plugin the prefix.
+	 *
+	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/add_option_option/ For the hook documentation.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function addOptionHook(string $name): string
+	{
+		return 'add_option_' . Option::name($name);
+	}
+
+	/**
+	 * Retrieve the sanitize option filter name, added with plugin the prefix.
+	 *
+	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/sanitize_option_option/
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function sanitizeOptionHook(string $name): string
+	{
+		return 'sanitize_option_' . Option::name($name);
 	}
 }

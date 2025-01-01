@@ -28,7 +28,7 @@ class Gutenberg implements Hookable
 	{
 		$hook->addFilter('use_block_editor_for_post', [$this, 'filterUseBlockEditorForPost'], PHP_INT_MAX, 2);
 		$hook->addFilter(
-			self::defaultOptionName('gutenberg_post_types'),
+			self::defaultOptionHook('gutenberg_post_types'),
 			static fn () => array_values(array_filter(
 				array_keys(self::getRegisteredPostTypes()),
 				static fn ($key): bool => use_block_editor_for_post_type($key),

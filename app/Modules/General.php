@@ -33,7 +33,7 @@ class General implements Hookable, Extendable
 	{
 		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
-			self::defaultOptionName('block_based_widgets'),
+			self::defaultOptionHook('block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);

@@ -1,13 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { ImageQualityInputs, SwitchInput } from '../inputs';
+import { ImageQualityFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 export const MediaTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<SwitchInput
+				<SwitchFieldset
 					name="attachment_page"
 					id="attachment-page"
 					title={ __(
@@ -45,7 +45,7 @@ export const MediaTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="attachment_slug"
 					id="attachment-slug"
 					title={ __(
@@ -77,7 +77,7 @@ export const MediaTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="media_infinite_scroll"
 					id="media-infinite-scroll"
 					title={ __(
@@ -104,7 +104,7 @@ export const MediaTab = () => {
 					}
 				/>
 			</Fieldset>
-			<ImageQualityInputs />
+			<ImageQualityFieldset />
 		</Form>
 	);
 };

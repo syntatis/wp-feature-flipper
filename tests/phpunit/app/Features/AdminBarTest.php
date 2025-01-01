@@ -48,6 +48,6 @@ class AdminBarTest extends WPTestCase
 		$this->instance->hook($this->hook);
 
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_bar_menu', [$this->instance, 'addMyAccountNode']));
-		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_bar_menu', [$this->instance, 'addEnvironmentTypeNode']));
+		$this->assertSame(10, $this->hook->hasAction('admin_bar_menu', [$this->instance, 'addEnvironmentTypeNode']));
 	}
 }

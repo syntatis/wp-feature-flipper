@@ -31,11 +31,11 @@ class ManagePostEditor implements Hookable
 		 * the "heartbeat_post_editor" option.
 		 */
 		$hook->addFilter(
-			self::optionName('heartbeat_post_editor'),
+			self::optionHook('heartbeat_post_editor'),
 			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
-			self::defaultOptionName('heartbeat_post_editor'),
+			self::defaultOptionHook('heartbeat_post_editor'),
 			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
 		);
 	}

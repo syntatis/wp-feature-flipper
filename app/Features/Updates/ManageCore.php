@@ -34,10 +34,10 @@ class ManageCore implements Hookable
 			return AutoUpdate::core()->isEnabled((bool) $value);
 		};
 
-		$hook->addFilter(self::defaultOptionName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionName('update_core'), $updatesFn);
-		$hook->addFilter(self::optionName('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::optionName('update_core'), $updatesFn);
+		$hook->addFilter(self::defaultOptionHook('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::defaultOptionHook('update_core'), $updatesFn);
+		$hook->addFilter(self::optionHook('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(self::optionHook('update_core'), $updatesFn);
 
 		if (! (bool) Option::get('update_core')) {
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);

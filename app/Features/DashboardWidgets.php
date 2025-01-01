@@ -38,7 +38,7 @@ class DashboardWidgets implements Hookable
 	{
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
-			self::defaultOptionName('dashboard_widgets_enabled'),
+			self::defaultOptionHook('dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
 			PHP_INT_MAX,
 		);

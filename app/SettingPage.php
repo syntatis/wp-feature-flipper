@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Codex\Settings\Settings;
+use Syntatis\FeatureFlipper\Concerns\WithAdmin;
 use Syntatis\FeatureFlipper\Concerns\WithPostTypes;
 use WP_REST_Request;
 
@@ -15,7 +16,6 @@ use function array_filter;
 use function array_keys;
 use function array_merge;
 use function basename;
-use function function_exists;
 use function in_array;
 use function is_array;
 use function is_readable;
@@ -27,6 +27,7 @@ use const PHP_INT_MAX;
 
 class SettingPage implements Hookable
 {
+	use WithAdmin;
 	use WithPostTypes;
 
 	private Settings $settings;
@@ -35,8 +36,6 @@ class SettingPage implements Hookable
 
 	private string $scriptHandle;
 
-	private string $pageName;
-
 	private string $inlineData = '';
 
 	public function __construct(Settings $settings)
@@ -44,7 +43,6 @@ class SettingPage implements Hookable
 		$this->appName = App::name();
 		$this->settings = $settings;
 		$this->scriptHandle = $this->appName . '-settings';
-		$this->pageName = 'settings_page_' . $this->appName;
 	}
 
 	public function hook(Hook $hook): void
@@ -118,7 +116,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		if (! $this->isSettingPage()) {
+		if (! self::isSettingPage()) {
 			return;
 		}
 
@@ -145,7 +143,7 @@ class SettingPage implements Hookable
 
 	public function addInlineScript(): void
 	{
-		if (! $this->isSettingPage()) {
+		if (! self::isSettingPage()) {
 			return;
 		}
 
@@ -218,20 +216,5 @@ class SettingPage implements Hookable
 				],
 			]),
 		);
-	}
-
-	private function isSettingPage(): bool
-	{
-		if (! is_admin() || ! function_exists('get_current_screen')) {
-			return false;
-		}
-
-		$currentScreen = get_current_screen();
-
-		if ($currentScreen === null) {
-			return false;
-		}
-
-		return $currentScreen->id === $this->pageName;
 	}
 }

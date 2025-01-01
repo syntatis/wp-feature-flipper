@@ -18,7 +18,6 @@ use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
-use function md5;
 use function sprintf;
 
 use const PHP_INT_MAX;
@@ -52,11 +51,11 @@ class AdminBar implements Hookable
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
 		if (! (bool) Option::get('admin_bar_howdy')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
+			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
 		if ((bool) Option::get('admin_bar_env_type')) {
-			$hook->addFilter('admin_bar_menu', [$this, 'addEnvironmentTypeNode'], PHP_INT_MAX);
+			$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 		}
 
 		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
@@ -180,14 +179,14 @@ class AdminBar implements Hookable
 
 	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
-		$id = md5($this->appName . '-environment-type');
+		$id = $this->appName . '-environment-type';
 		$inlineData = wp_json_encode(['environmentType' => wp_get_environment_type()]);
 		$wpAdminBar->add_node(
 			[
 				'id' => $id,
 				'title' => sprintf(
 					<<<HTML
-					<div id="%s-root" data-inline='$inlineData'></div>
+					<div id="%s" data-inline='$inlineData'></div>
 					HTML,
 					$id,
 				),

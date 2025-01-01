@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { Checkbox, Switch } from '@syntatis/kubrick';
-import { useFormContext, useSettingsContext } from '../form';
-import styles from './UpdatesInputs.module.scss';
+import { useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
 import { Details } from '../components';
+import styles from './UpdatesFieldset.module.scss';
 
 const OPTION_KEYS = [
 	'auto_updates',
@@ -18,7 +18,6 @@ const OPTION_KEYS = [
 
 export const UpdatesInputs = () => {
 	const { inputProps, getOption } = useSettingsContext();
-	const { setFieldsetValues } = useFormContext();
 	const [ values, setValues ] = useState(
 		OPTION_KEYS.reduce( ( acc, key ) => {
 			acc[ key ] = getOption( key );
@@ -33,9 +32,6 @@ export const UpdatesInputs = () => {
 				newValues[ key ] = value;
 			} );
 			return newValues;
-		} );
-		keys.forEach( ( key ) => {
-			setFieldsetValues( key, value );
 		} );
 	}
 

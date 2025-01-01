@@ -4,7 +4,7 @@ import { EnvironmentType } from './EnvironmentType/EnvironmentType';
 
 domReady( () => {
 	const container = document.querySelector(
-		'#fb6e5b8410f1e6ee52ac3e663f4f6c58-root'
+		'#syntatis-feature-flipper-environment-type'
 	);
 	if ( container ) {
 		const data = JSON.parse( container.dataset.inline );

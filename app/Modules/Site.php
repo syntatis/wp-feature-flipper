@@ -8,7 +8,8 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\SitePrivate;
+use Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode;
+use Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
@@ -76,6 +77,7 @@ class Site implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new SitePrivate();
+		yield new MaintenanceMode();
+		yield new PrivateMode();
 	}
 }

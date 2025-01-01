@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { SwitchInput } from '../inputs';
+import { SiteAccessFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 export const SiteTab = () => {
@@ -8,21 +8,7 @@ export const SiteTab = () => {
 
 	return (
 		<Form>
-			<Fieldset>
-				<SwitchInput
-					name="site_private"
-					id="site-private"
-					title={ __( 'Private Mode', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Enable private mode',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'If switched on, it will require users to log in to view the site.',
-						'syntatis-feature-flipper'
-					) }
-				/>
-			</Fieldset>
+			<SiteAccessFieldset />
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
@@ -30,7 +16,7 @@ export const SiteTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<SwitchInput
+				<SwitchFieldset
 					name="emojis"
 					id="emojis"
 					title={ __( 'Emojis', 'syntatis-feature-flipper' ) }
@@ -47,7 +33,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="scripts_version"
 					id="scripts-version"
 					title={ __(
@@ -67,7 +53,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="jquery_migrate"
 					id="jquery-migrate"
 					title={ __( 'jQuery Migrate', 'syntatis-feature-flipper' ) }
@@ -93,7 +79,7 @@ export const SiteTab = () => {
 				) }
 			>
 				{ getOption( 'xmlrpc' ) && (
-					<SwitchInput
+					<SwitchFieldset
 						name="rsd_link"
 						id="rsd-link"
 						title={ __( 'RSD Link', 'syntatis-feature-flipper' ) }
@@ -123,7 +109,7 @@ export const SiteTab = () => {
 						}
 					/>
 				) }
-				<SwitchInput
+				<SwitchFieldset
 					name="generator_tag"
 					id="generator-tag"
 					title={ __(
@@ -155,7 +141,7 @@ export const SiteTab = () => {
 						</HelpContent>
 					}
 				/>
-				<SwitchInput
+				<SwitchFieldset
 					name="shortlink"
 					id="shortlink"
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
