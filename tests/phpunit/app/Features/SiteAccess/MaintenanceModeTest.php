@@ -10,6 +10,9 @@ use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
+use WP_Admin_Bar;
+
+use function trim;
 
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -24,6 +27,14 @@ class MaintenanceModeTest extends WPTestCase
 
 	private MaintenanceMode $instance;
 	private Hook $hook;
+
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+	public static function set_up_before_class(): void
+	{
+		parent::set_up_before_class();
+
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 	public function set_up(): void
@@ -127,5 +138,60 @@ class MaintenanceModeTest extends WPTestCase
 				'description' => 'This is a description',
 			],
 		];
+	}
+
+	/** @testdox should note add the maintenance mode to the admin bar */
+	public function testAdminBarMenuNonAdmin(): void
+	{
+		$wpAdminBar = new WP_Admin_Bar();
+
+		$this->instance->adminBarMenu($wpAdminBar);
+
+		$this->assertFalse(is_admin());
+		$this->assertEmpty($wpAdminBar->get_nodes());
+	}
+
+	/** @testdox should add the maintenance mode to the admin bar */
+	public function testAdminBarMenuAdmin(): void
+	{
+		$wpAdminbar = new WP_Admin_Bar();
+
+		set_current_screen('dashboard');
+		wp_set_current_user($this->factory()->user->create(['role' => 'administrator']));
+
+		$this->instance->adminBarMenu($wpAdminbar);
+
+		$nodes = $wpAdminbar->get_nodes();
+
+		$this->assertTrue(is_admin());
+		$this->assertArrayHasKey('syntatis-feature-flipper-site-access', $nodes);
+
+		$node = $nodes['syntatis-feature-flipper-site-access'];
+
+		$this->assertSame('Maintenance', trim(wp_strip_all_tags($node->title)));
+		$this->assertSame('top-secondary', $node->parent);
+		$this->assertStringEndsWith('/wp-admin/options-general.php?tab=site&page=syntatis-feature-flipper', $node->href);
+	}
+
+	/** @testdox should note add the maintenance mode with the href on the admin bar */
+	public function testAdminBarMenuAuthor(): void
+	{
+		$wpAdminbar = new WP_Admin_Bar();
+
+		set_current_screen('dashboard');
+		wp_set_current_user($this->factory()->user->create(['role' => 'author']));
+
+		$this->instance->adminBarMenu($wpAdminbar);
+
+		$nodes = $wpAdminbar->get_nodes();
+
+		$this->assertTrue(is_admin());
+		$this->assertArrayHasKey('syntatis-feature-flipper-site-access', $nodes);
+
+		$node = $nodes['syntatis-feature-flipper-site-access'];
+
+		$this->assertSame('Maintenance', trim(wp_strip_all_tags($node->title)));
+		$this->assertSame('top-secondary', $node->parent);
+		$this->assertFalse($node->href);
 	}
 }
