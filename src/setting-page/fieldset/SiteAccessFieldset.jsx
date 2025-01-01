@@ -54,7 +54,7 @@ export const SiteAccessFieldset = () => {
 								getOption( 'site_maintenance_args' ).headline
 							}
 							description={ __(
-								'The title to display on the maintenance page.',
+								'Provide a headline to display on the maintenance page.',
 								'syntatis-feature-flipper'
 							) }
 							isRequired
@@ -79,7 +79,7 @@ export const SiteAccessFieldset = () => {
 								getOption( 'site_maintenance_args' ).message
 							}
 							description={ __(
-								'The message to display on the maintenance page.',
+								'Provide a brief message to display on the maintenance page.',
 								'syntatis-feature-flipper'
 							) }
 							isRequired
