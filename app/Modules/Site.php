@@ -44,17 +44,13 @@ class Site implements Hookable, Extendable
 
 		if (! (bool) Option::get('jquery_migrate')) {
 			$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
-				if (! isset($scripts->registered['jquery'])) {
+				$jquery = $scripts->query('jquery');
+
+				if ($jquery === false) {
 					return;
 				}
 
-				$script = $scripts->registered['jquery'];
-
-				if ($script->deps === []) {
-					return;
-				}
-
-				$script->deps = array_diff($script->deps, ['jquery-migrate']);
+				$jquery->deps = array_diff($jquery->deps, ['jquery-migrate']);
 			});
 		}
 
