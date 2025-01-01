@@ -100,7 +100,7 @@ class MaintenanceModeTest extends WPTestCase
 			new stdClass(),
 			[
 				'headline' => '',
-				'description' => '',
+				'message' => '',
 			],
 		];
 
@@ -108,7 +108,7 @@ class MaintenanceModeTest extends WPTestCase
 			[],
 			[
 				'headline' => '',
-				'description' => '',
+				'message' => '',
 			],
 		];
 
@@ -116,7 +116,7 @@ class MaintenanceModeTest extends WPTestCase
 			['foo' => 'bar'],
 			[
 				'headline' => '',
-				'description' => '',
+				'message' => '',
 			],
 		];
 
@@ -124,18 +124,18 @@ class MaintenanceModeTest extends WPTestCase
 			['headline' => '<div>Hello</div> <foo>World</foo>'],
 			[
 				'headline' => 'Hello World',
-				'description' => '',
+				'message' => '',
 			],
 		];
 
 		yield [
 			[
 				'headline' => '<div>Hello</div> <foo>World</foo>',
-				'description' => '<p>This is a description</p>',
+				'message' => '<p>This is a description</p>',
 			],
 			[
 				'headline' => 'Hello World',
-				'description' => 'This is a description',
+				'message' => 'This is a description',
 			],
 		];
 	}
