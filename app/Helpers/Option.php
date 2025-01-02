@@ -27,9 +27,9 @@ class Option
 	 */
 	public static function isOn(string $name): bool
 	{
-		return (bool) self::get($name);
+		return self::get($name) === '1';
 	}
-	
+
 	/**
 	 * Update the plugin option.
 	 *
