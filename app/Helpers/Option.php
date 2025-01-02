@@ -27,7 +27,7 @@ class Option
 	 */
 	public static function isOn(string $name): bool
 	{
-		return self::get($name) === '1';
+		return in_array(self::get($name), [true, '1'], true);
 	}
 
 	/**
