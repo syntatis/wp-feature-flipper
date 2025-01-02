@@ -12,6 +12,9 @@ use function in_array;
 
 use const ARRAY_FILTER_USE_BOTH;
 
+/**
+ * A collection of methods to work with post types.
+ */
 trait WithPostTypes
 {
 	/**
