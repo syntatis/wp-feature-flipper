@@ -35,21 +35,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "7.4"
-          tools: composer:v2
 
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Setup Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: php-7.4-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: php-7.4-composer-
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
 
       - name: Run PHPCS
         run: composer run phpcs
@@ -87,21 +75,11 @@ jobs:
       - name: Get Docker version
         run: docker -v
 
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Install NodeJS dependencies
+        run: npm ci
 
-      - name: Setup Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: php-7.4-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: php-7.4-composer-
-
-      - name: Install dependencies
-        run: |
-          npm install
-          composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
 
       - name: Start wp-env
         run: |
@@ -110,7 +88,7 @@ jobs:
           npm run wp-env:tests-wordpress php -- -v
 
       - name: Run PHPUnit
-        run: composer phpunit
+        run: composer run phpunit
 
   typos:
     runs-on: ubuntu-latest
