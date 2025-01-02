@@ -126,7 +126,7 @@ class SettingPage implements Hookable
 		wp_enqueue_style(
 			$this->scriptHandle,
 			App::url('dist/assets/setting-page/index.css'),
-			[$this->appName],
+			[$this->appName . '-common'],
 			$assets['version'] ?? null,
 		);
 
