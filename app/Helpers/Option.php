@@ -21,6 +21,16 @@ class Option
 	}
 
 	/**
+	 * Check whether a plugin option is enabled.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	public static function isOn(string $name): bool
+	{
+		return (bool) self::get($name);
+	}
+	
+	/**
 	 * Update the plugin option.
 	 *
 	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
