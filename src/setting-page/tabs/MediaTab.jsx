@@ -38,7 +38,13 @@ export const MediaTab = () => {
 							</p>
 							<p>
 								{ __(
-									'When disabled, the attachment pages will be redirected to the homepage.',
+									'When disabled, the attachment page will be redirected to the homepage.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'On WordPress 6.4 or newer, the attachment page is disabled for new WordPress site installations, by default.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
