@@ -42,8 +42,8 @@ class AdminBarTest extends WPTestCase
 		$this->assertFalse($this->hook->hasAction('admin_bar_menu', [$this->instance, 'addMyAccountNode']));
 		$this->assertFalse($this->hook->hasAction('admin_bar_menu', [$this->instance, 'addEnvironmentTypeNode']));
 
-		update_option(Option::name('admin_bar_howdy'), false);
-		update_option(Option::name('admin_bar_env_type'), true);
+		Option::update('admin_bar_howdy', false);
+		Option::update('admin_bar_env_type', true);
 
 		$this->instance->hook($this->hook);
 

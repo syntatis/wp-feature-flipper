@@ -12,9 +12,15 @@ use function trim;
 
 use const PHP_URL_PATH;
 
+/**
+ * General methods to work with URIs.
+ */
 trait WithURI
 {
-	private static function getCurrentUrl(): string
+	/**
+	 * Retrieve the current request URL.
+	 */
+	private static function getCurrentURL(): string
 	{
 		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
@@ -23,14 +29,17 @@ trait WithURI
 		return trim($host) !== '' ? sprintf('%s%s%s', $schema, $host, $uri) : '';
 	}
 
-	private static function isLoginUrl(): bool
+	/**
+	 * Check if the current request is the WordPress login page.
+	 */
+	private static function isLoginURL(): bool
 	{
 		if (is_login()) {
 			return true;
 		}
 
 		// Try to identify if the login page is customized.
-		$url = self::getCurrentUrl();
+		$url = self::getCurrentURL();
 		$urlPath = rtrim((string) parse_url($url, PHP_URL_PATH), '/');
 
 		return rtrim((string) parse_url(wp_login_url(), PHP_URL_PATH), '/') === $urlPath;

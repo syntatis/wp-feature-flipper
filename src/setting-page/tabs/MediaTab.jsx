@@ -26,25 +26,25 @@ export const MediaTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									"An attachment page in WordPress is a standalone page for each uploaded file, like images or videos, showing metadata such as the file's title, description, and sometimes comments.",
+									"In WordPress, an attachment page is a dedicated page for each uploaded file, such as images or videos. It displays metadata like the file's title, description, and sometimes comments.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
 							<p>
 								{ __(
-									"These pages often lack valuable content, which can negatively affect SEO and confuse visitors, especially if themes don't format them well.",
+									"However, these pages often lack meaningful content, which can hurt SEO and confuse visitors, especially if the theme doesn't style them properly.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
 							<p>
 								{ __(
-									'When disabled, the attachment page will be redirected to the homepage.',
+									'Starting with WordPress 6.4, attachment pages are disabled by default for new WordPress site installations.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
 							<p>
 								{ __(
-									'On WordPress 6.4 or newer, the attachment page is disabled for new WordPress site installations, by default.',
+									'If disabled, the attachment page will automatically redirect visitors to the homepage.',
 									'syntatis-feature-flipper'
 								) }
 							</p>

@@ -56,7 +56,7 @@ class LoginIdentifierTest extends WPTestCase
 	/** @testdox should remove the username authentication */
 	public function testHookEmailAuthentication(): void
 	{
-		update_option(Option::name('login_identifier'), 'email');
+		Option::update('login_identifier', 'email');
 
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
@@ -69,7 +69,7 @@ class LoginIdentifierTest extends WPTestCase
 	/** @testdox should remove the email authentication */
 	public function testHookUsernameAuthentication(): void
 	{
-		update_option(Option::name('login_identifier'), 'username');
+		Option::update('login_identifier', 'username');
 
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
@@ -88,11 +88,11 @@ class LoginIdentifierTest extends WPTestCase
 	/** @testdox should return the updated value */
 	public function testOptionsUpdated(): void
 	{
-		update_option(Option::name('login_identifier'), 'email');
+		Option::update('login_identifier', 'email');
 
 		$this->assertSame('email', Option::get('login_identifier'));
 
-		update_option(Option::name('login_identifier'), 'username');
+		Option::update('login_identifier', 'username');
 
 		$this->assertSame('username', Option::get('login_identifier'));
 	}
@@ -102,7 +102,7 @@ class LoginIdentifierTest extends WPTestCase
 	{
 		$_SERVER['SCRIPT_NAME'] = '/wp-login.php';
 
-		update_option(Option::name('login_identifier'), 'email');
+		Option::update('login_identifier', 'email');
 
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
@@ -116,7 +116,7 @@ class LoginIdentifierTest extends WPTestCase
 	{
 		$_SERVER['SCRIPT_NAME'] = '/wp-login.php';
 
-		update_option(Option::name('login_identifier'), 'username');
+		Option::update('login_identifier', 'username');
 
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
@@ -128,7 +128,7 @@ class LoginIdentifierTest extends WPTestCase
 	/** @testdox should return the default label */
 	public function testFilterGetTextNotLoginpage(): void
 	{
-		update_option(Option::name('login_identifier'), 'username');
+		Option::update('login_identifier', 'username');
 
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);

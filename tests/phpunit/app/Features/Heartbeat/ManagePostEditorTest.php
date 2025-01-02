@@ -81,7 +81,7 @@ class ManagePostEditorTest extends WPTestCase
 	/** @testdox should return updated value for "heartbeat_post_editor_interval" */
 	public function testIntervalOptionUpdated(): void
 	{
-		update_option(Option::name('heartbeat_post_editor_interval'), 30);
+		Option::update('heartbeat_post_editor_interval', 30);
 
 		$this->assertSame(30, Option::get('heartbeat_post_editor_interval'));
 	}
@@ -94,7 +94,7 @@ class ManagePostEditorTest extends WPTestCase
 	 */
 	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat'), false);
+		Option::update('heartbeat', false);
 
 		$this->assertFalse(
 			Option::isOn('heartbeat_post_editor'),
@@ -110,7 +110,7 @@ class ManagePostEditorTest extends WPTestCase
 	/** @testdox should not affect "heartbeat_post_editor_interval" option  */
 	public function testIntervalOptionWhenPostEditorOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat_post_editor'), false);
+		Option::update('heartbeat_post_editor', false);
 
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
 	}
@@ -123,7 +123,7 @@ class ManagePostEditorTest extends WPTestCase
 	 */
 	public function testOptionsWhenAdminOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat_admin'), false);
+		Option::update('heartbeat_admin', false);
 
 		$this->assertTrue(Option::isOn('heartbeat_post_editor'));
 		$this->assertSame(15, Option::get('heartbeat_post_editor_interval'));
@@ -153,7 +153,7 @@ class ManagePostEditorTest extends WPTestCase
 		);
 
 		// Update.
-		update_option(Option::name('heartbeat_post_editor_interval'), 40);
+		Option::update('heartbeat_post_editor_interval', 40);
 
 		// Assert.
 		$this->assertSame(
@@ -226,7 +226,7 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
+		Option::update('heartbeat_post_editor', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();
@@ -256,7 +256,7 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
+		Option::update('heartbeat_post_editor', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();
@@ -286,7 +286,7 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_post_editor'), false);
+		Option::update('heartbeat_post_editor', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();

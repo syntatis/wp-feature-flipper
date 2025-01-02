@@ -70,7 +70,7 @@ class HeartbeatTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update the "heartbeat" global option.
-		update_option(Option::name('heartbeat'), false);
+		Option::update('heartbeat', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();
