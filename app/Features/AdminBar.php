@@ -94,7 +94,7 @@ class AdminBar implements Hookable
 		wp_enqueue_style(
 			$this->appName . '-admin-bar',
 			App::url('dist/assets/admin-bar/index.css'),
-			[$this->appName],
+			[$this->appName . '-common'],
 			$assets['version'] ?? null,
 		);
 
