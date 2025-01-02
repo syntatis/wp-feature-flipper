@@ -56,7 +56,7 @@ class Attachment implements Hookable
 		);
 
 		// 1. Attachment Page.
-		if (! (bool) Option::get('attachment_page')) {
+		if (! Option::isOn('attachment_page')) {
 			$hook->addAction('template_redirect', function (): void {
 				if (! is_attachment()) {
 					return;
@@ -90,7 +90,7 @@ class Attachment implements Hookable
 			}, 99, 2);
 		}
 
-		if ((bool) Option::get('attachment_slug')) {
+		if (Option::isOn('attachment_slug')) {
 			return;
 		}
 

@@ -14,7 +14,7 @@ class Feeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if ((bool) Option::get('feeds')) {
+		if (Option::isOn('feeds')) {
 			return;
 		}
 

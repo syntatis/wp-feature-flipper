@@ -27,7 +27,7 @@ class ManageCore implements Hookable
 	{
 		$updatesFn = static fn ($value) => Updates::core()->isEnabled((bool) $value);
 		$autoUpdateFn = static function ($value): bool {
-			if (! (bool) Option::get('update_core')) {
+			if (! Option::isOn('update_core')) {
 				return false;
 			}
 
@@ -39,7 +39,7 @@ class ManageCore implements Hookable
 		$hook->addFilter(self::optionHook('auto_update_core'), $autoUpdateFn);
 		$hook->addFilter(self::optionHook('update_core'), $updatesFn);
 
-		if (! (bool) Option::get('update_core')) {
+		if (! Option::isOn('update_core')) {
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
 			$hook->addFilter('send_core_update_notification_email', '__return_false');
 			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
@@ -49,7 +49,7 @@ class ManageCore implements Hookable
 			$hook->removeAction('wp_version_check', 'wp_version_check');
 		}
 
-		if ((bool) Option::get('auto_update_core')) {
+		if (Option::isOn('auto_update_core')) {
 			return;
 		}
 

@@ -47,7 +47,7 @@ class Gutenberg implements Hookable
 	public function filterUseBlockEditorForPost(bool $value, $post): bool
 	{
 		// If the Gutenberg feature is disabled, force the classic editor.
-		if (! (bool) Option::get('gutenberg')) {
+		if (! Option::isOn('gutenberg')) {
 			return false;
 		}
 

@@ -32,11 +32,11 @@ class ManagePostEditor implements Hookable
 		 */
 		$hook->addFilter(
 			self::optionHook('heartbeat_post_editor'),
-			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
+			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			self::defaultOptionHook('heartbeat_post_editor'),
-			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
+			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 
@@ -45,7 +45,7 @@ class ManagePostEditor implements Hookable
 	 */
 	public function deregisterScripts(): void
 	{
-		if (! self::isPostEditor() || (bool) Option::get('heartbeat_post_editor')) {
+		if (! self::isPostEditor() || Option::isOn('heartbeat_post_editor')) {
 			return;
 		}
 

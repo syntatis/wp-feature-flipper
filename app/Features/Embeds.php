@@ -23,7 +23,7 @@ class Embeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if ((bool) Option::get('embed')) {
+		if (Option::isOn('embed')) {
 			return;
 		}
 

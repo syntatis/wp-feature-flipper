@@ -24,7 +24,7 @@ class ManageThemes implements Hookable
 	{
 		$updatesFn = static fn ($value) => Updates::themes()->isEnabled((bool) $value);
 		$autoUpdateFn = static function ($value): bool {
-			if (! (bool) Option::get('update_themes')) {
+			if (! Option::isOn('update_themes')) {
 				return false;
 			}
 
@@ -36,7 +36,7 @@ class ManageThemes implements Hookable
 		$hook->addFilter(self::optionHook('auto_update_themes'), $autoUpdateFn);
 		$hook->addFilter(self::optionHook('update_themes'), $updatesFn);
 
-		if (! (bool) Option::get('update_themes')) {
+		if (! Option::isOn('update_themes')) {
 			$hook->addFilter('site_transient_update_themes', [$this, 'filterSiteTransientUpdate']);
 			$hook->removeAction('admin_init', '_maybe_update_themes');
 			$hook->removeAction('load-themes.php', 'wp_theme_update_rows', 20);
@@ -46,7 +46,7 @@ class ManageThemes implements Hookable
 			$hook->removeAction('wp_update_themes', 'wp_update_themes');
 		}
 
-		if ((bool) Option::get('auto_update_themes')) {
+		if (Option::isOn('auto_update_themes')) {
 			return;
 		}
 

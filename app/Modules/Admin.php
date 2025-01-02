@@ -16,12 +16,12 @@ class Admin implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if (! (bool) Option::get('admin_footer_text')) {
+		if (! Option::isOn('admin_footer_text')) {
 			$hook->addFilter('admin_footer_text', '__return_empty_string', 99);
 			$hook->addFilter('update_footer', '__return_empty_string', 99);
 		}
 
-		if ((bool) Option::get('update_nags')) {
+		if (Option::isOn('update_nags')) {
 			return;
 		}
 

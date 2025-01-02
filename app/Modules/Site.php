@@ -20,7 +20,7 @@ class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if (! (bool) Option::get('emojis')) {
+		if (! Option::isOn('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
 			 * been retained for backward compatibility purposes.
@@ -36,14 +36,14 @@ class Site implements Hookable, Extendable
 			$hook->removeFilter('wp_mail', 'wp_staticize_emoji_for_email');
 		}
 
-		if (! (bool) Option::get('scripts_version')) {
+		if (! Option::isOn('scripts_version')) {
 			$callback = static fn (string $src): string => remove_query_arg('ver', $src);
 
 			$hook->addFilter('script_loader_src', $callback);
 			$hook->addFilter('style_loader_src', $callback);
 		}
 
-		if (! (bool) Option::get('jquery_migrate')) {
+		if (! Option::isOn('jquery_migrate')) {
 			$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
 				$jquery = $scripts->query('jquery', 'registered');
 
@@ -55,15 +55,15 @@ class Site implements Hookable, Extendable
 			});
 		}
 
-		if (! (bool) Option::get('rsd_link')) {
+		if (! Option::isOn('rsd_link')) {
 			$hook->removeAction('wp_head', 'rsd_link');
 		}
 
-		if (! (bool) Option::get('generator_tag')) {
+		if (! Option::isOn('generator_tag')) {
 			$hook->removeAction('wp_head', 'wp_generator');
 		}
 
-		if ((bool) Option::get('shortlink')) {
+		if (Option::isOn('shortlink')) {
 			return;
 		}
 

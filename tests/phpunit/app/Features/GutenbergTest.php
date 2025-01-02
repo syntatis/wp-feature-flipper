@@ -40,9 +40,9 @@ class GutenbergTest extends WPTestCase
 	/** @testdox should default values */
 	public function testDefaultOptions(): void
 	{
-		$this->assertTrue(Option::get('gutenberg'));
-		$this->assertTrue(Option::get('block_based_widgets'));
-		$this->assertTrue(Option::get('revisions'));
+		$this->assertTrue(Option::isOn('gutenberg'));
+		$this->assertTrue(Option::isOn('block_based_widgets'));
+		$this->assertTrue(Option::isOn('revisions'));
 		$this->assertEquals(['post', 'page'], Option::get('gutenberg_post_types'));
 
 		$callback = static fn ($use, $postType) => $postType === 'page';
@@ -60,7 +60,7 @@ class GutenbergTest extends WPTestCase
 		update_option(Option::name('gutenberg'), false);
 		update_option(Option::name('gutenberg_post_types'), ['post']);
 
-		$this->assertFalse(Option::get('gutenberg'));
+		$this->assertFalse(Option::isOn('gutenberg'));
 		$this->assertEquals(['post'], Option::get('gutenberg_post_types'));
 	}
 

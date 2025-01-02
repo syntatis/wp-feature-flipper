@@ -18,7 +18,7 @@ class OptionTest extends WPTestCase
 	/** @testdox should return `false` when the option does not exist */
 	public function testGet(): void
 	{
-		$this->assertFalse(Option::get('foo'));
+		$this->assertFalse(Option::isOn('foo'));
 	}
 
 	/** @testdox should return the value that's been updated */

@@ -32,11 +32,11 @@ class ManageAdmin implements Hookable
 		 */
 		$hook->addFilter(
 			self::optionHook('heartbeat_admin'),
-			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
+			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			self::defaultOptionHook('heartbeat_admin'),
-			static fn ($value) => (bool) Option::get('heartbeat') ? $value : false,
+			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 
@@ -45,7 +45,7 @@ class ManageAdmin implements Hookable
 	 */
 	public function deregisterScripts(): void
 	{
-		if (! is_admin() || self::isPostEditor() || (bool) Option::get('heartbeat_admin')) {
+		if (! is_admin() || self::isPostEditor() || Option::isOn('heartbeat_admin')) {
 			return;
 		}
 

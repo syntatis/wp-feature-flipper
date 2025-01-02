@@ -50,11 +50,11 @@ class AdminBar implements Hookable
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
-		if (! (bool) Option::get('admin_bar_howdy')) {
+		if (! Option::isOn('admin_bar_howdy')) {
 			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
-		if ((bool) Option::get('admin_bar_env_type')) {
+		if (Option::isOn('admin_bar_env_type')) {
 			$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 		}
 
@@ -214,7 +214,7 @@ class AdminBar implements Hookable
 
 	public function showAdminBar(bool $value): bool
 	{
-		return is_user_logged_in() ? (bool) Option::get('admin_bar') : $value;
+		return is_user_logged_in() ? Option::isOn('admin_bar') : $value;
 	}
 
 	/** @return array<string> */
@@ -222,7 +222,7 @@ class AdminBar implements Hookable
 	{
 		$excludes = self::DEFAULT_EXCLUDED_MENU;
 
-		if (! (bool) Option::get('comments')) {
+		if (! Option::isOn('comments')) {
 			$excludes = [
 				...$excludes,
 				'comments',

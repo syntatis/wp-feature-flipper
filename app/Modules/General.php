@@ -38,7 +38,7 @@ class General implements Hookable, Extendable
 			PHP_INT_MAX,
 		);
 
-		if (! (bool) Option::get('self_ping')) {
+		if (! Option::isOn('self_ping')) {
 			$hook->addFilter('pre_ping', static function (&$links): void {
 				$links = array_filter($links, static fn ($link) => ! str_starts_with($link, home_url()));
 			}, 99);
@@ -46,7 +46,7 @@ class General implements Hookable, Extendable
 
 		$maxRevisions = Option::get('revisions_max');
 
-		if (! (bool) Option::get('revisions')) {
+		if (! Option::isOn('revisions')) {
 			if (! defined('WP_POST_REVISIONS')) {
 				define('WP_POST_REVISIONS', 0);
 			}
