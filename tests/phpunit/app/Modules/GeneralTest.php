@@ -43,8 +43,8 @@ class GeneralTest extends WPTestCase
 	/** @testdox should return updated values */
 	public function testOptionUpdated(): void
 	{
-		update_option(Option::name('block_based_widgets'), false);
-		update_option(Option::name('revisions'), false);
+		Option::update('block_based_widgets', false);
+		Option::update('revisions', false);
 
 		$this->assertFalse(Option::get('block_based_widgets'));
 		$this->assertFalse(Option::get('revisions'));
@@ -59,11 +59,11 @@ class GeneralTest extends WPTestCase
 	/** @testdox should return updated value */
 	public function testFilterUseWidgetsBlockEditorUpdated(): void
 	{
-		update_option(Option::name('block_based_widgets'), false);
+		Option::update('block_based_widgets', false);
 
 		$this->assertFalse($this->instance->filterUseWidgetsBlockEditor(true));
 
-		update_option(Option::name('block_based_widgets'), true);
+		Option::update('block_based_widgets', true);
 
 		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(false));
 	}

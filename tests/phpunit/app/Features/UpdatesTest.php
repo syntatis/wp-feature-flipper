@@ -42,8 +42,8 @@ class UpdatesTest extends WPTestCase
 		$this->assertFalse($this->hook->hasFilter('automatic_updater_disabled', '__return_false'));
 		$this->assertSame(10, $this->hook->hasAction('wp_maybe_auto_update', 'wp_maybe_auto_update'));
 
-		update_option(Option::name('updates'), false);
-		update_option(Option::name('auto_updates'), false);
+		Option::update('updates', false);
+		Option::update('auto_updates', false);
 
 		// Reload.
 		$this->instance->hook($this->hook);
@@ -68,8 +68,8 @@ class UpdatesTest extends WPTestCase
 	/** @testdox should return updated values */
 	public function testOptionsUpdated(): void
 	{
-		update_option(Option::name('updates'), false);
-		update_option(Option::name('auto_updates'), false);
+		Option::update('updates', false);
+		Option::update('auto_updates', false);
 
 		$this->assertFalse(Option::get('updates'));
 		$this->assertFalse(Option::get('auto_updates'));
@@ -78,7 +78,7 @@ class UpdatesTest extends WPTestCase
 	/** @testdox should return `false` for "auto_updates" when "updates" option is `false` */
 	public function testAutoUpdateWhenMainOptionIsFalse(): void
 	{
-		update_option(Option::name('updates'), false);
+		Option::update('updates', false);
 
 		$this->assertFalse(Option::get('updates'));
 		$this->assertFalse(Option::get('auto_updates'));

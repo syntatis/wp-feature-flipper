@@ -126,7 +126,7 @@ class SettingPage implements Hookable
 		wp_enqueue_style(
 			$this->scriptHandle,
 			App::url('dist/assets/setting-page/index.css'),
-			[$this->appName],
+			[$this->appName . '-common'],
 			$assets['version'] ?? null,
 		);
 
@@ -211,9 +211,7 @@ class SettingPage implements Hookable
 			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
 			SCRIPT,
 			wp_json_encode([
-				'/wp/v2/settings' => [
-					'body' => apply_filters('syntatis/feature_flipper/settings', $data),
-				],
+				'/wp/v2/settings' => ['body' => $data],
 			]),
 		);
 	}

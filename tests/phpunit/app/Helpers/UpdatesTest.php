@@ -32,7 +32,7 @@ class UpdatesTest extends WPTestCase
 	public function testCoreWhenGlobalUpdatesIsFalse(): void
 	{
 		// Disable global updates.
-		update_option(Option::name('updates'), false);
+		Option::update('updates', false);
 
 		$this->assertFalse(Updates::core()->isEnabled(true));
 	}
@@ -48,7 +48,7 @@ class UpdatesTest extends WPTestCase
 	public function testPluginsGlobalUpdatesDisabled(): void
 	{
 		// Disable global updates.
-		update_option(Option::name('updates'), false);
+		Option::update('updates', false);
 
 		$this->assertFalse(Updates::plugins()->isEnabled(true));
 	}

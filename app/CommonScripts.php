@@ -25,6 +25,6 @@ class CommonScripts implements Hookable
 			return;
 		}
 
-		wp_enqueue_style(App::name(), App::url('dist/assets/index.css'));
+		wp_enqueue_style(App::name() . '-common', App::url('dist/assets/index.css'));
 	}
 }

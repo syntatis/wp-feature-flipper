@@ -9,6 +9,9 @@ use SSFV\Codex\Facades\App;
 use function array_merge;
 use function function_exists;
 
+/**
+ * A collection of methods to interact with the WordPress admin area.
+ */
 trait WithAdmin
 {
 	/**
@@ -29,6 +32,9 @@ trait WithAdmin
 		);
 	}
 
+	/**
+	 * Whether the current view is the plugin setting page.
+	 */
 	private static function isSettingPage(): bool
 	{
 		if (! is_admin() || ! function_exists('get_current_screen')) {

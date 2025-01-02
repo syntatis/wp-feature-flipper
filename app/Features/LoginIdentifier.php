@@ -51,7 +51,7 @@ class LoginIdentifier implements Hookable
 
 	public function filterGetText(string $translation, string $text, string $domain): string
 	{
-		if (! self::isLoginUrl() || $domain !== 'default') {
+		if (! self::isLoginURL() || $domain !== 'default') {
 			return $translation;
 		}
 

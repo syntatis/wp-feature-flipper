@@ -84,7 +84,7 @@ class ManageAdminTest extends WPTestCase
 	/** @testdox should return updated value for "heartbeat_admin_interval" */
 	public function testIntervalOptionUpdated(): void
 	{
-		update_option(Option::name('heartbeat_admin_interval'), 240);
+		Option::update('heartbeat_admin_interval', 240);
 
 		$this->assertSame(240, Option::get('heartbeat_admin_interval'));
 	}
@@ -92,7 +92,7 @@ class ManageAdminTest extends WPTestCase
 	/** @testdox should affect "heartbeat_admin", not "heartbeat_admin_interval" option */
 	public function testOptionsWhenGlobalOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat'), false);
+		Option::update('heartbeat', false);
 
 		$this->assertFalse(
 			Option::get('heartbeat_admin'),
@@ -108,7 +108,7 @@ class ManageAdminTest extends WPTestCase
 	/** @testdox should not affect "heartbeat_admin_interval" option */
 	public function testIntervalOptionWhenAdminOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat_admin'), false);
+		Option::update('heartbeat_admin', false);
 
 		$this->assertSame(
 			60,
@@ -125,7 +125,7 @@ class ManageAdminTest extends WPTestCase
 	 */
 	public function testOptionsWhenPostEditorOptionIsFalse(): void
 	{
-		update_option(Option::name('heartbeat_post_editor'), false);
+		Option::update('heartbeat_post_editor', false);
 
 		$this->assertTrue(Option::get('heartbeat_admin'));
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
@@ -155,7 +155,7 @@ class ManageAdminTest extends WPTestCase
 		);
 
 		// Update.
-		update_option(Option::name('heartbeat_admin_interval'), $value);
+		Option::update('heartbeat_admin_interval', $value);
 
 		// Assert.
 		$this->assertSame($expect, $this->instance->filterSettings([]));
@@ -222,7 +222,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_admin'), false);
+		Option::update('heartbeat_admin', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();
@@ -252,7 +252,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_admin'), false);
+		Option::update('heartbeat_admin', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();
@@ -282,7 +282,7 @@ class ManageAdminTest extends WPTestCase
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
-		update_option(Option::name('heartbeat_admin'), false);
+		Option::update('heartbeat_admin', false);
 
 		// Reload.
 		$this->instance->deregisterScripts();

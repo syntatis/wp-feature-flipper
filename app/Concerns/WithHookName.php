@@ -6,6 +6,9 @@ namespace Syntatis\FeatureFlipper\Concerns;
 
 use Syntatis\FeatureFlipper\Helpers\Option;
 
+/**
+ * A collection of reusable methods to retrieve WordPress hook names.
+ */
 trait WithHookName
 {
 	/**

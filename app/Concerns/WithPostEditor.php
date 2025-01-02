@@ -7,6 +7,9 @@ namespace Syntatis\FeatureFlipper\Concerns;
 use function is_numeric;
 use function is_string;
 
+/**
+ * A collection of reusable methods to interact with the post editor.
+ */
 trait WithPostEditor
 {
 	/**
