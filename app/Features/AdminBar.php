@@ -62,6 +62,35 @@ class AdminBar implements Hookable
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
 	}
 
+	public function enqueueScripts(): void
+	{
+		if (! is_user_logged_in()) {
+			return;
+		}
+
+		if (! (bool) Option::get('admin_bar_env_type')) {
+			return;
+		}
+
+		$assets = App::dir('dist/assets/admin-bar/index.asset.php');
+		$assets = is_readable($assets) ? require $assets : [];
+
+		wp_enqueue_style(
+			$this->appName . '-admin-bar',
+			App::url('dist/assets/admin-bar/index.css'),
+			[$this->appName . '-common'],
+			$assets['version'] ?? null,
+		);
+
+		wp_enqueue_script(
+			$this->appName . '-admin-bar',
+			App::url('dist/assets/admin-bar/index.js'),
+			$assets['dependencies'] ?? [],
+			$assets['version'] ?? null,
+			false,
+		);
+	}
+
 	/**
 	 * Provide additional data to include in the plugin's global inline data.
 	 *
@@ -84,27 +113,6 @@ class AdminBar implements Hookable
 		);
 
 		return $data;
-	}
-
-	public function enqueueScripts(): void
-	{
-		$assets = App::dir('dist/assets/admin-bar/index.asset.php');
-		$assets = is_readable($assets) ? require $assets : [];
-
-		wp_enqueue_style(
-			$this->appName . '-admin-bar',
-			App::url('dist/assets/admin-bar/index.css'),
-			[$this->appName . '-common'],
-			$assets['version'] ?? null,
-		);
-
-		wp_enqueue_script(
-			$this->appName . '-admin-bar',
-			App::url('dist/assets/admin-bar/index.js'),
-			$assets['dependencies'] ?? [],
-			$assets['version'] ?? null,
-			false,
-		);
 	}
 
 	/** @return array<array{id:string}> */
