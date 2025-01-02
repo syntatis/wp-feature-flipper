@@ -211,9 +211,7 @@ class SettingPage implements Hookable
 			wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) )
 			SCRIPT,
 			wp_json_encode([
-				'/wp/v2/settings' => [
-					'body' => apply_filters('syntatis/feature_flipper/settings', $data),
-				],
+				'/wp/v2/settings' => ['body' => $data],
 			]),
 		);
 	}

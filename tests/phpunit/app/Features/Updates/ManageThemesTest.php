@@ -44,7 +44,7 @@ class ManageThemesTest extends WPTestCase
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
 		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
 
-		update_option(Option::name('update_themes'), false);
+		Option::update('update_themes', false);
 
 		$this->instance->hook($this->hook);
 
@@ -76,7 +76,7 @@ class ManageThemesTest extends WPTestCase
 		$this->assertFalse($this->hook->hasFilter('auto_update_theme', '__return_false'));
 		$this->assertFalse($this->hook->hasFilter('auto_update_plugin', '__return_false'));
 
-		update_option(Option::name('auto_update_themes'), false);
+		Option::update('auto_update_themes', false);
 
 		$this->instance->hook($this->hook);
 
@@ -103,8 +103,8 @@ class ManageThemesTest extends WPTestCase
 	/** @testdox should return updated values */
 	public function testOptionsUpdated(): void
 	{
-		update_option(Option::name('update_themes'), false);
-		update_option(Option::name('auto_update_themes'), false);
+		Option::update('update_themes', false);
+		Option::update('auto_update_themes', false);
 
 		$this->assertFalse(Option::get('update_themes'));
 		$this->assertFalse(Option::get('auto_update_themes'));
@@ -113,7 +113,7 @@ class ManageThemesTest extends WPTestCase
 	/** @testdox should not affect "update_themes" when "auto_update_themes" is `false` */
 	public function testMainOptionWhenAutoUpdateIsFalse(): void
 	{
-		update_option(Option::name('auto_update_themes'), false);
+		Option::update('auto_update_themes', false);
 
 		$this->assertFalse(Option::get('auto_update_themes'));
 		$this->assertTrue(Option::get('update_themes'));
@@ -122,7 +122,7 @@ class ManageThemesTest extends WPTestCase
 	/** @testdox should affect "auto_update_themes" when "update_themes" is `false` */
 	public function testAutoUpdateWhenMainOptionIsFalse(): void
 	{
-		update_option(Option::name('update_themes'), false);
+		Option::update('update_themes', false);
 
 		$this->assertFalse(Option::get('update_themes'));
 		$this->assertFalse(Option::get('auto_update_themes'));
@@ -131,7 +131,7 @@ class ManageThemesTest extends WPTestCase
 	/** @testdox should affect all options when "updates" option is `false` */
 	public function testOptionsWhenGlobalUpdatesOptionIsFalse(): void
 	{
-		update_option(Option::name('updates'), false);
+		Option::update('updates', false);
 
 		$this->assertFalse(Option::get('update_themes'));
 		$this->assertFalse(Option::get('auto_update_themes'));
@@ -140,7 +140,7 @@ class ManageThemesTest extends WPTestCase
 	/** @testdox should affect "auto_update_themes" when "auto_updates" option is `false` */
 	public function testOptionsWhenGlobalAutoUpdatesOptionIsFalse(): void
 	{
-		update_option(Option::name('auto_updates'), false);
+		Option::update('auto_updates', false);
 
 		$this->assertTrue(Option::get('update_themes'));
 		$this->assertFalse(Option::get('auto_update_themes'));
