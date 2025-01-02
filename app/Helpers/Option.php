@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use SSFV\Codex\Facades\Config;
 
+use function in_array;
+
 class Option
 {
 	/**
