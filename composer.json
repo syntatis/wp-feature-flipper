@@ -43,7 +43,6 @@
         "syntatis/codex-settings-provider": "dev-main"
     },
     "require-dev": {
-        "bamarni/composer-bin-plugin": "^1.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "filp/whoops": "^2.16",
         "nunomaduro/collision": "^5.11",
@@ -92,7 +91,6 @@
     },
     "config": {
         "allow-plugins": {
-            "bamarni/composer-bin-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true,
             "syntatis/codex-companion": true
@@ -122,16 +120,11 @@
             "src",
             "tests",
             "vendor",
-            "vendor-bin",
             "!dist/autoload/composer.json",
             "!dist/autoload/vendor"
         ]
     },
     "extra": {
-        "bamarni-bin": {
-            "bin-links": true,
-            "forward-command": true
-        },
         "codex": {
             "scoper": {
                 "prefix": "SSFV",
