@@ -24,7 +24,7 @@ class ManagePlugins implements Hookable
 	{
 		$updatesFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
 		$autoUpdateFn = static function ($value): bool {
-			if (! (bool) Option::get('update_plugins')) {
+			if (! Option::isOn('update_plugins')) {
 				return false;
 			}
 
@@ -36,7 +36,7 @@ class ManagePlugins implements Hookable
 		$hook->addFilter(self::optionHook('auto_update_plugins'), $autoUpdateFn);
 		$hook->addFilter(self::optionHook('update_plugins'), $updatesFn);
 
-		if (! (bool) Option::get('update_plugins')) {
+		if (! Option::isOn('update_plugins')) {
 			$hook->removeAction('admin_init', '_maybe_update_plugins');
 			$hook->removeAction('load-plugins.php', 'wp_plugin_update_rows', 20);
 			$hook->removeAction('load-plugins.php', 'wp_update_plugins');
@@ -46,7 +46,7 @@ class ManagePlugins implements Hookable
 			$hook->addFilter('site_transient_update_plugins', [$this, 'filterSiteTransientUpdate']);
 		}
 
-		if ((bool) Option::get('auto_update_plugins')) {
+		if (Option::isOn('auto_update_plugins')) {
 			return;
 		}
 

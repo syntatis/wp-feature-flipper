@@ -22,30 +22,30 @@ class Security implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if (! (bool) Option::get('xmlrpc')) {
+		if (! Option::isOn('xmlrpc')) {
 			$hook->addFilter('pings_open', '__return_false');
 			$hook->addFilter('xmlrpc_enabled', '__return_false');
 			$hook->addFilter('xmlrpc_methods', '__return_empty_array');
 			$hook->removeAction('wp_head', 'rsd_link');
 		}
 
-		if (! (bool) Option::get('file_edit') && ! defined('DISALLOW_FILE_EDIT')) {
+		if (! Option::isOn('file_edit') && ! defined('DISALLOW_FILE_EDIT')) {
 			define('DISALLOW_FILE_EDIT', true);
 		}
 
-		if (! (bool) Option::get('application_passwords')) {
+		if (! Option::isOn('application_passwords')) {
 			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
 		}
 
-		if ((bool) Option::get('obfuscate_login_error')) {
+		if (Option::isOn('obfuscate_login_error')) {
 			$hook->addFilter('login_errors', [$this, 'filterLoginErrorMessage']);
 		}
 
-		if ((bool) Option::get('login_block_bots')) {
+		if (Option::isOn('login_block_bots')) {
 			$hook->addAction('init', [$this, 'blockBots'], PHP_INT_MIN);
 		}
 
-		if (! (bool) Option::get('authenticated_rest_api')) {
+		if (! Option::isOn('authenticated_rest_api')) {
 			return;
 		}
 

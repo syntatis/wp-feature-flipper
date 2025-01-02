@@ -39,7 +39,7 @@ class Heartbeat implements Hookable, Extendable
 
 	public function deregisterScripts(): void
 	{
-		if ((bool) Option::get('heartbeat')) {
+		if (Option::isOn('heartbeat')) {
 			return;
 		}
 

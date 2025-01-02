@@ -17,7 +17,7 @@ class AutoUpdateTest extends WPTestCase
 	/** @testdox should return inherited value */
 	public function testGlobal(): void
 	{
-		$this->assertTrue(Option::get('updates'));
+		$this->assertTrue(Option::isOn('updates'));
 
 		$this->assertTrue(AutoUpdate::global()->isEnabled(true));
 		$this->assertFalse(AutoUpdate::global()->isEnabled(false));
@@ -26,7 +26,7 @@ class AutoUpdateTest extends WPTestCase
 		Option::update('updates', false);
 
 		// Should return false when global updates are disabled.
-		$this->assertFalse(Option::get('updates'));
+		$this->assertFalse(Option::isOn('updates'));
 		$this->assertFalse(AutoUpdate::global()->isEnabled(true));
 	}
 
@@ -43,7 +43,7 @@ class AutoUpdateTest extends WPTestCase
 		// Disable global updates.
 		Option::update('updates', false);
 
-		$this->assertFalse(Option::get('updates'));
+		$this->assertFalse(Option::isOn('updates'));
 		$this->assertFalse(AutoUpdate::core()->isEnabled(true));
 	}
 
@@ -53,8 +53,8 @@ class AutoUpdateTest extends WPTestCase
 		// Disable global auto-update.
 		Option::update('auto_updates', false);
 
-		$this->assertTrue(Option::get('updates'));
-		$this->assertFalse(Option::get('auto_updates'));
+		$this->assertTrue(Option::isOn('updates'));
+		$this->assertFalse(Option::isOn('auto_updates'));
 		$this->assertFalse(AutoUpdate::core()->isEnabled(true));
 	}
 
@@ -71,7 +71,7 @@ class AutoUpdateTest extends WPTestCase
 		// Disable global updates.
 		Option::update('updates', false);
 
-		$this->assertFalse(Option::get('updates'));
+		$this->assertFalse(Option::isOn('updates'));
 		$this->assertFalse(AutoUpdate::plugins()->isEnabled(true));
 	}
 

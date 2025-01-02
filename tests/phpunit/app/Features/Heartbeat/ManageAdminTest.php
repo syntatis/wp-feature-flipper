@@ -72,7 +72,7 @@ class ManageAdminTest extends WPTestCase
 	/** @testdox should return the default value */
 	public function testOptionDefault(): void
 	{
-		$this->assertTrue(Option::get('heartbeat_admin'));
+		$this->assertTrue(Option::isOn('heartbeat_admin'));
 	}
 
 	/** @testdox should return interval default value */
@@ -95,7 +95,7 @@ class ManageAdminTest extends WPTestCase
 		Option::update('heartbeat', false);
 
 		$this->assertFalse(
-			Option::get('heartbeat_admin'),
+			Option::isOn('heartbeat_admin'),
 			'Admin option should be false, since the global option is false.',
 		);
 		$this->assertSame(
@@ -127,7 +127,7 @@ class ManageAdminTest extends WPTestCase
 	{
 		Option::update('heartbeat_post_editor', false);
 
-		$this->assertTrue(Option::get('heartbeat_admin'));
+		$this->assertTrue(Option::isOn('heartbeat_admin'));
 		$this->assertSame(60, Option::get('heartbeat_admin_interval'));
 	}
 
@@ -218,7 +218,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(Option::get('heartbeat_admin'));
+		$this->assertTrue(Option::isOn('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
@@ -228,7 +228,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertFalse(Option::get('heartbeat_admin'));
+		$this->assertFalse(Option::isOn('heartbeat_admin'));
 		$this->assertFalse(wp_script_is('heartbeat', 'registered'));
 	}
 
@@ -248,7 +248,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(Option::get('heartbeat_admin'));
+		$this->assertTrue(Option::isOn('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
@@ -258,7 +258,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertFalse(Option::get('heartbeat_admin'));
+		$this->assertFalse(Option::isOn('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 
@@ -278,7 +278,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert default.
-		$this->assertTrue(Option::get('heartbeat_admin'));
+		$this->assertTrue(Option::isOn('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 
 		// Update.
@@ -288,7 +288,7 @@ class ManageAdminTest extends WPTestCase
 		$this->instance->deregisterScripts();
 
 		// Assert.
-		$this->assertFalse(Option::get('heartbeat_admin'));
+		$this->assertFalse(Option::isOn('heartbeat_admin'));
 		$this->assertTrue(wp_script_is('heartbeat', 'registered'));
 	}
 }

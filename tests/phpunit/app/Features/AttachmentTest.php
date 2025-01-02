@@ -32,7 +32,7 @@ class AttachmentTest extends WPTestCase
 	public function testOptionDefault(): void
 	{
 		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
-		$this->assertFalse(Option::get('attachment_page'));
+		$this->assertFalse(Option::isOn('attachment_page'));
 	}
 
 	/** @testdox should return the default as true when the option is set to 1 */
@@ -41,7 +41,7 @@ class AttachmentTest extends WPTestCase
 		update_option('wp_attachment_pages_enabled', '1');
 
 		$this->assertEquals('1', get_option('wp_attachment_pages_enabled'));
-		$this->assertTrue(Option::get('attachment_page'));
+		$this->assertTrue(Option::isOn('attachment_page'));
 	}
 
 	/** @testdox should update the option */
@@ -50,11 +50,11 @@ class AttachmentTest extends WPTestCase
 		Option::update('attachment_page', true);
 
 		$this->assertEquals('1', get_option('wp_attachment_pages_enabled'));
-		$this->assertTrue(Option::get('attachment_page'));
+		$this->assertTrue(Option::isOn('attachment_page'));
 
 		Option::update('attachment_page', false);
 
 		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
-		$this->assertFalse(Option::get('attachment_page'));
+		$this->assertFalse(Option::isOn('attachment_page'));
 	}
 }

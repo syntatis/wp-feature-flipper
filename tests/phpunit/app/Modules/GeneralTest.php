@@ -36,8 +36,8 @@ class GeneralTest extends WPTestCase
 	/** @testdox should default values */
 	public function testDefaultOptions(): void
 	{
-		$this->assertTrue(Option::get('block_based_widgets'));
-		$this->assertTrue(Option::get('revisions'));
+		$this->assertTrue(Option::isOn('block_based_widgets'));
+		$this->assertTrue(Option::isOn('revisions'));
 	}
 
 	/** @testdox should return updated values */
@@ -46,8 +46,8 @@ class GeneralTest extends WPTestCase
 		Option::update('block_based_widgets', false);
 		Option::update('revisions', false);
 
-		$this->assertFalse(Option::get('block_based_widgets'));
-		$this->assertFalse(Option::get('revisions'));
+		$this->assertFalse(Option::isOn('block_based_widgets'));
+		$this->assertFalse(Option::isOn('revisions'));
 	}
 
 	/** @testdox should return inherited value */

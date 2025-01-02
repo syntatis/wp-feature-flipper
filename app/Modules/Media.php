@@ -20,13 +20,13 @@ class Media implements Hookable, Extendable
 	{
 		$hook->addFilter(
 			'media_library_infinite_scrolling',
-			static fn (): bool => (bool) Option::get('media_infinite_scroll'),
+			static fn (): bool => Option::isOn('media_infinite_scroll'),
 		);
 
 		$hook->addFilter(
 			'jpeg_quality',
 			static function ($quality) {
-				if (! (bool) Option::get('jpeg_compression')) {
+				if (! Option::isOn('jpeg_compression')) {
 					return 100;
 				}
 

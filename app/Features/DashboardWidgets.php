@@ -64,7 +64,7 @@ class DashboardWidgets implements Hookable
 			return;
 		}
 
-		if (! (bool) Option::get('dashboard_widgets')) {
+		if (! Option::isOn('dashboard_widgets')) {
 			// @phpstan-ignore offsetAccess.nonOffsetAccessible
 			$GLOBALS['wp_meta_boxes']['dashboard'] = []; // phpcs:ignore
 

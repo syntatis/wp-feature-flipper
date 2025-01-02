@@ -110,8 +110,8 @@ class ManageCoreTest extends WPTestCase
 	/** @testdox should return default values */
 	public function testOptionsDefault(): void
 	{
-		$this->assertTrue(Option::get('update_core'));
-		$this->assertTrue(Option::get('auto_update_core'));
+		$this->assertTrue(Option::isOn('update_core'));
+		$this->assertTrue(Option::isOn('auto_update_core'));
 	}
 
 	/** @testdox should return updated values */
@@ -120,8 +120,8 @@ class ManageCoreTest extends WPTestCase
 		Option::update('update_core', false);
 		Option::update('auto_update_core', false);
 
-		$this->assertFalse(Option::get('update_core'));
-		$this->assertFalse(Option::get('auto_update_core'));
+		$this->assertFalse(Option::isOn('update_core'));
+		$this->assertFalse(Option::isOn('auto_update_core'));
 	}
 
 	/** @testdox should not affect "update_core" when "auto_update_core" is `false` */
@@ -129,8 +129,8 @@ class ManageCoreTest extends WPTestCase
 	{
 		Option::update('auto_update_core', false);
 
-		$this->assertFalse(Option::get('auto_update_core'));
-		$this->assertTrue(Option::get('update_core'));
+		$this->assertFalse(Option::isOn('auto_update_core'));
+		$this->assertTrue(Option::isOn('update_core'));
 	}
 
 	/** @testdox should affect "auto_update_core" when "update_core" is `false` */
@@ -138,8 +138,8 @@ class ManageCoreTest extends WPTestCase
 	{
 		Option::update('update_core', false);
 
-		$this->assertFalse(Option::get('update_core'));
-		$this->assertFalse(Option::get('auto_update_core'));
+		$this->assertFalse(Option::isOn('update_core'));
+		$this->assertFalse(Option::isOn('auto_update_core'));
 	}
 
 	/** @testdox should affect all options when "updates" option is `false` */
@@ -147,8 +147,8 @@ class ManageCoreTest extends WPTestCase
 	{
 		Option::update('updates', false);
 
-		$this->assertFalse(Option::get('update_core'));
-		$this->assertFalse(Option::get('auto_update_core'));
+		$this->assertFalse(Option::isOn('update_core'));
+		$this->assertFalse(Option::isOn('auto_update_core'));
 	}
 
 	/** @testdox should affect "auto_update_core" when "auto_updates" option is `false` */
@@ -156,8 +156,8 @@ class ManageCoreTest extends WPTestCase
 	{
 		Option::update('auto_updates', false);
 
-		$this->assertTrue(Option::get('update_core'));
-		$this->assertFalse(Option::get('auto_update_core'));
+		$this->assertTrue(Option::isOn('update_core'));
+		$this->assertFalse(Option::isOn('auto_update_core'));
 	}
 
 	/** @testdox should prune the core update transient information */

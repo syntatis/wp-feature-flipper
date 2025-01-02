@@ -61,8 +61,8 @@ class UpdatesTest extends WPTestCase
 	/** @testdox should return default values */
 	public function testOptionsDefault(): void
 	{
-		$this->assertTrue(Option::get('updates'));
-		$this->assertTrue(Option::get('auto_updates'));
+		$this->assertTrue(Option::isOn('updates'));
+		$this->assertTrue(Option::isOn('auto_updates'));
 	}
 
 	/** @testdox should return updated values */
@@ -71,8 +71,8 @@ class UpdatesTest extends WPTestCase
 		Option::update('updates', false);
 		Option::update('auto_updates', false);
 
-		$this->assertFalse(Option::get('updates'));
-		$this->assertFalse(Option::get('auto_updates'));
+		$this->assertFalse(Option::isOn('updates'));
+		$this->assertFalse(Option::isOn('auto_updates'));
 	}
 
 	/** @testdox should return `false` for "auto_updates" when "updates" option is `false` */
@@ -80,7 +80,7 @@ class UpdatesTest extends WPTestCase
 	{
 		Option::update('updates', false);
 
-		$this->assertFalse(Option::get('updates'));
-		$this->assertFalse(Option::get('auto_updates'));
+		$this->assertFalse(Option::isOn('updates'));
+		$this->assertFalse(Option::isOn('auto_updates'));
 	}
 }

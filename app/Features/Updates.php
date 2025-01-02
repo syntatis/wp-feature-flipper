@@ -39,12 +39,12 @@ class Updates implements Hookable, Extendable
 			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
 		);
 
-		if (! (bool) Option::get('updates')) {
+		if (! Option::isOn('updates')) {
 			$hook->addAction('admin_menu', [$this, 'removeUpdateAdminMenu'], PHP_INT_MAX);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
-		if ((bool) Option::get('auto_updates')) {
+		if (Option::isOn('auto_updates')) {
 			return;
 		}
 
