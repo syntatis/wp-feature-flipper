@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use SSFV\Codex\Facades\Config;
 
+use function in_array;
+
 class Option
 {
 	/**
@@ -18,6 +20,16 @@ class Option
 	public static function get(string $name)
 	{
 		return get_option(self::name($name));
+	}
+
+	/**
+	 * Check whether a plugin option is enabled.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	public static function isOn(string $name): bool
+	{
+		return in_array(self::get($name), [true, '1'], true);
 	}
 
 	/**

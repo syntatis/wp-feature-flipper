@@ -11,11 +11,11 @@ class AutoUpdateComponents implements Enable
 	/** @param bool $value Current value of the option passed from the `option_` filter argument. */
 	public function isEnabled(bool $value): bool
 	{
-		if (! (bool) Option::get('updates')) {
+		if (! Option::isOn('updates')) {
 			return false;
 		}
 
-		if (! (bool) Option::get('auto_updates')) {
+		if (! Option::isOn('auto_updates')) {
 			return false;
 		}
 

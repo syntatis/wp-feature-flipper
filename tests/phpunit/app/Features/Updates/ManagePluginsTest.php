@@ -96,8 +96,8 @@ class ManagePluginsTest extends WPTestCase
 	/** @testdox should return default values */
 	public function testOptionsDefault(): void
 	{
-		$this->assertTrue(Option::get('update_plugins'));
-		$this->assertTrue(Option::get('auto_update_plugins'));
+		$this->assertTrue(Option::isOn('update_plugins'));
+		$this->assertTrue(Option::isOn('auto_update_plugins'));
 	}
 
 	/** @testdox should return updated values */
@@ -106,8 +106,8 @@ class ManagePluginsTest extends WPTestCase
 		Option::update('update_plugins', false);
 		Option::update('auto_update_plugins', false);
 
-		$this->assertFalse(Option::get('update_plugins'));
-		$this->assertFalse(Option::get('auto_update_plugins'));
+		$this->assertFalse(Option::isOn('update_plugins'));
+		$this->assertFalse(Option::isOn('auto_update_plugins'));
 	}
 
 	/** @testdox should not affect "update_plugins" when "auto_update_plugins" is `false` */
@@ -115,8 +115,8 @@ class ManagePluginsTest extends WPTestCase
 	{
 		Option::update('auto_update_plugins', false);
 
-		$this->assertFalse(Option::get('auto_update_plugins'));
-		$this->assertTrue(Option::get('update_plugins'));
+		$this->assertFalse(Option::isOn('auto_update_plugins'));
+		$this->assertTrue(Option::isOn('update_plugins'));
 	}
 
 	/** @testdox should affect "auto_update_plugins" when "update_plugins" is `false` */
@@ -124,8 +124,8 @@ class ManagePluginsTest extends WPTestCase
 	{
 		Option::update('update_plugins', false);
 
-		$this->assertFalse(Option::get('update_plugins'));
-		$this->assertFalse(Option::get('auto_update_plugins'));
+		$this->assertFalse(Option::isOn('update_plugins'));
+		$this->assertFalse(Option::isOn('auto_update_plugins'));
 	}
 
 	/** @testdox should affect all options when "updates" option is `false` */
@@ -133,8 +133,8 @@ class ManagePluginsTest extends WPTestCase
 	{
 		Option::update('updates', false);
 
-		$this->assertFalse(Option::get('update_plugins'));
-		$this->assertFalse(Option::get('auto_update_plugins'));
+		$this->assertFalse(Option::isOn('update_plugins'));
+		$this->assertFalse(Option::isOn('auto_update_plugins'));
 	}
 
 	/** @testdox should affect "auto_update_plugins" when "auto_updates" option is `false` */
@@ -142,8 +142,8 @@ class ManagePluginsTest extends WPTestCase
 	{
 		Option::update('auto_updates', false);
 
-		$this->assertTrue(Option::get('update_plugins'));
-		$this->assertFalse(Option::get('auto_update_plugins'));
+		$this->assertTrue(Option::isOn('update_plugins'));
+		$this->assertFalse(Option::isOn('auto_update_plugins'));
 	}
 
 	/** @testdox should prune the plugins update transient information */

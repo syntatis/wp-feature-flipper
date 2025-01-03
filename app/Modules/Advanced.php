@@ -19,7 +19,7 @@ class Advanced implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if ((bool) Option::get('cron') || defined('DISABLE_WP_CRON')) {
+		if (Option::isOn('cron') || defined('DISABLE_WP_CRON')) {
 			return;
 		}
 

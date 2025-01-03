@@ -21,7 +21,7 @@ class Comments implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if ((bool) Option::get('comments')) {
+		if (Option::isOn('comments')) {
 			return;
 		}
 
