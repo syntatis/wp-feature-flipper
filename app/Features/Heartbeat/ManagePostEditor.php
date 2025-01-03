@@ -61,7 +61,7 @@ class ManagePostEditor implements Hookable
 	 */
 	public function filterSettings(array $settings): array
 	{
-		if (! self::isPostEditor()) {
+		if (! self::isPostEditor() || ! Option::isOn('heartbeat_post_editor')) {
 			return $settings;
 		}
 
