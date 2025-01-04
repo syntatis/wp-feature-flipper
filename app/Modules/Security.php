@@ -9,6 +9,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Features\LoginIdentifier;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Error;
@@ -20,6 +21,8 @@ use const PHP_INT_MIN;
 
 class Security implements Hookable, Extendable
 {
+	use WithURI;
+
 	public function hook(Hook $hook): void
 	{
 		if (! Option::isOn('xmlrpc')) {
@@ -80,7 +83,7 @@ class Security implements Hookable, Extendable
 
 	public function blockBots(): void
 	{
-		if (! is_login()) {
+		if (! self::isLoginURL()) {
 			return;
 		}
 

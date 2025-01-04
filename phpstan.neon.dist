@@ -4,3 +4,5 @@ parameters:
     - dist/autoload/vendor/autoload.php
   paths:
     - app
+  WPCompat:
+    requiresAtLeast: '6.0'
