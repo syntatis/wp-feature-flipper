@@ -14,7 +14,7 @@ use function trim;
 use const PHP_URL_PATH;
 
 /**
- * General methods to work with URIs.
+ * General methods to work with URIs and URLs.
  */
 trait WithURI
 {
@@ -41,7 +41,8 @@ trait WithURI
 			'';
 
 		/**
-		 * Logic dervied from the `is_login` which is only available since WordPress 6.1.
+		 * Logic derived from the `is_login` function, which is only available in
+		 * WordPress 6.1 or later.
 		 *
 		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/load.php#L1307-L1309
 		 */
