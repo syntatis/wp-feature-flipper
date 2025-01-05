@@ -69,11 +69,8 @@ class Comments implements Hookable
 
 	public function removePostTypeSupport(): void
 	{
-		foreach (get_post_types() as $postType) {
-			if (
-				! post_type_supports($postType, 'comments') ||
-				in_array($postType, self::EXCLUDE_POST_TYPES, true)
-			) {
+		foreach (get_post_types_by_support('comments') as $postType) {
+			if (in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
 				continue;
 			}
 

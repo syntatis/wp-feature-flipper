@@ -28,7 +28,15 @@ class CommentsTest extends WPTestCase
 
 		$this->hook = new Hook();
 		$this->instance = new Comments();
-		// $this->instance->hook($this->hook);
+		$this->instance->hook($this->hook);
+
+		register_post_type(
+			'product',
+			[
+				'public' => true,
+				'supports' => ['comments', 'trackbacks'],
+			],
+		);
 	}
 
 	/** @testdox should have callback attached to hooks */
@@ -77,5 +85,70 @@ class CommentsTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('comments_open', [$this->instance, 'filterCommentsOpen']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('get_comments_number', [$this->instance, 'filterGetCommentsNumber']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('pings_open', [$this->instance, 'filterPingsOpen']));
+	}
+
+	/** @testdox should remove "comments" support from selected post types */
+	public function testRemovePostTypeSupport(): void
+	{
+		$this->assertTrue(post_type_supports('page', 'comments'));
+		$this->assertTrue(post_type_supports('post', 'comments'));
+		$this->assertTrue(post_type_supports('post', 'trackbacks'));
+		$this->assertTrue(post_type_supports('product', 'comments'));
+		$this->assertTrue(post_type_supports('product', 'trackbacks'));
+
+		$this->instance->removePostTypeSupport();
+
+		$this->assertFalse(post_type_supports('post', 'comments'));
+		$this->assertFalse(post_type_supports('page', 'comments'));
+		$this->assertFalse(post_type_supports('page', 'trackbacks'));
+
+		// WooCommerce product post type should not be affected.
+		$this->assertTrue(post_type_supports('product', 'comments'));
+		$this->assertTrue(post_type_supports('product', 'trackbacks'));
+	}
+
+	/**
+	 * @dataProvider dataRemovePostMetabox
+	 * @testdox should remove "comments" metabox from the selected post types
+	 */
+	public function testRemovePostMetabox(string $postType): void
+	{
+		add_meta_box('commentstatusdiv', 'Discussion', static fn () => '', $postType, 'normal');
+		add_meta_box('commentsdiv', 'Comments', static fn () => '', $postType, 'normal');
+
+		$this->instance->removePostMetabox($postType);
+
+		$wpMetaboxes = (array) ($GLOBALS['wp_meta_boxes'] ?? []);
+
+		$this->assertFalse($wpMetaboxes[$postType]['normal']['default']['commentstatusdiv']);
+		$this->assertFalse($wpMetaboxes[$postType]['normal']['default']['commentsdiv']);
+	}
+
+	public static function dataRemovePostMetabox(): iterable
+	{
+		yield 'post' => ['post'];
+		yield 'page' => ['page'];
+	}
+
+	/**
+	 * @dataProvider dataRemovePostMetaboxExcluded
+	 * @testdox should not remove "comments" metabox from the selected post types
+	 */
+	public function testRemovePostMetaboxExcluded(string $postType): void
+	{
+		add_meta_box('commentstatusdiv', 'Discussion', static fn () => '', $postType, 'normal');
+		add_meta_box('commentsdiv', 'Comments', static fn () => '', $postType, 'normal');
+
+		$this->instance->removePostMetabox($postType);
+
+		$wpMetaboxes = (array) ($GLOBALS['wp_meta_boxes'] ?? []);
+
+		$this->assertArrayHasKey('commentstatusdiv', $wpMetaboxes[$postType]['normal']['default']);
+		$this->assertArrayHasKey('commentsdiv', $wpMetaboxes[$postType]['normal']['default']);
+	}
+
+	public static function dataRemovePostMetaboxExcluded(): iterable
+	{
+		yield 'product' => ['product'];
 	}
 }
