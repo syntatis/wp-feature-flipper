@@ -68,6 +68,13 @@ class Comments implements Hookable
 		$hook->addFilter('comments_open', [$this, 'filterCommentsOpen'], PHP_INT_MAX, 2);
 		$hook->addFilter('get_comments_number', [$this, 'filterGetCommentsNumber'], PHP_INT_MAX, 2);
 		$hook->addFilter('pings_open', [$this, 'filterPingsOpen'], PHP_INT_MAX, 2);
+
+		/**
+		 * Handle feed links and page for comments.
+		 */
+		$hook->addFilter('feed_links_show_comments_feed', '__return_false', PHP_INT_MAX, 2);
+		$hook->addFilter('post_comments_feed_link', '__return_empty_string', PHP_INT_MAX);
+		$hook->addFilter('post_comments_feed_link_html', '__return_empty_string', PHP_INT_MAX);
 	}
 
 	public function removePostTypeSupport(): void
