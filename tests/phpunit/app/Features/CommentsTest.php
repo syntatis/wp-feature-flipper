@@ -10,6 +10,7 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
 use WP_Admin_Bar;
+use WP_Block_Type_Registry;
 
 use const PHP_INT_MAX;
 
@@ -183,6 +184,39 @@ class CommentsTest extends WPTestCase
 		$this->instance->removeAdminBarMenu($wpAdminBar);
 
 		$this->assertNull($wpAdminBar->get_node('comments'));
+	}
+
+	/** @testdox should remove comments-related block from core */
+	public function testUnregisterBlocksServer(): void
+	{
+		$commentBlocks = [
+			'core/comment-author-name',
+			'core/comment-content',
+			'core/comment-date',
+			'core/comment-edit-link',
+			'core/comment-reply-link',
+			'core/comment-template',
+			'core/comments',
+			'core/comments-pagination',
+			'core/comments-pagination-next',
+			'core/comments-pagination-numbers',
+			'core/comments-pagination-previous',
+			'core/comments-title',
+			'core/latest-comments',
+			'core/post-comments-form',
+			'core/post-comments',
+		];
+		$instance = WP_Block_Type_Registry::get_instance();
+
+		foreach ($commentBlocks as $blockName) {
+			$this->assertTrue($instance->is_registered($blockName));
+		}
+
+		$this->instance->unregisterBlocksServer();
+
+		foreach ($commentBlocks as $blockName) {
+			$this->assertFalse($instance->is_registered($blockName));
+		}
 	}
 
 	private function getStandardAdminbar(): WP_Admin_Bar
