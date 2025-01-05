@@ -11,6 +11,7 @@ use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
 use WP_Admin_Bar;
 use WP_Block_Type_Registry;
+use WP_Comment_Query;
 
 use const PHP_INT_MAX;
 
@@ -22,6 +23,9 @@ class CommentsTest extends WPTestCase
 {
 	private Hook $hook;
 	private Comments $instance;
+
+	/** @var array<string,mixed> */
+	private array $globals = [];
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public static function set_up_before_class(): void
@@ -36,6 +40,7 @@ class CommentsTest extends WPTestCase
 	{
 		parent::set_up();
 
+		$this->globals = $GLOBALS;
 		$this->hook = new Hook();
 		$this->instance = new Comments();
 		$this->instance->hook($this->hook);
@@ -52,6 +57,7 @@ class CommentsTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
+		$GLOBALS = $this->globals;
 		unregister_post_type('product');
 
 		parent::tear_down();
@@ -255,6 +261,26 @@ class CommentsTest extends WPTestCase
 		$this->assertArrayNotHasKey('/wp/v2/comments', $endpoints);
 		$this->assertArrayNotHasKey('/wp/v2/comments/(?P<id>[\d]+)', $endpoints);
 		$this->assertArrayHasKey('/wp/v2/posts', $endpoints);
+	}
+
+	/** @testdox should return empty array if the comments feature is disabled */
+	public function testFilterCommentsQueryOnDashboard(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('dashboard');
+
+		// phpcs:ignore
+		$GLOBALS['pagenow'] = 'index.php';
+
+		$this->assertTrue(is_admin());
+		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => ''])));
+		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'product'])));
+	}
+
+	/** @testdox should return inherited value if the comments feature is disabled */
+	public function testFilterCommentsQueryNotOnDashboard(): void
+	{
+		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query()));
 	}
 
 	private function getStandardAdminbar(): WP_Admin_Bar
