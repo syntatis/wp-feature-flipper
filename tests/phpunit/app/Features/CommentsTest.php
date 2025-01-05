@@ -219,7 +219,7 @@ class CommentsTest extends WPTestCase
 		}
 	}
 
-	/** @testdox should filter out the xmlrpc endpoints */
+	/** @testdox should filter out the comments-related xmlrpc methods */
 	public function testFilterXmlrpcMethods(): void
 	{
 		$methods = $this->instance->filterXmlrpcMethods([
@@ -241,6 +241,20 @@ class CommentsTest extends WPTestCase
 		$this->assertArrayNotHasKey('wp.getComments', $methods);
 		$this->assertArrayNotHasKey('wp.newComment', $methods);
 		$this->assertArrayHasKey('wp.newPost', $methods);
+	}
+
+	/** @testdox should filter out comments-related rest endpoints */
+	public function testFilterRestEndpoints(): void
+	{
+		$endpoints = $this->instance->filterRestEndpoints([
+			'/wp/v2/comments' => [],
+			'/wp/v2/comments/(?P<id>[\d]+)' => [],
+			'/wp/v2/posts' => [],
+		]);
+
+		$this->assertArrayNotHasKey('/wp/v2/comments', $endpoints);
+		$this->assertArrayNotHasKey('/wp/v2/comments/(?P<id>[\d]+)', $endpoints);
+		$this->assertArrayHasKey('/wp/v2/posts', $endpoints);
 	}
 
 	private function getStandardAdminbar(): WP_Admin_Bar
