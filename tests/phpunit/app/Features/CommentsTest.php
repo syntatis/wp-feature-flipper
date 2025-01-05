@@ -290,12 +290,33 @@ class CommentsTest extends WPTestCase
 	/** @testdox should return inherited value if the comments feature is disabled */
 	public function testFilterCommentsQueryNotOnDashboard(): void
 	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+		$productId = self::factory()->post->create(['post_type' => 'product']);
+
 		$this->assertFalse(is_admin());
 		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query()));
-		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'post'])));
+		$this->assertSame(
+			[],
+			$this->instance->filterCommentsPreQuery(
+				[1],
+				new WP_Comment_Query([
+					'post_type' => 'post',
+					'post_id' => $postId,
+				]),
+			),
+		);
 
 		// Post type is excluded.
-		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'product'])));
+		$this->assertSame(
+			[1],
+			$this->instance->filterCommentsPreQuery(
+				[1],
+				new WP_Comment_Query([
+					'post_type' => 'product',
+					'post_id' => $productId,
+				]),
+			),
+		);
 	}
 
 	/** @testdox should filter out the comments count when queried on the dashboard */

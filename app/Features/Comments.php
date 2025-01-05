@@ -17,6 +17,7 @@ use WP_Comment_Query;
 use function in_array;
 use function is_array;
 use function is_readable;
+use function is_string;
 use function remove_post_type_support;
 use function strip_tags;
 
@@ -209,18 +210,27 @@ class Comments implements Hookable
 	 */
 	public function filterCommentsPreQuery(?array $comments, WP_Comment_Query $query): ?array
 	{
-		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
+		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
 		$postType = $query->query_vars['post_type'] ?? '';
+		$postId = $query->query_vars['post_id'] ?? 0;
+		$postIdType = get_post_type($postId);
+		// phpcs:enable
 
 		if (self::isDashboardPage()) {
-			if ($postType === '' || ! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
+			if ($postType === '') {
+				return [];
+			}
+
+			$postType = is_string($postType) ? $postType : (string) $postIdType;
+
+			if (! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
 				return [];
 			}
 
 			return $comments;
 		}
 
-		if (! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
+		if (! in_array($postIdType, self::EXCLUDE_POST_TYPES, true)) {
 			return [];
 		}
 
