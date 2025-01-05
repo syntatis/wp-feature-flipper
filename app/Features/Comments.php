@@ -169,6 +169,8 @@ class Comments implements Hookable
 	}
 
 	/**
+	 * @see https://github.com/WordPress/WordPress/blob/mster/wp-includes/class-wp-xmlrpc-server.php#L70 For the full list of XML-RPC methods.
+	 *
 	 * @param array<string,string> $methods
 	 *
 	 * @return array<string,string>

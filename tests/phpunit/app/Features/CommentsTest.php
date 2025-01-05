@@ -219,6 +219,30 @@ class CommentsTest extends WPTestCase
 		}
 	}
 
+	/** @testdox should filter out the xmlrpc endpoints */
+	public function testFilterXmlrpcMethods(): void
+	{
+		$methods = $this->instance->filterXmlrpcMethods([
+			'wp.deleteComment' => 'wp_deleteComment',
+			'wp.editComment' => 'wp_deleteComment',
+			'wp.getComment' => 'wp_getComment',
+			'wp.getCommentCount' => 'wp_deleteComment',
+			'wp.getCommentStatusList' => 'wp_deleteComment',
+			'wp.getComments' => 'wp_deleteComment',
+			'wp.newComment' => 'wp_deleteComment',
+			'wp.newPost' => 'wp_newPost',
+		]);
+
+		$this->assertArrayNotHasKey('wp.deleteComment', $methods);
+		$this->assertArrayNotHasKey('wp.editComment', $methods);
+		$this->assertArrayNotHasKey('wp.getComment', $methods);
+		$this->assertArrayNotHasKey('wp.getCommentCount', $methods);
+		$this->assertArrayNotHasKey('wp.getCommentStatusList', $methods);
+		$this->assertArrayNotHasKey('wp.getComments', $methods);
+		$this->assertArrayNotHasKey('wp.newComment', $methods);
+		$this->assertArrayHasKey('wp.newPost', $methods);
+	}
+
 	private function getStandardAdminbar(): WP_Admin_Bar
 	{
 		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? new WP_Admin_Bar();
