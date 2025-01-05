@@ -92,6 +92,10 @@ class CommentsTest extends WPTestCase
 		$this->assertFalse($this->hook->hasFilter('get_comments_number', [$this->instance, 'filterGetCommentsNumber']));
 		$this->assertFalse($this->hook->hasFilter('pings_open', [$this->instance, 'filterPingsOpen']));
 
+		$this->assertFalse($this->hook->hasFilter('feed_links_show_comments_feed', '__return_false'));
+		$this->assertFalse($this->hook->hasFilter('post_comments_feed_link', '__return_empty_string'));
+		$this->assertFalse($this->hook->hasFilter('post_comments_feed_link_html', '__return_empty_string'));
+
 		// Disable the "comments" feature.
 		Option::update('comments', false);
 
@@ -116,6 +120,10 @@ class CommentsTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('comments_open', [$this->instance, 'filterCommentsOpen']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('get_comments_number', [$this->instance, 'filterGetCommentsNumber']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('pings_open', [$this->instance, 'filterPingsOpen']));
+
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('feed_links_show_comments_feed', '__return_false'));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('post_comments_feed_link', '__return_empty_string'));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('post_comments_feed_link_html', '__return_empty_string'));
 	}
 
 	/** @testdox should remove "comments" support from selected post types */
