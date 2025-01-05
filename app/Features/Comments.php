@@ -19,6 +19,8 @@ use const PHP_INT_MAX;
 
 class Comments implements Hookable
 {
+	use WithAdmin;
+
 	public function hook(Hook $hook): void
 	{
 		if (Option::isOn('comments')) {

@@ -49,4 +49,16 @@ trait WithAdmin
 
 		return $currentScreen->id === 'settings_page_' . App::name();
 	}
+
+	/**
+	 * Whether the current view is the admin "Dashboard".
+	 */
+	private static function isDashboardPage(): bool
+	{
+		if (! is_admin()) {
+			return false;
+		}
+
+		return ($GLOBALS['pagenow'] ?? '') === 'index.php';
+	}
 }
