@@ -213,25 +213,25 @@ class Comments implements Hookable
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
 		$postType = $query->query_vars['post_type'] ?? '';
 		$postId = $query->query_vars['post_id'] ?? 0;
-		$postIdType = get_post_type($postId);
+		$postIdType = (string) get_post_type($postId);
 		// phpcs:enable
 
+		$postType = is_string($postType) ? $postType : $postIdType;
+
 		if (self::isDashboardPage()) {
-			if ($postType === '') {
-				return [];
-			}
-
-			$postType = is_string($postType) ? $postType : (string) $postIdType;
-
-			if (! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
+			if ($postType === '' || ! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
 				return [];
 			}
 
 			return $comments;
 		}
 
-		if (! in_array($postIdType, self::EXCLUDE_POST_TYPES, true)) {
-			return [];
+		if (! is_admin()) {
+			if ((bool) $postType && ! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
+				return [];
+			}
+
+			return $comments;
 		}
 
 		return $comments;

@@ -294,7 +294,16 @@ class CommentsTest extends WPTestCase
 		$productId = self::factory()->post->create(['post_type' => 'product']);
 
 		$this->assertFalse(is_admin());
-		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query()));
+		$this->assertSame(
+			[],
+			$this->instance->filterCommentsPreQuery(
+				[1],
+				new WP_Comment_Query([
+					'post_type' => 'post',
+					'post_id' => $postId,
+				]),
+			),
+		);
 		$this->assertSame(
 			[],
 			$this->instance->filterCommentsPreQuery(
@@ -315,6 +324,23 @@ class CommentsTest extends WPTestCase
 					'post_type' => 'product',
 					'post_id' => $productId,
 				]),
+			),
+		);
+
+		// Without ID.
+		$this->assertSame(
+			[],
+			$this->instance->filterCommentsPreQuery(
+				[1],
+				new WP_Comment_Query(['post_type' => 'post']),
+			),
+		);
+
+		$this->assertSame(
+			[1],
+			$this->instance->filterCommentsPreQuery(
+				[1],
+				new WP_Comment_Query(['post_type' => 'product']),
 			),
 		);
 	}
