@@ -153,6 +153,15 @@ class AdminBar implements Hookable
 		foreach ($nodes as $node) {
 			$nodeParent = $node->parent;
 
+			/**
+			 * If the node is not a top-level node or a node within the `top-secondary`,
+			 * skip it. The `top-secondary` node may contain menus that may be hidden
+			 * or shown, such as the "environment type", "site status", etc.
+			 *
+			 * @see Syntatis\FeatureFlipper\Features\AdminBar::addEnvironmentTypeNode()
+			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode
+			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode
+			 */
 			if ($nodeParent !== false && $nodeParent !== 'top-secondary') {
 				continue;
 			}
