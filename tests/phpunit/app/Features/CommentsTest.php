@@ -9,6 +9,7 @@ use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
+use WP_Admin_Bar;
 
 use const PHP_INT_MAX;
 
@@ -20,6 +21,14 @@ class CommentsTest extends WPTestCase
 {
 	private Hook $hook;
 	private Comments $instance;
+
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
+	public static function set_up_before_class(): void
+	{
+		parent::set_up_before_class();
+
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function set_up(): void
@@ -37,6 +46,14 @@ class CommentsTest extends WPTestCase
 				'supports' => ['comments', 'trackbacks'],
 			],
 		);
+	}
+
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
+	public function tear_down(): void
+	{
+		unregister_post_type('product');
+
+		parent::tear_down();
 	}
 
 	/** @testdox should have callback attached to hooks */
@@ -150,5 +167,31 @@ class CommentsTest extends WPTestCase
 	public static function dataRemovePostMetaboxExcluded(): iterable
 	{
 		yield 'product' => ['product'];
+	}
+
+	/** @testdox should remove "comments" menu in the admin bar */
+	public function testRemoveAdminBarMenu(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		$wpAdminBar = $this->getStandardAdminbar();
+		$node = $wpAdminBar->get_node('comments');
+
+		$this->assertObjectHasProperty('id', $node);
+		$this->assertSame('comments', $node->id);
+
+		$this->instance->removeAdminBarMenu($wpAdminBar);
+
+		$this->assertNull($wpAdminBar->get_node('comments'));
+	}
+
+	private function getStandardAdminbar(): WP_Admin_Bar
+	{
+		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? new WP_Admin_Bar();
+
+		_wp_admin_bar_init();
+		do_action_ref_array('admin_bar_menu', [&$wpAdminBar]);
+
+		return $wpAdminBar;
 	}
 }

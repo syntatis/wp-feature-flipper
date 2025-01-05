@@ -17,6 +17,7 @@ use WP_Comment_Query;
 use function in_array;
 use function is_readable;
 use function remove_post_type_support;
+use function strip_tags;
 
 use const PHP_INT_MAX;
 
@@ -94,13 +95,21 @@ class Comments implements Hookable
 		$pagenow = $GLOBALS['pagenow'] ?? '';
 
 		if ($pagenow === 'comment.php' || $pagenow === 'edit-comments.php') {
-			wp_die(esc_html__('Comments are disabled.', 'syntatis-feature-flipper'), '', ['response' => 403]);
+			wp_die(
+				esc_html__('Comments are disabled.', 'syntatis-feature-flipper'),
+				esc_html(strip_tags(get_admin_page_title())),
+				['response' => 403],
+			);
 		}
 
 		remove_menu_page('edit-comments.php');
 
 		if ($pagenow === 'options-discussion.php') {
-			wp_die(esc_html__('Comments are disabled.', 'syntatis-feature-flipper'), '', ['response' => 403]);
+			wp_die(
+				esc_html__('Comments are disabled.', 'syntatis-feature-flipper'),
+				esc_html(strip_tags(get_admin_page_title())),
+				['response' => 403],
+			);
 		}
 
 		remove_submenu_page('options-general.php', 'options-discussion.php');
