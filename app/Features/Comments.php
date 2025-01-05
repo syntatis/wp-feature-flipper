@@ -15,6 +15,7 @@ use WP_Comment;
 use WP_Comment_Query;
 
 use function in_array;
+use function is_array;
 use function is_readable;
 use function remove_post_type_support;
 use function strip_tags;
@@ -252,7 +253,7 @@ class Comments implements Hookable
 			];
 		}
 
-		return $count;
+		return is_array($count) && $count !== [] ? (object) $count : $count;
 	}
 
 	/**

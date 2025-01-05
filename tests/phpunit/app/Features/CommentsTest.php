@@ -57,7 +57,9 @@ class CommentsTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
-		$GLOBALS = $this->globals;
+		$GLOBALS['pagenow'] = $this->globals['pagenow']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+
 		unregister_post_type('product');
 
 		parent::tear_down();
@@ -289,6 +291,132 @@ class CommentsTest extends WPTestCase
 
 		// Post type is excluded.
 		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'product'])));
+	}
+
+	/** @testdox should filter out the comments count when queried on the dashboard */
+	public function testFilterCommentsCountOnDashboard(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('dashboard');
+		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
+
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+		$productId = self::factory()->post->create(['post_type' => 'product']);
+
+		$this->assertTrue(is_admin());
+		$this->assertEquals(
+			(object) [
+				'approved' => 0,
+				'awaiting_moderation' => 0,
+				'spam' => 0,
+				'trash' => 0,
+				'post-trashed' => 0,
+				'total_comments' => 0,
+				'all' => 0,
+				'moderated' => 0,
+			],
+			$this->instance->filterCommentsCount(
+				[
+					'approved' => 2,
+					'awaiting_moderation' => 0,
+					'spam' => 0,
+					'trash' => 0,
+					'post-trashed' => 0,
+					'total_comments' => 0,
+					'all' => 2,
+					'moderated' => 0,
+				],
+				$postId,
+			),
+		);
+
+		// Post type is excluded.
+		$this->assertEquals(
+			(object) [
+				'approved' => 3,
+				'awaiting_moderation' => 0,
+				'spam' => 0,
+				'trash' => 0,
+				'post-trashed' => 0,
+				'total_comments' => 0,
+				'all' => 3,
+				'moderated' => 0,
+			],
+			$this->instance->filterCommentsCount(
+				[
+					'approved' => 3,
+					'awaiting_moderation' => 0,
+					'spam' => 0,
+					'trash' => 0,
+					'post-trashed' => 0,
+					'total_comments' => 0,
+					'all' => 3,
+					'moderated' => 0,
+				],
+				$productId,
+			),
+		);
+	}
+
+	/** @testdox should filter out the comments count when queried outside the dashboard */
+	public function testFilterCommentsCountOutsideDashboard(): void
+	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+		$productId = self::factory()->post->create(['post_type' => 'product']);
+
+		$this->assertFalse(is_admin());
+		$this->assertEquals(
+			(object) [
+				'approved' => 0,
+				'awaiting_moderation' => 0,
+				'spam' => 0,
+				'trash' => 0,
+				'post-trashed' => 0,
+				'total_comments' => 0,
+				'all' => 0,
+				'moderated' => 0,
+			],
+			$this->instance->filterCommentsCount(
+				[
+					'approved' => 2,
+					'awaiting_moderation' => 0,
+					'spam' => 0,
+					'trash' => 0,
+					'post-trashed' => 0,
+					'total_comments' => 0,
+					'all' => 2,
+					'moderated' => 0,
+				],
+				$postId,
+			),
+		);
+
+		// Post type is excluded.
+		$this->assertEquals(
+			(object) [
+				'approved' => 3,
+				'awaiting_moderation' => 0,
+				'spam' => 0,
+				'trash' => 0,
+				'post-trashed' => 0,
+				'total_comments' => 0,
+				'all' => 3,
+				'moderated' => 0,
+			],
+			$this->instance->filterCommentsCount(
+				[
+					'approved' => 3,
+					'awaiting_moderation' => 0,
+					'spam' => 0,
+					'trash' => 0,
+					'post-trashed' => 0,
+					'total_comments' => 0,
+					'all' => 3,
+					'moderated' => 0,
+				],
+				$productId,
+			),
+		);
 	}
 
 	private function getStandardAdminbar(): WP_Admin_Bar
