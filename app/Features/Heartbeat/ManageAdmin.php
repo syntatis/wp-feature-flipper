@@ -70,7 +70,7 @@ class ManageAdmin implements Hookable
 		 *
 		 * @see \Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor
 		 */
-		if (! is_admin() || self::isPostEditor()) {
+		if (! is_admin() || self::isPostEditor() || ! Option::isOn('heartbeat_admin')) {
 			return $settings;
 		}
 
