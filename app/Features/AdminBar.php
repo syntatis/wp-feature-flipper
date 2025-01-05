@@ -153,7 +153,11 @@ class AdminBar implements Hookable
 		foreach ($nodes as $node) {
 			$nodeParent = $node->parent;
 
-			if (($nodeParent !== false && $nodeParent !== 'top-secondary') || in_array($node->id, self::getExcludedMenu(), true)) {
+			if ($nodeParent !== false && $nodeParent !== 'top-secondary') {
+				continue;
+			}
+
+			if (in_array($node->id, self::getExcludedMenu(), true)) {
 				continue;
 			}
 
