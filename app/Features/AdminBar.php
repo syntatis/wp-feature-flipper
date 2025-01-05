@@ -18,9 +18,11 @@ use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
+use function sort;
 use function sprintf;
 
 use const PHP_INT_MAX;
+use const SORT_ASC;
 
 class AdminBar implements Hookable
 {
@@ -29,12 +31,22 @@ class AdminBar implements Hookable
 	 *
 	 * - menu-toggle: The menu toggle button shown before the site name on small screen.
 	 * - site-name: Shows the site name that links to visit the site homepage.
-	 * - top-secondary: The top secondary menu which contains the user profile and the logout link.
+	 * - my-account: The user account menu, which includes the user's display name and avatar.
 	 */
-	private const DEFAULT_EXCLUDED_MENU = [
+	private const EXCLUDE_MENU = [
 		'menu-toggle',
 		'site-name',
+		'my-account',
 		'top-secondary',
+	];
+
+	/**
+	 * List of Core menu that may not be identifiable in the Admin screen.
+	 */
+	private const INCLUDE_CORE_MENU = [
+		'customize',
+		'edit',
+		'search',
 	];
 
 	private string $appName;
@@ -106,10 +118,13 @@ class AdminBar implements Hookable
 			return $data;
 		}
 
+		$menu = self::getRegisteredMenu();
+		sort($menu, SORT_ASC);
+
 		$curr = $data['$wp'] ?? [];
 		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
-			['adminBarMenu' => self::getRegisteredMenu()],
+			['adminBarMenu' => $menu],
 		);
 
 		return $data;
@@ -127,6 +142,7 @@ class AdminBar implements Hookable
 
 		/** @var WP_Admin_Bar $wpAdminBarMenu */
 		$wpAdminBarMenu = $GLOBALS['wp_admin_bar'];
+		// dd($wpAdminBarMenu);
 		$nodes = $wpAdminBarMenu->get_nodes();
 		$items = [];
 
@@ -137,13 +153,17 @@ class AdminBar implements Hookable
 		foreach ($nodes as $node) {
 			$nodeParent = $node->parent;
 
-			if ($nodeParent !== false || in_array($node->id, self::getExcludedMenu(), true)) {
+			if (($nodeParent !== false && $nodeParent !== 'top-secondary') || in_array($node->id, self::getExcludedMenu(), true)) {
 				continue;
 			}
 
 			$items[] = [
 				'id' => $node->id,
 			];
+		}
+
+		foreach (self::INCLUDE_CORE_MENU as $key) {
+			$items[] = ['id' => $key];
 		}
 
 		return $items;
@@ -228,7 +248,7 @@ class AdminBar implements Hookable
 	/** @return array<string> */
 	private static function getExcludedMenu(): array
 	{
-		$excludes = self::DEFAULT_EXCLUDED_MENU;
+		$excludes = self::EXCLUDE_MENU;
 
 		if (! Option::isOn('comments')) {
 			$excludes = [
