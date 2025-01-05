@@ -57,8 +57,13 @@ class CommentsTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
-		$GLOBALS['pagenow'] = $this->globals['pagenow']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		if (isset($this->globals['pagenow'])) {
+			$GLOBALS['pagenow'] = $this->globals['pagenow']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
+
+		if (isset($this->globals['wp_admin_bar'])) {
+			$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
 
 		unregister_post_type('product');
 
