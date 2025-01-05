@@ -419,6 +419,74 @@ class CommentsTest extends WPTestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataFilterCommmentsArray
+	 * @testdox should empty comments array
+	 */
+	public function testFilterCommentsArray(string $postType, array $expect): void
+	{
+		$postId = self::factory()->post->create(['post_type' => $postType]);
+
+		$this->assertSame($expect, $this->instance->filterCommentsArray([1], $postId));
+	}
+
+	public static function dataFilterCommmentsArray(): iterable
+	{
+		yield 'post' => ['post', []];
+		yield 'product' => ['product', [1]];
+	}
+
+	/**
+	 * @dataProvider dataFilterCommmentsOpen
+	 * @testdox should open or close comments
+	 */
+	public function testFilterCommentsOpen(string $postType, bool $expect): void
+	{
+		$postId = self::factory()->post->create(['post_type' => $postType]);
+
+		$this->assertSame($expect, $this->instance->filterCommentsOpen(true, $postId));
+	}
+
+	public static function dataFilterCommmentsOpen(): iterable
+	{
+		yield 'post' => ['post', false];
+		yield 'product' => ['product', true];
+	}
+
+	/**
+	 * @dataProvider dataFilterPingsOpen
+	 * @testdox should open or close pings
+	 */
+	public function testFilterPingsOpen(string $postType, bool $expect): void
+	{
+		$postId = self::factory()->post->create(['post_type' => $postType]);
+
+		$this->assertSame($expect, $this->instance->filterPingsOpen(true, $postId));
+	}
+
+	public static function dataFilterPingsOpen(): iterable
+	{
+		yield 'post' => ['post', false];
+		yield 'product' => ['product', true];
+	}
+
+	/**
+	 * @dataProvider dataFilterGetCommentsNumber
+	 * @testdox should return the number of comments or 0
+	 */
+	public function testFilterGetCommentsNumber(string $postType, int $expect): void
+	{
+		$postId = self::factory()->post->create(['post_type' => $postType]);
+
+		$this->assertSame($expect, $this->instance->filterGetCommentsNumber(2, $postId));
+	}
+
+	public static function dataFilterGetCommentsNumber(): iterable
+	{
+		yield 'post' => ['post', 0];
+		yield 'product' => ['product', 2];
+	}
+
 	private function getStandardAdminbar(): WP_Admin_Bar
 	{
 		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? new WP_Admin_Bar();
