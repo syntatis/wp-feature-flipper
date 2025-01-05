@@ -420,7 +420,7 @@ class CommentsTest extends WPTestCase
 	}
 
 	/**
-	 * @dataProvider dataFilterCommmentsArray
+	 * @dataProvider dataFilterCommentsArray
 	 * @testdox should empty comments array
 	 */
 	public function testFilterCommentsArray(string $postType, array $expect): void
@@ -430,14 +430,14 @@ class CommentsTest extends WPTestCase
 		$this->assertSame($expect, $this->instance->filterCommentsArray([1], $postId));
 	}
 
-	public static function dataFilterCommmentsArray(): iterable
+	public static function dataFilterCommentsArray(): iterable
 	{
 		yield 'post' => ['post', []];
 		yield 'product' => ['product', [1]];
 	}
 
 	/**
-	 * @dataProvider dataFilterCommmentsOpen
+	 * @dataProvider dataFilterCommentsOpen
 	 * @testdox should open or close comments
 	 */
 	public function testFilterCommentsOpen(string $postType, bool $expect): void
@@ -447,7 +447,7 @@ class CommentsTest extends WPTestCase
 		$this->assertSame($expect, $this->instance->filterCommentsOpen(true, $postId));
 	}
 
-	public static function dataFilterCommmentsOpen(): iterable
+	public static function dataFilterCommentsOpen(): iterable
 	{
 		yield 'post' => ['post', false];
 		yield 'product' => ['product', true];
