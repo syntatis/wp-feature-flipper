@@ -209,7 +209,17 @@ class Comments implements Hookable
 	public function filterCommentsPreQuery(?array $comments, WP_Comment_Query $query): ?array
 	{
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
-		if (self::isDashboardPage() && $query->query_vars['post_type'] === '') {
+		$postType = $query->query_vars['post_type'] ?? '';
+
+		if (self::isDashboardPage()) {
+			if ($postType === '' || ! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
+				return [];
+			}
+
+			return $comments;
+		}
+
+		if (! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
 			return [];
 		}
 

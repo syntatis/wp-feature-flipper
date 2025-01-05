@@ -274,13 +274,21 @@ class CommentsTest extends WPTestCase
 
 		$this->assertTrue(is_admin());
 		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => ''])));
+		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'post'])));
+
+		// Post type is excluded.
 		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'product'])));
 	}
 
 	/** @testdox should return inherited value if the comments feature is disabled */
 	public function testFilterCommentsQueryNotOnDashboard(): void
 	{
-		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query()));
+		$this->assertFalse(is_admin());
+		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query()));
+		$this->assertSame([], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'post'])));
+
+		// Post type is excluded.
+		$this->assertSame([1], $this->instance->filterCommentsPreQuery([1], new WP_Comment_Query(['post_type' => 'product'])));
 	}
 
 	private function getStandardAdminbar(): WP_Admin_Bar
