@@ -51,13 +51,13 @@ class Comments implements Hookable
 
 		/**
 		 * Modify the comments query to prevent comments from being displayed in the
-		 * "Dashboard".
+		 * admin "Dashboard".
 		 */
 		$hook->addFilter('comments_pre_query', [$this, 'filterCommentsPreQuery'], PHP_INT_MAX, 2);
 		$hook->addFilter('wp_count_comments', [$this, 'filterCommentsCount'], PHP_INT_MAX, 2);
 
 		/**
-		 * Prevent comments from being displayed on the theme/template.
+		 * Prevent comments from being displayed on the theme template.
 		 *
 		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
 		 */
