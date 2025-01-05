@@ -25,4 +25,95 @@ class OptionStashTest extends WPTestCase
 
 		$this->assertTrue(OptionStash::delete('bar'));
 	}
+
+	/**
+	 * @dataProvider dataPatchArray
+	 * @testdox should patch the option value
+	 */
+	public function testPatchArray(
+		array $current,
+		array $stashed,
+		array $patchValue,
+		array $expectCurrent
+	): void {
+		Option::update('baz', $current);
+		Option::update('baz_stash', $stashed);
+		OptionStash::patchArray('baz', $patchValue);
+
+		$this->assertEquals($patchValue, OptionStash::get('baz'));
+		$this->assertEquals($expectCurrent, Option::get('baz'));
+	}
+
+	public function dataPatchArray(): iterable
+	{
+		yield [
+			['a'], // Current.
+			['a'], // Stashed.
+			['b'], // Patch.
+			['b'], // Updated value.
+		];
+
+		yield [
+			['a'], // Current.
+			['a', 'b'], // Stashed.
+			['c', 'd'], // Patch.
+			['c', 'd'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Current.
+			['a', 'b'], // Stashed.
+			['c'], // Patch.
+			['c'], // Updated value.
+		];
+
+		yield [
+			['a'], // Current.
+			['a'], // Stashed.
+			['a', 'b'], // Patch.
+			['a', 'b'],
+		];
+
+		yield [
+			['a'], // Current.
+			['a', 'b'], // Stashed.
+			['a', 'b', 'c'], // Patch.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Current.
+			['a', 'b'], // Stashed.
+			['a'], // Patch.
+			['a'], // Updated value.
+		];
+
+		yield [
+			['a'], // Current.
+			['a', 'b'], // Stashed.
+			['a', 'c'], // Patch.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Current.
+			['a', 'b'], // Stashed.
+			['a', 'c'], // Patch.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b', 'c'], // Current.
+			['a', 'b', 'c'], // Stashed.
+			['a', 'b'], // Patch.
+			['a', 'b'], // Updated value.
+		];
+
+		yield [
+			['a'], // Current.
+			['a', 'b'], // Stashed.
+			['a', 'b'], // Patch.
+			['a'], // Updated value.
+		];
+	}
 }
