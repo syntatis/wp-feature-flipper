@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Concerns;
 
 use SSFV\Codex\Facades\App;
+use WP_Screen;
 
 use function array_merge;
 use function function_exists;
@@ -48,5 +49,27 @@ trait WithAdmin
 		}
 
 		return $currentScreen->id === 'settings_page_' . App::name();
+	}
+
+	/**
+	 * Whether the current view is the admin "Dashboard".
+	 */
+	private static function isDashboardPage(): bool
+	{
+		if (! is_admin()) {
+			return false;
+		}
+
+		$currentScreen = null;
+
+		if (function_exists('get_current_screen')) {
+			$currentScreen = get_current_screen();
+		}
+
+		if ($currentScreen instanceof WP_Screen) {
+			return $currentScreen->id === 'dashboard';
+		}
+
+		return ($GLOBALS['pagenow'] ?? '') === 'index.php';
 	}
 }
