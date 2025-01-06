@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
 import { Details, HelpContent } from '../components';
 
-export const AdminBarInputs = () => {
+export const AdminBarFieldset = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const menu = inlineData.$wp.adminBarMenu || [];
 
@@ -36,7 +36,7 @@ export const AdminBarInputs = () => {
 				<CheckboxGroup
 					defaultValue={
 						getOption( 'admin_bar_menu' ) ??
-						menu.map( ( { id } ) => id )
+						menu.map( ( id ) => id )
 					}
 					label={ __( 'Menu', 'syntatis-feature-flipper' ) }
 					description={ __(
@@ -45,7 +45,7 @@ export const AdminBarInputs = () => {
 					) }
 					{ ...inputProps( 'admin_bar_menu' ) }
 				>
-					{ menu.map( ( { id } ) => (
+					{ menu.map( ( id ) => (
 						<Checkbox
 							key={ id }
 							value={ id }
