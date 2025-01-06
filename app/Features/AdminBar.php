@@ -58,20 +58,27 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
+		$hook->addFilter(
+			self::defaultOptionHook('admin_bar_menu'),
+			static fn () => self::getRegisteredMenu(),
+			PHP_INT_MAX,
+		);
+
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
 
 		if (! Option::isOn('admin_bar_howdy')) {
 			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
-		if (Option::isOn('admin_bar_env_type')) {
-			$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
+		if (! Option::isOn('admin_bar_env_type')) {
+			return;
 		}
 
-		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
+		$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 	}
 
 	public function enqueueScripts(): void
