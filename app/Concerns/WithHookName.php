@@ -41,7 +41,7 @@ trait WithHookName
 	 * Retrieve the update option filter name, added with plugin the prefix.
 	 *
 	 * @see inc/config/app.php For the option prefix.
-	 * @see https://developer.wordpress.org/reference/hooks/update_option_option/For the hook documentation.
+	 * @see https://developer.wordpress.org/reference/hooks/update_option_option/ For the hook documentation.
 	 *
 	 * @phpstan-param non-empty-string $name
 	 */
@@ -61,6 +61,19 @@ trait WithHookName
 	private static function addOptionHook(string $name): string
 	{
 		return 'add_option_' . Option::name($name);
+	}
+
+	/**
+	 * Retrieve the delete option filter name, added with plugin the prefix.
+	 *
+	 * @see inc/config/app.php For the option prefix.
+	 * @see https://developer.wordpress.org/reference/hooks/delete_option_option/ For the hook documentation.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function deleteOptionHook(string $name): string
+	{
+		return 'delete_option_' . Option::name($name);
 	}
 
 	/**
