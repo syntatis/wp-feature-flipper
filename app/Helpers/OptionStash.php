@@ -12,7 +12,35 @@ use function array_unique;
 use function array_values;
 use function count;
 use function in_array;
+use function is_array;
 
+/**
+ * A stash option is a special type of plugin option. It is used to track
+ * changes (like additions or removals) to arrays or objects value but
+ * won't be used directly by the plugin.
+ *
+ * For example, consider a plugin option named `adminbar_menu`. The option
+ * controls which menus are displayed in the admin bar. If it currently
+ * returns ['a', 'b', 'c'], only these menus is going to be shown in
+ * the admin bar.
+ *
+ * The issue arises when another plugin adds a new menu to the admin bar.
+ * Since it can't directly modify the `adminbar_menu` option, the new
+ * menu won't appear, which is often not the behavior a user would
+ * expect.
+ *
+ * This is where stash option is designed for. It tracks the full list of
+ * menus that should be displayed in the admin bar.
+ *
+ * While the `adminbar_menu` option is used to store menus that should be
+ * displayed, the corresponding stash option, will keep track the full
+ * list of the menu available. It helps to determine which ones are
+ * new, which one should be  removed, and which one should still
+ * be there.
+ *
+ * This ensure updates are reflected accordingly, so menus added by other
+ * plugins won't be hidden by default.
+ */
 class OptionStash
 {
 	/**
