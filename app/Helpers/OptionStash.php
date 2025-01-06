@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Helpers;
 use function array_diff;
 use function array_filter;
 use function array_intersect;
-use function array_merge;
 use function array_unique;
 use function array_values;
 use function count;
@@ -65,6 +64,18 @@ class OptionStash
 	}
 
 	/**
+	 * Update the plugin stash option.
+	 *
+	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
+	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
+	 * @phpstan-param non-empty-string $name
+	 */
+	private static function update(string $name, $value): bool
+	{
+		return update_option(Option::name($name) . '_stash', $value);
+	}
+
+	/**
 	 * Delete the plugin stash option.
 	 *
 	 * @param string $name Name of the option to update. Expected to not be SQL-escaped.
@@ -76,54 +87,69 @@ class OptionStash
 	}
 
 	/**
-	 * Patch value of the plugin stash option.
+	 * Patch the value of a stash option.
+	 *
+	 * @param string                 $name   Name of the option to update. Expected to not be SQL-escaped.
+	 * @param array<array-key,mixed> $values Values to be added to the option.
+	 * @phpstan-param non-empty-string $name
+	 */
+	public static function patch(string $name, array $values): void
+	{
+		if (! Arr::isList($values)) {
+			return;
+		}
+
+		self::patchList($name, $values);
+	}
+
+	/**
+	 * Patch list value of the plugin stash option.
 	 *
 	 * @param string           $name   Name of the option to update. Expected to not be SQL-escaped.
 	 * @param array<int,mixed> $values Values to be added to the option.
 	 * @phpstan-param non-empty-string $name
+	 * @phpstan-param list<mixed> $values
 	 */
-	public static function patchArray(string $name, array $values): bool
+	private static function patchList(string $name, array $values): void
 	{
-		$currentValue = (array) Option::get($name);
-		$stashedValue = self::get($name);
+		$currentStashedValue = self::get($name);
+
+		if ($currentStashedValue === $values) {
+			return;
+		}
 
 		// Replace current stashed value with the new values.
 		self::update($name, $values);
+
+		$currentValue = Option::get($name);
+
+		if (! is_array($currentValue)) {
+			return;
+		}
 
 		/**
 		 * If the intersection between the values and the stashed values is empty,
 		 * it means that the value is a complete new value.
 		 */
-		if (array_intersect($values, $stashedValue) === []) {
-			// Simply update the option with the new values.
-			return Option::update(
+		if (array_intersect($values, $currentStashedValue) === []) {
+			Option::update(
 				$name,
 				array_values(array_unique($values)),
 			);
+
+			return;
 		}
 
-		if (count($values) <= count($stashedValue)) {
+		if (count($values) <= count($currentStashedValue)) {
 			$currentValue = array_filter(
 				$currentValue,
 				static fn ($v) => in_array($v, $values, true),
 			);
 		}
 
-		$newValue = array_diff($values, $stashedValue);
-		$updatedValue = array_values(array_unique(array_merge($currentValue, $newValue)));
+		$newValue = array_diff($values, $currentStashedValue);
+		$updatedValue = array_values(array_unique([...$currentValue, ...$newValue]));
 
-		return Option::update($name, $updatedValue);
-	}
-
-	/**
-	 * Update the plugin stash option.
-	 *
-	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
-	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
-	 * @phpstan-param non-empty-string $name
-	 */
-	private static function update(string $name, $value): bool
-	{
-		return update_option(Option::name($name) . '_stash', $value);
+		Option::update($name, $updatedValue);
 	}
 }

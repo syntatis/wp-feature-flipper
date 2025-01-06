@@ -38,7 +38,7 @@ class OptionStashTest extends WPTestCase
 	): void {
 		Option::update('baz', $current);
 		Option::update('baz_stash', $stashed);
-		OptionStash::patchArray('baz', $patchValue);
+		OptionStash::patch('baz', $patchValue);
 
 		$this->assertEquals($patchValue, OptionStash::get('baz'));
 		$this->assertEquals($expectCurrent, Option::get('baz'));
@@ -114,6 +114,20 @@ class OptionStashTest extends WPTestCase
 			['a', 'b'], // Stashed.
 			['a', 'b'], // Patch.
 			['a'], // Updated value.
+		];
+
+		yield [
+			['a'], // Current.
+			[], // Stashed.
+			['a', 'd'], // Patch.
+			['a', 'd'], // Updated value.
+		];
+
+		yield [
+			[], // Current.
+			['a'], // Stashed.
+			['a', 'd'], // Patch.
+			['d'], // Updated value.
 		];
 	}
 }
