@@ -44,6 +44,15 @@ use function is_array;
 class OptionStash
 {
 	/**
+	 * Prevent instantiation.
+	 *
+	 * @codeCoverageIgnore
+	 */
+	final private function __construct()
+	{
+	}
+
+	/**
 	 * Retrieve the value of the plugin stash option.
 	 *
 	 * @phpstan-param non-empty-string $name
