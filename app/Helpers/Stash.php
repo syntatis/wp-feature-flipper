@@ -11,7 +11,6 @@ use function array_unique;
 use function array_values;
 use function count;
 use function in_array;
-use function is_array;
 
 /**
  * A stash option is a special type of plugin option. It is used to track
@@ -40,7 +39,7 @@ use function is_array;
  * This ensure updates are reflected accordingly, so menus added by other
  * plugins won't be hidden by default.
  */
-class OptionStash
+class Stash
 {
 	/**
 	 * Prevent instantiation.
@@ -58,98 +57,59 @@ class OptionStash
 	 *
 	 * @return array<array-key,mixed>
 	 */
-	public static function get(string $name): array
+	private static function get(string $name): array
 	{
-		return (array) get_option(Option::name($name) . '_stash');
+		return (array) get_option('_' . Option::name($name) . '_stash');
 	}
 
 	/**
 	 * Update the plugin stash option.
 	 *
 	 * @param string $name  Name of the option to update. Expected to not be SQL-escaped.
-	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
+	 * @param array  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
 	 * @phpstan-param non-empty-string $name
+	 * @phpstan-param array<array-key,mixed> $value
 	 */
-	private static function update(string $name, $value): bool
+	private static function update(string $name, array $value): bool
 	{
-		return update_option(Option::name($name) . '_stash', $value);
+		return update_option('_' . Option::name($name) . '_stash', $value);
 	}
 
 	/**
-	 * Delete the plugin stash option.
+	 * @template TKey of array-key
+	 * @template TValue
 	 *
-	 * @param string $name Name of the option to update. Expected to not be SQL-escaped.
 	 * @phpstan-param non-empty-string $name
-	 */
-	public static function delete(string $name): bool
-	{
-		return delete_option(Option::name($name) . '_stash');
-	}
-
-	/**
-	 * Patch the value of a stash option.
+	 * @phpstan-param array<TKey,TValue> $value
+	 * @phpstan-param array<TKey,TValue> $source
 	 *
-	 * @param string                 $name   Name of the option to update. Expected to not be SQL-escaped.
-	 * @param array<array-key,mixed> $values Values to be added to the option.
-	 * @phpstan-param non-empty-string $name
+	 * @phpstan-return array<TKey,TValue>
 	 */
-	public static function patch(string $name, array $values): void
+	public static function patch(string $name, array $value, array $source): array
 	{
-		if (! Arr::isList($values)) {
-			return;
-		}
+		$stashed = self::get($name);
 
-		self::patchList($name, $values);
-	}
-
-	/**
-	 * Patch list value of the plugin stash option.
-	 *
-	 * @param string           $name   Name of the option to update. Expected to not be SQL-escaped.
-	 * @param array<int,mixed> $values Values to be added to the option.
-	 * @phpstan-param non-empty-string $name
-	 * @phpstan-param list<mixed> $values
-	 */
-	private static function patchList(string $name, array $values): void
-	{
-		$currentStashedValue = self::get($name);
-
-		if ($currentStashedValue === $values) {
-			return;
+		if ($source === $stashed) {
+			return $value;
 		}
 
 		// Replace current stashed value with the new values.
-		self::update($name, $values);
-
-		$currentValue = Option::get($name);
-
-		if (! is_array($currentValue)) {
-			return;
-		}
+		self::update($name, $source);
 
 		/**
 		 * If the intersection between the values and the stashed values is empty,
 		 * it means that the value is a complete new value.
 		 */
-		if (array_intersect($values, $currentStashedValue) === []) {
-			Option::update(
-				$name,
-				array_values(array_unique($values)),
-			);
-
-			return;
+		if (array_intersect($source, $stashed) === []) {
+			return $source;
 		}
 
-		if (count($values) <= count($currentStashedValue)) {
-			$currentValue = array_filter(
-				$currentValue,
-				static fn ($v) => in_array($v, $values, true),
-			);
+		if (count($source) <= count($stashed)) {
+			$value = array_filter($value, static fn ($v) => in_array($v, $source, true));
 		}
 
-		$newValue = array_diff($values, $currentStashedValue);
-		$updatedValue = array_values(array_unique([...$currentValue, ...$newValue]));
+		$newValue = array_diff($source, $stashed);
 
-		Option::update($name, $updatedValue);
+		return array_values(array_unique([...$value, ...$newValue]));
 	}
 }
