@@ -266,17 +266,8 @@ class AdminBar implements Hookable
 	}
 
 	/** @return array<string> */
-	private static function getExcludedMenu(): array
+	private static function getRegisteredMenu(): array
 	{
-		$excludes = self::EXCLUDE_MENU;
-
-		if (! Option::isOn('comments')) {
-			$excludes = [
-				...$excludes,
-				'comments',
-			];
-		}
-
-		return $excludes;
+		return array_keys((new RegisteredMenu())->getTopItems());
 	}
 }
