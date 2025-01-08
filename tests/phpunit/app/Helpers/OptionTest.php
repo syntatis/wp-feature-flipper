@@ -128,13 +128,22 @@ class OptionTest extends WPTestCase
 		];
 
 		/**
-		 * When the value is empty while the
+		 * When the value is empty, it could mean users may have unchecked all the
+		 * options. Existing value should remain, while new value in the source
+		 * should be included.
 		 */
 		yield [
 			[], // Value.
 			['a'], // Stashed.
 			['a', 'd'], // Source.
 			['d'], // Updated value.
+		];
+
+		yield [
+			[], // Value.
+			['a'], // Stashed.
+			['a'], // Source.
+			[], // Updated value.
 		];
 
 		/**
