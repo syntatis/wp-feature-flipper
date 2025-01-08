@@ -7,47 +7,26 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
+use function array_keys;
 use function array_merge;
-use function count;
 use function in_array;
 use function is_array;
 use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
-use function sort;
 use function sprintf;
 
 use const PHP_INT_MAX;
-use const SORT_ASC;
 
 class AdminBar implements Hookable
 {
-	/**
-	 * List of menu in the admin bar that should be excluded.
-	 *
-	 * - menu-toggle: The menu toggle button shown before the site name on small screen.
-	 * - site-name: Shows the site name that links to visit the site homepage.
-	 * - my-account: The user account menu, which includes the user's display name and avatar.
-	 */
-	private const EXCLUDE_MENU = [
-		'menu-toggle',
-		'site-name',
-		'my-account',
-		'top-secondary',
-	];
-
-	/**
-	 * List of Core menu that may not be identifiable in the Admin screen.
-	 */
-	private const INCLUDE_CORE_MENU = [
-		'customize',
-		'edit',
-		'search',
-	];
+	use WithHookName;
 
 	private string $appName;
 
@@ -58,10 +37,19 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
 			self::defaultOptionHook('admin_bar_menu'),
 			static fn () => self::getRegisteredMenu(),
+			PHP_INT_MAX,
+		);
+		$hook->addFilter(
+			self::optionHook('admin_bar_menu'),
+			static fn ($value) => Option::patch(
+				'admin_bar_menu',
+				is_array($value) ? $value : [],
+				self::getRegisteredMenu(),
+			),
 			PHP_INT_MAX,
 		);
 
@@ -126,8 +114,6 @@ class AdminBar implements Hookable
 		}
 
 		$menu = self::getRegisteredMenu();
-		sort($menu, SORT_ASC);
-
 		$curr = $data['$wp'] ?? [];
 		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
@@ -135,58 +121,6 @@ class AdminBar implements Hookable
 		);
 
 		return $data;
-	}
-
-	/** @return array<array{id:string}> */
-	private static function getRegisteredMenu(): array
-	{
-		/** @var array<array{id:string}>|null $items */
-		static $items = null;
-
-		if (is_array($items) && count($items) > 0) {
-			return $items;
-		}
-
-		/** @var WP_Admin_Bar $wpAdminBarMenu */
-		$wpAdminBarMenu = $GLOBALS['wp_admin_bar'];
-		// dd($wpAdminBarMenu);
-		$nodes = $wpAdminBarMenu->get_nodes();
-		$items = [];
-
-		if (! is_array($nodes)) {
-			return $items;
-		}
-
-		foreach ($nodes as $node) {
-			$nodeParent = $node->parent;
-
-			/**
-			 * If the node is not a top-level node or a node within the `top-secondary`,
-			 * skip it. The `top-secondary` node may contain menus that may be hidden
-			 * or shown, such as the "environment type", "site status", etc.
-			 *
-			 * @see Syntatis\FeatureFlipper\Features\AdminBar::addEnvironmentTypeNode()
-			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode
-			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode
-			 */
-			if ($nodeParent !== false && $nodeParent !== 'top-secondary') {
-				continue;
-			}
-
-			if (in_array($node->id, self::getExcludedMenu(), true)) {
-				continue;
-			}
-
-			$items[] = [
-				'id' => $node->id,
-			];
-		}
-
-		foreach (self::INCLUDE_CORE_MENU as $key) {
-			$items[] = ['id' => $key];
-		}
-
-		return $items;
 	}
 
 	public function removeNodes(WP_Admin_Bar $wpAdminBar): void
@@ -197,14 +131,12 @@ class AdminBar implements Hookable
 			return;
 		}
 
-		$menu = self::getRegisteredMenu();
-
-		foreach ($menu as $item) {
-			if (in_array($item['id'], $adminBarMenu, true)) {
+		foreach (self::getRegisteredMenu() as $menuId) {
+			if (in_array($menuId, $adminBarMenu, true)) {
 				continue;
 			}
 
-			$wpAdminBar->remove_node($item['id']);
+			$wpAdminBar->remove_node($menuId);
 		}
 	}
 
