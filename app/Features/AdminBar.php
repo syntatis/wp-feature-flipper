@@ -37,6 +37,7 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
 			self::defaultOptionHook('admin_bar_menu'),
@@ -52,7 +53,6 @@ class AdminBar implements Hookable
 			),
 			PHP_INT_MAX,
 		);
-
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
@@ -67,6 +67,41 @@ class AdminBar implements Hookable
 		}
 
 		$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
+	}
+
+	/** @param array<string> $options List of option names that have been updated. */
+	public function stashOptions(array $options): void
+	{
+		if (! in_array(Option::name('admin_bar_menu'), $options, true)) {
+			return;
+		}
+
+		Option::stash('admin_bar_menu', self::getRegisteredMenu());
+	}
+
+	/**
+	 * Provide additional data to include in the plugin's global inline data.
+	 *
+	 * @param array<string,mixed> $data
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function filterInlineData(array $data): array
+	{
+		$tab = $_GET['tab'] ?? null;
+
+		if ($tab !== 'admin') {
+			return $data;
+		}
+
+		$menu = self::getRegisteredMenu();
+		$curr = $data['$wp'] ?? [];
+		$data['$wp'] = array_merge(
+			is_array($curr) ? $curr : [],
+			['adminBarMenu' => $menu],
+		);
+
+		return $data;
 	}
 
 	public function enqueueScripts(): void
@@ -96,31 +131,6 @@ class AdminBar implements Hookable
 			$assets['version'] ?? null,
 			false,
 		);
-	}
-
-	/**
-	 * Provide additional data to include in the plugin's global inline data.
-	 *
-	 * @param array<string,mixed> $data
-	 *
-	 * @return array<string,mixed>
-	 */
-	public function filterInlineData(array $data): array
-	{
-		$tab = $_GET['tab'] ?? null;
-
-		if ($tab !== 'admin') {
-			return $data;
-		}
-
-		$menu = self::getRegisteredMenu();
-		$curr = $data['$wp'] ?? [];
-		$data['$wp'] = array_merge(
-			is_array($curr) ? $curr : [],
-			['adminBarMenu' => $menu],
-		);
-
-		return $data;
 	}
 
 	public function removeNodes(WP_Admin_Bar $wpAdminBar): void
@@ -200,6 +210,6 @@ class AdminBar implements Hookable
 	/** @return array<string> */
 	private static function getRegisteredMenu(): array
 	{
-		return array_keys((new RegisteredMenu())->getTopItems());
+		return array_keys(RegisteredMenu::all('top'));
 	}
 }
