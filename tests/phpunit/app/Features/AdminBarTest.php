@@ -26,12 +26,18 @@ class AdminBarTest extends WPTestCase
 	/** @var array<string,mixed> */
 	private array $globals = [];
 
+	/** @var array<string,mixed> */
+	private array $_get = [];
+
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function set_up(): void
 	{
 		parent::set_up();
 
+		// Backup globals to restore them later.
+		$this->_get = $_GET;
 		$this->globals = $GLOBALS;
+
 		$this->hook = new Hook();
 		$this->instance = new AdminBar();
 		$this->instance->hook($this->hook);
@@ -40,13 +46,14 @@ class AdminBarTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
-		parent::tear_down();
-
-		if (! isset($this->globals['wp_admin_bar'])) {
-			return;
+		// Restore globals.
+		if (isset($this->globals['wp_admin_bar'])) {
+			$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 
-		$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$_GET = $this->_get;
+
+		parent::tear_down();
 	}
 
 	/** @testdox should has the callback attached to hook */
@@ -101,5 +108,28 @@ class AdminBarTest extends WPTestCase
 
 		yield [[], false];
 		yield [['admin_bar_menu'], false]; // Invalid option name.
+	}
+
+	/** @testdox should return the registered menu in admin for inline data */
+	public function testFilterInlineData(): void
+	{
+		$_GET['tab'] = 'general';
+
+		$data = $this->instance->filterInlineData([]);
+
+		$this->assertEmpty($data);
+
+		/**
+		 * The `admin` tab is the only tab that should return the registered menu.
+		 */
+		$_GET['tab'] = 'admin';
+
+		$data = $this->instance->filterInlineData([]);
+
+		$this->assertSame([
+			'$wp' => [
+				'adminBarMenu' => array_keys(RegisteredMenu::all('top')),
+			],
+		], $data);
 	}
 }
