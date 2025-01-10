@@ -18,7 +18,7 @@ function parseExceptionMessage( errorString ) {
 	return null;
 }
 
-export const useSettings = ( { optionPrefix } ) => {
+export const useSettings = ( { optionPrefix, nonceData } ) => {
 	const [ values, setValues ] = useState( preloaded );
 	const [ updatedValues, setUpdatedValues ] = useState();
 	const [ updating, setUpdating ] = useState( false );
@@ -87,7 +87,12 @@ export const useSettings = ( { optionPrefix } ) => {
 			} )
 			.finally( () => {
 				setUpdatedValues( data );
-				window.location.reload();
+
+				const search = new URLSearchParams( window.location.search );
+				search.set( 'options', btoa( Object.keys( data ).toString() ) );
+				search.set( 'nonce', nonceData );
+
+				window.location.search = search.toString();
 			} );
 	};
 

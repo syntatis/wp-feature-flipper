@@ -9,9 +9,10 @@ domReady( () => {
 	);
 	if ( container ) {
 		const inlineData = JSON.parse( container.dataset.inline );
+		const nonceData = container.dataset.nonce;
 
 		createRoot( container ).render(
-			<SettingsProvider inlineData={ inlineData }>
+			<SettingsProvider inlineData={ inlineData } nonceData={ nonceData }>
 				<Page />
 			</SettingsProvider>
 		);

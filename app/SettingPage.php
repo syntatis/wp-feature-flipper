@@ -101,7 +101,10 @@ class SettingPage implements Hookable
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<div id="<?php echo esc_attr(App::name()); ?>-settings" data-inline='<?php echo esc_attr($this->inlineData); ?>'>
+			<div
+				id="<?php echo esc_attr($this->appName); ?>-settings"
+				data-nonce="<?php echo esc_attr(wp_create_nonce($this->appName . '-settings')); ?>"
+				data-inline='<?php echo esc_attr($this->inlineData); ?>'>
 			</div>
 			<noscript>
 				<p>
