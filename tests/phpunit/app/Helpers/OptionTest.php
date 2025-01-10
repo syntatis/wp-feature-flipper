@@ -39,7 +39,7 @@ class OptionTest extends WPTestCase
 		array $source,
 		array $expect
 	): void {
-		$this->assertTrue(add_option('_' . Option::name('baz') . '_stash', $stash));
+		$this->assertTrue(Option::stash('baz', $stash));
 		$this->assertEquals($expect, Option::patch('baz', $value, $source));
 	}
 
