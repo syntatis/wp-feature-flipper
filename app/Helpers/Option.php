@@ -141,6 +141,8 @@ final class Option
 	 * @template TKey of array-key
 	 * @template TValue
 	 *
+	 * @param string $name  The name of the option.
+	 * @param array  $value The current value of the option.
 	 * @phpstan-param non-empty-string $name
 	 * @phpstan-param array<TKey,TValue> $value
 	 * @phpstan-param array<TKey,TValue> $source
