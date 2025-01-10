@@ -8,7 +8,6 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
 use function array_merge;
-use function count;
 use function in_array;
 use function is_array;
 
@@ -22,7 +21,7 @@ final class RegisteredMenu
 	 * - site-name: Shows the site name that links to visit the site homepage.
 	 * - my-account: The user account menu, which includes the user's display name and avatar.
 	 */
-	private const EXCLUDE_MENU = [
+	private const EXCLUDE_MENU_ITEMS = [
 		'menu-toggle',
 		'site-name',
 		'my-account',
@@ -32,7 +31,7 @@ final class RegisteredMenu
 	/**
 	 * List of Core menu that may not be identifiable in the Admin screen.
 	 */
-	private const INCLUDE_CORE_MENU = [
+	private const INCLUDE_CORE_MENU_ITEMS = [
 		'customize' => [
 			'id' => 'customize',
 			'parent' => false,
@@ -50,7 +49,7 @@ final class RegisteredMenu
 	private ?WP_Admin_Bar $wpAdminBar = null;
 
 	/** @phpstan-var array<non-empty-string,RegisteredMenuType> */
-	private array $registeredMenu;
+	private array $all;
 
 	public function __construct()
 	{
@@ -58,21 +57,17 @@ final class RegisteredMenu
 		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? null;
 
 		$this->wpAdminBar = $wpAdminBar;
-		$this->registeredMenu = $this->getRegisteredMenu();
+		$this->all = $this->getRegisteredMenu();
 	}
 
-	/**
-	 * Retrieve the keys of registered menus.
-	 *
-	 * @phpstan-return array<non-empty-string,RegisteredMenuType>
-	 */
-	public function getAllItems(): array
+	/** @phpstan-return array<non-empty-string,RegisteredMenuType> */
+	public function getAll(): array
 	{
-		return $this->registeredMenu;
+		return $this->all;
 	}
 
 	/**
-	 * Retrieve the keys of the top-level menus.
+	 * Retrieve top-level menu of the admin bar.
 	 *
 	 * @phpstan-return array<non-empty-string,RegisteredMenuType>
 	 */
@@ -80,7 +75,7 @@ final class RegisteredMenu
 	{
 		$topItems = [];
 
-		foreach ($this->getAllItems() as $key => $menu) {
+		foreach ($this->all as $key => $menu) {
 			$menuParent = $menu['parent'] ?? null;
 
 			/**
@@ -109,13 +104,6 @@ final class RegisteredMenu
 	/** @phpstan-return array<non-empty-string,RegisteredMenuType> */
 	private function getRegisteredMenu(): array
 	{
-		/** @phpstan-var array<non-empty-string,RegisteredMenuType>|null $items */
-		static $items = null;
-
-		if (is_array($items) && count($items) > 0) {
-			return $items;
-		}
-
 		$nodes = $this->wpAdminBar instanceof WP_Admin_Bar ? $this->wpAdminBar->get_nodes() : [];
 		$items = [];
 
@@ -130,13 +118,13 @@ final class RegisteredMenu
 			];
 		}
 
-		return array_merge($items, self::INCLUDE_CORE_MENU);
+		return array_merge($items, self::INCLUDE_CORE_MENU_ITEMS);
 	}
 
 	/** @return array<string> */
 	private static function getExcludedMenu(): array
 	{
-		$excludes = self::EXCLUDE_MENU;
+		$excludes = self::EXCLUDE_MENU_ITEMS;
 
 		if (! Option::isOn('comments')) {
 			$excludes = [
