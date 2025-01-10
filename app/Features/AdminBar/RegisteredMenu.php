@@ -49,21 +49,33 @@ final class RegisteredMenu
 	private ?WP_Admin_Bar $wpAdminBar = null;
 
 	/** @phpstan-var array<non-empty-string,RegisteredMenuType> */
-	private array $all;
+	private array $registeredMenu;
 
-	public function __construct()
+	private function __construct()
 	{
 		/** @var WP_Admin_Bar $wpAdminBar */
 		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? null;
 
 		$this->wpAdminBar = $wpAdminBar;
-		$this->all = $this->getRegisteredMenu();
+		$this->registeredMenu = $this->getRegisteredMenu();
 	}
 
-	/** @phpstan-return array<non-empty-string,RegisteredMenuType> */
-	public function getAll(): array
+	/**
+	 * @phpstan-param "top"|null $level The level of the menu to retrieve.
+	 *
+	 * @phpstan-return array<non-empty-string,RegisteredMenuType>
+	 */
+	public static function all(?string $level = null): array
 	{
-		return $this->all;
+		$instance = new self();
+
+		switch ($level) {
+			case 'top':
+				return $instance->getTopItems();
+
+			default:
+				return $instance->registeredMenu;
+		}
 	}
 
 	/**
@@ -71,17 +83,20 @@ final class RegisteredMenu
 	 *
 	 * @phpstan-return array<non-empty-string,RegisteredMenuType>
 	 */
-	public function getTopItems(): array
+	private function getTopItems(): array
 	{
 		$topItems = [];
 
-		foreach ($this->all as $key => $menu) {
+		foreach ($this->registeredMenu as $key => $menu) {
 			$menuParent = $menu['parent'] ?? null;
 
 			/**
 			 * If the node is not a top-level node or a node within the `top-secondary`,
-			 * skip it. The `top-secondary` node may contain menus that may be hidden
-			 * or shown, such as the "environment type", "site status", etc.
+			 * skip it. The `top-secondary` section may contain some menus items such
+			 * as the "environment type" and "site status" menu. Even though these
+			 * menu are technically not top-level menus, they are considered as
+			 * such since users can see them on the top-level and might want
+			 * to toggle them on or off.
 			 *
 			 * @see Syntatis\FeatureFlipper\Features\AdminBar::addEnvironmentTypeNode()
 			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode
