@@ -120,6 +120,24 @@ final class Option
 	 * This ensure updates are reflected accordingly, so menus added by other
 	 * plugins won't be hidden by default.
 	 *
+	 * @see \Syntatis\FeatureFlipper\Helpers\Option::patch()
+	 *
+	 * @template TKey of array-key
+	 * @template TValue
+	 *
+	 * @phpstan-param non-empty-string $name
+	 * @phpstan-param array<TKey,TValue> $source
+	 */
+	public static function stash(string $name, array $source): bool
+	{
+		return update_option('_' . self::name($name) . '_stash', $source);
+	}
+
+	/**
+	 * Patch the plugin option value with the current source.
+	 *
+	 * @see Syntatis\FeatureFlipper\Helpers\Option::stash()
+	 *
 	 * @template TKey of array-key
 	 * @template TValue
 	 *
