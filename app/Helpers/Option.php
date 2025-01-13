@@ -154,11 +154,13 @@ final class Option
 	 */
 	public static function patch(string $name, array $value, array $source): array
 	{
-		$stashed = get_option('_' . self::name($name) . '_stash');
+		$stashed = get_option('_' . self::name($name) . '_stash', []);
 
-		if (! is_array($stashed) || $source === $stashed) {
+		if ($source === $stashed) {
 			return $value;
 		}
+
+		$stashed = is_array($stashed) ? $stashed : [];
 
 		/**
 		 * If the intersection between the values and the stashed values is empty,

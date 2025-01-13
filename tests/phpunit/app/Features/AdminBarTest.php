@@ -8,9 +8,12 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\AdminBar;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
+use WP_Admin_Bar;
 
 use function array_keys;
+use function sort;
 
 use const PHP_INT_MAX;
 
@@ -20,14 +23,10 @@ use const PHP_INT_MAX;
  */
 class AdminBarTest extends WPTestCase
 {
+	use WithAdminBar;
+
 	private Hook $hook;
 	private AdminBar $instance;
-
-	/** @var array<string,mixed> */
-	private array $globals = [];
-
-	/** @var array<string,mixed> */
-	private array $_get = [];
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function set_up(): void
@@ -35,9 +34,6 @@ class AdminBarTest extends WPTestCase
 		parent::set_up();
 
 		// Backup globals to restore them later.
-		$this->_get = $_GET;
-		$this->globals = $GLOBALS;
-
 		$this->hook = new Hook();
 		$this->instance = new AdminBar();
 		$this->instance->hook($this->hook);
@@ -46,12 +42,8 @@ class AdminBarTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
-		// Restore globals.
-		if (isset($this->globals['wp_admin_bar'])) {
-			$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		}
-
-		$_GET = $this->_get;
+		unset($_GET['tab']);
+		self::tearDownAdminBar();
 
 		parent::tear_down();
 	}
@@ -83,6 +75,43 @@ class AdminBarTest extends WPTestCase
 		$this->assertSame(10, $this->hook->hasAction('admin_bar_menu', [$this->instance, 'addEnvironmentTypeNode']));
 	}
 
+	/** @testdox should return the registered menu as the default */
+	public function testOptionDefault(): void
+	{
+		$this->assertEmpty(array_keys(RegisteredMenu::all('top')));
+		$this->assertEmpty(Option::get('admin_bar_menu'));
+
+		self::setUpAdmin();
+
+		$keys = array_keys(RegisteredMenu::all('top'));
+		sort($keys);
+
+		$this->assertNotEmpty($keys);
+		$this->assertEquals($keys, Option::get('admin_bar_menu'));
+	}
+
+	/**
+	 * @dataProvider dataOptionPatched
+	 * @testdox should update the value and return with the patch
+	 */
+	public function testOptionPatched(array $menu): void
+	{
+		self::setUpAdmin();
+
+		/** @var WP_Admin_Bar $wpAdminBar */
+		$wpAdminBar = $GLOBALS['wp_admin_bar'];
+		$wpAdminBar->add_node(['id' => 'baz', 'title' => 'Baz']);
+
+		$this->assertTrue(Option::update('admin_bar_menu', $menu));
+		$this->assertContains('baz', Option::get('admin_bar_menu'));
+	}
+
+	public static function dataOptionPatched(): iterable
+	{
+		yield [[]];
+		yield [['wp-logo', 'comments']];
+	}
+
 	/**
 	 * @dataProvider dataStashOptions
 	 * @testdox should update the stash option
@@ -91,19 +120,25 @@ class AdminBarTest extends WPTestCase
 	 */
 	public function testStashOptions(array $options, $expect): void
 	{
+		self::setUpAdmin();
+
 		$this->instance->stashOptions($options);
 
-		$this->assertSame(
-			get_option('_' . Option::name('admin_bar_menu') . '_stash'),
-			$expect,
-		);
+		$this->assertSame($expect, get_option('_' . Option::name('admin_bar_menu') . '_stash'));
 	}
 
 	public static function dataStashOptions(): iterable
 	{
 		yield [
 			[Option::name('admin_bar_menu')],
-			array_keys(RegisteredMenu::all('top')),
+			[
+				'comments',
+				'customize', // Manually added on the list.
+				'edit', // Manually added on the list.
+				'new-content',
+				'search', // Manually added on the list.
+				'wp-logo',
+			],
 		];
 
 		yield [[], false];
@@ -131,5 +166,37 @@ class AdminBarTest extends WPTestCase
 				'adminBarMenu' => array_keys(RegisteredMenu::all('top')),
 			],
 		], $data);
+	}
+
+	/** @testdox should remove nodes from the admin bar */
+	public function testRemoveNodes(): void
+	{
+		self::setUpAdmin();
+
+		/** @var WP_Admin_Bar $wpAdminBar */
+		$wpAdminBar = $GLOBALS['wp_admin_bar'];
+		$nodes = $wpAdminBar->get_nodes();
+
+		$this->assertArrayHasKey('wp-logo', $nodes);
+		$this->assertArrayHasKey('comments', $nodes);
+		$this->assertArrayHasKey('new-content', $nodes);
+
+		$this->assertTrue(Option::update('admin_bar_menu', [])); // Deselect all items.
+		$this->assertTrue(Option::stash('admin_bar_menu', array_keys(RegisteredMenu::all('top')))); // After deselecting all items, stash should be updated.
+
+		$this->instance->removeNodes($wpAdminBar);
+
+		$nodes = $wpAdminBar->get_nodes();
+
+		$this->assertArrayNotHasKey('wp-logo', $nodes);
+		$this->assertArrayNotHasKey('comments', $nodes);
+		$this->assertArrayNotHasKey('new-content', $nodes);
+	}
+
+	private static function setUpAdmin(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('dashboard');
+		self::setUpAdminBar();
 	}
 }

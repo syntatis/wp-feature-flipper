@@ -119,7 +119,11 @@ final class RegisteredMenu
 	/** @phpstan-return array<non-empty-string,RegisteredMenuType> */
 	private function getRegisteredMenu(): array
 	{
-		$nodes = $this->wpAdminBar instanceof WP_Admin_Bar ? $this->wpAdminBar->get_nodes() : [];
+		if (! $this->wpAdminBar instanceof WP_Admin_Bar) {
+			return [];
+		}
+
+		$nodes = $this->wpAdminBar->get_nodes();
 		$items = [];
 
 		if (! is_array($nodes)) {
