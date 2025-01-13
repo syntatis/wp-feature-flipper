@@ -13,6 +13,7 @@ use Syntatis\Tests\WPTestCase;
 use WP_Admin_Bar;
 
 use function array_keys;
+use function sort;
 
 use const PHP_INT_MAX;
 
@@ -82,8 +83,11 @@ class AdminBarTest extends WPTestCase
 
 		self::setUpAdmin();
 
-		$this->assertNotEmpty(array_keys(RegisteredMenu::all('top')));
-		$this->assertSame(array_keys(RegisteredMenu::all('top')), Option::get('admin_bar_menu'));
+		$keys = array_keys(RegisteredMenu::all('top'));
+		sort($keys);
+
+		$this->assertNotEmpty($keys);
+		$this->assertEquals($keys, Option::get('admin_bar_menu'));
 	}
 
 	/**
@@ -128,13 +132,12 @@ class AdminBarTest extends WPTestCase
 		yield [
 			[Option::name('admin_bar_menu')],
 			[
-				'wp-logo',
 				'comments',
+				'customize', // Manually added on the list.
+				'edit', // Manually added on the list.
 				'new-content',
-				// Manually added list.
-				'customize',
-				'edit',
-				'search',
+				'search', // Manually added on the list.
+				'wp-logo',
 			],
 		];
 
@@ -165,17 +168,7 @@ class AdminBarTest extends WPTestCase
 		], $data);
 	}
 
-	private static function setUpAdmin(): void
-	{
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-		set_current_screen('dashboard');
-		self::setUpAdminBar();
-	}
-
-	/**
-	 * @group test-here
-	 * @testdox should remove nodes from the admin bar
-	 */
+	/** @testdox should remove nodes from the admin bar */
 	public function testRemoveNodes(): void
 	{
 		self::setUpAdmin();
@@ -198,5 +191,12 @@ class AdminBarTest extends WPTestCase
 		$this->assertArrayNotHasKey('wp-logo', $nodes);
 		$this->assertArrayNotHasKey('comments', $nodes);
 		$this->assertArrayNotHasKey('new-content', $nodes);
+	}
+
+	private static function setUpAdmin(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('dashboard');
+		self::setUpAdminBar();
 	}
 }
