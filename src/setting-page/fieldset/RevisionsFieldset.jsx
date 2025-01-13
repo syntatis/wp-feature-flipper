@@ -43,7 +43,9 @@ export const RevisionsInputs = () => {
 					<TextField
 						min={ 1 }
 						max={ 100 }
-						placeholder={ revisionMax === null ? '∞' : undefined }
+						placeholder={
+							typeof revisionMax !== 'number' ? '∞' : revisionMax
+						}
 						defaultValue={ revisionMax }
 						type="number"
 						name={ `${ optionPrefix }revisions_max` }
