@@ -103,7 +103,7 @@ class PrivateMode implements Hookable
 		}
 
 		nocache_headers();
-		wp_safe_redirect(wp_login_url(URL::getCurrent()), 302);
+		wp_safe_redirect(wp_login_url(URL::current()), 302);
 		exit;
 	}
 

@@ -14,18 +14,18 @@ use function trim;
 use const PHP_URL_PATH;
 
 /**
- * General methods to work with URIs and URLs.
+ * General methods to work with URLs.
  */
-class URL
+final class URL
 {
 	private function __construct()
 	{
 	}
 
 	/**
-	 * Retrieve the current request URL.
+	 * Retrieve URL of the current request.
 	 */
-	public static function getCurrent(): string
+	public static function current(): string
 	{
 		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
@@ -35,7 +35,7 @@ class URL
 	}
 
 	/**
-	 * Check if the current request is the WordPress login page.
+	 * Determines whether the current request is for the login screen.
 	 */
 	public static function isLogin(): bool
 	{
@@ -55,8 +55,7 @@ class URL
 		}
 
 		// Try to identify if the login page is customized.
-		$url = self::getCurrent();
-		$urlPath = rtrim((string) parse_url($url, PHP_URL_PATH), '/');
+		$urlPath = rtrim((string) parse_url(self::current(), PHP_URL_PATH), '/');
 
 		return rtrim((string) parse_url($urlLogin, PHP_URL_PATH), '/') === $urlPath;
 	}
