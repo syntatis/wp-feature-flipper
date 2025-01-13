@@ -7,12 +7,9 @@ namespace Syntatis\FeatureFlipper;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithPostTypes;
 
 class CommonScripts implements Hookable
 {
-	use WithPostTypes;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
