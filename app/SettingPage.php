@@ -51,8 +51,8 @@ class SettingPage implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('admin_bar_menu', [$this, 'initInlineData'], PHP_INT_MAX - 1); // Important: Make sure this runs before the inline script.
 		$hook->addAction('admin_bar_menu', [$this, 'addInlineScript'], PHP_INT_MAX);
-		$hook->addAction('admin_bar_menu', [$this, 'initInlineData'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
 		$hook->addAction('admin_menu', [$this, 'addMenu']);
 		$hook->addFilter('plugin_action_links', [$this, 'filterPluginActionLinks'], 10, 2);
