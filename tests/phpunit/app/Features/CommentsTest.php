@@ -8,8 +8,8 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
+use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
-use WP_Admin_Bar;
 use WP_Block_Type_Registry;
 use WP_Comment_Query;
 
@@ -21,26 +21,16 @@ use const PHP_INT_MAX;
  */
 class CommentsTest extends WPTestCase
 {
+	use WithAdminBar;
+
 	private Hook $hook;
 	private Comments $instance;
-
-	/** @var array<string,mixed> */
-	private array $globals = [];
-
-	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
-	public static function set_up_before_class(): void
-	{
-		parent::set_up_before_class();
-
-		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
-	}
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function set_up(): void
 	{
 		parent::set_up();
 
-		$this->globals = $GLOBALS;
 		$this->hook = new Hook();
 		$this->instance = new Comments();
 		$this->instance->hook($this->hook);
@@ -57,15 +47,9 @@ class CommentsTest extends WPTestCase
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function tear_down(): void
 	{
-		if (isset($this->globals['pagenow'])) {
-			$GLOBALS['pagenow'] = $this->globals['pagenow']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		}
-
-		if (isset($this->globals['wp_admin_bar'])) {
-			$GLOBALS['wp_admin_bar'] = $this->globals['wp_admin_bar']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		}
-
+		unset($GLOBALS['pagenow']);
 		unregister_post_type('product');
+		self::tearDownAdminBar();
 
 		parent::tear_down();
 	}
@@ -195,8 +179,9 @@ class CommentsTest extends WPTestCase
 	public function testRemoveAdminBarMenu(): void
 	{
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		self::setUpAdminBar();
 
-		$wpAdminBar = $this->getStandardAdminbar();
+		$wpAdminBar = $GLOBALS['wp_admin_bar'];
 		$node = $wpAdminBar->get_node('comments');
 
 		$this->assertObjectHasProperty('id', $node);
@@ -545,15 +530,5 @@ class CommentsTest extends WPTestCase
 	{
 		yield 'post' => ['post', 0];
 		yield 'product' => ['product', 2];
-	}
-
-	private function getStandardAdminbar(): WP_Admin_Bar
-	{
-		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? new WP_Admin_Bar();
-
-		_wp_admin_bar_init();
-		do_action_ref_array('admin_bar_menu', [&$wpAdminBar]);
-
-		return $wpAdminBar;
 	}
 }
