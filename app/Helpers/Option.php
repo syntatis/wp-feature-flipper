@@ -160,6 +160,8 @@ final class Option
 			return $value;
 		}
 
+		$stashed = is_array($stashed) ? $stashed : [];
+
 		/**
 		 * If the intersection between the values and the stashed values is empty,
 		 * it means that the value is a complete new value.
