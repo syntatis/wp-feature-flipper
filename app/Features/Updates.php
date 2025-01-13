@@ -9,10 +9,10 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Features\Updates\Helpers;
 use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
 use Syntatis\FeatureFlipper\Features\Updates\ManageThemes;
-use Syntatis\FeatureFlipper\Helpers;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function define;
@@ -28,19 +28,19 @@ class Updates implements Hookable, Extendable
 	{
 		$hook->addFilter(
 			self::optionHook('updates'),
-			static fn ($value) => Helpers\Updates::global()->isEnabled((bool) $value),
+			static fn ($value) => Helpers\Updates::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			self::defaultOptionHook('auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
+			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			self::optionHook('auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global()->isEnabled((bool) $value),
+			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 
 		if (! Option::isOn('updates')) {
-			$hook->addAction('admin_menu', [$this, 'removeUpdateAdminMenu'], PHP_INT_MAX);
+			$hook->addAction('admin_menu', [$this, 'removeMenu'], PHP_INT_MAX);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
@@ -60,7 +60,7 @@ class Updates implements Hookable, Extendable
 	/**
 	 * Remove the "Updates" menu from the Menu in the admin area.
 	 */
-	public function removeUpdateAdminMenu(): void
+	public function removeMenu(): void
 	{
 		remove_submenu_page('index.php', 'update-core.php');
 	}
