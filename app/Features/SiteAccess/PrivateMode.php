@@ -9,8 +9,8 @@ use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\WithAdmin;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\URL;
 use WP_Admin_Bar;
 
 use function defined;
@@ -29,7 +29,6 @@ class PrivateMode implements Hookable
 {
 	use WithAdmin;
 	use WithHookName;
-	use WithURI;
 
 	public function hook(Hook $hook): void
 	{
@@ -99,12 +98,12 @@ class PrivateMode implements Hookable
 			return;
 		}
 
-		if (self::isLoginURL()) {
+		if (URL::isLogin()) {
 			return;
 		}
 
 		nocache_headers();
-		wp_safe_redirect(wp_login_url(self::getCurrentURL()), 302);
+		wp_safe_redirect(wp_login_url(URL::getCurrent()), 302);
 		exit;
 	}
 
