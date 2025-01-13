@@ -7,11 +7,13 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
+use function array_keys;
 use function array_merge;
-use function count;
 use function in_array;
 use function is_array;
 use function is_readable;
@@ -24,18 +26,7 @@ use const PHP_INT_MAX;
 
 class AdminBar implements Hookable
 {
-	/**
-	 * List of menu in the admin bar that should be excluded.
-	 *
-	 * - menu-toggle: The menu toggle button shown before the site name on small screen.
-	 * - site-name: Shows the site name that links to visit the site homepage.
-	 * - top-secondary: The top secondary menu which contains the user profile and the logout link.
-	 */
-	private const DEFAULT_EXCLUDED_MENU = [
-		'menu-toggle',
-		'site-name',
-		'top-secondary',
-	];
+	use WithHookName;
 
 	private string $appName;
 
@@ -46,20 +37,71 @@ class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
+		$hook->addFilter(
+			self::defaultOptionHook('admin_bar_menu'),
+			static fn () => self::getRegisteredMenu(),
+			PHP_INT_MAX,
+		);
+		$hook->addFilter(
+			self::optionHook('admin_bar_menu'),
+			static fn ($value) => Option::patch(
+				'admin_bar_menu',
+				is_array($value) ? $value : [],
+				self::getRegisteredMenu(),
+			),
+			PHP_INT_MAX,
+		);
 		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
 
 		if (! Option::isOn('admin_bar_howdy')) {
 			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
 		}
 
-		if (Option::isOn('admin_bar_env_type')) {
-			$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
+		if (! Option::isOn('admin_bar_env_type')) {
+			return;
 		}
 
-		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData'], PHP_INT_MAX);
+		$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
+	}
+
+	/** @param array<string> $options List of option names that have been updated. */
+	public function stashOptions(array $options): void
+	{
+		if (! in_array(Option::name('admin_bar_menu'), $options, true)) {
+			return;
+		}
+
+		Option::stash('admin_bar_menu', self::getRegisteredMenu());
+	}
+
+	/**
+	 * Provide additional data to include in the plugin's global inline data.
+	 *
+	 * @param array<string,mixed> $data
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function filterInlineData(array $data): array
+	{
+		$tab = $_GET['tab'] ?? null;
+
+		if ($tab !== 'admin') {
+			return $data;
+		}
+
+		$menu = self::getRegisteredMenu();
+		$curr = $data['$wp'] ?? [];
+		$data['$wp'] = array_merge(
+			is_array($curr) ? $curr : [],
+			['adminBarMenu' => $menu],
+		);
+
+		return $data;
 	}
 
 	public function enqueueScripts(): void
@@ -91,64 +133,6 @@ class AdminBar implements Hookable
 		);
 	}
 
-	/**
-	 * Provide additional data to include in the plugin's global inline data.
-	 *
-	 * @param array<string,mixed> $data
-	 *
-	 * @return array<string,mixed>
-	 */
-	public function filterInlineData(array $data): array
-	{
-		$tab = $_GET['tab'] ?? null;
-
-		if ($tab !== 'admin') {
-			return $data;
-		}
-
-		$curr = $data['$wp'] ?? [];
-		$data['$wp'] = array_merge(
-			is_array($curr) ? $curr : [],
-			['adminBarMenu' => self::getRegisteredMenu()],
-		);
-
-		return $data;
-	}
-
-	/** @return array<array{id:string}> */
-	private static function getRegisteredMenu(): array
-	{
-		/** @var array<array{id:string}>|null $items */
-		static $items = null;
-
-		if (is_array($items) && count($items) > 0) {
-			return $items;
-		}
-
-		/** @var WP_Admin_Bar $wpAdminBarMenu */
-		$wpAdminBarMenu = $GLOBALS['wp_admin_bar'];
-		$nodes = $wpAdminBarMenu->get_nodes();
-		$items = [];
-
-		if (! is_array($nodes)) {
-			return $items;
-		}
-
-		foreach ($nodes as $node) {
-			$nodeParent = $node->parent;
-
-			if ($nodeParent !== false || in_array($node->id, self::getExcludedMenu(), true)) {
-				continue;
-			}
-
-			$items[] = [
-				'id' => $node->id,
-			];
-		}
-
-		return $items;
-	}
-
 	public function removeNodes(WP_Admin_Bar $wpAdminBar): void
 	{
 		$adminBarMenu = Option::get('admin_bar_menu');
@@ -157,14 +141,12 @@ class AdminBar implements Hookable
 			return;
 		}
 
-		$menu = self::getRegisteredMenu();
-
-		foreach ($menu as $item) {
-			if (in_array($item['id'], $adminBarMenu, true)) {
+		foreach (self::getRegisteredMenu() as $menuId) {
+			if (in_array($menuId, $adminBarMenu, true)) {
 				continue;
 			}
 
-			$wpAdminBar->remove_node($item['id']);
+			$wpAdminBar->remove_node($menuId);
 		}
 	}
 
@@ -226,17 +208,8 @@ class AdminBar implements Hookable
 	}
 
 	/** @return array<string> */
-	private static function getExcludedMenu(): array
+	private static function getRegisteredMenu(): array
 	{
-		$excludes = self::DEFAULT_EXCLUDED_MENU;
-
-		if (! Option::isOn('comments')) {
-			$excludes = [
-				...$excludes,
-				'comments',
-			];
-		}
-
-		return $excludes;
+		return array_keys(RegisteredMenu::all('top'));
 	}
 }

@@ -28,4 +28,146 @@ class OptionTest extends WPTestCase
 
 		$this->assertEquals('bar', Option::get('foo'));
 	}
+
+	/**
+	 * @dataProvider dataPatchArray
+	 * @testdox should patch the option value
+	 */
+	public function testPatchArray(
+		array $value,
+		array $stash,
+		array $source,
+		array $expect
+	): void {
+		$this->assertTrue(Option::stash('baz', $stash));
+		$this->assertEquals($expect, Option::patch('baz', $value, $source));
+	}
+
+	public function dataPatchArray(): iterable
+	{
+		/**
+		 * Test where the stashed value is set, and the source value is different
+		 * set of values. This situation could happen when the stashed option
+		 * somehow failed to be updated.
+		 */
+		yield [
+			['a'], // Value.
+			['a'], // Stashed.
+			['b'], // Source.
+			['b'], // Updated value.
+		];
+
+		yield [
+			['a'], // Value.
+			['a', 'b'], // Stashed.
+			['c', 'd'], // Source.
+			['c', 'd'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Value.
+			['a', 'b'], // Stashed.
+			['c'], // Source.
+			['c'], // Updated value.
+		];
+
+		yield [
+			['a'], // Value.
+			['a'], // Stashed.
+			['a', 'b'], // Source.
+			['a', 'b'],
+		];
+
+		yield [
+			['a'], // Value.
+			['a', 'b'], // Stashed.
+			['a', 'b', 'c'], // Source.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Value.
+			['a', 'b'], // Stashed.
+			['a'], // Source.
+			['a'], // Updated value.
+		];
+
+		yield [
+			['a'], // Value.
+			['a', 'b'], // Stashed.
+			['a', 'c'], // Source.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b'], // Value.
+			['a', 'b'], // Stashed.
+			['a', 'c'], // Source.
+			['a', 'c'], // Updated value.
+		];
+
+		yield [
+			['a', 'b', 'c'], // Value.
+			['a', 'b', 'c'], // Stashed.
+			['a', 'b'], // Source.
+			['a', 'b'], // Updated value.
+		];
+
+		yield [
+			['a'], // Value.
+			['a', 'b'], // Stashed.
+			['a', 'b'], // Source.
+			['a'], // Updated value.
+		];
+
+		yield [
+			['a'], // Value.
+			[], // Stashed.
+			['a', 'd'], // Source.
+			['a', 'd'], // Updated value.
+		];
+
+		/**
+		 * When the value is empty, it could mean users may have unchecked all the
+		 * options. Existing value should remain, while new value in the source
+		 * should be included.
+		 */
+		yield [
+			[], // Value.
+			['a'], // Stashed.
+			['a', 'd'], // Source.
+			['d'], // Updated value.
+		];
+
+		yield [
+			[], // Value.
+			['a'], // Stashed.
+			['a'], // Source.
+			[], // Updated value.
+		];
+
+		/**
+		 * The value should not change when the stashed value and the source are
+		 * the same.
+		 */
+		yield [
+			['a', 'b'], // Value.
+			['a', 'b', 'c', 'd'], // Stashed.
+			['a', 'b', 'c', 'd'], // Source.
+			['a', 'b'], // Updated value.
+		];
+
+		/**
+		 * Test where the stashed value is empty while the option value is already
+		 * set. This situation could happen on site that's already been with an
+		 * older version of the plugin, where stash option is not yet added,
+		 * and has only been updated to the latest version.
+		 */
+		yield [
+			['a', 'b', 'c'], // Value.
+			[], // Stashed.
+			['a', 'b', 'c', 'd'], // Source.
+			['a', 'b', 'c', 'd'], // Updated value.
+		];
+	}
 }

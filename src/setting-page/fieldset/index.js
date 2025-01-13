@@ -1,4 +1,4 @@
-export { AdminBarInputs } from './AdminBarFieldset';
+export { AdminBarFieldset } from './AdminBarFieldset';
 export { DashboardWidgetsInputs } from './DashboardWidgetsFieldset';
 export { GutenbergInputs } from './GutenbergFieldset';
 export { HeartbeatInputs } from './HeartbeatFieldset';

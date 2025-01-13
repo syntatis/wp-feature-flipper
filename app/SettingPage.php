@@ -15,12 +15,16 @@ use WP_REST_Request;
 use function array_filter;
 use function array_keys;
 use function array_merge;
+use function base64_decode;
 use function basename;
+use function explode;
 use function in_array;
 use function is_array;
 use function is_readable;
 use function is_string;
 use function sprintf;
+use function strip_tags;
+use function trim;
 
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_INT_MAX;
@@ -51,12 +55,9 @@ class SettingPage implements Hookable
 		$hook->addAction('admin_bar_menu', [$this, 'initInlineData'], PHP_INT_MAX);
 		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
 		$hook->addAction('admin_menu', [$this, 'addMenu']);
-		$hook->addFilter(sprintf('plugin_action_links'), [$this, 'filterPluginActionLinks'], 10, 2);
+		$hook->addFilter('plugin_action_links', [$this, 'filterPluginActionLinks'], 10, 2);
 	}
 
-	/**
-	 * Add the settings menu on WordPress admin.
-	 */
 	public function addMenu(): void
 	{
 		add_submenu_page(
@@ -71,8 +72,31 @@ class SettingPage implements Hookable
 
 	public function initInlineData(): void
 	{
+		if (! self::isSettingPage()) {
+			return;
+		}
+
+		/**
+		 * @see Syntatis\FeatureFlipper\SettingPage::render() Where the nonce is created.
+		 * @see src/setting-page/form/useSettings.js Where the "nonce" & the "options" query are set in the URL.
+		 */
+		$nonce = $_GET['nonce'] ?? '';
+		$options = $_GET['options'] ?? '';
+
+		if (
+			is_string($options) &&
+			is_string($nonce) &&
+			wp_verify_nonce($nonce, App::name() . '-settings') !== false
+		) {
+			$options = base64_decode(strip_tags(trim($options)), true);
+			$options = explode(',', (string) $options);
+
+			/** For internal use. Subject to change. External plugin should not rely on hook. */
+			do_action('syntatis/feature_flipper/updated_options', $options);
+		}
+
 		$this->inlineData = (string) wp_json_encode(
-			/** For internal use. Subject to change. External plugin should not rely on this data. */
+			/** For internal use. Subject to change. External plugin should not rely on this hook. */
 			apply_filters('syntatis/feature_flipper/inline_data', [
 				'$wp' => [
 					'postTypes' => self::getRegisteredPostTypes(),
@@ -80,7 +104,7 @@ class SettingPage implements Hookable
 						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 					],
 				],
-				'settingPage' => esc_url(get_admin_url(null, 'options-general.php?page=' . App::name())) ,
+				'settingPage' => esc_url(get_admin_url(null, 'options-general.php?page=' . $this->appName)) ,
 				'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
 			]),
 		);
@@ -101,7 +125,10 @@ class SettingPage implements Hookable
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<div id="<?php echo esc_attr(App::name()); ?>-settings" data-inline='<?php echo esc_attr($this->inlineData); ?>'>
+			<div
+				id="<?php echo esc_attr($this->appName); ?>-settings"
+				data-nonce="<?php echo esc_attr(wp_create_nonce($this->appName . '-settings')); ?>"
+				data-inline='<?php echo esc_attr($this->inlineData); ?>'>
 			</div>
 			<noscript>
 				<p>

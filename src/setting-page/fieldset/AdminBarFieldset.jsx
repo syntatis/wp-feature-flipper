@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGroup } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
 import { Details, HelpContent } from '../components';
 
-export const AdminBarInputs = () => {
+export const AdminBarFieldset = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const menu = inlineData.$wp.adminBarMenu || [];
 
@@ -34,10 +34,7 @@ export const AdminBarInputs = () => {
 		>
 			<Details summary={ __( 'Settings', 'syntatis-feature-flipper' ) }>
 				<CheckboxGroup
-					defaultValue={
-						getOption( 'admin_bar_menu' ) ??
-						menu.map( ( { id } ) => id )
-					}
+					defaultValue={ getOption( 'admin_bar_menu' ) }
 					label={ __( 'Menu', 'syntatis-feature-flipper' ) }
 					description={ __(
 						'Unchecked menu items will be hidden from the Admin bar.',
@@ -45,7 +42,7 @@ export const AdminBarInputs = () => {
 					) }
 					{ ...inputProps( 'admin_bar_menu' ) }
 				>
-					{ menu.map( ( { id } ) => (
+					{ menu.map( ( id ) => (
 						<Checkbox
 							key={ id }
 							value={ id }

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import {
-	AdminBarInputs,
+	AdminBarFieldset,
 	DashboardWidgetsInputs,
 	SwitchFieldset,
 } from '../fieldset';
@@ -72,7 +72,7 @@ export const AdminTab = () => {
 					'syntatis-feature-flipper'
 				) }
 			>
-				<AdminBarInputs />
+				<AdminBarFieldset />
 				<SwitchFieldset
 					name="admin_bar_howdy"
 					id="admin-bar-howdy"
