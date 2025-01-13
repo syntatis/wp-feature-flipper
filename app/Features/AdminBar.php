@@ -20,6 +20,7 @@ use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
+use function sort;
 use function sprintf;
 
 use const PHP_INT_MAX;
@@ -210,6 +211,10 @@ class AdminBar implements Hookable
 	/** @return array<string> */
 	private static function getRegisteredMenu(): array
 	{
-		return array_keys(RegisteredMenu::all('top'));
+		$menu = array_keys(RegisteredMenu::all('top'));
+
+		sort($menu);
+
+		return $menu;
 	}
 }
