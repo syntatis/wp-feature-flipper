@@ -206,6 +206,41 @@ class ManagePostEditorTest extends WPTestCase
 		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
+	/** @testdox should not affect interval when the "heartbeat_post_editor" option is disabled */
+	public function testFilterSettingsOptionDisabled(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'post.php'; // phpcs:ignore
+		set_current_screen('post.php');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		Option::update('heartbeat_post_editor_interval', 15);
+
+		$this->assertSame(
+			[
+				'interval' => 15,
+				'minimalInterval' => 15,
+			],
+			$this->instance->filterSettings([
+				'interval' => 30,
+				'minimalInterval' => 30,
+			]),
+		);
+
+		Option::update('heartbeat_post_editor', false);
+
+		$this->assertSame(
+			[
+				'interval' => 30,
+				'minimalInterval' => 30,
+			],
+			$this->instance->filterSettings([
+				'interval' => 30,
+				'minimalInterval' => 30,
+			]),
+		);
+	}
+
 	/**
 	 * Test whether the "heartbeat" script is deregistered on the post editor
 	 * when the "heartbeat_post_editor" option is set to `false`.

@@ -202,7 +202,7 @@ return [
 		->withDefault(true),
 	/**
 	 * --------------------------------------------------------
-	 * Security
+	 * Advanced
 	 * --------------------------------------------------------
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Advanced

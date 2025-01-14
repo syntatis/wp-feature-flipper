@@ -68,9 +68,17 @@ class ManageAdmin implements Hookable
 		 * should also return as is as well, since the settings for post editor
 		 * would be applied from a separate class.
 		 *
+		 * Don't modify the interval when the feature is off. When is is off, the
+		 * heartbeat script is deregistered, so modifying the interval is not
+		 * required.
+		 *
 		 * @see \Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor
 		 */
-		if (! is_admin() || self::isPostEditor()) {
+		if (
+			! is_admin() ||
+			! Option::isOn('heartbeat_admin') ||
+			self::isPostEditor()
+		) {
 			return $settings;
 		}
 

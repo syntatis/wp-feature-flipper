@@ -202,6 +202,41 @@ class ManageAdminTest extends WPTestCase
 		$this->assertSame([], $this->instance->filterSettings([]));
 	}
 
+	/** @testdox should not affect interval when the "heartbeat_post_editor" option is disabled */
+	public function testFilterSettingsOptionDisabled(): void
+	{
+		// Setup.
+		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore
+		set_current_screen('dashboard');
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+
+		Option::update('heartbeat_admin_interval', 60);
+
+		$this->assertSame(
+			[
+				'interval' => 60,
+				'minimalInterval' => 60,
+			],
+			$this->instance->filterSettings([
+				'interval' => 120,
+				'minimalInterval' => 120,
+			]),
+		);
+
+		Option::update('heartbeat_admin', false);
+
+		$this->assertSame(
+			[
+				'interval' => 120,
+				'minimalInterval' => 120,
+			],
+			$this->instance->filterSettings([
+				'interval' => 120,
+				'minimalInterval' => 120,
+			]),
+		);
+	}
+
 	/**
 	 * Test whether the "heartbeat" script is deregistered on the admin pages
 	 * when the "heartbeat_admin" option is set to `false`.
