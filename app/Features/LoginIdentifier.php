@@ -6,8 +6,8 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithURI;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\URL;
 
 use function is_string;
 
@@ -15,8 +15,6 @@ use const PHP_INT_MAX;
 
 class LoginIdentifier implements Hookable
 {
-	use WithURI;
-
 	private ?string $identifier = null;
 
 	public function __construct()
@@ -51,7 +49,7 @@ class LoginIdentifier implements Hookable
 
 	public function filterGetText(string $translation, string $text, string $domain): string
 	{
-		if (! self::isLoginURL() || $domain !== 'default') {
+		if (! URL::isLogin() || $domain !== 'default') {
 			return $translation;
 		}
 

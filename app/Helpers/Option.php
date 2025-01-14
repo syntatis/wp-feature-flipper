@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Helpers;
 
+use InvalidArgumentException;
 use SSFV\Codex\Facades\Config;
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
 use function array_diff;
 use function array_filter;
@@ -14,17 +16,11 @@ use function array_values;
 use function count;
 use function in_array;
 use function is_array;
+use function preg_match;
 
 final class Option
 {
-	/**
-	 * Prevent instantiation.
-	 *
-	 * @codeCoverageIgnore
-	 */
-	final private function __construct()
-	{
-	}
+	use DontInstantiate;
 
 	/**
 	 * Retrieve the value of the plugin option.
@@ -180,5 +176,40 @@ final class Option
 				...array_diff($source, $stashed), // New value.
 			]),
 		);
+	}
+
+	/**
+	 * Return the hook name for the plugin option.
+	 *
+	 * @phpstan-param non-empty-string $name
+	 *
+	 * @return string Returns the hook name for the plugin option with the prefix.
+	 */
+	public static function hook(string $name): string
+	{
+		$matched = preg_match('/^(:?(?<namespace>[a-z]+)\:)?(?<option>[a-z_]+)$/i', $name, $matches);
+
+		if ($matched === false) {
+			throw new InvalidArgumentException('Failed to parse the option name.');
+		}
+
+		$option = $matches['option'] ?? '';
+
+		if ($option === '') {
+			throw new InvalidArgumentException('Invalid option name.');
+		}
+
+		$name = 'option_' . self::name($option);
+		$namespace = $matches['namespace'] ?? '';
+
+		if ($namespace !== '') {
+			if (! in_array($namespace, ['default', 'update', 'add', 'delete', 'sanitize'], true)) {
+				throw new InvalidArgumentException('Invalid namespace.');
+			}
+
+			$name = $namespace . '_' . $name;
+		}
+
+		return $name;
 	}
 }

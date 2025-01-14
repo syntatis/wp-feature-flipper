@@ -8,14 +8,11 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Attachment;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 class Media implements Hookable, Extendable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(

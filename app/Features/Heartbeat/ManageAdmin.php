@@ -6,8 +6,7 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Concerns\WithPostEditor;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function is_numeric;
@@ -16,9 +15,6 @@ use const PHP_INT_MAX;
 
 class ManageAdmin implements Hookable
 {
-	use WithHookName;
-	use WithPostEditor;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
@@ -31,11 +27,11 @@ class ManageAdmin implements Hookable
 		 * the "heartbeat_admin" option.
 		 */
 		$hook->addFilter(
-			self::optionHook('heartbeat_admin'),
+			Option::hook('heartbeat_admin'),
 			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
-			self::defaultOptionHook('heartbeat_admin'),
+			Option::hook('default:heartbeat_admin'),
 			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
@@ -45,7 +41,11 @@ class ManageAdmin implements Hookable
 	 */
 	public function deregisterScripts(): void
 	{
-		if (! is_admin() || self::isPostEditor() || Option::isOn('heartbeat_admin')) {
+		if (
+			! is_admin() ||
+			self::isPostEditor() ||
+			Option::isOn('heartbeat_admin')
+		) {
 			return;
 		}
 
@@ -84,5 +84,10 @@ class ManageAdmin implements Hookable
 		}
 
 		return $settings;
+	}
+
+	private static function isPostEditor(): bool
+	{
+		return Admin::isScreen('post.php') || Admin::isScreen('post-new.php');
 	}
 }

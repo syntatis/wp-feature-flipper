@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Concerns;
+namespace Syntatis\FeatureFlipper\Helpers;
+
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
 use function is_string;
 use function parse_url;
@@ -14,14 +16,16 @@ use function trim;
 use const PHP_URL_PATH;
 
 /**
- * General methods to work with URIs and URLs.
+ * General methods to work with URLs.
  */
-trait WithURI
+final class URL
 {
+	use DontInstantiate;
+
 	/**
-	 * Retrieve the current request URL.
+	 * Retrieve URL of the current request.
 	 */
-	private static function getCurrentURL(): string
+	public static function current(): string
 	{
 		$schema = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 		$host = isset($_SERVER['HTTP_HOST']) && is_string($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
@@ -31,9 +35,9 @@ trait WithURI
 	}
 
 	/**
-	 * Check if the current request is the WordPress login page.
+	 * Determines whether the current request is for the login screen.
 	 */
-	private static function isLoginURL(): bool
+	public static function isLogin(): bool
 	{
 		$urlLogin = wp_login_url();
 		$scriptName = isset($_SERVER['SCRIPT_NAME']) && is_string($_SERVER['SCRIPT_NAME']) ?
@@ -51,8 +55,7 @@ trait WithURI
 		}
 
 		// Try to identify if the login page is customized.
-		$url = self::getCurrentURL();
-		$urlPath = rtrim((string) parse_url($url, PHP_URL_PATH), '/');
+		$urlPath = rtrim((string) parse_url(self::current(), PHP_URL_PATH), '/');
 
 		return rtrim((string) parse_url($urlLogin, PHP_URL_PATH), '/') === $urlPath;
 	}

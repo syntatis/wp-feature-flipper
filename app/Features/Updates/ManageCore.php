@@ -6,10 +6,9 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
+use Syntatis\FeatureFlipper\Features\Updates\Helpers\AutoUpdate;
+use Syntatis\FeatureFlipper\Features\Updates\Helpers\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function define;
 use function defined;
@@ -21,23 +20,17 @@ use function time;
  */
 class ManageCore implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
-		$updatesFn = static fn ($value) => Updates::core()->isEnabled((bool) $value);
-		$autoUpdateFn = static function ($value): bool {
-			if (! Option::isOn('update_core')) {
-				return false;
-			}
+		$updatesFn = static fn ($value) => Updates::components((bool) $value)->isEnabled();
+		$autoUpdateFn = static fn ($value): bool => Option::isOn('update_core') ?
+			AutoUpdate::components((bool) $value)->isEnabled() :
+			false;
 
-			return AutoUpdate::core()->isEnabled((bool) $value);
-		};
-
-		$hook->addFilter(self::defaultOptionHook('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionHook('update_core'), $updatesFn);
-		$hook->addFilter(self::optionHook('auto_update_core'), $autoUpdateFn);
-		$hook->addFilter(self::optionHook('update_core'), $updatesFn);
+		$hook->addFilter(Option::hook('default:auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('default:update_core'), $updatesFn);
+		$hook->addFilter(Option::hook('auto_update_core'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('update_core'), $updatesFn);
 
 		if (! Option::isOn('update_core')) {
 			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);

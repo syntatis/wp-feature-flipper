@@ -7,10 +7,9 @@ namespace Syntatis\FeatureFlipper\Features\SiteAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithAdmin;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Concerns\WithURI;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\URL;
 use WP_Admin_Bar;
 
 use function defined;
@@ -27,10 +26,6 @@ use const PHP_INT_MIN;
  */
 class PrivateMode implements Hookable
 {
-	use WithAdmin;
-	use WithHookName;
-	use WithURI;
-
 	public function hook(Hook $hook): void
 	{
 		/**
@@ -59,8 +54,8 @@ class PrivateMode implements Hookable
 
 			return $value;
 		};
-		$hook->addFilter(self::defaultOptionHook('site_access'), $optionCallback, PHP_INT_MAX);
-		$hook->addFilter(self::optionHook('site_access'), $optionCallback, PHP_INT_MAX);
+		$hook->addFilter(Option::hook('default:site_access'), $optionCallback, PHP_INT_MAX);
+		$hook->addFilter(Option::hook('site_access'), $optionCallback, PHP_INT_MAX);
 
 		/**
 		 * Remove the `site_private` option, after the `site_access` option has been
@@ -73,10 +68,10 @@ class PrivateMode implements Hookable
 				return;
 			}
 
-			delete_option(Option::name('site_private'));
+			Option::delete('site_private');
 		};
-		$hook->addAction(self::addOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
-		$hook->addAction(self::updateOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
+		$hook->addAction(Option::hook('add:site_access'), $updateOptionCallback, PHP_INT_MAX);
+		$hook->addAction(Option::hook('update:site_access'), $updateOptionCallback, PHP_INT_MAX);
 
 		if (Option::get('site_access') !== 'private') {
 			return;
@@ -91,6 +86,7 @@ class PrivateMode implements Hookable
 	public function forceLogin(): void
 	{
 		if (
+			URL::isLogin() ||
 			is_user_logged_in() ||
 			wp_doing_ajax() ||
 			wp_doing_cron() ||
@@ -99,12 +95,8 @@ class PrivateMode implements Hookable
 			return;
 		}
 
-		if (self::isLoginURL()) {
-			return;
-		}
-
 		nocache_headers();
-		wp_safe_redirect(wp_login_url(self::getCurrentURL()), 302);
+		wp_safe_redirect(wp_login_url(URL::current()), 302);
 		exit;
 	}
 
@@ -131,8 +123,8 @@ class PrivateMode implements Hookable
 			'parent' => 'top-secondary',
 		];
 
-		if (current_user_can('manage_options') && ! self::isSettingPage()) {
-			$node['href'] = self::getSettingPageURL(['tab' => 'site']);
+		if (current_user_can('manage_options') && ! Admin::isScreen(App::name())) {
+			$node['href'] = Admin::url(App::name(), ['tab' => 'site']);
 		}
 
 		$wpAdminBar->add_node($node);
@@ -148,7 +140,7 @@ class PrivateMode implements Hookable
 		if (current_user_can('manage_options')) {
 			$message = sprintf(
 				'<a href="%s">%s</a>',
-				self::getSettingPageURL(['tab' => 'site']),
+				Admin::url(App::name(), ['tab' => 'site']),
 				$message,
 			);
 		}

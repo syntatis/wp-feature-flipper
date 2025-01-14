@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
@@ -27,8 +26,6 @@ use const PHP_INT_MAX;
 
 class AdminBar implements Hookable
 {
-	use WithHookName;
-
 	private string $appName;
 
 	public function __construct()
@@ -41,12 +38,12 @@ class AdminBar implements Hookable
 		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
-			self::defaultOptionHook('admin_bar_menu'),
+			Option::hook('default:admin_bar_menu'),
 			static fn () => self::getRegisteredMenu(),
 			PHP_INT_MAX,
 		);
 		$hook->addFilter(
-			self::optionHook('admin_bar_menu'),
+			Option::hook('admin_bar_menu'),
 			static fn ($value) => Option::patch(
 				'admin_bar_menu',
 				is_array($value) ? $value : [],

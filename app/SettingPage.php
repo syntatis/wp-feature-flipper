@@ -8,12 +8,13 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Codex\Settings\Settings;
-use Syntatis\FeatureFlipper\Concerns\WithAdmin;
-use Syntatis\FeatureFlipper\Concerns\WithPostTypes;
+use Syntatis\FeatureFlipper\Helpers\Admin;
+use WP_Post_Type;
 use WP_REST_Request;
 
 use function array_filter;
 use function array_keys;
+use function array_map;
 use function array_merge;
 use function base64_decode;
 use function basename;
@@ -26,16 +27,15 @@ use function sprintf;
 use function strip_tags;
 use function trim;
 
+use const ARRAY_FILTER_USE_BOTH;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_INT_MAX;
 
 class SettingPage implements Hookable
 {
-	use WithAdmin;
-	use WithPostTypes;
-
 	private Settings $settings;
 
+	/** @phpstan-var non-empty-string */
 	private string $appName;
 
 	private string $scriptHandle;
@@ -44,8 +44,8 @@ class SettingPage implements Hookable
 
 	public function __construct(Settings $settings)
 	{
-		$this->appName = App::name();
 		$this->settings = $settings;
+		$this->appName = App::name();
 		$this->scriptHandle = $this->appName . '-settings';
 	}
 
@@ -65,14 +65,14 @@ class SettingPage implements Hookable
 			__('Feature Flipper', 'syntatis-feature-flipper'),
 			__('Flipper', 'syntatis-feature-flipper'),
 			'manage_options',
-			App::name(),
+			$this->appName,
 			[$this, 'render'],
 		);
 	}
 
 	public function initInlineData(): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -86,7 +86,7 @@ class SettingPage implements Hookable
 		if (
 			is_string($options) &&
 			is_string($nonce) &&
-			wp_verify_nonce($nonce, App::name() . '-settings') !== false
+			wp_verify_nonce($nonce, $this->appName . '-settings') !== false
 		) {
 			$options = base64_decode(strip_tags(trim($options)), true);
 			$options = explode(',', (string) $options);
@@ -99,7 +99,7 @@ class SettingPage implements Hookable
 			/** For internal use. Subject to change. External plugin should not rely on this hook. */
 			apply_filters('syntatis/feature_flipper/inline_data', [
 				'$wp' => [
-					'postTypes' => self::getRegisteredPostTypes(),
+					'postTypes' => self::getPostTypes(),
 					'themeSupport' => [
 						'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 					],
@@ -143,7 +143,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -170,7 +170,7 @@ class SettingPage implements Hookable
 
 	public function addInlineScript(): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -195,7 +195,7 @@ class SettingPage implements Hookable
 		$links = array_merge([
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
-				get_admin_url(null, 'options-general.php?page=' . $this->appName),
+				Admin::url($this->appName),
 				__('Settings', 'syntatis-feature-flipper'),
 			),
 		], $links);
@@ -240,6 +240,31 @@ class SettingPage implements Hookable
 			wp_json_encode([
 				'/wp/v2/settings' => ['body' => $data],
 			]),
+		);
+	}
+
+	/**
+	 * Retrieve the list of registered post types on the site.
+	 *
+	 * @see register_post_type() for accepted arguments.
+	 *
+	 * @return array<string,array<string,mixed>>
+	 */
+	private static function getPostTypes(): array
+	{
+		$postTypes = array_filter(
+			get_post_types(['public' => true], 'objects'),
+			static fn (WP_Post_Type $postTypeObject, string $postType) => ! in_array($postTypeObject->name, ['attachment'], true),
+			ARRAY_FILTER_USE_BOTH,
+		);
+
+		return array_map(
+			static fn (WP_Post_Type $postTypeObject): array => [
+				'name' => $postTypeObject->name,
+				'label' => $postTypeObject->label,
+				'supports' => get_all_post_type_supports($postTypeObject->name),
+			],
+			$postTypes,
 		);
 	}
 }

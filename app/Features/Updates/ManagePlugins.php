@@ -6,10 +6,9 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Helpers\AutoUpdate;
+use Syntatis\FeatureFlipper\Features\Updates\Helpers\AutoUpdate;
+use Syntatis\FeatureFlipper\Features\Updates\Helpers\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\Updates;
 
 use function time;
 
@@ -18,23 +17,17 @@ use function time;
  */
 class ManagePlugins implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
-		$updatesFn = static fn ($value) => Updates::plugins()->isEnabled((bool) $value);
-		$autoUpdateFn = static function ($value): bool {
-			if (! Option::isOn('update_plugins')) {
-				return false;
-			}
+		$updatesFn = static fn ($value) => Updates::components((bool) $value)->isEnabled();
+		$autoUpdateFn = static fn ($value): bool => Option::isOn('update_plugins') ?
+			AutoUpdate::components((bool) $value)->isEnabled() :
+			false;
 
-			return AutoUpdate::plugins()->isEnabled((bool) $value);
-		};
-
-		$hook->addFilter(self::defaultOptionHook('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionHook('update_plugins'), $updatesFn);
-		$hook->addFilter(self::optionHook('auto_update_plugins'), $autoUpdateFn);
-		$hook->addFilter(self::optionHook('update_plugins'), $updatesFn);
+		$hook->addFilter(Option::hook('default:auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('default:update_plugins'), $updatesFn);
+		$hook->addFilter(Option::hook('auto_update_plugins'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('update_plugins'), $updatesFn);
 
 		if (! Option::isOn('update_plugins')) {
 			$hook->removeAction('admin_init', '_maybe_update_plugins');

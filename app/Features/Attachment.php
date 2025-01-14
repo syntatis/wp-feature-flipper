@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Symfony\Component\Uid\Uuid;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Query;
 
@@ -15,11 +14,9 @@ use function is_string;
 
 class Attachment implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter(self::defaultOptionHook('attachment_page'), static function () {
+		$hook->addFilter(Option::hook('default:attachment_page'), static function () {
 			/**
 			 * In WordPress 6.4, A new option, `wp_attachment_pages_enabled` is introduced
 			 * to control the attachment page behavior.
@@ -39,7 +36,7 @@ class Attachment implements Hookable
 			return $enabled === '1' || $enabled === null;
 		});
 		$hook->addAction(
-			self::addOptionHook('attachment_page'),
+			Option::hook('add:attachment_page'),
 			static function ($option, $value): void {
 				update_option('wp_attachment_pages_enabled', (bool) $value ? '1' : '0');
 			},
@@ -47,7 +44,7 @@ class Attachment implements Hookable
 			2,
 		);
 		$hook->addAction(
-			self::updateOptionHook('attachment_page'),
+			Option::hook('update:attachment_page'),
 			static function ($oldValue, $newValue): void {
 				update_option('wp_attachment_pages_enabled', (bool) $newValue ? '1' : '0');
 			},

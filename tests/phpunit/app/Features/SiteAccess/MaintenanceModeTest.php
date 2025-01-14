@@ -6,7 +6,6 @@ namespace Syntatis\Tests\Features\SiteAccess;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
 use stdClass;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
@@ -23,8 +22,6 @@ use const PHP_INT_MIN;
  */
 class MaintenanceModeTest extends WPTestCase
 {
-	use WithHookName;
-
 	private MaintenanceMode $instance;
 	private Hook $hook;
 
@@ -51,7 +48,7 @@ class MaintenanceModeTest extends WPTestCase
 	{
 		$this->assertSame(
 			PHP_INT_MAX,
-			$this->hook->hasFilter(self::sanitizeOptionHook('site_maintenance_args'), [$this->instance, 'sanitizeArgsOption']),
+			$this->hook->hasFilter(Option::hook('sanitize:site_maintenance_args'), [$this->instance, 'sanitizeArgsOption']),
 		);
 		$this->assertFalse($this->hook->hasAction('admin_bar_menu', [$this->instance, 'adminBarMenu']));
 		$this->assertFalse($this->hook->hasAction('rightnow_end', [$this->instance, 'showRightNowStatus']));
@@ -63,7 +60,7 @@ class MaintenanceModeTest extends WPTestCase
 
 		$this->assertSame(
 			PHP_INT_MAX,
-			$this->hook->hasFilter(self::sanitizeOptionHook('site_maintenance_args'), [$this->instance, 'sanitizeArgsOption']),
+			$this->hook->hasFilter(Option::hook('sanitize:site_maintenance_args'), [$this->instance, 'sanitizeArgsOption']),
 		);
 		$this->assertSame(
 			PHP_INT_MIN,
