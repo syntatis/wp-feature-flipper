@@ -36,6 +36,7 @@ class SettingPage implements Hookable
 
 	private Settings $settings;
 
+	/** @phpstan-var non-empty-string */
 	private string $appName;
 
 	private string $scriptHandle;
@@ -44,8 +45,8 @@ class SettingPage implements Hookable
 
 	public function __construct(Settings $settings)
 	{
-		$this->appName = App::name();
 		$this->settings = $settings;
+		$this->appName = App::name();
 		$this->scriptHandle = $this->appName . '-settings';
 	}
 
@@ -65,14 +66,14 @@ class SettingPage implements Hookable
 			__('Feature Flipper', 'syntatis-feature-flipper'),
 			__('Flipper', 'syntatis-feature-flipper'),
 			'manage_options',
-			App::name(),
+			$this->appName,
 			[$this, 'render'],
 		);
 	}
 
 	public function initInlineData(): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -86,7 +87,7 @@ class SettingPage implements Hookable
 		if (
 			is_string($options) &&
 			is_string($nonce) &&
-			wp_verify_nonce($nonce, App::name() . '-settings') !== false
+			wp_verify_nonce($nonce, $this->appName . '-settings') !== false
 		) {
 			$options = base64_decode(strip_tags(trim($options)), true);
 			$options = explode(',', (string) $options);
@@ -143,7 +144,7 @@ class SettingPage implements Hookable
 	/** @param string $adminPage The current admin page. */
 	public function enqueueAdminScripts(string $adminPage): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -170,7 +171,7 @@ class SettingPage implements Hookable
 
 	public function addInlineScript(): void
 	{
-		if (! self::isSettingPage()) {
+		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
 
@@ -195,7 +196,7 @@ class SettingPage implements Hookable
 		$links = array_merge([
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
-				get_admin_url(null, 'options-general.php?page=' . $this->appName),
+				Admin::url($this->appName),
 				__('Settings', 'syntatis-feature-flipper'),
 			),
 		], $links);
