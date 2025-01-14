@@ -54,9 +54,6 @@ final class Admin
 			case App::name():
 				return self::isPluginSettingPage();
 
-			case 'dashboard':
-				return self::isDashboardScreen();
-
 			default:
 				if (Str::endsWith($address, '.php')) {
 					$pagenow = $GLOBALS['pagenow'] ?? '';
@@ -85,7 +82,7 @@ final class Admin
 	 */
 	private static function isPluginSettingPage(): bool
 	{
-		if (! is_admin() || ! function_exists('get_current_screen')) {
+		if (! function_exists('get_current_screen')) {
 			return false;
 		}
 
@@ -96,23 +93,5 @@ final class Admin
 		}
 
 		return $currentScreen->id === 'settings_page_' . App::name();
-	}
-
-	/**
-	 * Whether the current view is the admin "Dashboard".
-	 */
-	private static function isDashboardScreen(): bool
-	{
-		$currentScreen = null;
-
-		if (function_exists('get_current_screen')) {
-			$currentScreen = get_current_screen();
-		}
-
-		if ($currentScreen instanceof WP_Screen) {
-			return $currentScreen->id === 'dashboard';
-		}
-
-		return ($GLOBALS['pagenow'] ?? '') === 'index.php';
 	}
 }
