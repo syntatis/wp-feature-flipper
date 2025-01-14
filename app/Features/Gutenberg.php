@@ -7,12 +7,10 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Concerns\WithPostTypes;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Post;
 
 use function array_filter;
-use function array_keys;
 use function array_values;
 use function in_array;
 use function is_int;
@@ -22,7 +20,6 @@ use const PHP_INT_MAX;
 class Gutenberg implements Hookable
 {
 	use WithHookName;
-	use WithPostTypes;
 
 	public function hook(Hook $hook): void
 	{
@@ -30,7 +27,7 @@ class Gutenberg implements Hookable
 		$hook->addFilter(
 			self::defaultOptionHook('gutenberg_post_types'),
 			static fn () => array_values(array_filter(
-				array_keys(self::getRegisteredPostTypes()),
+				get_post_types(),
 				static fn ($key): bool => use_block_editor_for_post_type($key),
 			)),
 			PHP_INT_MAX,
