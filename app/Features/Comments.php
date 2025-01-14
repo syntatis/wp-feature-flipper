@@ -7,7 +7,7 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithAdmin;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 use WP_Block_Type_Registry;
@@ -25,8 +25,6 @@ use const PHP_INT_MAX;
 
 class Comments implements Hookable
 {
-	use WithAdmin;
-
 	private const EXCLUDE_POST_TYPES = ['product'];
 
 	public function hook(Hook $hook): void
@@ -225,7 +223,7 @@ class Comments implements Hookable
 
 		$postType = is_string($postType) ? $postType : $postIdType;
 
-		if (self::isDashboardPage()) {
+		if (Admin::isScreen('dashboard')) {
 			if ($postType === '' || ! in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
 				return [];
 			}
@@ -255,7 +253,7 @@ class Comments implements Hookable
 	public function filterCommentsCount($count, int $postId)
 	{
 		if (
-			(self::isDashboardPage() && $postId === 0) ||
+			(Admin::isScreen('dashboard') && $postId === 0) ||
 			! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)
 		) {
 			return (object) [

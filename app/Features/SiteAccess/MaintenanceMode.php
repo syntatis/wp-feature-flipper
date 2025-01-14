@@ -7,8 +7,8 @@ namespace Syntatis\FeatureFlipper\Features\SiteAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithAdmin;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
@@ -23,7 +23,6 @@ use const PHP_INT_MIN;
 
 class MaintenanceMode implements Hookable
 {
-	use WithAdmin;
 	use WithHookName;
 
 	public function hook(Hook $hook): void
@@ -93,8 +92,8 @@ class MaintenanceMode implements Hookable
 			'parent' => 'top-secondary',
 		];
 
-		if (current_user_can('manage_options') && ! self::isSettingPage()) {
-			$node['href'] = self::getSettingPageURL(['tab' => 'site']);
+		if (current_user_can('manage_options') && ! Admin::isScreen(App::name())) {
+			$node['href'] = Admin::url(App::name(), ['tab' => 'site']);
 		}
 
 		$wpAdminBar->add_node($node);
@@ -110,7 +109,7 @@ class MaintenanceMode implements Hookable
 		if (current_user_can('manage_options')) {
 			$message = sprintf(
 				'<a href="%s">%s</a>',
-				self::getSettingPageURL(['tab' => 'site']),
+				Admin::url(App::name(), ['tab' => 'site']),
 				$message,
 			);
 		}
