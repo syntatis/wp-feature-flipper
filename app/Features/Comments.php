@@ -99,9 +99,7 @@ class Comments implements Hookable
 
 	public function removeAdminMenu(): void
 	{
-		$pagenow = $GLOBALS['pagenow'] ?? '';
-
-		if ($pagenow === 'comment.php' || $pagenow === 'edit-comments.php') {
+		if (Admin::isScreen('comment.php') || Admin::isScreen('edit-comments.php')) {
 			wp_die(
 				esc_html__('Comments are disabled.', 'syntatis-feature-flipper'),
 				esc_html(strip_tags(get_admin_page_title())),
@@ -111,7 +109,7 @@ class Comments implements Hookable
 
 		remove_menu_page('edit-comments.php');
 
-		if ($pagenow === 'options-discussion.php') {
+		if (Admin::isScreen('options-discussion.php')) {
 			wp_die(
 				esc_html__('Comments are disabled.', 'syntatis-feature-flipper'),
 				esc_html(strip_tags(get_admin_page_title())),
