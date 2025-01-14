@@ -86,12 +86,10 @@ final class Admin
 			return false;
 		}
 
-		$currentScreen = get_current_screen();
+		$screen = get_current_screen();
 
-		if ($currentScreen === null) {
-			return false;
-		}
-
-		return $currentScreen->id === 'settings_page_' . App::name();
+		return $screen instanceof WP_Screen ?
+			$screen->id === 'settings_page_' . App::name() :
+			false;
 	}
 }
