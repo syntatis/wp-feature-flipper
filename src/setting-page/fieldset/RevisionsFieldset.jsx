@@ -44,7 +44,7 @@ export const RevisionsInputs = () => {
 						min={ 1 }
 						max={ 100 }
 						placeholder={
-							typeof revisionMax !== 'number' ? '∞' : revisionMax
+							typeof revisionMax === 'number' ? revisionMax : '∞'
 						}
 						defaultValue={ revisionMax }
 						type="number"
