@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Helpers;
 
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
+
 use function array_values;
 
 class Arr
 {
+	use DontInstantiate;
+
 	/**
 	 * Validates that the provided array is a list (i.e. it has only numeric keys
 	 * starting from 0 and increasing by 1 for each element).

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Helpers;
 
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
+
 use function is_string;
 use function parse_url;
 use function rtrim;
@@ -18,9 +20,7 @@ use const PHP_URL_PATH;
  */
 final class URL
 {
-	private function __construct()
-	{
-	}
+	use DontInstantiate;
 
 	/**
 	 * Retrieve URL of the current request.

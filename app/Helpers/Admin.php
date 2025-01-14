@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Helpers;
 
 use SSFV\Codex\Facades\App;
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 use WP_Screen;
 
 use function array_merge;
 use function function_exists;
+use function is_string;
 
 /**
  * A collection of methods to interact with the WordPress admin area.
  */
 final class Admin
 {
-	private function __construct()
-	{
-	}
+	use DontInstantiate;
 
 	/**
 	 * Get the URL in the admin for the provided address.
 	 *
-	 * @param string              $address The address to get the URL for.
+	 * @param string              $address The path, or the name of the page.
 	 * @param array<string,mixed> $args    Additional query arguments to append to the URL.
 	 * @phpstan-param non-empty-string $address
 	 */
@@ -43,14 +43,14 @@ final class Admin
 		}
 	}
 
-	/** @phpstan-param non-empty-string $id */
-	public static function isScreen(string $id): bool
+	/** @phpstan-param non-empty-string $address */
+	public static function isScreen(string $address): bool
 	{
 		if (! is_admin()) {
 			return false;
 		}
 
-		switch ($id) {
+		switch ($address) {
 			case App::name():
 				return self::isPluginSettingPage();
 
@@ -65,7 +65,13 @@ final class Admin
 				$screen = get_current_screen();
 
 				if ($screen instanceof WP_Screen) {
-					return $screen->id === $id;
+					return $screen->id === $address;
+				}
+
+				$pagenow = $GLOBALS['pagenow'] ?? '';
+
+				if (is_string($pagenow) && $pagenow !== '') {
+					return $pagenow === $address;
 				}
 
 				return false;

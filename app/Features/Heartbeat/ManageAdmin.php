@@ -7,7 +7,7 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Concerns\WithHookName;
-use Syntatis\FeatureFlipper\Concerns\WithPostEditor;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function is_numeric;
@@ -17,7 +17,6 @@ use const PHP_INT_MAX;
 class ManageAdmin implements Hookable
 {
 	use WithHookName;
-	use WithPostEditor;
 
 	public function hook(Hook $hook): void
 	{
@@ -45,7 +44,11 @@ class ManageAdmin implements Hookable
 	 */
 	public function deregisterScripts(): void
 	{
-		if (! is_admin() || self::isPostEditor() || Option::isOn('heartbeat_admin')) {
+		if (
+			! is_admin() ||
+			self::isPostEditor() ||
+			Option::isOn('heartbeat_admin')
+		) {
 			return;
 		}
 
@@ -84,5 +87,10 @@ class ManageAdmin implements Hookable
 		}
 
 		return $settings;
+	}
+
+	private static function isPostEditor(): bool
+	{
+		return Admin::isScreen('post.php') || Admin::isScreen('post-new.php');
 	}
 }

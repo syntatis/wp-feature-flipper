@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Helpers;
 
 use SSFV\Codex\Facades\Config;
+use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
 use function array_diff;
 use function array_filter;
@@ -17,14 +18,7 @@ use function is_array;
 
 final class Option
 {
-	/**
-	 * Prevent instantiation.
-	 *
-	 * @codeCoverageIgnore
-	 */
-	final private function __construct()
-	{
-	}
+	use DontInstantiate;
 
 	/**
 	 * Retrieve the value of the plugin option.
