@@ -68,7 +68,7 @@ class PrivateMode implements Hookable
 				return;
 			}
 
-			delete_option(Option::name('site_private'));
+			Option::delete('site_private');
 		};
 		$hook->addAction(Option::hook('add:site_access'), $updateOptionCallback, PHP_INT_MAX);
 		$hook->addAction(Option::hook('update:site_access'), $updateOptionCallback, PHP_INT_MAX);
@@ -86,15 +86,12 @@ class PrivateMode implements Hookable
 	public function forceLogin(): void
 	{
 		if (
+			URL::isLogin() ||
 			is_user_logged_in() ||
 			wp_doing_ajax() ||
 			wp_doing_cron() ||
 			( defined('WP_CLI') && WP_CLI )
 		) {
-			return;
-		}
-
-		if (URL::isLogin()) {
 			return;
 		}
 

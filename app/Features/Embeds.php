@@ -38,7 +38,7 @@ class Embeds implements Hookable
 		$wp->public_query_vars = array_diff($wp->public_query_vars, ['embed']);
 		// phpcs:enable
 
-		$hook->addAction('update_option_' . Option::name('cron'), [$this, 'flushPermalinks']);
+		$hook->addAction(Option::hook('update:cron'), [$this, 'flushPermalinks']);
 		$hook->addAction('enqueue_block_editor_assets', [$this, 'disableOnBlockEditor']);
 		$hook->addAction('wp_default_scripts', [$this, 'disableScriptDependencies']);
 		$hook->addFilter('embed_oembed_discover', '__return_false');
