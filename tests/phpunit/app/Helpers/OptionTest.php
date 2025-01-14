@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Helpers;
 
+use InvalidArgumentException;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
@@ -169,5 +170,42 @@ class OptionTest extends WPTestCase
 			['a', 'b', 'c', 'd'], // Source.
 			['a', 'b', 'c', 'd'], // Updated value.
 		];
+	}
+
+	/**
+	 * @dataProvider dataHook
+	 * @testdox should return the option name filter, added with plugin the prefix
+	 */
+	public function testHook(string $name, string $expect): void
+	{
+		$this->assertSame($expect, Option::hook($name));
+	}
+
+	public static function dataHook(): iterable
+	{
+		yield ['foo', 'option_syntatis_feature_flipper_foo'];
+		yield ['default:foo', 'default_option_syntatis_feature_flipper_foo'];
+		yield ['update:foo', 'update_option_syntatis_feature_flipper_foo'];
+		yield ['delete:foo', 'delete_option_syntatis_feature_flipper_foo'];
+		yield ['add:foo', 'add_option_syntatis_feature_flipper_foo'];
+		yield ['sanitize:foo', 'sanitize_option_syntatis_feature_flipper_foo'];
+	}
+
+	/**
+	 * @dataProvider dataHookInvalid
+	 * @testdox should throw an exception when the hook name is invalid
+	 */
+	public function testHookInvalid(string $name): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		Option::hook($name);
+	}
+
+	public static function dataHookInvalid(): iterable
+	{
+		yield ['bar:foo'];
+		yield [':foo'];
+		yield ['bar:'];
 	}
 }

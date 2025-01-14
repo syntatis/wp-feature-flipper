@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Features\SiteAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
@@ -23,11 +22,9 @@ use const PHP_INT_MIN;
 
 class MaintenanceMode implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter(self::sanitizeOptionHook('site_maintenance_args'), [$this, 'sanitizeArgsOption'], PHP_INT_MAX);
+		$hook->addFilter(Option::hook('sanitize:site_maintenance_args'), [$this, 'sanitizeArgsOption'], PHP_INT_MAX);
 
 		if (Option::get('site_access') !== 'maintenance') {
 			return;

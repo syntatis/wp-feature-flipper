@@ -6,7 +6,6 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -18,8 +17,6 @@ use function time;
  */
 class ManageThemes implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$updatesFn = static fn ($value) => Updates::components((bool) $value)->isEnabled();
@@ -27,10 +24,10 @@ class ManageThemes implements Hookable
 			AutoUpdate::components((bool) $value)->isEnabled() :
 			false;
 
-		$hook->addFilter(self::defaultOptionHook('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::defaultOptionHook('update_themes'), $updatesFn);
-		$hook->addFilter(self::optionHook('auto_update_themes'), $autoUpdateFn);
-		$hook->addFilter(self::optionHook('update_themes'), $updatesFn);
+		$hook->addFilter(Option::hook('default:auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('default:update_themes'), $updatesFn);
+		$hook->addFilter(Option::hook('auto_update_themes'), $autoUpdateFn);
+		$hook->addFilter(Option::hook('update_themes'), $updatesFn);
 
 		if (! Option::isOn('update_themes')) {
 			$hook->addFilter('site_transient_update_themes', [$this, 'filterSiteTransientUpdate']);

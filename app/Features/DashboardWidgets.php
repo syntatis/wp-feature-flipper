@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Features;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
 
@@ -27,8 +26,6 @@ use const PHP_INT_MAX;
  */
 class DashboardWidgets implements Hookable
 {
-	use WithHookName;
-
 	private static bool $onSettingPage = false;
 
 	/** @var array<string,array{id:string,title:string}> */
@@ -38,7 +35,7 @@ class DashboardWidgets implements Hookable
 	{
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
-			self::defaultOptionHook('dashboard_widgets_enabled'),
+			Option::hook('default:dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
 			PHP_INT_MAX,
 		);

@@ -6,7 +6,6 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
@@ -16,8 +15,6 @@ use const PHP_INT_MAX;
 
 class ManagePostEditor implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
@@ -30,11 +27,11 @@ class ManagePostEditor implements Hookable
 		 * the "heartbeat_post_editor" option.
 		 */
 		$hook->addFilter(
-			self::optionHook('heartbeat_post_editor'),
+			Option::hook('heartbeat_post_editor'),
 			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
-			self::defaultOptionHook('heartbeat_post_editor'),
+			Option::hook('default:heartbeat_post_editor'),
 			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}

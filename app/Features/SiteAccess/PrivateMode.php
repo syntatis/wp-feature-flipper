@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper\Features\SiteAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\URL;
@@ -27,8 +26,6 @@ use const PHP_INT_MIN;
  */
 class PrivateMode implements Hookable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		/**
@@ -57,8 +54,8 @@ class PrivateMode implements Hookable
 
 			return $value;
 		};
-		$hook->addFilter(self::defaultOptionHook('site_access'), $optionCallback, PHP_INT_MAX);
-		$hook->addFilter(self::optionHook('site_access'), $optionCallback, PHP_INT_MAX);
+		$hook->addFilter(Option::hook('default:site_access'), $optionCallback, PHP_INT_MAX);
+		$hook->addFilter(Option::hook('site_access'), $optionCallback, PHP_INT_MAX);
 
 		/**
 		 * Remove the `site_private` option, after the `site_access` option has been
@@ -73,8 +70,8 @@ class PrivateMode implements Hookable
 
 			delete_option(Option::name('site_private'));
 		};
-		$hook->addAction(self::addOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
-		$hook->addAction(self::updateOptionHook('site_access'), $updateOptionCallback, PHP_INT_MAX);
+		$hook->addAction(Option::hook('add:site_access'), $updateOptionCallback, PHP_INT_MAX);
+		$hook->addAction(Option::hook('update:site_access'), $updateOptionCallback, PHP_INT_MAX);
 
 		if (Option::get('site_access') !== 'private') {
 			return;

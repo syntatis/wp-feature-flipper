@@ -58,6 +58,14 @@ final class Admin
 				return self::isDashboardScreen();
 
 			default:
+				if (Str::endsWith($address, '.php')) {
+					$pagenow = $GLOBALS['pagenow'] ?? '';
+
+					if (is_string($pagenow) && $pagenow === $address) {
+						return true;
+					}
+				}
+
 				if (! function_exists('get_current_screen')) {
 					return false;
 				}
@@ -66,12 +74,6 @@ final class Admin
 
 				if ($screen instanceof WP_Screen) {
 					return $screen->id === $address;
-				}
-
-				$pagenow = $GLOBALS['pagenow'] ?? '';
-
-				if (is_string($pagenow) && $pagenow !== '') {
-					return $pagenow === $address;
 				}
 
 				return false;

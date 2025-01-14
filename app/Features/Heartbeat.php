@@ -8,7 +8,6 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Heartbeat\ManageAdmin;
 use Syntatis\FeatureFlipper\Features\Heartbeat\ManagePostEditor;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -30,8 +29,6 @@ use const PHP_INT_MAX;
  */
 class Heartbeat implements Hookable, Extendable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('init', [$this, 'deregisterScripts'], PHP_INT_MAX);

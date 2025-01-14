@@ -8,7 +8,6 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers;
 use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
@@ -22,20 +21,18 @@ use const PHP_INT_MAX;
 
 class Updates implements Hookable, Extendable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(
-			self::optionHook('updates'),
+			Option::hook('updates'),
 			static fn ($value) => Helpers\Updates::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
-			self::defaultOptionHook('auto_updates'),
+			Option::hook('default:auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
-			self::optionHook('auto_updates'),
+			Option::hook('auto_updates'),
 			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 

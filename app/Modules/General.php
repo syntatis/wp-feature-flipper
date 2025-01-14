@@ -8,7 +8,6 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Concerns\WithHookName;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
@@ -25,13 +24,11 @@ use const PHP_INT_MAX;
 
 class General implements Hookable, Extendable
 {
-	use WithHookName;
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
-			self::defaultOptionHook('block_based_widgets'),
+			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);
