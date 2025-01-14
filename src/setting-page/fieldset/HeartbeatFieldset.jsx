@@ -15,7 +15,7 @@ const OPTION_KEYS = [
 ];
 
 export const HeartbeatInputs = () => {
-	const { inputProps, getOption } = useSettingsContext();
+	const { inputProps, getOption, optionPrefix } = useSettingsContext();
 	const [ values, setValues ] = useState(
 		OPTION_KEYS.reduce( ( acc, key ) => {
 			acc[ key ] = getOption( key );
@@ -108,6 +108,16 @@ export const HeartbeatInputs = () => {
 										{ ...inputProps(
 											'heartbeat_admin_interval'
 										) }
+										name={ undefined } // Name is set in the hidden input.
+										onSelectionChange={ ( value ) => {
+											setValues( ( currentValues ) => {
+												return {
+													...currentValues,
+													heartbeat_admin_interval:
+														value,
+												};
+											} );
+										} }
 										selectedItem={
 											values.heartbeat_admin_interval
 										}
@@ -186,6 +196,16 @@ export const HeartbeatInputs = () => {
 										{ ...inputProps(
 											'heartbeat_post_editor_interval'
 										) }
+										name={ undefined } // Name is set in the hidden input.
+										onSelectionChange={ ( value ) => {
+											setValues( ( currentValues ) => {
+												return {
+													...currentValues,
+													heartbeat_post_editor_interval:
+														value,
+												};
+											} );
+										} }
 										selectedItem={
 											values.heartbeat_post_editor_interval
 										}
@@ -221,6 +241,16 @@ export const HeartbeatInputs = () => {
 								}
 							/>
 						</div>
+						<input
+							type="hidden"
+							name={ `${ optionPrefix }heartbeat_admin_interval` }
+							value={ values.heartbeat_admin_interval }
+						/>
+						<input
+							type="hidden"
+							name={ `${ optionPrefix }heartbeat_post_editor_interval` }
+							value={ values.heartbeat_post_editor_interval }
+						/>
 					</div>
 				</Details>
 			) }
