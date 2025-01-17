@@ -49,7 +49,7 @@ In the Media section, you can find options to configure features that are relate
 
 ### Site
 
-Some options to control the site access, assets (scripts, styles, and images) loaded on the site, and site metatags.
+This section provides some options to control your site access, some assets (scripts, styles, and images) loaded on the site, and some page meta tags or data.
 
 * **Access**: Make your site public, allow only logged-in users to access your site, or put it in maintenance mode.
 
@@ -61,15 +61,35 @@ Some options to control the site access, assets (scripts, styles, and images) lo
 
 ### Metadata
 
-* **RSD Link**:
-* **Generator Meta Tag**: Don't expose the WordPress® version in the site header.
-* **Shortlink**:
-
-### REST API
+* **RSD Link**: Remove the Really Simple Discovery (RSD) tag.
+* **Generator Meta Tag**: Remove the generator meta tag to not expose the WordPress® version of your site.
+* **Shortlink**: Remove the shortlink meta tag from the site header.
 
 ### Security
 
+This section provides some options to help you secure your site by disabling some features that may be used by attackers to exploit your site.
+
+* **File Edit**: Disable the file editor in the admin area that allows you to edit the theme and plugin files.
+* **XML-RPC**: Disable the XML-RPC feature that is used by some plugins and apps to communicate with your site.
+* **API Authentication**: Force all request to REST API to be authenticated.
+
+### Login
+
+* **Identifier**: Change the login identifier to use just username, or email, or both.
+* **Obfuscate Error**: Make it harder to guess which part of the login credentials is incorrect.
+* **Block Bots**: Block known bots from accessing your site login page.
+
+### Passwords
+
+* **Application Passwords**: Prevent users from generating Application Passwords, and remove the related interface elements from the user profile.
+
 ### Advanced
+
+In the Advanced section, you can find some features that are more advanced and may require some technical knowledge before you can decide to turn them off. Use with caution.
+
+* **Updates**: Enable or disable updates and automatic updates for WordPress®, plugins, and themes.
+* **Cron**: Disable the WP-Cron feature and use a real cron job instead.
+* **Heartbeat**: Disable the Heartbeat API or configure it to use less resources.
 
 ## Installation
 
@@ -78,5 +98,15 @@ Some options to control the site access, assets (scripts, styles, and images) lo
 3. Use the Settings -> Flipper screen to configure the plugin.
 
 [More info on installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins)
+
+## Frequently Asked Questions
+
+### Is it compatible with WordPress Multisite?
+
+Current, no. But it is in the plan to support WordPress Multisite in the future.
+
+### How do I suggest a new feature?
+
+You can suggest a new feature by creating a new issue in the [plugin's GitHub repository](https://github.com/syntatis/wp-feature-flipper).
 
 ## Contributing
