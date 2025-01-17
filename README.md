@@ -95,9 +95,17 @@ For advanced users—configure these features carefully:
 
 ## Installation
 
-1.	Upload the plugin files to `/wp-content/plugins/syntatis-feature-flipper` or install directly from the WordPress 'Plugins' screen.
-2.	Activate the plugin through the 'Plugins' screen in WordPress.
-3.	Go to'‘Settings → Flipper' to configure the plugin.
+### Installation from within WordPress
+
+1. Visit **Plugins > Add New**.
+2. Search for **Feature Flipper**.
+3. Install and activate the **Feature Flipper** plugin.
+
+### Manual upload
+
+1. Upload the entire `syntatis-feature-flipper` folder to the `/wp-content/plugins/` directory.
+2. Visit **Plugins**.
+3. Activate the **Feature Flipper** plugin.
 
 Learn more [about installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins).
 
@@ -105,6 +113,7 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 
 <details>
 	<summary>Is this plugin compatible with WordPress Multisite?</summary>
+	
 	Not yet, but it's on the plan!
 </details>
 
