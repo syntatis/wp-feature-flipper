@@ -9,7 +9,9 @@
 
 WordPress® is packed with features—some are essential, while others you might not need.
 
-This plugin gives you the ability to easily manage these features like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off. It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
+This plugin gives you the ability to easily manage these features like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
+
+It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
 ## Features
 
