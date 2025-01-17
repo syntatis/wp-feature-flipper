@@ -4,10 +4,6 @@
 
 [![ci](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml) ![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/syntatis-feature-flipper?logo=wordpress) ![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress) ![WordPress Plugin: Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/syntatis-feature-flipper?logo=wordpress) [![Static Badge](https://img.shields.io/badge/playground-wordpress?logo=wordpress&logoColor=ffffff&label=playground&color=3858E9)](https://raw.githubusercontent.com/syntatis/wp-feature-flipper/refs/heads/feat/readme/.wporg/blueprints/blueprint.json)
 
-
-> [!NOTE]  
-> This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for develping a WordPress® plugin that encourages modern development practices, and provides pre-configured tools for a more streamlined development experience.
-
 WordPress® is packed with features—some are essential, while others you might not need.
 
 This plugin gives you the ability to easily manage these features like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
@@ -123,3 +119,6 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 ## Contributing
 
 Have an idea, suggestion, or found a bug? Open an issue or submit a pull request. For more details on how to contribute, check out the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+> [!NOTE]  
+> This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for develping a WordPress® plugin that encourages modern development practices, and provides pre-configured tools for a more streamlined development experience.
