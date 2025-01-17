@@ -38,7 +38,7 @@ Customize your admin experience:
 * **Update Nags**: Hide update notices for WordPress, plugins, and themes.
 * **Admin Bar**: Remove the admin bar on your site’s front end.
 * **Howdy Text**: Replace the <q>Howdy</q> greeting in the admin bar.
-* **Environment Type**: Display your site’s environment type (e.g., Development, Staging, Production) in the admin bar.
+* **Environment Type**: Display site's environment type (e.g. Development, Staging, Production) in the admin bar.
 
 ### Media
 
