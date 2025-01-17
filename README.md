@@ -43,7 +43,7 @@ In the Admin section, you can find features that are shown or run in the admin a
 In the Media section, you can find options to configure features that are related to the media library and the uploaded media files on your site.
 
 * **Attachement Pages**: Disable the attachment page, or [enable it back on WordPress 6.4 or later](https://make.wordpress.org/core/2023/10/16/changes-to-attachment-pages/).
-* **Attachment Slug**: Use random URL for Media pages to avoid slug conflicts or reserved issues with other post types.
+* **Attachment Slug**: Use random URL for Media pages to prevent slug conflicts with other post types.
 * **Infinite Scroll**: Bring back the infinite scroll feature on the Media Library screen.
 * **Image Quality**: Change the default image quality for uploaded images (Currently, only support for JPEG images).
 
@@ -70,7 +70,7 @@ This section provides some options to control your site access, some assets (scr
 This section provides some options to help you secure your site by disabling some features that may be used by attackers to exploit your site.
 
 * **File Edit**: Disable the file editor in the admin area that allows you to edit the theme and plugin files.
-* **XML-RPC**: Disable the XML-RPC feature that is used by some plugins and apps to communicate with your site.
+* **XML-RPC**: Disable the XML-RPC endpoint.
 * **API Authentication**: Force all request to REST API to be authenticated.
 
 ### Login
