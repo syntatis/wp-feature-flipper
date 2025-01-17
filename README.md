@@ -7,7 +7,9 @@
 > [!NOTE]  
 > This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for develping a WordPress® plugin that encourages modern development practices, and provides pre-configured tools for a more streamlined development experience.
 
-WordPress® has many features, some of which are useful and essential. However, there are likely some you don't need. This plugin makes it easy to turn on or off these features such as Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, and REST API.
+WordPress® has many features, some of which are useful and essential. However, there are likely some you don't need.
+
+This plugin makes it easy to turn on or off these features such as Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, and REST API. It also comes with some additional utility features such as to show the environment type of your site in the admin bar, to enable private or maintenance mode, or to use random URL for Media pages.
 
 ## Features
 
@@ -27,9 +29,43 @@ In this section, you can find some of core features in WordPress® that you may 
 
 ### Admin
 
+In the Admin section, you can find features that are shown or run in the admin area of your site.
+
+* **Dashboard Widgets**: Clean-up your dashboard by removing some of the default widgets, or remove them all.
+* **Footer Text**: Remove the "Thank you for creating with WordPress" text in the admin footer.
+* **Update Nags**: Remove the all notices in the admin aready for WordPress®, plugins, and themes updates.
+* **Admin Bar**: Remove the admin bar from the front-end of your site.
+* **Howdy Text**: Remove the "Howdy" text next to the user's name in the admin bar.
+* **Environment Type**: Show a label to the admin bar to indicate the environment type of your site (e.g. Development, Staging, Production).
+
 ### Media
 
+In the Media section, you can find options to configure features that are related to the media library and the uploaded media files on your site.
+
+* **Attachement Pages**: Disable the attachment page, or [enable it back on WordPress 6.4 or later](https://make.wordpress.org/core/2023/10/16/changes-to-attachment-pages/).
+* **Attachment Slug**: Use random URL for Media pages to avoid slug conflicts or reserved issues with other post types.
+* **Infinite Scroll**: Bring back the infinite scroll feature on the Media Library screen.
+* **Image Quality**: Change the default image quality for uploaded images (Currently, only support for JPEG images).
+
 ### Site
+
+Some options to control the site access, assets (scripts, styles, and images) loaded on the site, and site metatags.
+
+* **Access**: Make your site public, allow only logged-in users to access your site, or put it in maintenance mode.
+
+#### Assets
+
+* **Emojis**: Improve the performance of your site by removing the emoji scripts and styles.
+* **Scripts Version**: Remove the version query string from the scripts and styles URL.
+* **jQuery Migrate**: Don't need jQuery Migrate? You can remove it from your site.
+
+### Metadata
+
+* **RSD Link**:
+* **Generator Meta Tag**: Don't expose the WordPress® version in the site header.
+* **Shortlink**:
+
+### REST API
 
 ### Security
 
