@@ -105,8 +105,4 @@ In the Advanced section, you can find some features that are more advanced and m
 
 Current, no. But it is in the plan to support WordPress Multisite in the future.
 
-### How do I suggest a new feature?
-
-You can suggest a new feature by creating a new issue in the [plugin's GitHub repository](https://github.com/syntatis/wp-feature-flipper).
-
 ## Contributing
