@@ -9,11 +9,11 @@ Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Easily switch some features in WordPress, on and off.
+Disable Comments, Gutenberg, Emojis, and other features you don't need.
 
 == Description ==
 
-This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
+This plugin gives you the ability to easily manage features in WordPress like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
 
 It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
@@ -23,7 +23,7 @@ This plugin organizes these settings into sections so you can quickly find and m
 
 #### General
 
-Tweak key WordPress® features to fit your needs:
+Tweak key WordPress features to fit your needs:
 
 * **Block Editor**: Prefer the Classic Editor? Disable the Block Editor for all or specific post types.
 * **Block-based Widgets**: Turn off the Block Widgets Editor.
@@ -53,25 +53,25 @@ Adjust media-related settings:
 * **Infinite Scroll**: Restore infinite scroll in the Media Library.
 * **Image Quality**: Adjust the quality of uploaded images (JPEG only).
 
-### Site
+#### Site
 
 Control access and assets on your site:
 
 * **Access**: Make your site public, restrict it to logged-in users, or enable maintenance mode.
 
-#### Assets
+##### Assets
 
 * **Emojis**: Improve performance by removing emoji scripts and styles.
 * **Script Version**: Remove version query strings from scripts and styles URLs.
 * **jQuery Migrate**: Disable jQuery Migrate if it’s not needed.
 
-#### Metadata
+##### Metadata
 
 * **RSD Link**: Remove the Really Simple Discovery (RSD) tag.
-* **Generator Meta Tag**: Hide the WordPress® version meta tag.
+* **Generator Meta Tag**: Hide the WordPress version meta tag.
 * **Shortlink**: Remove the shortlink meta tag.
 
-### Security
+#### Security
 
 Improve your site's security by disabling or limiting access to certain features:
 
@@ -79,7 +79,7 @@ Improve your site's security by disabling or limiting access to certain features
 * **XML-RPC**: Disable the XML-RPC endpoint.
 * **API Authentication**: Require authentication for all REST API requests.
 
-#### Login
+##### Login
 
 Apply additional security measures to your login page:
 
@@ -87,13 +87,13 @@ Apply additional security measures to your login page:
 * **Obfuscate Error**: Prevent hints about which login credential is incorrect.
 * **Block Bots**: Block known bots from accessing the login page.
 
-#### Passwords
+##### Passwords
 
 * **Application Passwords**: Disable Application Passwords and remove related UI elements.
 
-### Advanced
+#### Advanced
 
-For advanced users—configure these features carefully:
+Only for advanced users. You configure these following features, but do it carefully:
 
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.

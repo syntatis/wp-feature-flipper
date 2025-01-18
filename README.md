@@ -84,7 +84,7 @@ Apply additional security measures to your login page:
 
 ### Advanced
 
-For advanced users—configure these features carefully:
+Only for advanced users. You configure these following features, but do it carefully:
 
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.
