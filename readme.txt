@@ -9,19 +9,95 @@ Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Easily switch some features in WordPress, on and off.
+Disable Comments, Gutenberg, Emojis, and other features you don't need.
 
 == Description ==
 
-WordPress comes with a lot of features. Some of them are useful and essential, while there are probably some that you do not need. This plugin allows you to switch some of these features, on and off, easily. Several features that this plugin supports are:
+This plugin gives you the ability to easily manage features in WordPress like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
 
-- **Gutenberg**: Gutenberg has become the default editor in WordPress on both Page and Post type. But if you are not using it, you can disable it to switch back to the Classic Editor.
-- **Emojis**: Emojis are fun. But WordPress loads some scripts to support rendering emojis. If you do not use Emojis in your content, you can disable them to remove the additional weight from the scripts.
-- **XML-RPC**: XML-RPC is a remote procedure call protocol that allows you to communicate with your WordPress site. If you do not use any services that require XML-RPC, you can disable it which helps reducing the attack surface of your site.
-- **jQuery Migrate**: jQuery Migrate is a JavaScript library that helps you to migrate your jQuery code to the latest version. If you are not using any old jQuery code, you can disable it to remove the additional weight of the library from your site.
-- **Post Embeds**: Post Embeds allow you to embed posts from your site into another site, or within your own site. If you do not use this feature, you can disable it to prevent others from embedding your posts.
-- **Attachment Slug**: WordPress, by default, will automaically create a slug for your attachment URLs from the media file name. This could cause issues when the slug is conflicting with your post or page slug. To avoid attachment reserving the slug, you can disable this default behaviour. This plugin will randomly generate a unique slug for your attachment URLs.
-- And more...
+It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
+
+### Features
+
+This plugin organizes these settings into sections so you can quickly find and manage what you need:
+
+#### General
+
+Tweak key WordPress features to fit your needs:
+
+* **Block Editor**: Prefer the Classic Editor? Disable the Block Editor for all or specific post types.
+* **Block-based Widgets**: Turn off the Block Widgets Editor.
+* **Comments**: Disable comments and remove related admin area elements.
+* **Revisions**: Limit or disable post revisions to improve performance.
+* **Embed**: Stop other sites from embedding your content.
+* **Self-ping**: Prevent pingbacks to your own site.
+* **Feeds**: Disable RSS feeds if you don't need them.
+
+#### Admin
+
+Customize your admin experience:
+
+* **Dashboard Widgets**: Remove unwanted or all dashboard widgets.
+* **Footer Text**: Get rid of the <q>Thank you for creating with WordPress</q> footer text.
+* **Update Nags**: Hide update notices for WordPress, plugins, and themes.
+* **Admin Bar**: Remove the admin bar on your site's front end.
+* **Howdy Text**: Replace the <q>Howdy</q> greeting in the admin bar.
+* **Environment Type**: Display site's environment type (e.g. Development, Staging, Production) in the admin bar.
+
+#### Media
+
+Adjust media-related settings:
+
+* **Attachment Pages**: Disable attachment pages or re-enable them on WordPress 6.4+.
+* **Attachment Slug**: Use random URLs for media pages to avoid slug conflicts.
+* **Infinite Scroll**: Restore infinite scroll in the Media Library.
+* **Image Quality**: Adjust the quality of uploaded images (JPEG only).
+
+#### Site
+
+Control access and assets on your site:
+
+* **Access**: Make your site public, restrict it to logged-in users, or enable maintenance mode.
+
+##### Assets
+
+* **Emojis**: Improve performance by removing emoji scripts and styles.
+* **Script Version**: Remove version query strings from scripts and styles URLs.
+* **jQuery Migrate**: Disable jQuery Migrate if it’s not needed.
+
+##### Metadata
+
+* **RSD Link**: Remove the Really Simple Discovery (RSD) tag.
+* **Generator Meta Tag**: Hide the WordPress version meta tag.
+* **Shortlink**: Remove the shortlink meta tag.
+
+#### Security
+
+Improve your site's security by disabling or limiting access to certain features:
+
+* **File Edit**: Disable the built-in file editor for themes and plugins.
+* **XML-RPC**: Disable the XML-RPC endpoint.
+* **API Authentication**: Require authentication for all REST API requests.
+
+##### Login
+
+Apply additional security measures to your login page:
+
+* **Identifier**: Restrict login to username only, email only, or allow both.
+* **Obfuscate Error**: Prevent hints about which login credential is incorrect.
+* **Block Bots**: Block known bots from accessing the login page.
+
+##### Passwords
+
+* **Application Passwords**: Disable Application Passwords and remove related UI elements.
+
+#### Advanced
+
+Only for advanced users. You configure these following features, but do it carefully:
+
+* **Updates**: Enable or disable updates for WordPress, plugins, and themes.
+* **Cron**: Disable WP-Cron and use a real cron job.
+* **Heartbeat**: Adjust or disable the Heartbeat API to reduce resource usage.
 
 == Installation ==
 
@@ -42,10 +118,6 @@ WordPress comes with a lot of features. Some of them are useful and essential, w
 
 == Frequently Asked Questions ==
 
-= How do I disable a feature? =
+= Is this plugin compatible with WordPress Multisite? =
 
-To disable a feature, you can go to the Settings -> Flipper screen in your WordPress admin dashboard. You will see a list of features that you can enable or disable. Simply click the toggle button to switch the feature on or off.
-
-= How do I suggest a new feature? =
-
-You can suggest a new feature by creating a new issue in the [plugin's GitHub repository](https://github.com/syntatis/wp-feature-flipper).
+Not yet, but it's on the plan!
