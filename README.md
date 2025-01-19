@@ -4,7 +4,7 @@
 
 [![ci](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml) ![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress&color=34D058) ![WordPress Plugin: Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/syntatis-feature-flipper?logo=wordpress) ![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/syntatis-feature-flipper?logo=wordpress) [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/syntatis-feature-flipper?logo=wordpress&logoColor=fff&label=playground&labelColor=3858e9&color=3858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/syntatis/wp-feature-flipper/main/.wporg/blueprints/blueprint.json)
 
-This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
+This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Hearbeat, and more. If you don't need them, you can easily toggle them off.
 
 It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
