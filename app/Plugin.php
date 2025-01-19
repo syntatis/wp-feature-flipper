@@ -8,8 +8,6 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Settings\Settings;
 use SSFV\Psr\Container\ContainerInterface;
 
-use function is_object;
-
 class Plugin implements Extendable
 {
 	/** @return iterable<object> */
@@ -20,42 +18,9 @@ class Plugin implements Extendable
 
 		yield new CommonScripts();
 		yield new SettingPage($settings);
-		yield from $this->iterate($this->getModules(), $container);
+		yield from new Modules($container);
 
 		// Mark as initialized.
 		do_action('syntatis/feature_flipper/init', $container);
-	}
-
-	/** @return iterable<object> */
-	private function getModules(): iterable
-	{
-		yield new Modules\Admin();
-		yield new Modules\Advanced();
-		yield new Modules\General();
-		yield new Modules\Media();
-		yield new Modules\Security();
-		yield new Modules\Site();
-	}
-
-	/**
-	 * @param iterable<mixed> $values The value to iterate.
-	 *
-	 * @return iterable<object>
-	 */
-	private function iterate(iterable $values, ContainerInterface $container): iterable
-	{
-		foreach ($values as $value) {
-			if (! is_object($value)) {
-				continue;
-			}
-
-			yield $value;
-
-			if (! ($value instanceof Extendable)) {
-				continue;
-			}
-
-			yield from $this->iterate($value->getInstances($container), $container);
-		}
 	}
 }
