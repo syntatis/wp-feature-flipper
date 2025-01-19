@@ -1,6 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { HeartbeatInputs, SwitchFieldset, UpdatesInputs } from '../fieldset';
+import {
+	HeartbeatFieldset,
+	SwitchFieldset,
+	UpdatesFieldset,
+} from '../fieldset';
 import { HelpContent } from '../components';
 import { Notice } from '@syntatis/kubrick';
 import styles from './AdvancedTab.module.scss';
@@ -21,7 +25,7 @@ export const AdvancedTab = () => {
 			</Notice>
 			<Form>
 				<Fieldset>
-					<UpdatesInputs />
+					<UpdatesFieldset />
 					<SwitchFieldset
 						name="cron"
 						id="cron"
@@ -57,7 +61,7 @@ export const AdvancedTab = () => {
 							</HelpContent>
 						}
 					/>
-					<HeartbeatInputs />
+					<HeartbeatFieldset />
 				</Fieldset>
 			</Form>
 		</>

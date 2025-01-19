@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import {
 	AdminBarFieldset,
-	DashboardWidgetsInputs,
+	DashboardWidgetsFieldset,
 	SwitchFieldset,
 } from '../fieldset';
 import { HelpContent } from '../components';
@@ -15,7 +15,7 @@ export const AdminTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<DashboardWidgetsInputs />
+				<DashboardWidgetsFieldset />
 				<SwitchFieldset
 					name="admin_footer_text"
 					id="admin-footer-text"

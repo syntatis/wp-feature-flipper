@@ -5,7 +5,7 @@ import { SwitchFieldset } from './SwitchFieldset';
 import { useSettingsContext } from '../form';
 import { HelpContent } from '../components';
 
-export const RevisionsInputs = () => {
+export const RevisionsFieldset = () => {
 	const { getOption, optionPrefix } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
 	const revisionMax = getOption( 'revisions_max' );

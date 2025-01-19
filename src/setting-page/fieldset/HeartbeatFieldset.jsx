@@ -14,7 +14,7 @@ const OPTION_KEYS = [
 	'heartbeat_post_editor_interval',
 ];
 
-export const HeartbeatInputs = () => {
+export const HeartbeatFieldset = () => {
 	const { inputProps, getOption, optionPrefix } = useSettingsContext();
 	const [ values, setValues ] = useState(
 		OPTION_KEYS.reduce( ( acc, key ) => {

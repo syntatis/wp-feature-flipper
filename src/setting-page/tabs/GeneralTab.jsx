@@ -1,6 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { GutenbergInputs, RevisionsInputs, SwitchFieldset } from '../fieldset';
+import {
+	GutenbergFieldset,
+	RevisionsFieldset,
+	SwitchFieldset,
+} from '../fieldset';
 import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
@@ -9,7 +13,7 @@ export const GeneralTab = () => {
 	return (
 		<Form>
 			<Fieldset>
-				<GutenbergInputs />
+				<GutenbergFieldset />
 				<SwitchFieldset
 					isSelected={
 						inlineData.$wp.themeSupport.widgetsBlockEditor === true
@@ -53,7 +57,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				<RevisionsInputs />
+				<RevisionsFieldset />
 				<SwitchFieldset
 					name="embed"
 					id="embed"

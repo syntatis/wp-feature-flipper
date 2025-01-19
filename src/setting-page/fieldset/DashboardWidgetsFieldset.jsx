@@ -5,7 +5,7 @@ import { useSettingsContext } from '../form';
 import { useId, useState } from '@wordpress/element';
 import { Details } from '../components';
 
-export const DashboardWidgetsInputs = () => {
+export const DashboardWidgetsFieldset = () => {
 	const { getOption, inputProps, inlineData } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState(
 		getOption( 'dashboard_widgets' )
