@@ -93,7 +93,7 @@ Apply additional security measures to your login page:
 
 #### Advanced
 
-Only for advanced users. You configure these following features, but do it carefully:
+Only for advanced users. You may configure these following features, but do it carefully:
 
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.
@@ -112,7 +112,7 @@ Only for advanced users. You configure these following features, but do it caref
 1. The "General" section provides an easy way to enable and disable features in like the Block Editor, Block-based Widgets, Comments, etc.
 2. The "Admin" section allows you to manage features that are in the WordPress admin area, like the Admin Bar, Dashboard Widgets, etc.
 3. In "Media" section, you can manage the Media library as well as how the media upload is handled.
-4. Needs to put your site in "Provide Mode"? it's only a click away in the "Site" section.
+4. Needs to put your site in "Private Mode"? it's only a click away in the "Site" section.
 5. Hardening your site? The "Security" section provides an easy way to disable some features that could be a security risk.
 6. And more...
 
