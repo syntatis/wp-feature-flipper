@@ -1,7 +1,7 @@
 === Feature Flipper ===
 
 Contributors: tfirdaus
-Tags: disable, rss, emojis, xmlrpc, gutenberg
+Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
 Stable tag: 1.7.1
