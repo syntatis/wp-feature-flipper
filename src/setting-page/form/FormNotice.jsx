@@ -35,7 +35,7 @@ export const FormNotice = () => {
 	return (
 		message && (
 			<Notice
-				className={ styles.root }
+				className={ `${ styles.root } inline` }
 				isDismissable
 				level={ getNoticeLevel( status ) }
 				onDismiss={ () => setStatus( null ) }
