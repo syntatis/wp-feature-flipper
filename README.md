@@ -54,12 +54,12 @@ Control access and assets on your site:
 
 * **Emojis**: Improve performance by removing emoji scripts and styles.
 * **Script Version**: Remove version query strings from scripts and styles URLs.
-* **jQuery Migrate**: Disable jQuery Migrate if it’s not needed.
+* **jQuery Migrate**: Disable jQuery Migrate, which most probably isn't needed anymore.
 
 #### Metadata
 
 * **RSD Link**: Remove the Really Simple Discovery (RSD) tag.
-* **Generator Meta Tag**: Hide the WordPress® version meta tag.
+* **Generator Meta Tag**: Remove the WordPress version meta tag.
 * **Shortlink**: Remove the shortlink meta tag.
 
 ### Security
