@@ -1,10 +1,10 @@
 export { AdminBarFieldset } from './AdminBarFieldset';
-export { DashboardWidgetsInputs } from './DashboardWidgetsFieldset';
-export { GutenbergInputs } from './GutenbergFieldset';
-export { HeartbeatInputs } from './HeartbeatFieldset';
+export { DashboardWidgetsFieldset } from './DashboardWidgetsFieldset';
+export { GutenbergFieldset } from './GutenbergFieldset';
+export { HeartbeatFieldset } from './HeartbeatFieldset';
 export { ImageQualityFieldset } from './ImageQualityFieldset';
 export { RadioGroupFieldset } from './RadioGroupFieldset';
-export { RevisionsInputs } from './RevisionsFieldset';
+export { RevisionsFieldset } from './RevisionsFieldset';
 export { SiteAccessFieldset } from './SiteAccessFieldset';
 export { SwitchFieldset } from './SwitchFieldset';
-export { UpdatesInputs } from './UpdatesFieldset';
+export { UpdatesFieldset } from './UpdatesFieldset';

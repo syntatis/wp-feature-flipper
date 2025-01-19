@@ -16,7 +16,7 @@ const OPTION_KEYS = [
 	'update_themes',
 ];
 
-export const UpdatesInputs = () => {
+export const UpdatesFieldset = () => {
 	const { inputProps, getOption } = useSettingsContext();
 	const [ values, setValues ] = useState(
 		OPTION_KEYS.reduce( ( acc, key ) => {

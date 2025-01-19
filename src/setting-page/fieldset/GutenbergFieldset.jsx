@@ -53,7 +53,7 @@ const PostTypesInputs = () => {
 	);
 };
 
-export const GutenbergInputs = () => {
+export const GutenbergFieldset = () => {
 	const { getOption } = useSettingsContext();
 	const [ value, setValue ] = useState( getOption( 'gutenberg' ) );
 
