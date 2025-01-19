@@ -13,7 +13,7 @@
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "wordpress.org\/plugins",
-                "slug": "my-imaginary-plugin-dependency"
+                "slug": "syntatis-feature-flipper"
             },
             "options": {
                 "activate": true
