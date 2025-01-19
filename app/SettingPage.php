@@ -66,7 +66,13 @@ class SettingPage implements Hookable
 			__('Flipper', 'syntatis-feature-flipper'),
 			'manage_options',
 			$this->appName,
-			[$this, 'render'],
+			function (): void {
+				$args = [
+					'inline_data' => $this->inlineData,
+				];
+
+				include App::dir('inc/views/settings-page.php');
+			},
 		);
 	}
 
@@ -108,36 +114,6 @@ class SettingPage implements Hookable
 				'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
 			]),
 		);
-	}
-
-	/**
-	 * Render the plugin settings page.
-	 *
-	 * Called when user navigates to the plugin settings page. It will render
-	 * only with these HTML. The settings form, inputs, buttons will be
-	 * rendered with React components.
-	 *
-	 * @see ./src/settings/Page.jsx
-	 */
-	public function render(): void
-	{
-		// phpcs:disable Generic.Files.InlineHTML.Found
-		?>
-		<div class="wrap">
-			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<div
-				id="<?php echo esc_attr($this->appName); ?>-settings"
-				data-nonce="<?php echo esc_attr(wp_create_nonce($this->appName . '-settings')); ?>"
-				data-inline='<?php echo esc_attr($this->inlineData); ?>'>
-			</div>
-			<noscript>
-				<p>
-					<?php esc_html_e('This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page.', 'syntatis-feature-flipper'); ?>
-				</p>
-			</noscript>
-		</div>
-		<?php
-		// phpcs:enable
 	}
 
 	/** @param string $adminPage The current admin page. */
