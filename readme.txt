@@ -4,7 +4,7 @@ Contributors: tfirdaus
 Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
