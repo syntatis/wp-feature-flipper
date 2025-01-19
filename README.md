@@ -111,7 +111,7 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 <details>
 	<summary>Is this plugin compatible with WordPress Multisite?</summary>
 	
-	Not yet, but it's on the plan!
+Not yet, but it's on the plan!
 </details>
 
 ## Contributing

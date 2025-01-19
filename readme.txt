@@ -13,7 +13,7 @@ Disable Comments, Gutenberg, Emojis, and other features you don't need.
 
 == Description ==
 
-This plugin gives you the ability to easily manage features in WordPress like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
+This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Hearbeat, and more. If you don't need them, you can easily toggle them off.
 
 It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
@@ -101,11 +101,19 @@ Only for advanced users. You may configure these following features, but do it c
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/syntatis-feature-flipper` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Use the Settings -> Flipper screen to configure the plugin.
+= Installation from within WordPress =
 
-[More info on installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins)
+1. Visit **Plugins › Add New**.
+2. Search for **Feature Flipper**.
+3. Install and activate the **Feature Flipper** plugin.
+
+= Manual upload =
+
+1. Upload the entire `syntatis-feature-flipper` folder to the `/wp-content/plugins/` directory.
+2. Visit **Plugins**.
+3. Activate the **Feature Flipper** plugin.
+
+Learn more [about installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins).
 
 == Screenshots ==
 
