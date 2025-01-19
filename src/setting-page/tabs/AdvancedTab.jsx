@@ -8,7 +8,7 @@ import styles from './AdvancedTab.module.scss';
 export const AdvancedTab = () => {
 	return (
 		<>
-			<Notice className={ styles.notice } level="warning">
+			<Notice className={ `${ styles.notice } inline` } level="warning">
 				<strong>
 					{ __( 'Caution:', 'syntatis-feature-flipper' ) }
 				</strong>
