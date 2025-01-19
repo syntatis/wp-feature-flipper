@@ -1,7 +1,7 @@
 === Feature Flipper ===
 
 Contributors: tfirdaus
-Tags: disable, rss, emojis, xmlrpc, gutenberg
+Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
 Stable tag: 1.7.1
@@ -13,7 +13,7 @@ Disable Comments, Gutenberg, Emojis, and other features you don't need.
 
 == Description ==
 
-This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Hearbeat, and more. If you don't need them, you can easily toggle them off.
+This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Heartbeat, and more. If you don't need them, you can easily toggle them off.
 
 It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
