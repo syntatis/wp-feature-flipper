@@ -13,7 +13,7 @@ Disable Comments, Gutenberg, Emojis, and other features you don't need.
 
 == Description ==
 
-This plugin gives you the ability to easily manage features in WordPress like Comments, the Block Editor (Gutenberg), Emojis, Automatic Updates, Post Embeds, XML-RPC, REST API, and more. If you don't need them, you can easily toggle them off.
+This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Heartbeat, and more. If you don't need them, you can easily toggle them off.
 
 It also includes some handy utilities like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages.
 
