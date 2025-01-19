@@ -8,6 +8,16 @@
     "steps": [
         {
             "step": "login"
+        },
+        {
+            "step": "installPlugin",
+            "pluginZipFile": {
+                "resource": "wordpress.org\/plugins",
+                "slug": "syntatis-feature-flipper"
+            },
+            "options": {
+                "activate": true
+            }
         }
     ]
 }
