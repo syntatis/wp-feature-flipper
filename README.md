@@ -118,5 +118,5 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 
 Found a bug? [Open an issue](https://github.com/syntatis/wp-feature-flipper/issues/new) or [submit a pull request](https://github.com/syntatis/wp-feature-flipper/compare). Have an idea, or suggestion? Let's discuss it in the [Discussions](https://github.com/syntatis/wp-feature-flipper/discussions) tab.
 
-> [!TIP]  
+> [!NOTE]  
 > This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for develping a WordPress® plugin that encourages modern development practices, and provides pre-configured tools for a more streamlined development experience.
