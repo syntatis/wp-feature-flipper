@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\InlineData;
 use WP_Screen;
 
 use function array_map;
@@ -94,7 +94,12 @@ class DashboardWidgets implements Hookable
 		$GLOBALS['wp_meta_boxes']['dashboard'] = $dashboardWidgets; // phpcs:ignore
 	}
 
-	public function filterInlineData(InlineData $data): InlineData
+	/**
+	 * @phpstan-param ArrayAccess<string,mixed> $data
+	 *
+	 * @phpstan-return ArrayAccess<string,mixed>
+	 */
+	public function filterInlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 

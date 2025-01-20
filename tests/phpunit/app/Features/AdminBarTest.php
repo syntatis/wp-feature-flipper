@@ -8,6 +8,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\AdminBar;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\InlineData;
 use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
 use WP_Admin_Bar;
@@ -150,7 +151,7 @@ class AdminBarTest extends WPTestCase
 	{
 		$_GET['tab'] = 'general';
 
-		$data = $this->instance->filterInlineData([]);
+		$data = $this->instance->filterInlineData(new InlineData());
 
 		$this->assertEmpty($data);
 
@@ -159,7 +160,7 @@ class AdminBarTest extends WPTestCase
 		 */
 		$_GET['tab'] = 'admin';
 
-		$data = $this->instance->filterInlineData([]);
+		$data = $this->instance->filterInlineData(new InlineData());
 
 		$this->assertSame([
 			'$wp' => [

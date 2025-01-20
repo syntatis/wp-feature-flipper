@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\InlineData;
 use WP_Admin_Bar;
 
 use function array_keys;
@@ -80,8 +80,12 @@ class AdminBar implements Hookable
 
 	/**
 	 * Provide additional data to include in the plugin's global inline data.
+	 *
+	 * @phpstan-param ArrayAccess<string,mixed> $data
+	 *
+	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(InlineData $data): InlineData
+	public function filterInlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 

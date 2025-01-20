@@ -44,7 +44,11 @@ class InlineData implements ArrayAccess, JsonSerializable
 		return isset($this->data[$offset]);
 	}
 
-	/** @param mixed $offset */
+	/**
+	 * @param mixed $offset
+	 *
+	 * @return mixed $offset
+	 */
 	public function offsetGet($offset)
 	{
 		return $this->data[$offset] ?? null;
