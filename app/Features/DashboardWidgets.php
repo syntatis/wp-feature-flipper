@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
@@ -94,11 +95,11 @@ class DashboardWidgets implements Hookable
 	}
 
 	/**
-	 * @param array<string,mixed> $data
+	 * @phpstan-param ArrayAccess<string,mixed> $data
 	 *
-	 * @return array<mixed>
+	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(array $data): array
+	public function filterInlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 
@@ -106,7 +107,7 @@ class DashboardWidgets implements Hookable
 			return $data;
 		}
 
-		$curr = $data['wp'] ?? [];
+		$curr = $data['$wp'] ?? [];
 		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
 			[

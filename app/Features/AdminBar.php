@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
@@ -80,11 +81,11 @@ class AdminBar implements Hookable
 	/**
 	 * Provide additional data to include in the plugin's global inline data.
 	 *
-	 * @param array<string,mixed> $data
+	 * @phpstan-param ArrayAccess<string,mixed> $data
 	 *
-	 * @return array<string,mixed>
+	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(array $data): array
+	public function filterInlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 
