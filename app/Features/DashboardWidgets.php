@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\InlineData;
 use WP_Screen;
 
 use function array_map;
@@ -93,12 +94,7 @@ class DashboardWidgets implements Hookable
 		$GLOBALS['wp_meta_boxes']['dashboard'] = $dashboardWidgets; // phpcs:ignore
 	}
 
-	/**
-	 * @param array<string,mixed> $data
-	 *
-	 * @return array<mixed>
-	 */
-	public function filterInlineData(array $data): array
+	public function filterInlineData(InlineData $data): InlineData
 	{
 		$tab = $_GET['tab'] ?? null;
 
@@ -106,7 +102,7 @@ class DashboardWidgets implements Hookable
 			return $data;
 		}
 
-		$curr = $data['wp'] ?? [];
+		$curr = $data['$wp'] ?? [];
 		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
 			[

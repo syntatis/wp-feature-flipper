@@ -9,6 +9,7 @@ use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\InlineData;
 use WP_Admin_Bar;
 
 use function array_keys;
@@ -79,12 +80,8 @@ class AdminBar implements Hookable
 
 	/**
 	 * Provide additional data to include in the plugin's global inline data.
-	 *
-	 * @param array<string,mixed> $data
-	 *
-	 * @return array<string,mixed>
 	 */
-	public function filterInlineData(array $data): array
+	public function filterInlineData(InlineData $data): InlineData
 	{
 		$tab = $_GET['tab'] ?? null;
 
