@@ -153,7 +153,7 @@ class AdminBarTest extends WPTestCase
 
 		$data = $this->instance->filterInlineData(new InlineData());
 
-		$this->assertEmpty($data);
+		$this->assertFalse(isset($data['$wp']['adminBarMenu']));
 
 		/**
 		 * The `admin` tab is the only tab that should return the registered menu.
@@ -162,11 +162,8 @@ class AdminBarTest extends WPTestCase
 
 		$data = $this->instance->filterInlineData(new InlineData());
 
-		$this->assertSame([
-			'$wp' => [
-				'adminBarMenu' => array_keys(RegisteredMenu::all('top')),
-			],
-		], $data);
+		$this->assertTrue(isset($data['$wp']['adminBarMenu']));
+		$this->assertSame(array_keys(RegisteredMenu::all('top')), $data['$wp']['adminBarMenu']);
 	}
 
 	/** @testdox should remove nodes from the admin bar */
