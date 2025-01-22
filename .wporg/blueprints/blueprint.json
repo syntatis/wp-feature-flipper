@@ -11,8 +11,8 @@
         },
         {
             "step": "installPlugin",
-            "pluginZipFile": {
-                "resource": "wordpress.org\/plugins",
+            "pluginData": {
+                "resource": "wordpress.org/plugins",
                 "slug": "syntatis-feature-flipper"
             },
             "options": {
