@@ -2,21 +2,21 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.8.0\n"
+"Project-Id-Version: Feature Flipper 1.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-19T14:27:56+00:00\n"
+"POT-Creation-Date: 2025-01-22T13:50:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
 
 #. Plugin Name of the plugin
 #: syntatis-feature-flipper.php
-#: app/SettingPage.php:65
+#: app/SettingPage.php:62
 msgid "Feature Flipper"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Comments are disabled."
 msgstr ""
 
-#: app/Features/DashboardWidgets.php:186
+#: app/Features/DashboardWidgets.php:187
 msgid "Unknown"
 msgstr ""
 
@@ -88,15 +88,11 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
-#: app/SettingPage.php:66
+#: app/SettingPage.php:63
 msgid "Flipper"
 msgstr ""
 
-#: app/SettingPage.php:135
-msgid "This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page."
-msgstr ""
-
-#: app/SettingPage.php:199
+#: app/SettingPage.php:160
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:35
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:36
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:77
@@ -111,6 +107,10 @@ msgstr ""
 
 #: inc/settings/all.php:156
 msgid "We are currently performing some scheduled maintenance. We will be back as soon as possible."
+msgstr ""
+
+#: inc/views/settings-page.php:26
+msgid "This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page."
 msgstr ""
 
 #: src/admin-bar/EnvironmentType/EnvironmentType.jsx:6
@@ -588,91 +588,91 @@ msgstr ""
 msgid "The live site that users visit, where stability and security are crucial."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:13
+#: src/setting-page/tabs/AdvancedTab.jsx:17
 msgid "Caution:"
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:16
+#: src/setting-page/tabs/AdvancedTab.jsx:20
 msgid "Please be cautious when changing these settings as they can affect the functionality of the site."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:29
+#: src/setting-page/tabs/AdvancedTab.jsx:33
 msgid "Enable cron"
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:33
+#: src/setting-page/tabs/AdvancedTab.jsx:37
 msgid "If switched off, WordPress will not run scheduled events."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:40
+#: src/setting-page/tabs/AdvancedTab.jsx:44
 msgid "WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:46
+#: src/setting-page/tabs/AdvancedTab.jsx:50
 msgid "It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:52
+#: src/setting-page/tabs/AdvancedTab.jsx:56
 msgid "When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:27
+#: src/setting-page/tabs/GeneralTab.jsx:31
 msgid "Enable the block-based widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:33
+#: src/setting-page/tabs/GeneralTab.jsx:37
 msgid "If switched off, the block-based widgets will be disabled and the classic widgets will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:37
+#: src/setting-page/tabs/GeneralTab.jsx:41
 msgid "The current theme in-use does not support block-based widgets."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:47
+#: src/setting-page/tabs/GeneralTab.jsx:51
 msgid "Enable comments"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:51
+#: src/setting-page/tabs/GeneralTab.jsx:55
 msgid "If switched off, comments will be disabled site-wide."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:61
+#: src/setting-page/tabs/GeneralTab.jsx:65
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:65
+#: src/setting-page/tabs/GeneralTab.jsx:69
 msgid "If switched off, it will disable other sites from embedding content from your site, and vice-versa."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:74
+#: src/setting-page/tabs/GeneralTab.jsx:78
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:78
+#: src/setting-page/tabs/GeneralTab.jsx:82
 msgid "If switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:85
+#: src/setting-page/tabs/GeneralTab.jsx:89
 msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:91
+#: src/setting-page/tabs/GeneralTab.jsx:95
 msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:103
+#: src/setting-page/tabs/GeneralTab.jsx:107
 msgid "Enable RSS feeds"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:107
+#: src/setting-page/tabs/GeneralTab.jsx:111
 msgid "If switched off, it will disable the RSS feed URLs."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:114
+#: src/setting-page/tabs/GeneralTab.jsx:118
 msgid "An RSS feed, which stands for \"Really Simple Syndication\" or \"Rich Site Summary\", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:120
+#: src/setting-page/tabs/GeneralTab.jsx:124
 msgid "Disabling feeds can help prevent content scraping and reduce server load."
 msgstr ""
 
