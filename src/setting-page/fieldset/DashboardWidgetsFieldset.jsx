@@ -12,7 +12,6 @@ export const DashboardWidgetsFieldset = () => {
 	);
 	const labelId = useId();
 	const registeredWidgets = inlineData.$wp.dashboardWidgets || [];
-	const widgetsEnabled = getOption( 'dashboard_widgets_enabled' ) ?? null;
 
 	return (
 		<SwitchFieldset
@@ -38,7 +37,9 @@ export const DashboardWidgetsFieldset = () => {
 					}
 				>
 					<CheckboxGroup
-						defaultValue={ widgetsEnabled }
+						defaultValue={ getOption(
+							'dashboard_widgets_enabled'
+						) }
 						label={ __( 'Widgets', 'syntatis-feature-flipper' ) }
 						description={ __(
 							'Unchecked widgets will be hidden from the dashboard.',
