@@ -79,6 +79,7 @@ class GutenbergTest extends WPTestCase
 		Option::update('gutenberg_post_types', ['post']);
 
 		$this->assertFalse(Option::isOn('gutenberg'));
+		$this->assertTrue(Option::stash('gutenberg_post_types', ['post', 'page', 'product']));
 		$this->assertEquals(['post'], Option::get('gutenberg_post_types'));
 	}
 
@@ -103,6 +104,7 @@ class GutenbergTest extends WPTestCase
 	/** @testdox should return return `false` when post is not in "gutenberg_post_types" */
 	public function testFilterUseBlockEditorForPostUpdated(): void
 	{
+		Option::stash('gutenberg_post_types', ['post', 'page', 'product']);
 		Option::update('gutenberg_post_types', ['page']);
 
 		$postId = self::factory()->post->create();
