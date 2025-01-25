@@ -12,6 +12,7 @@ use WP_Post;
 use function array_filter;
 use function array_values;
 use function in_array;
+use function is_array;
 use function is_int;
 
 use const PHP_INT_MAX;
@@ -20,15 +21,32 @@ class Gutenberg implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
 		$hook->addFilter('use_block_editor_for_post', [$this, 'filterUseBlockEditorForPost'], PHP_INT_MAX, 2);
 		$hook->addFilter(
 			Option::hook('default:gutenberg_post_types'),
-			static fn () => array_values(array_filter(
-				get_post_types(['public' => true]),
-				static fn ($key): bool => use_block_editor_for_post_type($key),
-			)),
+			static fn () => self::getPostTypes(),
 			PHP_INT_MAX,
 		);
+		$hook->addFilter(
+			Option::hook('gutenberg_post_types'),
+			static fn ($value) => Option::patch(
+				'gutenberg_post_types',
+				is_array($value) ? $value : [],
+				self::getPostTypes(),
+			),
+			PHP_INT_MAX,
+		);
+	}
+
+	/** @param array<string> $options List of option names that have been updated. */
+	public function stashOptions(array $options): void
+	{
+		if (! in_array(Option::name('gutenberg_post_types'), $options, true)) {
+			return;
+		}
+
+		Option::stash('gutenberg_post_types', self::getPostTypes());
 	}
 
 	/**
@@ -59,5 +77,14 @@ class Gutenberg implements Hookable
 			(array) Option::get('gutenberg_post_types'),
 			true,
 		);
+	}
+
+	/** @return array<string> */
+	private static function getPostTypes(): array
+	{
+		return array_values(array_filter(
+			get_post_types(['public' => true]),
+			static fn ($key): bool => use_block_editor_for_post_type($key),
+		));
 	}
 }

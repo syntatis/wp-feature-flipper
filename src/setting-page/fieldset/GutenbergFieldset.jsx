@@ -20,13 +20,9 @@ const PostTypesInputs = () => {
 		}
 	}
 
-	const postTypesValues = getOption( 'gutenberg_post_types' );
-	const postTypesSelected =
-		postTypesValues === null ? Object.keys( postTypes ) : postTypesValues;
-
 	return (
 		<CheckboxGroup
-			defaultValue={ postTypesSelected }
+			defaultValue={ getOption( 'gutenberg_post_types' ) }
 			description={ __(
 				'Select the post types that will use the block editor.',
 				'syntatis-feature-flipper'
