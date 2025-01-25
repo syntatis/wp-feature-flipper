@@ -30,6 +30,7 @@ class DashboardWidgets implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
 		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
@@ -46,7 +47,6 @@ class DashboardWidgets implements Hookable
 			),
 			PHP_INT_MAX,
 		);
-		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
 	}
 
 	public function setup(): void
@@ -170,29 +170,43 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getRegisteredWidgets(WP_Screen $screen): ?array
 	{
+		if (! in_array($screen->id, ['dashboard', 'settings_page_' . App::name()], true)) {
+			return null;
+		}
+
 		/** @var array<string,array{id:string,title:string}>|null $widgets */
 		static $widgets = null;
 
 		if (is_array($widgets)) {
-			return $widgets;
+			return wp_list_sort($widgets, 'title', 'ASC', true);
 		}
 
-		if (self::getRawWidgets() === null && $screen->id !== 'dashboard') {
-			// @phpstan-ignore requireOnce.fileNotFound
-			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
+		$dashboardWidgets = null;
 
-			set_current_screen('dashboard');
-			wp_dashboard_setup();
+		switch ($screen->id) {
+			case 'settings_page_' . App::name():
+				// @phpstan-ignore requireOnce.fileNotFound
+				require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
-			$dashboardWidgets = self::getRawWidgets();
+				set_current_screen('dashboard');
+				wp_dashboard_setup();
 
-			// @phpstan-ignore offsetAccess.nonOffsetAccessible
-			unset($GLOBALS['wp_meta_boxes']['dashboard']);
-		} else {
-			$dashboardWidgets = self::getRawWidgets();
+				$dashboardWidgets = self::getRawWidgets();
+
+				// @phpstan-ignore offsetAccess.nonOffsetAccessible
+				unset($GLOBALS['wp_meta_boxes']['dashboard']);
+				break;
+
+			case 'dashboard':
+				$dashboardWidgets = self::getRawWidgets();
+				break;
 		}
 
-		foreach ((array) $dashboardWidgets as $items) {
+		if (! is_array($dashboardWidgets)) {
+			return null;
+		}
+
+		foreach ($dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
 				foreach ($item as $widgetId => $widget) {
 					if (! is_array($widget)) {
