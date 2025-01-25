@@ -29,11 +29,29 @@ class GutenbergTest extends WPTestCase
 		$this->hook = new Hook();
 		$this->instance = new Gutenberg();
 		$this->instance->hook($this->hook);
+
+		register_post_type(
+			'product',
+			[
+				'public' => true,
+				'show_in_rest' => true,
+				'supports' => ['comments', 'trackbacks', 'editor'],
+			],
+		);
+	}
+
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
+	public function tear_down(): void
+	{
+		unregister_post_type('product');
+
+		parent::tear_down();
 	}
 
 	/** @testdox should have callback attached to hooks */
 	public function testHook(): void
 	{
+		$this->assertSame(10, $this->hook->hasAction('syntatis/feature_flipper/updated_options', [$this->instance, 'stashOptions']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('use_block_editor_for_post', [$this->instance, 'filterUseBlockEditorForPost']));
 	}
 
@@ -43,7 +61,7 @@ class GutenbergTest extends WPTestCase
 		$this->assertTrue(Option::isOn('gutenberg'));
 		$this->assertTrue(Option::isOn('block_based_widgets'));
 		$this->assertTrue(Option::isOn('revisions'));
-		$this->assertEquals(['post', 'page'], Option::get('gutenberg_post_types'));
+		$this->assertEquals(['post', 'page', 'product'], Option::get('gutenberg_post_types'));
 
 		$callback = static fn ($use, $postType) => $postType === 'page';
 
@@ -61,6 +79,7 @@ class GutenbergTest extends WPTestCase
 		Option::update('gutenberg_post_types', ['post']);
 
 		$this->assertFalse(Option::isOn('gutenberg'));
+		$this->assertTrue(Option::stash('gutenberg_post_types', ['post', 'page', 'product']));
 		$this->assertEquals(['post'], Option::get('gutenberg_post_types'));
 	}
 
@@ -85,10 +104,39 @@ class GutenbergTest extends WPTestCase
 	/** @testdox should return return `false` when post is not in "gutenberg_post_types" */
 	public function testFilterUseBlockEditorForPostUpdated(): void
 	{
+		Option::stash('gutenberg_post_types', ['post', 'page', 'product']);
 		Option::update('gutenberg_post_types', ['page']);
 
 		$postId = self::factory()->post->create();
 
 		$this->assertFalse($this->instance->filterUseBlockEditorForPost(true, $postId));
+	}
+
+	/**
+	 * @dataProvider dataStashOptions
+	 * @testdox should update the stash option
+	 *
+	 * @param mixed $expect The expected value returned from the stash option.
+	 */
+	public function testStashOptions(array $options, $expect): void
+	{
+		$this->instance->stashOptions($options);
+
+		$this->assertSame($expect, get_option('_' . Option::name('gutenberg_post_types') . '_stash'));
+	}
+
+	public static function dataStashOptions(): iterable
+	{
+		yield [
+			[Option::name('gutenberg_post_types')],
+			[
+				'post',
+				'page',
+				'product',
+			],
+		];
+
+		yield [[], false];
+		yield [['gutenberg_post_types'], false]; // Invalid option name.
 	}
 }

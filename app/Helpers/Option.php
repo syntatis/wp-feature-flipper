@@ -152,7 +152,7 @@ final class Option
 	{
 		$stashed = get_option('_' . self::name($name) . '_stash', []);
 
-		if ($source === $stashed) {
+		if ($value === $source && $source === $stashed) {
 			return $value;
 		}
 
