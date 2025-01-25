@@ -52,7 +52,7 @@ final class Admin
 
 		switch ($address) {
 			case App::name():
-				return self::isPluginSettingPage();
+				return self::isPluginSettingsPage();
 
 			default:
 				if (Str::endsWith($address, '.php')) {
@@ -78,9 +78,9 @@ final class Admin
 	}
 
 	/**
-	 * Whether the current view is the plugin setting page.
+	 * Whether the current view is the plugin settings page.
 	 */
-	private static function isPluginSettingPage(): bool
+	private static function isPluginSettingsPage(): bool
 	{
 		$screenId = 'settings_page_' . App::name();
 		$pageNow = $GLOBALS['pagenow'] ?? null;

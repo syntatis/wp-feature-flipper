@@ -28,7 +28,7 @@ use function trim;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_INT_MAX;
 
-class SettingPage implements Hookable
+class SettingsPage implements Hookable
 {
 	private Settings $settings;
 
@@ -80,7 +80,7 @@ class SettingPage implements Hookable
 		}
 
 		/**
-		 * @see Syntatis\FeatureFlipper\SettingPage::render() Where the nonce is created.
+		 * @see Syntatis\FeatureFlipper\SettingsPage::render() Where the nonce is created.
 		 * @see src/setting-page/form/useSettings.js Where the "nonce" & the "options" query are set in the URL.
 		 */
 		$nonce = $_GET['nonce'] ?? '';
@@ -108,19 +108,19 @@ class SettingPage implements Hookable
 			return;
 		}
 
-		$assets = App::dir('dist/assets/setting-page/index.asset.php');
+		$assets = App::dir('dist/assets/settings-page/index.asset.php');
 		$assets = is_readable($assets) ? require $assets : [];
 
 		wp_enqueue_style(
 			$this->scriptHandle,
-			App::url('dist/assets/setting-page/index.css'),
+			App::url('dist/assets/settings-page/index.css'),
 			[$this->appName . '-common'],
 			$assets['version'] ?? null,
 		);
 
 		wp_enqueue_script(
 			$this->scriptHandle,
-			App::url('dist/assets/setting-page/index.js'),
+			App::url('dist/assets/settings-page/index.js'),
 			$assets['dependencies'] ?? [],
 			$assets['version'] ?? null,
 			true,

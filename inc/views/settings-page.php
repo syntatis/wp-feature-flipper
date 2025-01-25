@@ -23,7 +23,7 @@ use SSFV\Codex\Facades\App;
 	</div>
 	<noscript>
 		<p>
-			<?php esc_html_e('This setting page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page.', 'syntatis-feature-flipper'); ?>
+			<?php esc_html_e('This settings page requires JavaScript to be enabled in your browser. Please enable JavaScript and reload the page.', 'syntatis-feature-flipper'); ?>
 		</p>
 	</noscript>
 </div>

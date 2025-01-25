@@ -17,7 +17,7 @@ class Plugin implements Extendable
 		$settings = $container->get(Settings::class);
 
 		yield new CommonScripts();
-		yield new SettingPage($settings);
+		yield new SettingsPage($settings);
 		yield from new Modules($container);
 
 		// Mark as initialized.

@@ -33,8 +33,8 @@ class InlineData implements ArrayAccess, JsonSerializable
 					'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 				],
 			],
-			'settingPage' => esc_url(Admin::url(App::name())),
-			'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
+			'settingsPage' => esc_url(Admin::url(App::name())),
+			'settingsPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
 		];
 	}
 
