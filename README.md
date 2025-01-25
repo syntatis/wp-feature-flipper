@@ -2,11 +2,15 @@
 
 ![Banner](.wporg/banner-1544x500.png)
 
+<center>
+
 [![CI](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml)
 [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress&color=34D058)](https://wordpress.org/plugins/syntatis-feature-flipper/)
 [![WordPress Plugin Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/syntatis-feature-flipper?logo=wordpress)](https://wordpress.org/plugins/syntatis-feature-flipper/)
 [![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/syntatis-feature-flipper?logo=wordpress)](https://wordpress.org/plugins/syntatis-feature-flipper/)
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/syntatis-feature-flipper?logo=wordpress&logoColor=fff&label=playground&labelColor=3858e9&color=3858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/syntatis/wp-feature-flipper/main/.wporg/blueprints/blueprint.json)
+
+</center>
 
 ---
 
