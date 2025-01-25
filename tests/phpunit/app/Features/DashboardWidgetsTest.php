@@ -82,10 +82,10 @@ class DashboardWidgetsTest extends WPTestCase
 		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
 		$this->assertSame(
 			[
-				'dashboard_site_health',
-				'dashboard_right_now',
 				'dashboard_activity',
+				'dashboard_right_now',
 				'dashboard_quick_press',
+				'dashboard_site_health',
 				'dashboard_primary',
 			],
 			Option::get('dashboard_widgets_enabled'),
@@ -104,10 +104,10 @@ class DashboardWidgetsTest extends WPTestCase
 		$this->assertTrue(Admin::isScreen('dashboard'));
 		$this->assertSame(
 			[
-				'dashboard_site_health',
-				'dashboard_right_now',
 				'dashboard_activity',
+				'dashboard_right_now',
 				'dashboard_quick_press',
+				'dashboard_site_health',
 				'dashboard_primary',
 			],
 			Option::get('dashboard_widgets_enabled'),
