@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.8.1\n"
+"Project-Id-Version: Feature Flipper 1.8.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-22T13:50:52+00:00\n"
+"POT-Creation-Date: 2025-01-25T16:08:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Comments are disabled."
 msgstr ""
 
-#: app/Features/DashboardWidgets.php:187
+#: app/Features/DashboardWidgets.php:220
 msgid "Unknown"
 msgstr ""
 
@@ -94,8 +94,8 @@ msgstr ""
 
 #: app/SettingPage.php:160
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:35
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:36
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:77
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:35
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:73
 #: src/setting-page/fieldset/HeartbeatFieldset.jsx:75
 #: src/setting-page/fieldset/UpdatesFieldset.jsx:91
 msgid "Settings"
@@ -178,43 +178,43 @@ msgstr ""
 msgid "Unchecked menu items will be hidden from the Admin bar."
 msgstr ""
 
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:21
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:20
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:22
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:21
 msgid "Enable Dashboard widgets"
 msgstr ""
 
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:26
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:25
 msgid "If switched off, all widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:42
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:43
 msgid "Widgets"
 msgstr ""
 
-#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:43
+#: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:44
 msgid "Unchecked widgets will be hidden from the dashboard."
 msgstr ""
 
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:30
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:26
 msgid "Select the post types that will use the block editor."
 msgstr ""
 
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:34
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:30
 msgid "Post Types"
 msgstr ""
 
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:65
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:61
 msgid "Block Editor"
 msgstr ""
 
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:66
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:62
 msgid "Enable the block editor (a.k.a Gutenberg)"
 msgstr ""
 
-#: src/setting-page/fieldset/GutenbergFieldset.jsx:70
+#: src/setting-page/fieldset/GutenbergFieldset.jsx:66
 msgid "If switched off, the block editor will be disabled and the classic editor will be used."
 msgstr ""
 
