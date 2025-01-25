@@ -82,6 +82,14 @@ final class Admin
 	 */
 	private static function isPluginSettingPage(): bool
 	{
+		$screenId = 'settings_page_' . App::name();
+		$pageNow = $GLOBALS['pagenow'] ?? null;
+		$pageHook = $GLOBALS['page_hook'] ?? null;
+
+		if ($pageNow === 'options-general.php' && $pageHook === $screenId) {
+			return true;
+		}
+
 		if (! function_exists('get_current_screen')) {
 			return false;
 		}
@@ -89,7 +97,7 @@ final class Admin
 		$screen = get_current_screen();
 
 		return $screen instanceof WP_Screen ?
-			$screen->id === 'settings_page_' . App::name() :
+			$screen->id === $screenId :
 			false;
 	}
 }

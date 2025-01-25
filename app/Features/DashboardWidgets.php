@@ -8,6 +8,7 @@ use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
 
@@ -27,38 +28,30 @@ use const PHP_INT_MAX;
  */
 class DashboardWidgets implements Hookable
 {
-	private static bool $onSettingPage = false;
-
-	/** @var array<string,array{id:string,title:string}> */
-	private static ?array $widgets = null;
-
 	public function hook(Hook $hook): void
 	{
+		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
+		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
 			Option::hook('default:dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
 			PHP_INT_MAX,
 		);
-		$hook->addAction('current_screen', static function (WP_Screen $screen): void {
-			if ($screen->id !== 'settings_page_' . App::name()) {
-				return;
-			}
-
-			if (is_array(self::$widgets)) {
-				return;
-			}
-
-			self::$onSettingPage = true;
-			self::$widgets = self::getRegisteredWidgets($screen);
-			self::$onSettingPage = false;
-		});
-		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
+		$hook->addFilter(
+			Option::hook('dashboard_widgets_enabled'),
+			static fn ($value) => Option::patch(
+				'dashboard_widgets_enabled',
+				is_array($value) ? $value : [],
+				self::getAllDashboardId(),
+			),
+			PHP_INT_MAX,
+		);
 	}
 
 	public function setup(): void
 	{
-		if (self::$onSettingPage) {
+		if (Admin::isScreen(App::name())) {
 			return;
 		}
 
@@ -70,6 +63,22 @@ class DashboardWidgets implements Hookable
 		}
 
 		self::setupEach();
+	}
+
+	/** @param array<string> $options List of option names that have been updated. */
+	public function stashOptions(array $options): void
+	{
+		if (
+			! in_array(
+				Option::name('dashboard_widgets_enabled'),
+				$options,
+				true,
+			)
+		) {
+			return;
+		}
+
+		Option::stash('dashboard_widgets_enabled', self::getAllDashboardId());
 	}
 
 	private static function setupEach(): void
@@ -101,6 +110,16 @@ class DashboardWidgets implements Hookable
 	 */
 	public function filterInlineData(ArrayAccess $data): ArrayAccess
 	{
+		if (! Admin::isScreen(App::name())) {
+			return $data;
+		}
+
+		$screen = get_current_screen();
+
+		if (! $screen instanceof WP_Screen) {
+			return $data;
+		}
+
 		$tab = $_GET['tab'] ?? null;
 
 		if ($tab !== 'admin') {
@@ -111,7 +130,7 @@ class DashboardWidgets implements Hookable
 		$data['$wp'] = array_merge(
 			is_array($curr) ? $curr : [],
 			[
-				'dashboardWidgets' => self::$widgets,
+				'dashboardWidgets' => self::getRegisteredWidgets($screen),
 			],
 		);
 
@@ -151,29 +170,43 @@ class DashboardWidgets implements Hookable
 	 */
 	private static function getRegisteredWidgets(WP_Screen $screen): ?array
 	{
+		if (! in_array($screen->id, ['dashboard', 'settings_page_' . App::name()], true)) {
+			return null;
+		}
+
 		/** @var array<string,array{id:string,title:string}>|null $widgets */
 		static $widgets = null;
 
 		if (is_array($widgets)) {
-			return $widgets;
+			return wp_list_sort($widgets, 'title', 'ASC', true);
 		}
 
-		if (self::getRawWidgets() === null && $screen->id !== 'dashboard') {
-			// @phpstan-ignore requireOnce.fileNotFound
-			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
+		$dashboardWidgets = null;
 
-			set_current_screen('dashboard');
-			wp_dashboard_setup();
+		switch ($screen->id) {
+			case 'settings_page_' . App::name():
+				// @phpstan-ignore requireOnce.fileNotFound
+				require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
-			$dashboardWidgets = self::getRawWidgets();
+				set_current_screen('dashboard');
+				wp_dashboard_setup();
 
-			// @phpstan-ignore offsetAccess.nonOffsetAccessible
-			unset($GLOBALS['wp_meta_boxes']['dashboard']);
-		} else {
-			$dashboardWidgets = self::getRawWidgets();
+				$dashboardWidgets = self::getRawWidgets();
+
+				// @phpstan-ignore offsetAccess.nonOffsetAccessible
+				unset($GLOBALS['wp_meta_boxes']['dashboard']);
+				break;
+
+			case 'dashboard':
+				$dashboardWidgets = self::getRawWidgets();
+				break;
 		}
 
-		foreach ((array) $dashboardWidgets as $items) {
+		if (! is_array($dashboardWidgets)) {
+			return null;
+		}
+
+		foreach ($dashboardWidgets as $items) {
 			foreach ($items as $context => $item) {
 				foreach ($item as $widgetId => $widget) {
 					if (! is_array($widget)) {
