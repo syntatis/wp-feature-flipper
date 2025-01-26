@@ -112,6 +112,32 @@ export const SecurityTab = () => {
 						</HelpContent>
 					}
 				/>
+				<SwitchFieldset
+					name="obfuscate_usernames"
+					id="obfuscate-usernames"
+					title={ __(
+						'Obfuscate Usernames',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Randomize the users username',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched on, it will obfuscate the users username, preventing the real username to be exposed.',
+						'syntatis-feature-flipper'
+					)}
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'When this option is enabled, it will affect',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
 			</Fieldset>
 			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
