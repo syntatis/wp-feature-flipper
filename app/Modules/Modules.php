@@ -2,17 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper;
+namespace Syntatis\FeatureFlipper\Modules;
 
 use IteratorAggregate;
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Modules\Admin;
-use Syntatis\FeatureFlipper\Modules\Advanced;
-use Syntatis\FeatureFlipper\Modules\General;
-use Syntatis\FeatureFlipper\Modules\Media;
-use Syntatis\FeatureFlipper\Modules\Security;
-use Syntatis\FeatureFlipper\Modules\Site;
 use Traversable;
 
 use function is_object;
