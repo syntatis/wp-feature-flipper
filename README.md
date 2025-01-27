@@ -3,6 +3,8 @@
 ![Banner](.wporg/banner-1544x500.png)
 
 <div align="center">
+	
+  Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress®
 
   [![CI](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml)
   [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress&color=34D058)](https://wordpress.org/plugins/syntatis-feature-flipper/)
