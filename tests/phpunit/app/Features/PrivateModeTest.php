@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features\SiteAccess;
+namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\PrivateMode;
