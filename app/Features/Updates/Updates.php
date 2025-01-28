@@ -2,16 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Features;
+namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\Updates\Helpers;
-use Syntatis\FeatureFlipper\Features\Updates\ManageCore;
-use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
-use Syntatis\FeatureFlipper\Features\Updates\ManageThemes;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function define;

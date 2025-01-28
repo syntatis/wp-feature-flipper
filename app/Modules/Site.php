@@ -9,8 +9,8 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode;
-use Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode;
+use Syntatis\FeatureFlipper\Features\MaintenanceMode;
+use Syntatis\FeatureFlipper\Features\PrivateMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 

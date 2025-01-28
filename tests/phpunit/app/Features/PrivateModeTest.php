@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features\SiteAccess;
+namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode;
+use Syntatis\FeatureFlipper\Features\PrivateMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 

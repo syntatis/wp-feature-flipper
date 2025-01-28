@@ -8,8 +8,8 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\Heartbeat;
-use Syntatis\FeatureFlipper\Features\Updates;
+use Syntatis\FeatureFlipper\Features\Heartbeat\Heartbeat;
+use Syntatis\FeatureFlipper\Features\Updates\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function define;

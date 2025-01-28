@@ -45,7 +45,7 @@
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-        "filp/whoops": "^2.16",
+        "filp/whoops": "^2.17",
         "johnbillion/wp-compat": "^1.1",
         "nunomaduro/collision": "^5.11",
         "php-stubs/wordpress-tests-stubs": "^6.7",
@@ -59,6 +59,7 @@
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "dev-main",
         "syntatis/coding-standard": "^1.5",
+        "syntatis/phpstan-psr-11": "dev-main",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "wp-cli/i18n-command": "^2.6",
         "yoast/wp-test-utils": "^1.2"
