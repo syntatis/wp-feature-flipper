@@ -9,7 +9,7 @@ Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Disable Comments, Gutenberg, Emojis, and other features you don't need.
+Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
 
 == Description ==
 
