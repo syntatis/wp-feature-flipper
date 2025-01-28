@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features;
+namespace Syntatis\Tests\Features\Heartbeat;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\Heartbeat;
+use Syntatis\FeatureFlipper\Features\Heartbeat\Heartbeat;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 use WP_Scripts;

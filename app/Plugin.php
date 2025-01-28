@@ -7,6 +7,7 @@ namespace Syntatis\FeatureFlipper;
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Settings\Settings;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Modules\Modules;
 
 class Plugin implements Extendable
 {

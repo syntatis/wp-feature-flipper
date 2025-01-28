@@ -99,8 +99,8 @@ final class RegisteredMenu
 			 * to toggle them on or off.
 			 *
 			 * @see Syntatis\FeatureFlipper\Features\AdminBar::addEnvironmentTypeNode()
-			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode
-			 * @see Syntatis\FeatureFlipper\Features\SiteAccess\PrivateMode
+			 * @see Syntatis\FeatureFlipper\Features\MaintenanceMode
+			 * @see Syntatis\FeatureFlipper\Features\PrivateMode
 			 */
 			if ($menuParent !== false && $menuParent !== 'top-secondary') {
 				continue;

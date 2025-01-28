@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Features;
+namespace Syntatis\FeatureFlipper\Features\AdminBar;
 
 use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
