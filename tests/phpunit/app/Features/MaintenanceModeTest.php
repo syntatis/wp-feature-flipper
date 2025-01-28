@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features\SiteAccess;
+namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
 use stdClass;
-use Syntatis\FeatureFlipper\Features\SiteAccess\MaintenanceMode;
+use Syntatis\FeatureFlipper\Features\MaintenanceMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 use WP_Admin_Bar;

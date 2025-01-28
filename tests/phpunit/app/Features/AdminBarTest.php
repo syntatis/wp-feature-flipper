@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\AdminBar;
+use Syntatis\FeatureFlipper\Features\AdminBar\AdminBar;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\InlineData;
