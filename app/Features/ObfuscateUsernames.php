@@ -73,10 +73,9 @@ final class ObfuscateUsernames implements Hookable
 			return;
 		}
 
-		$uuid = $query->query_vars['author_name'];
 		$users = get_users([
 			'meta_key' => self::USER_UUID_META_KEY,
-			'meta_value' => $uuid,
+			'meta_value' => $authorName,
 		]);
 
 		if (count($users) <= 0) {
