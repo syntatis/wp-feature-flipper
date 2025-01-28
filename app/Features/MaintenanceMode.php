@@ -20,7 +20,7 @@ use function sprintf;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
-class MaintenanceMode implements Hookable
+final class MaintenanceMode implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

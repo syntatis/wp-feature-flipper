@@ -13,7 +13,7 @@ use function is_numeric;
 
 use const PHP_INT_MAX;
 
-class ManageAdmin implements Hookable
+final class ManageAdmin implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

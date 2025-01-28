@@ -28,7 +28,7 @@ use function trim;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_INT_MAX;
 
-class SettingPage implements Hookable
+final class SettingPage implements Hookable
 {
 	private Settings $settings;
 

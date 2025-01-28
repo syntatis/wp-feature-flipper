@@ -12,7 +12,7 @@ use WP_Query;
 
 use function is_string;
 
-class Attachment implements Hookable
+final class Attachment implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

@@ -19,7 +19,7 @@ use function strpos;
 
 use const PHP_INT_MAX;
 
-class Embeds implements Hookable
+final class Embeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

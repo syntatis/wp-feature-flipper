@@ -17,7 +17,7 @@ use function is_int;
 
 use const PHP_INT_MAX;
 
-class Gutenberg implements Hookable
+final class Gutenberg implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

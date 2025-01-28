@@ -13,7 +13,7 @@ use function is_numeric;
 
 use const PHP_INT_MAX;
 
-class ManagePostEditor implements Hookable
+final class ManagePostEditor implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

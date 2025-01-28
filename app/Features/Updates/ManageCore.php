@@ -18,7 +18,7 @@ use function time;
 /**
  * Manage Core update and auto-update feature.
  */
-class ManageCore implements Hookable
+final class ManageCore implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

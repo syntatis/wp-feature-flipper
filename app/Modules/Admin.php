@@ -12,7 +12,7 @@ use Syntatis\FeatureFlipper\Features\AdminBar\AdminBar;
 use Syntatis\FeatureFlipper\Features\DashboardWidgets;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
-class Admin implements Hookable, Extendable
+final class Admin implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

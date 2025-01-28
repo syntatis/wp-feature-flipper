@@ -22,7 +22,7 @@ use function str_starts_with;
 
 use const PHP_INT_MAX;
 
-class General implements Hookable, Extendable
+final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

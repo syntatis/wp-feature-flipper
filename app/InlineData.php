@@ -19,7 +19,7 @@ use function is_string;
 use const ARRAY_FILTER_USE_BOTH;
 
 /** @phpstan-implements ArrayAccess<string,mixed> */
-class InlineData implements ArrayAccess, JsonSerializable
+final class InlineData implements ArrayAccess, JsonSerializable
 {
 	/** @var array<string,mixed> */
 	private array $data = [];
