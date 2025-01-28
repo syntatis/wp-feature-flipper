@@ -10,7 +10,7 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 
 use const PHP_INT_MIN;
 
-class Feeds implements Hookable
+final class Feeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

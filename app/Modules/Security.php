@@ -19,7 +19,7 @@ use function defined;
 
 use const PHP_INT_MIN;
 
-class Security implements Hookable, Extendable
+final class Security implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

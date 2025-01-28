@@ -15,7 +15,7 @@ use function time;
 /**
  * Manage the Themes update and auto-update feature.
  */
-class ManageThemes implements Hookable
+final class ManageThemes implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

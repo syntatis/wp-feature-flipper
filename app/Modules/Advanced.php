@@ -15,7 +15,7 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use function define;
 use function defined;
 
-class Advanced implements Hookable, Extendable
+final class Advanced implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

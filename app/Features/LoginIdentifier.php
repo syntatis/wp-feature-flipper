@@ -13,7 +13,7 @@ use function is_string;
 
 use const PHP_INT_MAX;
 
-class LoginIdentifier implements Hookable
+final class LoginIdentifier implements Hookable
 {
 	private ?string $identifier = null;
 

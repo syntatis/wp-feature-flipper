@@ -12,7 +12,7 @@ use Traversable;
 use function is_object;
 
 /** @phpstan-implements IteratorAggregate<object> */
-class Modules implements IteratorAggregate
+final class Modules implements IteratorAggregate
 {
 	private ContainerInterface $container;
 

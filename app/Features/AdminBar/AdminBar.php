@@ -24,7 +24,7 @@ use function sprintf;
 
 use const PHP_INT_MAX;
 
-class AdminBar implements Hookable
+final class AdminBar implements Hookable
 {
 	private string $appName;
 
