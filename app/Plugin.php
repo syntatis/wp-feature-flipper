@@ -14,11 +14,8 @@ class Plugin implements Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		/** @var Settings $settings */
-		$settings = $container->get(Settings::class);
-
 		yield new CommonScripts();
-		yield new SettingPage($settings);
+		yield new SettingPage($container->get(Settings::class));
 		yield from new Modules($container);
 
 		// Mark as initialized.
