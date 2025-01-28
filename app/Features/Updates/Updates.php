@@ -15,7 +15,7 @@ use function defined;
 
 use const PHP_INT_MAX;
 
-class Updates implements Hookable, Extendable
+final class Updates implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

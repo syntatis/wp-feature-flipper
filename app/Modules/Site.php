@@ -16,7 +16,7 @@ use WP_Scripts;
 
 use function array_diff;
 
-class Site implements Hookable, Extendable
+final class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

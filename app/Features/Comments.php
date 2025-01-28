@@ -23,7 +23,7 @@ use function strip_tags;
 
 use const PHP_INT_MAX;
 
-class Comments implements Hookable
+final class Comments implements Hookable
 {
 	private const EXCLUDE_POST_TYPES = ['product'];
 

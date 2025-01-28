@@ -1,7 +1,7 @@
 {
     "name": "syntatis-feature-flipper",
     "version": "1.8.2",
-    "description": "Easily switch some features in WordPress, on and off",
+    "description": "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress",
     "author": {
         "name": "Thoriq Firdaus",
         "url": "https://github.com/tfirdaus"

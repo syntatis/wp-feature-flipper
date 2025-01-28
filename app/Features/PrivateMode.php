@@ -24,7 +24,7 @@ use const PHP_INT_MIN;
  *
  * Named as `PrivateMode` because "private" a is reserved keyword in PHP.
  */
-class PrivateMode implements Hookable
+final class PrivateMode implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

@@ -26,7 +26,7 @@ use const PHP_INT_MAX;
  * @phpstan-type DashboardWidget array{id:string,title:string,callback:string,args:array<string,mixed>}|bool
  * @phpstan-type DashboardWidgetCollection array<"normal"|"side",array<string,array<string,DashboardWidget>>>
  */
-class DashboardWidgets implements Hookable
+final class DashboardWidgets implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

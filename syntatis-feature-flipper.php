@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @wordpress-plugin
  * Plugin Name:       Feature Flipper
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
- * Description:       Easily switch some features in WordPress, on and off
+ * Description:       Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
  * Version:           1.8.2
  * Requires at least: 6.0
  * Requires PHP:      7.4

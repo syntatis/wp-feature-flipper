@@ -25,7 +25,7 @@ use const PHP_INT_MAX;
  *
  * @see https://developer.wordpress.org/plugins/javascript/heartbeat-api/
  */
-class Heartbeat implements Hookable, Extendable
+final class Heartbeat implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{

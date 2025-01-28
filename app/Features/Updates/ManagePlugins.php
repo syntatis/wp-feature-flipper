@@ -15,7 +15,7 @@ use function time;
 /**
  * Manage the Plugins update and auto-update feature.
  */
-class ManagePlugins implements Hookable
+final class ManagePlugins implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

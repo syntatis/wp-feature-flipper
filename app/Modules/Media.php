@@ -11,7 +11,7 @@ use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Attachment;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
-class Media implements Hookable, Extendable
+final class Media implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
