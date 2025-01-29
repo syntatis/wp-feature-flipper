@@ -120,18 +120,18 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Randomize the users username',
+						'Obfuscate usernames with random identifier',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched on, it will obfuscate the users username, preventing the real username to be exposed.',
+						'If switched on, it will obfuscate usernames of the users to hide the real ones.',
 						'syntatis-feature-flipper'
-					)}
+					) }
 					help={
 						<HelpContent>
 							<p>
 								{ __(
-									'When this option is enabled, it will affect',
+									"By default, WordPress will use the user's username in the author URL.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
