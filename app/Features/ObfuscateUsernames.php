@@ -13,6 +13,7 @@ use WP_REST_Response;
 use WP_User;
 use WP_User_Query;
 
+use function array_merge;
 use function count;
 use function is_array;
 use function is_string;
@@ -54,8 +55,10 @@ final class ObfuscateUsernames implements Hookable
 			10,
 			2,
 		);
+
 		$hook->addAction('pre_get_posts', [$this, 'preGetPosts'], PHP_INT_MAX);
 		$hook->addFilter('author_link', [$this, 'filterAuthorLink'], PHP_INT_MAX, 3);
+		$hook->addFilter('insert_custom_user_meta', [$this, 'filterInsertCustomUserMeta'], PHP_INT_MAX, 2);
 		$hook->addFilter('rest_prepare_user', [$this, 'filterRestPrepareUser'], PHP_INT_MAX, 2);
 	}
 
@@ -131,6 +134,27 @@ final class ObfuscateUsernames implements Hookable
 		}
 
 		return $link;
+	}
+
+	/**
+	 * @param array<string,mixed> $customMeta Array of custom user meta values keyed by meta key.
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function filterInsertCustomUserMeta(array $customMeta, WP_User $user): array
+	{
+		$uuid = self::getUuid($user);
+
+		if (is_string($uuid)) {
+			return $customMeta;
+		}
+
+		return array_merge(
+			$customMeta,
+			[
+				self::USER_UUID_META_KEY => self::generateUuid($user),
+			],
+		);
 	}
 
 	private static function addUuid(): void
