@@ -81,7 +81,7 @@ final class ObfuscateUsernames implements Hookable
 		}
 
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress Core convention.
-		$authorName = $query->query_vars['author_name'];
+		$authorName = $query->query_vars['author_name'] ?? '';
 
 		if (! Uuid::isValid($authorName)) {
 			$query->is_404 = true;
