@@ -56,6 +56,10 @@ final class ObfuscateUsernames implements Hookable
 			2,
 		);
 
+		if (! Option::isOn('obfuscate_usernames')) {
+			return;
+		}
+
 		$hook->addAction('pre_get_posts', [$this, 'preGetPosts'], PHP_INT_MAX);
 		$hook->addFilter('author_link', [$this, 'filterAuthorLink'], PHP_INT_MAX, 3);
 		$hook->addFilter('insert_custom_user_meta', [$this, 'filterInsertCustomUserMeta'], PHP_INT_MAX, 2);
