@@ -109,7 +109,11 @@ final class ObfuscateUsernames implements Hookable
 		$data = $response->get_data();
 
 		if (is_array($data)) {
-			$data['slug'] = get_user_meta($user->ID, self::USER_UUID_META_KEY, true);
+			$slug = self::getUuid($user);
+
+			if (is_string($slug)) {
+				$data['slug'] = $slug;
+			}
 		}
 
 		$response->set_data($data);
@@ -127,9 +131,9 @@ final class ObfuscateUsernames implements Hookable
 			return $link;
 		}
 
-		$uuid = get_user_meta($userId, self::USER_UUID_META_KEY, true);
+		$uuid = self::getUuid(new WP_User($userId));
 
-		if (is_string($uuid) && Uuid::isValid($uuid)) {
+		if (is_string($uuid)) {
 			return str_replace('/' . $authorSlug, '/' . $uuid, $link);
 		}
 
@@ -160,16 +164,10 @@ final class ObfuscateUsernames implements Hookable
 	private static function addUuid(): void
 	{
 		foreach (self::getUsers() as $user) {
-			$id = $user->ID;
-
 			add_user_meta(
-				$id,
+				$user->ID,
 				self::USER_UUID_META_KEY,
-				(string) Uuid::v5(
-					Uuid::fromString(Uuid::NAMESPACE_URL),
-                    // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-					sprintf('%s:%s:%s', $id, $user->user_login, $user->user_email),
-				),
+				self::generateUuid($user),
 				true,
 			);
 		}
@@ -191,5 +189,26 @@ final class ObfuscateUsernames implements Hookable
 			],
 			'fields' => 'all', // Return full user objects
 		]))->get_results();
+	}
+
+	/** @phpstan-return non-empty-string|null */
+	private static function getUuid(WP_User $user): ?string
+	{
+		$uuid = get_user_meta($user->ID, self::USER_UUID_META_KEY, true);
+
+		if (is_string($uuid) && $uuid !== '' && Uuid::isValid($uuid)) {
+			return $uuid;
+		}
+
+		return null;
+	}
+
+	private static function generateUuid(WP_User $user): string
+	{
+		return (string) Uuid::v5(
+			Uuid::fromString(Uuid::NAMESPACE_URL),
+			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+			sprintf('%s:%s:%s', $user->ID, $user->user_login, $user->user_email),
+		);
 	}
 }
