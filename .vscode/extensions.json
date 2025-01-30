@@ -1,0 +1,15 @@
+{
+	"recommendations": [
+		"bmewburn.vscode-intelephense-client",
+		"christian-kohler.path-intellisense",
+		"dotjoshjohnson.xml",
+		"editorconfig.editorconfig",
+		"kasik96.latte",
+		"mikestead.dotenv",
+		"ms-vscode-remote.remote-containers",
+		"neilbrayfield.php-docblocker",
+		"sanderronde.phpstan-vscode",
+		"wmaurer.change-case",
+		"wongjn.php-sniffer",
+	]
+}
