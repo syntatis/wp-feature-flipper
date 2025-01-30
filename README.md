@@ -17,7 +17,7 @@
 ---
 
 > [!NOTE]  
-> This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for developing a plugin for WordPress® that encourages modern development practices, and provides pre-configured tools for a more streamlined development experience.
+> This plugin serves as a showcase for [Howdy](https://github.com/syntatis/howdy), a starter kit for developing a plugin for WordPress®.
 
 This plugin gives you the ability to easily manage features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates and Automatic Updates, Cron, Heartbeat, and more. If you don't need them, you can easily toggle them off.
 
