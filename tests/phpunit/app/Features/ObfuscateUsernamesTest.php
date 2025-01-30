@@ -6,6 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
+use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
 /**
@@ -25,5 +26,18 @@ class ObfuscateUsernamesTest extends WPTestCase
 		$this->hook = new Hook();
 		$this->instance = new ObfuscateUsernames();
 		$this->instance->hook($this->hook);
+	}
+
+	/** @testdox should return default value */
+	public function testOptionDefault(): void
+	{
+		$this->assertFalse(Option::get('obfuscate_usernames'));
+	}
+
+	/** @testdox should return updated value */
+	public function testOptionUpdate(): void
+	{
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::get('obfuscate_usernames'));
 	}
 }
