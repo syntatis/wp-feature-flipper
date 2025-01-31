@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.8.2\n"
+"Project-Id-Version: Feature Flipper 1.9.0-beta.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-25T16:08:31+00:00\n"
+"POT-Creation-Date: 2025-01-31T17:42:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #. Description of the plugin
 #: syntatis-feature-flipper.php
-msgid "Easily switch some features in WordPress, on and off"
+msgid "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress"
 msgstr ""
 
 #. Author of the plugin
@@ -49,42 +49,42 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: app/Features/SiteAccess/MaintenanceMode.php:64
+#: app/Features/MaintenanceMode.php:64
 msgctxt "Maintenance page title"
 msgid "Under Maintenance"
 msgstr ""
 
-#: app/Features/SiteAccess/MaintenanceMode.php:87
+#: app/Features/MaintenanceMode.php:87
 msgctxt "Site access mode"
 msgid "Maintenance"
 msgstr ""
 
-#: app/Features/SiteAccess/MaintenanceMode.php:104
+#: app/Features/MaintenanceMode.php:104
 msgid "The site is currently in maintenance mode"
 msgstr ""
 
-#: app/Features/SiteAccess/PrivateMode.php:121
+#: app/Features/PrivateMode.php:121
 msgctxt "Site access mode"
 msgid "Private"
 msgstr ""
 
-#: app/Features/SiteAccess/PrivateMode.php:138
+#: app/Features/PrivateMode.php:138
 msgid "The site is currently in private mode"
 msgstr ""
 
-#: app/Modules/Security.php:67
+#: app/Modules/Security.php:68
 msgid "You must be logged in to access this resource."
 msgstr ""
 
-#: app/Modules/Security.php:76
+#: app/Modules/Security.php:77
 msgid "<strong>Error:</strong> Login failed. Please ensure your credentials are correct."
 msgstr ""
 
-#: app/Modules/Security.php:95
+#: app/Modules/Security.php:96
 msgid "You are not allowed to access this page."
 msgstr ""
 
-#: app/Modules/Security.php:96
+#: app/Modules/Security.php:97
 msgid "Forbidden"
 msgstr ""
 
@@ -796,115 +796,131 @@ msgstr ""
 msgid "When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:117
-msgid "Login"
+#: src/setting-page/tabs/SecurityTab.jsx:118
+msgid "Obfuscate Usernames"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:118
-msgid "Options to harden the login page on the site."
+#: src/setting-page/tabs/SecurityTab.jsx:122
+msgid "Obfuscate usernames with random identifier"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:126
-msgid "Identifier"
+msgid "If switched on, it will obfuscate usernames of the users to hide the real ones."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:127
-msgid "Select which user identifier to use for login."
+#: src/setting-page/tabs/SecurityTab.jsx:133
+msgid "By default, WordPress uses the username in the author URL, which poses a security risk as it exposes login names, making brute-force attacks easier."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:134
-msgid "By default, WordPress allows users to log in using either their username or email address. This setting allows you to restrict the login to only one of these options."
-msgstr ""
-
-#: src/setting-page/tabs/SecurityTab.jsx:140
-msgid "It's generally recommended to use only the email address to make it harder for attackers to guess the login credentials."
+#: src/setting-page/tabs/SecurityTab.jsx:148
+msgid "Login"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:149
+msgid "Options to harden the login page on the site."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:157
+msgid "Identifier"
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:158
+msgid "Select which user identifier to use for login."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:165
+msgid "By default, WordPress allows users to log in using either their username or email address. This setting allows you to restrict the login to only one of these options."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:171
+msgid "It's generally recommended to use only the email address to make it harder for attackers to guess the login credentials."
+msgstr ""
+
+#: src/setting-page/tabs/SecurityTab.jsx:180
 msgid "Both username and email"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:156
+#: src/setting-page/tabs/SecurityTab.jsx:187
 msgid "Only username"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:163
+#: src/setting-page/tabs/SecurityTab.jsx:194
 msgid "Only email"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:174
+#: src/setting-page/tabs/SecurityTab.jsx:205
 msgid "Obfuscate Error"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:178
+#: src/setting-page/tabs/SecurityTab.jsx:209
 msgid "Obfuscate the error message when login fails"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:182
+#: src/setting-page/tabs/SecurityTab.jsx:213
 msgid "If switched on, a more generic error message will be shown when the login fails."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:189
+#: src/setting-page/tabs/SecurityTab.jsx:220
 msgid "WordPress shows detailed error messages on the login page when someone types the wrong username or password. These messages are helpful for users but can also give hackers clues to break into your site."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:195
+#: src/setting-page/tabs/SecurityTab.jsx:226
 msgid "This setting, when enabled, will obfuscate the error message to make it less informative, which can help protect your site and makes it harder for hackers to guess the correct username or password."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:206
+#: src/setting-page/tabs/SecurityTab.jsx:237
 msgid "Block Bots"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:207
+#: src/setting-page/tabs/SecurityTab.jsx:238
 msgid "Block bots from the login page"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:211
+#: src/setting-page/tabs/SecurityTab.jsx:242
 msgid "If switched on, known bots, crawlers, and spiders will be blocked from accessing the login page."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:218
+#: src/setting-page/tabs/SecurityTab.jsx:249
 msgid "Your login page should only be accessed by humans, not bots or crawlers. Bots can try to brute-force their way into your site by guessing usernames and passwords."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:224
+#: src/setting-page/tabs/SecurityTab.jsx:255
 msgid "This setting, when enabled, will block known bots and crawlers from accessing the login page, which can help protect your site from brute-force attacks."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:230
+#: src/setting-page/tabs/SecurityTab.jsx:261
 msgid "Keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:240
+#: src/setting-page/tabs/SecurityTab.jsx:271
 msgid "Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:241
+#: src/setting-page/tabs/SecurityTab.jsx:272
 msgid "Options to configure the passwords used on the site."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:249
+#: src/setting-page/tabs/SecurityTab.jsx:280
 msgid "Application Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:253
+#: src/setting-page/tabs/SecurityTab.jsx:284
 msgid "Enable the Application Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:257
+#: src/setting-page/tabs/SecurityTab.jsx:288
 msgid "If switched off, third-party applications will not be able to use Application Passwords for authentication."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:264
+#: src/setting-page/tabs/SecurityTab.jsx:295
 msgid "The Application Passwords in WordPress is a security feature that's first introduced in WordPress 5.6."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:270
+#: src/setting-page/tabs/SecurityTab.jsx:301
 msgid "It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:276
+#: src/setting-page/tabs/SecurityTab.jsx:307
 msgid "If you don't use any third-party applications that require this feature, it's generally safe to disable it."
 msgstr ""
 
