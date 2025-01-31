@@ -188,6 +188,8 @@ return [
 		->withDefault(true),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
+	(new Setting('obfuscate_usernames', 'boolean'))
+		->withDefault(false),
 
 	// Security: Login.
 	(new Setting('login_identifier', 'string'))

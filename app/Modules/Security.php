@@ -10,6 +10,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\LoginIdentifier;
+use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\URL;
 use WP_Error;
@@ -102,5 +103,6 @@ final class Security implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new LoginIdentifier();
+		yield new ObfuscateUsernames();
 	}
 }

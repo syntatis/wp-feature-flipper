@@ -112,6 +112,37 @@ export const SecurityTab = () => {
 						</HelpContent>
 					}
 				/>
+				<SwitchFieldset
+					name="obfuscate_usernames"
+					id="obfuscate-usernames"
+					title={ __(
+						'Obfuscate Usernames',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Obfuscate usernames with random identifier',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched on, it will obfuscate usernames of the users to hide the real ones.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									'By default, WordPress uses the username in the author URL, which poses a security risk as it exposes login names, making brute-force attacks easier.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									"You can enable this option to obfuscate the user's real username/slug in the site public-facing URLs with a random identity to mitigate the risk."
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
 			</Fieldset>
 			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
