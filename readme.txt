@@ -59,16 +59,16 @@ Control access and assets on your site:
 
 * **Access**: Make your site public, restrict it to logged-in users, or enable maintenance mode.
 
-##### Assets
+Unload some of the assets that are not always necessary for your site:
 
 * **Emojis**: Improve performance by removing emoji scripts and styles.
 * **Script Version**: Remove version query strings from scripts and styles URLs.
 * **jQuery Migrate**: Disable jQuery Migrate if it’s not needed.
 
-##### Metadata
+Clean-up some unused metadata from your site:
 
 * **RSD Link**: Remove the Really Simple Discovery (RSD) tag.
-* **Generator Meta Tag**: Hide the WordPress version meta tag.
+* **Generator Meta Tag**: Remove the WordPress version meta tag.
 * **Shortlink**: Remove the shortlink meta tag.
 
 #### Security
@@ -79,21 +79,19 @@ Improve your site's security by disabling or limiting access to certain features
 * **XML-RPC**: Disable the XML-RPC endpoint.
 * **API Authentication**: Require authentication for all REST API requests.
 
-##### Login
-
 Apply additional security measures to your login page:
 
 * **Identifier**: Restrict login to username only, email only, or allow both.
 * **Obfuscate Error**: Prevent hints about which login credential is incorrect.
 * **Block Bots**: Block known bots from accessing the login page.
 
-##### Passwords
+Manage passwords policy on the site:
 
 * **Application Passwords**: Disable Application Passwords and remove related UI elements.
 
 #### Advanced
 
-Only for advanced users. You may configure these following features, but do it carefully:
+For advanced users, you may configure these following features, but do it carefully:
 
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.
