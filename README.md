@@ -9,7 +9,7 @@
   [![CI](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml)
   [![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/syntatis-feature-flipper?label=php&color=7a86b8)](https://wordpress.org/plugins/syntatis-feature-flipper/)
   [![WordPress Plugin Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/syntatis-feature-flipper?logo=wordpress&label=min&color=4f94d4)](https://wordpress.org/plugins/syntatis-feature-flipper/)
-  [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress&label=up-to&color=00ba37)](https://wordpress.org/plugins/syntatis-feature-flipper/)
+  [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/syntatis-feature-flipper?logo=wordpress&label=up-to&color=4f94d4)](https://wordpress.org/plugins/syntatis-feature-flipper/)
   [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/syntatis-feature-flipper?logo=wordpress&logoColor=fff&label=playground&labelColor=3858e9&color=3858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/syntatis/wp-feature-flipper/main/.wporg/blueprints/blueprint.json)
 
 </div>
