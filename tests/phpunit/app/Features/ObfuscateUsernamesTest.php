@@ -125,4 +125,53 @@ class ObfuscateUsernamesTest extends WPTestCase
 		$this->assertSame('foo2@example.org', $user->user_email);
 		$this->assertSame($uuid, get_user_meta($user->ID, '_syntatis_uuid', true));
 	}
+
+	/** @testdox should not change the author link when feature is not enabled */
+	public function testNotFilterAuthorLink(): void
+	{
+		$user = self::factory()->user->create_and_get(['user_login' => 'jon']);
+
+		$this->assertFalse(Option::isOn('obfuscate_usernames'));
+		$this->assertSame(
+			'http://example.org/?author=1',
+			$this->instance->filterAuthorLink('http://example.org/?author=1', $user->ID, 'jon'),
+		);
+	}
+
+	/** @testdox should change the author link when permalink is plain */
+	public function testNotFilterAuthorLinkPermalinkStructurePlain(): void
+	{
+		$user = self::factory()->user->create_and_get(['user_login' => 'jon']);
+
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::isOn('obfuscate_usernames'));
+		$this->assertFalse(get_option('permalink_structure')); // Permalink structure is plain.
+
+		// Reload.
+		$this->instance->hook($this->hook);
+
+		$this->assertSame(
+			'http://example.org/?author=1',
+			$this->instance->filterAuthorLink('http://example.org/?author=1', $user->ID, 'jon'),
+		);
+	}
+
+	/** @testdox should change the author link when permalink is plain */
+	public function testFilterAuthorLink(): void
+	{
+		$user = self::factory()->user->create_and_get(['user_login' => 'jon']);
+
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::isOn('obfuscate_usernames'));
+		$this->assertTrue(update_option('permalink_structure', '/%postname%/'));
+		$this->assertSame('/%postname%/', get_option('permalink_structure'));
+
+		// Reload.
+		$this->instance->hook($this->hook);
+
+		$this->assertMatchesRegularExpression(
+			'#^http://example.org/author/[0-9a-fA-F-]{36}/$#',
+			$this->instance->filterAuthorLink('http://example.org/author/jon/', $user->ID, 'jon'),
+		);
+	}
 }
