@@ -26,3 +26,22 @@ declare(strict_types=1);
 if (! defined('WP_UNINSTALL_PLUGIN')) {
 	exit;
 }
+
+// phpcs:disable Squiz.Strings.DoubleQuoteUsage.ContainsVar
+// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+$db = $GLOBALS['wpdb'] ?? null;
+
+if (! $db instanceof wpdb) {
+	return;
+}
+
+$options = $db->get_results(
+	$db->prepare(
+		"SELECT option_name FROM $db->options WHERE option_name LIKE %s",
+		'syntatis_feature_flipper_%',
+	),
+);
+
+foreach ($options as $option) {
+	delete_option($option->option_name);
+}
