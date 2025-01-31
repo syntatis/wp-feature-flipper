@@ -75,6 +75,7 @@ class ObfuscateUsernamesTest extends WPTestCase
 	{
 		$user = self::factory()->user->create_and_get();
 
+		$this->assertEmpty(get_user_meta($user->ID, '_syntatis_uuid', true));
 		$this->assertTrue(Option::update('obfuscate_usernames', true));
 		$this->assertTrue(Option::get('obfuscate_usernames'));
 		$this->assertTrue(Uuid::isValid(get_user_meta($user->ID, '_syntatis_uuid', true)));
