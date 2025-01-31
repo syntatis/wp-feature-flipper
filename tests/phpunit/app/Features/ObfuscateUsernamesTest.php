@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
@@ -58,5 +59,69 @@ class ObfuscateUsernamesTest extends WPTestCase
 	{
 		$this->assertTrue(Option::update('obfuscate_usernames', true));
 		$this->assertTrue(Option::get('obfuscate_usernames'));
+	}
+
+	/** @testdox should not generate uuid when it's not enabled */
+	public function testNotGenerateUuid(): void
+	{
+		$user = self::factory()->user->create_and_get();
+
+		$this->assertFalse(Option::get('obfuscate_usernames'));
+		$this->assertEmpty(get_user_meta($user->ID, '_syntatis_uuid', true));
+	}
+
+	/** @testdox should generate uuid when it's enabled */
+	public function testGenerateUuid(): void
+	{
+		$user = self::factory()->user->create_and_get();
+
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::get('obfuscate_usernames'));
+		$this->assertTrue(Uuid::isValid(get_user_meta($user->ID, '_syntatis_uuid', true)));
+	}
+
+	/** @testdox should generate uuid on new user */
+	public function testGenerateUuidOnNewUser(): void
+	{
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::get('obfuscate_usernames'));
+
+		// Reload.
+		$this->instance->hook($this->hook);
+		$user = self::factory()->user->create_and_get();
+
+		$this->assertTrue(Uuid::isValid(get_user_meta($user->ID, '_syntatis_uuid', true)));
+	}
+
+	/**
+	 * The plugin use the user ID, email, and username to generate a unique UUID.
+	 * Users can change their email. When they do, it should not regenerate new
+	 * UUID for users.
+	 *
+	 * @testdox should not regenerate uuid on user update
+	 */
+	public function testUpdateUserEmail(): void
+	{
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->assertTrue(Option::get('obfuscate_usernames'));
+
+		// Reload.
+		$this->instance->hook($this->hook);
+
+		$user = self::factory()->user->create_and_get(['user_email' => 'foo@example.org']);
+		$uuid = get_user_meta($user->ID, '_syntatis_uuid', true);
+
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame('foo@example.org', $user->user_email);
+		$this->assertTrue(Uuid::isValid($uuid));
+
+		$user = get_user_by('id', wp_update_user([
+			'ID' => $user->ID,
+			'user_email' => 'foo2@example.org',
+		]));
+
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame('foo2@example.org', $user->user_email);
+		$this->assertSame($uuid, get_user_meta($user->ID, '_syntatis_uuid', true));
 	}
 }
