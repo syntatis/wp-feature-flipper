@@ -9,6 +9,9 @@ use SSFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
+use WP_REST_Request;
+
+use function sprintf;
 
 use const PHP_INT_MAX;
 
@@ -173,5 +176,39 @@ class ObfuscateUsernamesTest extends WPTestCase
 			'#^http://example.org/author/[0-9a-fA-F-]{36}/$#',
 			$this->instance->filterAuthorLink('http://example.org/author/jon/', $user->ID, 'jon'),
 		);
+	}
+
+	/** @testdox should not change the slug in the rest response when the uuid is not set in the user */
+	public function testNotFilterRestPrepareUser(): void
+	{
+		$user = self::factory()->user->create_and_get();
+		self::factory()->post->create(['post_author' => $user->ID]);
+
+		$request = new WP_REST_Request('GET', sprintf('/wp/v2/users/%s', $user->ID));
+		$response = rest_do_request($request);
+
+		$response = $this->instance->filterRestPrepareUser($response, $user);
+		$data = $response->get_data();
+
+		$this->assertFalse(Option::isOn('obfuscate_usernames'));
+		$this->assertFalse(Uuid::isValid($data['slug']));
+	}
+
+	/** @testdox should change the slug in the rest response when the uuid is not set in the user */
+	public function testFilterRestPrepareUser(): void
+	{
+		$this->assertTrue(Option::update('obfuscate_usernames', true));
+		$this->instance->hook($this->hook); // Reload.
+
+		$user = self::factory()->user->create_and_get();
+		self::factory()->post->create(['post_author' => $user->ID]);
+
+		$request = new WP_REST_Request('GET', sprintf('/wp/v2/users/%s', $user->ID));
+		$response = rest_do_request($request);
+
+		$response = $this->instance->filterRestPrepareUser($response, $user);
+		$data = $response->get_data();
+
+		$this->assertTrue(Uuid::isValid($data['slug']));
 	}
 }
