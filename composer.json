@@ -59,9 +59,9 @@
         "shipmonk/dead-code-detector": "^0.8.1",
         "shipmonk/phpstan-rules": "^4.1",
         "symfony/var-dumper": "^5.4",
-        "syntatis/codex-companion": "dev-main",
+        "syntatis/codex-companion": "^0.1",
         "syntatis/coding-standard": "^1.5",
-        "syntatis/phpstan-psr-11": "v1.0",
+        "syntatis/phpstan-psr-11": "^1.0",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "wp-cli/i18n-command": "^2.6",
         "yoast/wp-test-utils": "^1.2"
