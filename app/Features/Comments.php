@@ -16,6 +16,8 @@ use WP_Comment_Query;
 
 use function in_array;
 use function is_array;
+use function is_int;
+use function is_numeric;
 use function is_readable;
 use function is_string;
 use function remove_post_type_support;
@@ -216,9 +218,15 @@ final class Comments implements Hookable
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
 		$postType = $query->query_vars['post_type'] ?? '';
 		$postId = $query->query_vars['post_id'] ?? 0;
-		$postIdType = (string) get_post_type($postId);
 		// phpcs:enable
 
+		$postId = is_numeric($postId) ? absint($postId) : null;
+
+		if (! is_int($postId)) {
+			return $comments;
+		}
+
+		$postIdType = (string) get_post_type($postId);
 		$postType = is_string($postType) ? $postType : $postIdType;
 
 		if (Admin::isScreen('dashboard')) {

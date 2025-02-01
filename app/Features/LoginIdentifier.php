@@ -15,17 +15,12 @@ use const PHP_INT_MAX;
 
 final class LoginIdentifier implements Hookable
 {
-	private ?string $identifier = null;
+	private ?string $identifier;
 
 	public function __construct()
 	{
 		$identifier = Option::get('login_identifier');
-
-		if (! is_string($identifier)) {
-			return;
-		}
-
-		$this->identifier = $identifier;
+		$this->identifier = is_string($identifier) ? $identifier : null;
 	}
 
 	public function hook(Hook $hook): void

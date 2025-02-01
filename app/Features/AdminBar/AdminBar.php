@@ -8,6 +8,7 @@ use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Helpers\Assets;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
@@ -15,7 +16,6 @@ use function array_keys;
 use function array_merge;
 use function in_array;
 use function is_array;
-use function is_readable;
 use function is_string;
 use function json_decode;
 use function json_encode;
@@ -112,21 +112,20 @@ final class AdminBar implements Hookable
 			return;
 		}
 
-		$assets = App::dir('dist/assets/admin-bar/index.asset.php');
-		$assets = is_readable($assets) ? require $assets : [];
+		$manifest = Assets::manifest('dist/assets/admin-bar/index.asset.php');
 
 		wp_enqueue_style(
 			$this->appName . '-admin-bar',
 			App::url('dist/assets/admin-bar/index.css'),
 			[$this->appName . '-common'],
-			$assets['version'] ?? null,
+			$manifest['version'],
 		);
 
 		wp_enqueue_script(
 			$this->appName . '-admin-bar',
 			App::url('dist/assets/admin-bar/index.js'),
-			$assets['dependencies'] ?? [],
-			$assets['version'] ?? null,
+			$manifest['dependencies'],
+			$manifest['version'],
 			false,
 		);
 	}
@@ -205,7 +204,7 @@ final class AdminBar implements Hookable
 		return is_user_logged_in() ? Option::isOn('admin_bar') : $value;
 	}
 
-	/** @return array<string> */
+	/** @phpstan-return list<string> */
 	private static function getRegisteredMenu(): array
 	{
 		$menu = array_keys(RegisteredMenu::all('top'));

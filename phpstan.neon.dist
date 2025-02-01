@@ -1,9 +1,18 @@
 parameters:
-  level: 9
+  level: 10
   bootstrapFiles:
     - dist/autoload/vendor/autoload.php
   paths:
     - app
+
+  ignoreErrors:
+    -
+      message: '#^Unused Syntatis\\FeatureFlipper\\Helpers\\Option\:\:.*$#'
+      path: app/Helpers/Option.php
+    -
+      identifier: shipmonk.checkedExceptionInYieldingMethod
+    -
+      identifier: shipmonk.forbiddenCast
 
   ## syntatis/phpstan-psr-11
   syntatis:

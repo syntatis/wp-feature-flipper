@@ -83,10 +83,8 @@ final class ObfuscateUsernames implements Hookable
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress Core convention.
 		$authorName = $query->query_vars['author_name'] ?? '';
 
-		if (! Uuid::isValid($authorName)) {
-			$query->is_404 = true;
-			$query->is_author = false;
-			$query->is_archive = false;
+		if (! is_string($authorName) || ! Uuid::isValid($authorName)) {
+			self::setNotFound($query);
 
 			return;
 		}
@@ -97,14 +95,20 @@ final class ObfuscateUsernames implements Hookable
 		]);
 
 		if (count($users) <= 0) {
-			$query->is_404 = true;
-			$query->is_author = false;
-			$query->is_archive = false;
+			self::setNotFound($query);
 
 			return;
 		}
 
-		$query->set('author_name', $users[0]->user_nicename);
+		$user = $users[0];
+
+		if (! $user instanceof WP_User) {
+			self::setNotFound($query);
+
+			return;
+		}
+
+		$query->set('author_name', $user->user_nicename);
 		// phpcs:enable
 	}
 
@@ -168,6 +172,10 @@ final class ObfuscateUsernames implements Hookable
 	private static function addUuid(): void
 	{
 		foreach (self::getUsers() as $user) {
+			if (! $user instanceof WP_User) {
+				continue;
+			}
+
 			add_user_meta(
 				$user->ID,
 				self::USER_UUID_META_KEY,
@@ -180,9 +188,9 @@ final class ObfuscateUsernames implements Hookable
 	/**
 	 * Retrieve the list of users which currently does not have the UUID.
 	 *
-	 * @return array<WP_User>
+	 * @return array<mixed>
 	 */
-	private static function getUsers(): iterable
+	private static function getUsers(): array
 	{
 		return (new WP_User_Query([
 			'meta_query' => [
@@ -214,5 +222,14 @@ final class ObfuscateUsernames implements Hookable
 			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 			sprintf('%s:%s:%s', $user->ID, $user->user_login, $user->user_email),
 		);
+	}
+
+	private static function setNotFound(WP_Query $query): void
+	{
+		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress Core convention.
+		$query->is_404 = true;
+		$query->is_author = false;
+		$query->is_archive = false;
+		// phpcs:enable
 	}
 }

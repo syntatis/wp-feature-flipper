@@ -230,7 +230,7 @@ final class DashboardWidgets implements Hookable
 
 	/**
 	 * @return array<string,array<string,array<string,array<string,mixed>>>>
-	 * @phpstan-return DashboardWidgetCollection
+	 * @phpstan-return DashboardWidgetCollection|null
 	 */
 	private static function getRawWidgets(): ?array
 	{

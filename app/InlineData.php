@@ -22,7 +22,7 @@ use const ARRAY_FILTER_USE_BOTH;
 final class InlineData implements ArrayAccess, JsonSerializable
 {
 	/** @var array<string,mixed> */
-	private array $data = [];
+	private array $data;
 
 	public function __construct()
 	{
@@ -41,7 +41,11 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	/** @param mixed $offset */
 	public function offsetExists($offset): bool
 	{
-		return isset($this->data[$offset]);
+		if (is_string($offset)) {
+			return isset($this->data[$offset]);
+		}
+
+		return false;
 	}
 
 	/**
@@ -51,7 +55,11 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	 */
 	public function offsetGet($offset)
 	{
-		return $this->data[$offset] ?? null;
+		if (is_string($offset)) {
+			return $this->data[$offset] ?? null;
+		}
+
+		return null;
 	}
 
 	/**
@@ -60,6 +68,10 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	 */
 	public function offsetSet($offset, $value): void
 	{
+		if (! is_string($offset) || $value === null) {
+			return;
+		}
+
 		$this->data[$offset] = $value;
 	}
 

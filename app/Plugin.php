@@ -18,7 +18,6 @@ final class Plugin implements Extendable
 		yield new SettingPage($container->get(Settings::class));
 		yield from new Modules($container);
 
-		// Mark as initialized.
 		do_action('syntatis/feature_flipper/init', $container);
 	}
 }
