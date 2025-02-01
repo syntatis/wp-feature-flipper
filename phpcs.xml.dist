@@ -27,8 +27,8 @@
 	<!-- Check for cross-version support for WordPress 6.0 or higher. -->
 	<config name="minimum_wp_version" value="6.0"/>
 
-	<!-- Check for cross-version support for PHP 7.4 or higher. Requires PHPCompatibilityWP -->
-	<config name="testVersion" value="7.4-"/>
+	<!-- Check for cross-version support for PHP 7.2 or higher. Requires PHPCompatibilityWP -->
+	<config name="testVersion" value="7.2-"/>
 
 	<!-- Rulesets -->
 	<rule ref="SyntatisWP"/>
