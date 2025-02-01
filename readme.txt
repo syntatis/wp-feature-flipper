@@ -113,6 +113,12 @@ For advanced users, you may configure these following features, but do it carefu
 
 Learn more [about installing plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins).
 
+== Frequently Asked Questions ==
+
+= Is this plugin compatible with WordPress Multisite? =
+
+Not yet, but it's on the plan!
+
 == Screenshots ==
 
 1. The "General" section provides an easy way to enable and disable core features in like the Block Editor, Block-based Widgets, Comments, etc.
@@ -122,8 +128,29 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 5. Hardening your site? The "Security" section provides an easy way to disable some features that could be a security risk.
 6. And more...
 
-== Frequently Asked Questions ==
+== Changelog ==
 
-= Is this plugin compatible with WordPress Multisite? =
+= 1.9.0 =
 
-Not yet, but it's on the plan!
+* Add option to obfuscate usernames.
+* Add an uninstaller to remove the plugin option when the plugin is uninstalled.
+
+= 1.8.2 =
+
+* Fix Blueprint deprecated schema.
+* Add option stash for "Post Types" value
+* Add option stash for "Dashboard Widgets"
+
+= 1.8.1 =
+
+* Fix WordPress blueprint.
+* Several minor code improvements.
+
+= 1.8.0 =
+
+* Add option to select user main identifier.
+* Add option to put site on Maintenance mode.
+* Improve WooCommerce compatibility.
+* Improve compatibility with WordPress native `wp_attachment_pages_enabled` option.
+* Fix function compatibility for WordPress 6.0.
+* Several other bugs and issues fixes, and improvements.
