@@ -63,23 +63,20 @@ final class Gutenberg implements Hookable
 			return false;
 		}
 
-		if (is_int($post)) {
-			$post = get_post($post);
-		}
+		$wpPost = is_int($post) ? get_post($post) : $post;
 
-		if ($post === null) {
+		if (! $wpPost instanceof WP_Post) {
 			return $value;
 		}
 
-		return in_array(
-			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress convention.
-			$post->post_type,
-			(array) Option::get('gutenberg_post_types'),
-			true,
-		);
+		$postTypes = Option::get('gutenberg_post_types');
+		$postTypes = is_array($postTypes) ? $postTypes : [];
+
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress convention.
+		return in_array($wpPost->post_type, $postTypes, true);
 	}
 
-	/** @return array<string> */
+	/** @phpstan-return list<string> */
 	private static function getPostTypes(): array
 	{
 		return array_values(array_filter(

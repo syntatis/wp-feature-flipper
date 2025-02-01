@@ -10,6 +10,8 @@ use WP_Admin_Bar;
 use function array_merge;
 use function in_array;
 use function is_array;
+use function is_string;
+use function property_exists;
 
 /** @phpstan-type RegisteredMenuType = array{id:string,parent?:string|false} */
 final class RegisteredMenu
@@ -46,14 +48,14 @@ final class RegisteredMenu
 		],
 	];
 
-	private ?WP_Admin_Bar $wpAdminBar = null;
+	private ?WP_Admin_Bar $wpAdminBar;
 
 	/** @phpstan-var array<non-empty-string,RegisteredMenuType> */
 	private array $registeredMenu;
 
 	private function __construct()
 	{
-		/** @var WP_Admin_Bar $wpAdminBar */
+		/** @var WP_Admin_Bar|null $wpAdminBar */
 		$wpAdminBar = $GLOBALS['wp_admin_bar'] ?? null;
 
 		$this->wpAdminBar = $wpAdminBar;
@@ -123,24 +125,38 @@ final class RegisteredMenu
 			return [];
 		}
 
+		/** @phpstan-var array<string,object>|null $nodes */
 		$nodes = $this->wpAdminBar->get_nodes();
-		$items = [];
 
 		if (! is_array($nodes)) {
-			return $items;
+			return [];
 		}
 
+		$items = [];
+
 		foreach ($nodes as $id => $node) {
-			$items[$node->id] = [
-				'id' => $node->id,
-				'parent' => $node->parent,
+			$id = property_exists($node, 'id') && is_string($node->id) ?
+				$node->id :
+				null;
+
+			if ($id === '' || $id === null) {
+				continue;
+			}
+
+			$parent = property_exists($node, 'parent') && is_string($node->parent) ?
+				$node->parent :
+				false;
+
+			$items[$id] = [
+				'id' => $id,
+				'parent' => $parent,
 			];
 		}
 
 		return array_merge($items, self::INCLUDE_CORE_MENU_ITEMS);
 	}
 
-	/** @return array<string> */
+	/** @phpstan-return list<string> */
 	private static function getExcludedMenu(): array
 	{
 		$excludes = self::EXCLUDE_MENU_ITEMS;

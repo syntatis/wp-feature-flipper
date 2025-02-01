@@ -1,6 +1,6 @@
 {
     "name": "syntatis/wp-feature-flipper",
-    "description": "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress",
+    "description": "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress®",
     "type": "wordpress-plugin",
     "keywords": [
         "wordpress",
@@ -56,6 +56,8 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "9.2.6",
+        "shipmonk/dead-code-detector": "^0.8.1",
+        "shipmonk/phpstan-rules": "^4.1",
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "dev-main",
         "syntatis/coding-standard": "^1.5",

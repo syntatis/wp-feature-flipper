@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Throwable;
 use WP_Query;
 
 use function is_string;
@@ -16,7 +17,7 @@ final class Attachment implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter(Option::hook('default:attachment_page'), static function () {
+		$hook->addFilter(Option::hook('default:attachment_page'), static function (): bool {
 			/**
 			 * In WordPress 6.4, A new option, `wp_attachment_pages_enabled` is introduced
 			 * to control the attachment page behavior.
@@ -64,6 +65,7 @@ final class Attachment implements Hookable
 
 			$hook->addFilter(
 				'redirect_canonical',
+				/* @phpstan-ignore shipmonk.missingNativeReturnTypehint */
 				function (string $url) {
 					if (! is_attachment()) {
 						return $url;
@@ -98,7 +100,11 @@ final class Attachment implements Hookable
 					return $slug;
 				}
 
-				return (string) Uuid::v5(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
+				try {
+					return (string) Uuid::v5(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
+				} catch (Throwable $th) {
+					return $slug;
+				}
 			},
 			99,
 			4,

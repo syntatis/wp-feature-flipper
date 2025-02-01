@@ -17,7 +17,9 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use function array_filter;
 use function define;
 use function defined;
+use function is_array;
 use function is_numeric;
+use function is_string;
 use function str_starts_with;
 
 use const PHP_INT_MAX;
@@ -35,7 +37,14 @@ final class General implements Hookable, Extendable
 
 		if (! Option::isOn('self_ping')) {
 			$hook->addFilter('pre_ping', static function (&$links): void {
-				$links = array_filter($links, static fn ($link) => ! str_starts_with($link, home_url()));
+				if (! is_array($links)) {
+					return;
+				}
+
+				$links = array_filter(
+					$links,
+					static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
+				);
 			}, 99);
 		}
 

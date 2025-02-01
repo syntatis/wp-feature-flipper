@@ -178,6 +178,7 @@ final class DashboardWidgets implements Hookable
 		static $widgets = null;
 
 		if (is_array($widgets)) {
+			// @phpstan-ignore return.type
 			return wp_list_sort($widgets, 'title', 'ASC', true);
 		}
 
@@ -225,12 +226,13 @@ final class DashboardWidgets implements Hookable
 
 		set_current_screen($screen->id);
 
+		// @phpstan-ignore return.type
 		return is_array($widgets) ? wp_list_sort($widgets, 'title', 'ASC', true) : null;
 	}
 
 	/**
 	 * @return array<string,array<string,array<string,array<string,mixed>>>>
-	 * @phpstan-return DashboardWidgetCollection
+	 * @phpstan-return DashboardWidgetCollection|null
 	 */
 	private static function getRawWidgets(): ?array
 	{

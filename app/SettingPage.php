@@ -9,6 +9,7 @@ use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Codex\Settings\Settings;
 use Syntatis\FeatureFlipper\Helpers\Admin;
+use Syntatis\FeatureFlipper\Helpers\Assets;
 use WP_REST_Request;
 
 use function array_filter;
@@ -19,7 +20,6 @@ use function basename;
 use function explode;
 use function in_array;
 use function is_array;
-use function is_readable;
 use function is_string;
 use function sprintf;
 use function strip_tags;
@@ -92,10 +92,9 @@ final class SettingPage implements Hookable
 			wp_verify_nonce($nonce, $this->appName . '-settings') !== false
 		) {
 			$options = base64_decode(strip_tags(trim($options)), true);
-			$options = explode(',', (string) $options);
 
-			/** For internal use. Subject to change. External plugin should not rely on hook. */
-			do_action('syntatis/feature_flipper/updated_options', $options);
+			/** @internal For internal use. Subject to change. External plugin should not rely on this hook. */
+			do_action('syntatis/feature_flipper/updated_options', explode(',', (string) $options));
 		}
 
 		$this->inlineData = (string) wp_json_encode(new InlineData());
@@ -108,21 +107,20 @@ final class SettingPage implements Hookable
 			return;
 		}
 
-		$assets = App::dir('dist/assets/setting-page/index.asset.php');
-		$assets = is_readable($assets) ? require $assets : [];
+		$manifest = Assets::manifest('dist/assets/setting-page/index.asset.php');
 
 		wp_enqueue_style(
 			$this->scriptHandle,
 			App::url('dist/assets/setting-page/index.css'),
 			[$this->appName . '-common'],
-			$assets['version'] ?? null,
+			$manifest['version'],
 		);
 
 		wp_enqueue_script(
 			$this->scriptHandle,
 			App::url('dist/assets/setting-page/index.js'),
-			$assets['dependencies'] ?? [],
-			$assets['version'] ?? null,
+			$manifest['dependencies'],
+			$manifest['version'],
 			true,
 		);
 
