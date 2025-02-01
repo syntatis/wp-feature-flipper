@@ -14,15 +14,12 @@ use WP_REST_Request;
 
 use function array_filter;
 use function array_keys;
-use function array_map;
 use function array_merge;
-use function array_values;
 use function base64_decode;
 use function basename;
 use function explode;
 use function in_array;
 use function is_array;
-use function is_readable;
 use function is_string;
 use function sprintf;
 use function strip_tags;
