@@ -63,7 +63,7 @@ final class URL
 			return true;
 		}
 
-		if (class_exists('woocommerce')) {
+		if (class_exists('woocommerce') && ! is_user_logged_in()) {
 			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
 
 			if (is_numeric($myAccountPageId)) {
