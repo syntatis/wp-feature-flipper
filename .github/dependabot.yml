@@ -14,7 +14,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "sunday"
+      day: "friday"
     labels:
       - "dependencies"
       - "composer"
