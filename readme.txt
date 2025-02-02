@@ -6,7 +6,7 @@ Requires at least: 6.0
 Tested up to: 6.7
 Stable tag: 1.9.0-beta.0
 Requires PHP: 7.4
-License: GPLv3 or later
+License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress

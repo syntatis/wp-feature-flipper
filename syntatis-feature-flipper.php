@@ -16,7 +16,7 @@ declare(strict_types=1);
  * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
  * Author URI:        https://github.com/tfirdaus
- * License:           GPL-3.0+
+ * License:           GPL-3.0
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       syntatis-feature-flipper
  * Domain Path:       /inc/languages
