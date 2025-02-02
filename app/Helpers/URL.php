@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
+use function class_exists;
+use function is_numeric;
 use function is_string;
 use function parse_url;
 use function rtrim;
@@ -55,8 +57,32 @@ final class URL
 		}
 
 		// Try to identify if the login page is customized.
-		$urlPath = rtrim((string) parse_url(self::current(), PHP_URL_PATH), '/');
+		$urlPath = self::parsePath(self::current());
 
-		return rtrim((string) parse_url($urlLogin, PHP_URL_PATH), '/') === $urlPath;
+		if (self::parsePath($urlLogin) === $urlPath) {
+			return true;
+		}
+
+		/**
+		 * WooCommerce MyAccount is a dedicated page where users can manage their
+		 * account details, view past orders, etc. When they are not loggee in
+		 * this page will show the login form.
+		 */
+		if (class_exists('woocommerce') && ! is_user_logged_in()) {
+			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
+
+			if (is_numeric($myAccountPageId)) {
+				return self::parsePath((string) get_permalink(absint($myAccountPageId))) === $urlPath;
+			}
+		}
+
+		return false;
+	}
+
+	private static function parsePath(string $url): ?string
+	{
+		$path = parse_url($url, PHP_URL_PATH);
+
+		return is_string($path) ? rtrim($path, '/') : null;
 	}
 }
