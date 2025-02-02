@@ -63,6 +63,11 @@ final class URL
 			return true;
 		}
 
+		/**
+		 * WooCommerce MyAccount is a dedicated page where users can manage their
+		 * account details, view past orders, etc. When they are not loggee in
+		 * this page will show the login form.
+		 */
 		if (class_exists('woocommerce') && ! is_user_logged_in()) {
 			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
 
