@@ -6,7 +6,7 @@ updates:
       interval: "monthly"
     labels:
       - "dependencies"
-      - "github-actions"
+      - "ci-cd"
 
   - package-ecosystem: "composer"
     versioning-strategy: increase
