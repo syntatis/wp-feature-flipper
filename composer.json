@@ -43,7 +43,6 @@
         "syntatis/codex-settings-provider": "^0.1"
     },
     "require-dev": {
-        "bamarni/composer-bin-plugin": "^1.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "filp/whoops": "^2.17",
         "johnbillion/wp-compat": "^1.1",
@@ -59,7 +58,7 @@
         "shipmonk/dead-code-detector": "^0.8.1",
         "shipmonk/phpstan-rules": "^4.1",
         "symfony/var-dumper": "^5.4",
-        "syntatis/codex-companion": "^0.1",
+        "syntatis/codex-companion": "^0.2",
         "syntatis/coding-standard": "^1.5",
         "syntatis/phpstan-psr-11": "^1.0",
         "szepeviktor/phpstan-wordpress": "^2.0",
@@ -97,7 +96,6 @@
     },
     "config": {
         "allow-plugins": {
-            "bamarni/composer-bin-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true,
             "syntatis/codex-companion": true
@@ -133,10 +131,6 @@
         ]
     },
     "extra": {
-        "bamarni-bin": {
-            "bin-links": true,
-            "forward-command": true
-        },
         "codex": {
             "scoper": {
                 "prefix": "SSFV",
