@@ -4,14 +4,20 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    labels:
+      - "dependencies"
+      - "github-actions"
 
   - package-ecosystem: "composer"
     versioning-strategy: increase
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 5
     directory: "/"
     schedule:
       interval: "weekly"
       day: "sunday"
+    labels:
+      - "dependencies"
+      - "composer"
     ignore:
       - dependency-name: "symfony/*"
         versions: [">=6.0"]
