@@ -7,7 +7,7 @@ namespace Syntatis\FeatureFlipper;
 use ArrayAccess;
 use BadMethodCallException;
 use JsonSerializable;
-use SSFV\Codex\Facades\App;
+use SFFV\Codex\Facades\App;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Post_Type;
 

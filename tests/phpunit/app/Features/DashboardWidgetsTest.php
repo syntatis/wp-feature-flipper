@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Features;
 
-use SSFV\Codex\Facades\App;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Facades\App;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\DashboardWidgets;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;

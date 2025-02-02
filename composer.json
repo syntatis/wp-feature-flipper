@@ -139,7 +139,7 @@
         },
         "codex": {
             "scoper": {
-                "prefix": "SSFV",
+                "prefix": "SFFV",
                 "exclude-namespaces": [
                     "NunoMaduro\\Collision",
                     "Syntatis\\Tests",

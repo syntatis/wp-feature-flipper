@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Helpers;
 
-use SSFV\Codex\Facades\App;
+use SFFV\Codex\Facades\App;
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 use WP_Screen;
 

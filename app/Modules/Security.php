@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\LoginIdentifier;
 use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
 use Syntatis\FeatureFlipper\Helpers\Option;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Features;
 
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Symfony\Component\Uid\Uuid;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Features\ObfuscateUsernames;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Helpers;
 
 use InvalidArgumentException;
-use SSFV\Codex\Facades\Config;
+use SFFV\Codex\Facades\Config;
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
 use function array_diff;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\App;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Codex\Settings\Settings;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Facades\App;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Settings\Settings;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Assets;
 use WP_REST_Request;
