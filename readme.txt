@@ -84,6 +84,7 @@ Apply additional security measures to your login page:
 * **Identifier**: Restrict login to username only, email only, or allow both.
 * **Obfuscate Error**: Prevent hints about which login credential is incorrect.
 * **Block Bots**: Block known bots from accessing the login page.
+* **Obfuscate Usernames**: Expose randomize slug for users.
 
 Manage passwords policy on the site:
 
