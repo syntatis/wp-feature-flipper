@@ -1,22 +1,21 @@
 # Copyright (C) 2025 Thoriq Firdaus
-# This file is distributed under the GPL-3.0+.
+# This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.9.0-beta.0\n"
+"Project-Id-Version: Feature Flipper 1.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-31T17:42:48+00:00\n"
+"POT-Creation-Date: 2025-02-02T06:03:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
 
 #. Plugin Name of the plugin
 #: syntatis-feature-flipper.php
-#: app/SettingPage.php:62
 msgid "Feature Flipper"
 msgstr ""
 
@@ -40,12 +39,12 @@ msgstr ""
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
-#: app/Features/Comments.php:104
-#: app/Features/Comments.php:114
+#: app/Features/Comments.php:106
+#: app/Features/Comments.php:116
 msgid "Comments are disabled."
 msgstr ""
 
-#: app/Features/DashboardWidgets.php:220
+#: app/Features/DashboardWidgets.php:221
 msgid "Unknown"
 msgstr ""
 
@@ -88,11 +87,15 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
-#: app/SettingPage.php:63
-msgid "Flipper"
+#: app/SettingPage.php:62
+msgid "Feature Settings"
 msgstr ""
 
-#: app/SettingPage.php:160
+#: app/SettingPage.php:63
+msgid "Feature"
+msgstr ""
+
+#: app/SettingPage.php:158
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:35
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:35
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:73
