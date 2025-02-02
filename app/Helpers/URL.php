@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
+use function class_exists;
+use function is_numeric;
 use function is_string;
 use function parse_url;
 use function rtrim;
@@ -55,8 +57,27 @@ final class URL
 		}
 
 		// Try to identify if the login page is customized.
-		$urlPath = rtrim((string) parse_url(self::current(), PHP_URL_PATH), '/');
+		$urlPath = self::parsePath(self::current());
 
-		return rtrim((string) parse_url($urlLogin, PHP_URL_PATH), '/') === $urlPath;
+		if (self::parsePath($urlLogin) === $urlPath) {
+			return true;
+		}
+
+		if (class_exists('woocommerce')) {
+			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
+
+			if (is_numeric($myAccountPageId)) {
+				return self::parsePath((string) get_permalink(absint($myAccountPageId))) === $urlPath;
+			}
+		}
+
+		return false;
+	}
+
+	private static function parsePath(string $url): ?string
+	{
+		$path = parse_url($url, PHP_URL_PATH);
+
+		return is_string($path) ? rtrim($path, '/') : null;
 	}
 }
