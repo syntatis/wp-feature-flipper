@@ -57,9 +57,9 @@ final class URL
 		}
 
 		// Try to identify if the login page is customized.
-		$urlPath = rtrim((string) parse_url(self::current(), PHP_URL_PATH), '/');
+		$urlPath = self::parsePath(self::current());
 
-		if (rtrim((string) parse_url($urlLogin, PHP_URL_PATH), '/') === $urlPath) {
+		if (self::parsePath($urlLogin) === $urlPath) {
 			return true;
 		}
 
@@ -67,13 +67,17 @@ final class URL
 			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
 
 			if (is_numeric($myAccountPageId)) {
-				$myAccountPermalink = (string) get_permalink(absint($myAccountPageId));
-				$myAccountPath = (string) parse_url($myAccountPermalink, PHP_URL_PATH);
-
-				return rtrim($myAccountPath, '/') === $urlPath;
+				return self::parsePath((string) get_permalink(absint($myAccountPageId))) === $urlPath;
 			}
 		}
 
 		return false;
+	}
+
+	private static function parsePath(string $url): ?string
+	{
+		$path = parse_url($url, PHP_URL_PATH);
+
+		return is_string($path) ? rtrim($path, '/') : null;
 	}
 }
