@@ -68,7 +68,7 @@ final class URL
 		 * account details, view past orders, etc. When they are not logged in
 		 * this page will show the login form.
 		 */
-		if (did_action('woocommerce_loaded') && ! is_user_logged_in()) {
+		if (did_action('woocommerce_loaded') !== 0 && ! is_user_logged_in()) {
 			return is_account_page();
 		}
 
