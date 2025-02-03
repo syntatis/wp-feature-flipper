@@ -2,6 +2,7 @@ parameters:
   level: 10
   bootstrapFiles:
     - dist/autoload/vendor/autoload.php
+    - tests/phpstan/woocommerce-stubs.php
   paths:
     - app
 
