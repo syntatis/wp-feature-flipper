@@ -6,8 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
-use function class_exists;
-use function is_numeric;
+use function did_action;
+use function is_account_page;
 use function is_string;
 use function parse_url;
 use function rtrim;
@@ -65,15 +65,11 @@ final class URL
 
 		/**
 		 * WooCommerce MyAccount is a dedicated page where users can manage their
-		 * account details, view past orders, etc. When they are not loggee in
+		 * account details, view past orders, etc. When they are not logged in
 		 * this page will show the login form.
 		 */
-		if (class_exists('woocommerce') && ! is_user_logged_in()) {
-			$myAccountPageId = get_option('woocommerce_myaccount_page_id');
-
-			if (is_numeric($myAccountPageId)) {
-				return self::parsePath((string) get_permalink(absint($myAccountPageId))) === $urlPath;
-			}
+		if (did_action('woocommerce_loaded') && ! is_user_logged_in()) {
+			return is_account_page();
 		}
 
 		return false;
