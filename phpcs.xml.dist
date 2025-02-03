@@ -76,4 +76,5 @@
 
 	<!-- Exclude directories -->
 	<exclude-pattern>/tests/phpunit/bootstrap.php</exclude-pattern>
+	<exclude-pattern>/tests/phpstan/woocommerce-stubs.php</exclude-pattern>
 </ruleset>
