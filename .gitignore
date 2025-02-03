@@ -25,3 +25,5 @@ composer.lock
 # Temporary files #
 #############
 tmp
+.phpunit*
+*.cache
