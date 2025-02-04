@@ -24,3 +24,9 @@ It also includes some handy utilities like showing your site's environment type 
 ## Contributing
 
 Found a bug? [Open an issue](https://github.com/syntatis/wp-feature-flipper/issues/new) or [submit a pull request](https://github.com/syntatis/wp-feature-flipper/compare). Have an idea, or suggestion? Let's discuss it in the [Discussions](https://github.com/syntatis/wp-feature-flipper/discussions) tab.
+
+## Security Vulnerabilities
+
+If you discover a security issue, please report it through the **Patchstack Vulnerability Disclosure Program (VDP)**. The Patchstack team will validate, triage, and assist in resolving any reported vulnerabilities to keep the plugin secure.
+
+[Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/syntatis-feature-flipper/vdp)
