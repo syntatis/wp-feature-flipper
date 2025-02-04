@@ -131,6 +131,10 @@ Not yet, but it's on the plan!
 
 == Changelog ==
 
+= 1.9.1 =
+
+* Add support to identify the WooCommerce "My Account" page as a login page.
+
 = 1.9.0 =
 
 * Add option to obfuscate usernames.
