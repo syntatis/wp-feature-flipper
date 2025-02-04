@@ -299,7 +299,7 @@ export const SecurityTab = () => {
 							</p>
 							<p>
 								{ __(
-									'It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password.',
+									'It allows users to generate unique passwords that enable third-party applications to authenticate without needing to share the users main password.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
