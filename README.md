@@ -1,10 +1,6 @@
-# Feature Flipper
-
 ![Banner](.wporg/banner-1544x500.png)
 
 <div align="center">
-	
-  Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress®
 
   [![CI](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/wp-feature-flipper/actions/workflows/ci.yml)
   [![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/syntatis-feature-flipper?label=php&color=7a86b8)](https://wordpress.org/plugins/syntatis-feature-flipper/)
