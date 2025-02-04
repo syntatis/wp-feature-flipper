@@ -131,7 +131,7 @@ export const SecurityTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'By default, WordPress uses the username in the author URL, which poses a security risk as it exposes login names, making brute-force attacks easier.',
+									"By default, WordPress uses the username in the author's URL. This poses a security risk as it exposes author's username to login, making brute-force attacks easier.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
