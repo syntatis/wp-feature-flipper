@@ -120,6 +120,10 @@ Learn more [about installing plugins](https://wordpress.org/documentation/articl
 
 Not yet, but it's on the plan!
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/syntatis-feature-flipper/vdp).
+
 == Screenshots ==
 
 1. The "General" section provides an easy way to enable and disable core features in like the Block Editor, Block-based Widgets, Comments, etc.
