@@ -44,7 +44,7 @@ final class Security implements Hookable, Extendable
 		}
 
 		if (Option::isOn('login_block_bots')) {
-			$hook->addAction('init', [$this, 'blockBots'], PHP_INT_MIN);
+			$hook->addAction('wp', [$this, 'blockBots'], PHP_INT_MIN);
 		}
 
 		if (! Option::isOn('authenticated_rest_api')) {
