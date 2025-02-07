@@ -226,20 +226,19 @@ final class SettingPage implements Hookable
 				__('The plugin also includes additional utility features, which you can enable or disable as needed.', 'syntatis-feature-flipper'),
 			),
 		]);
-
-		$screen->add_help_tab([
-			'id' => $this->appName . '-support',
-			'title' => __('Support', 'syntatis-feature-flipper'),
-			'content' => sprintf(
+		$screen->set_help_sidebar(
+			sprintf(
 				<<<'HTML'
-				<p>%s</p>
+				<p><strong>%s</strong></p>
+				<ul>
+					<li>%s</li>
+					<li>%s</li>
+				</ul>
 				HTML,
-				sprintf(
-					// translators: %s the link to the plugin page in WordPress.org.
-					__('If you have any questions or need assistance, you can visit the %s support forum on WordPress.org. We appreciate your feedback and are always looking to improve the plugin.', 'syntatis-feature-flipper'),
-					'<strong><a href="https://wordpress.org/support/plugin/syntatis-feature-flipper/" target="blank" rel="noopener">Feature Flipper</a></strong>',
-				),
+				__('For more information:', 'syntatis-feature-flipper'),
+				'<a href="https://wordpress.org/support/plugin/syntatis-feature-flipper/" target="blank" rel="noopener">' . __('Support forums', 'syntatis-feature-flipper') . '</a>',
+				'<a href="https://github.com/syntatis/wp-feature-flipper" target="blank" rel="noopener">' . __('Github.com Repository', 'syntatis-feature-flipper') . '</a>',
 			),
-		]);
+		);
 	}
 }
