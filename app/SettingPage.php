@@ -222,7 +222,7 @@ final class SettingPage implements Hookable
 					__('This setting page is provided by the %s plugin.', 'syntatis-feature-flipper'),
 					'<strong><a href="https://wordpress.org/plugins/syntatis-feature-flipper/" target="blank" rel="noopener">Feature Flipper</a></strong>',
 				),
-				__('Here, you can manage core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don\'t need certain features, you can easily toggle them off or customize their behavior.', 'syntatis-feature-flipper'),
+				__('Here, you can manage some of the core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don\'t need certain features, you can easily toggle them off or customize their behavior.', 'syntatis-feature-flipper'),
 				__('The plugin also includes additional utility features, which you can enable or disable as needed.', 'syntatis-feature-flipper'),
 			),
 		]);
