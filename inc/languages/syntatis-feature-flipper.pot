@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-04T11:43:40+00:00\n"
+"POT-Creation-Date: 2025-02-07T18:29:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -87,21 +87,50 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
-#: app/SettingPage.php:62
+#: app/SettingPage.php:63
 msgid "Feature Settings"
 msgstr ""
 
-#: app/SettingPage.php:63
+#: app/SettingPage.php:64
 msgid "Feature"
 msgstr ""
 
-#: app/SettingPage.php:158
+#: app/SettingPage.php:133
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:35
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:35
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:73
 #: src/setting-page/fieldset/HeartbeatFieldset.jsx:75
 #: src/setting-page/fieldset/UpdatesFieldset.jsx:91
 msgid "Settings"
+msgstr ""
+
+#: app/SettingPage.php:213
+msgid "About"
+msgstr ""
+
+#. translators: %s the link to the plugin page in WordPress.org.
+#: app/SettingPage.php:222
+msgid "This setting page is provided by the %s plugin."
+msgstr ""
+
+#: app/SettingPage.php:225
+msgid "Here, you can manage core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don't need certain features, you can easily toggle them off or customize their behavior."
+msgstr ""
+
+#: app/SettingPage.php:226
+msgid "The plugin also includes additional utility features, which you can enable or disable as needed."
+msgstr ""
+
+#: app/SettingPage.php:238
+msgid "For more information:"
+msgstr ""
+
+#: app/SettingPage.php:239
+msgid "Support forums"
+msgstr ""
+
+#: app/SettingPage.php:240
+msgid "Github.com Repository"
 msgstr ""
 
 #: inc/settings/all.php:152
