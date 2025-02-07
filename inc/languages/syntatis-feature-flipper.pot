@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-07T18:29:05+00:00\n"
+"POT-Creation-Date: 2025-02-07T18:32:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -114,7 +114,7 @@ msgid "This setting page is provided by the %s plugin."
 msgstr ""
 
 #: app/SettingPage.php:225
-msgid "Here, you can manage core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don't need certain features, you can easily toggle them off or customize their behavior."
+msgid "Here, you can manage some of the core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don't need certain features, you can easily toggle them off or customize their behavior."
 msgstr ""
 
 #: app/SettingPage.php:226
