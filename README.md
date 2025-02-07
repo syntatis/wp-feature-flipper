@@ -17,7 +17,7 @@
 
 This plugin gives you the ability to manage core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don't need certain features, you can easily toggle them off or customize their behavior.
 
-The plugin also includes additional utility features, like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages., which you can enable or disable as needed.
+The plugin also includes additional utility features, like showing your site's environment type in the admin bar, enabling maintenance or private mode, or using random URLs for media pages, which you can enable or disable as needed.
 
 [Read more on WordPress.org](https://wordpress.org/plugins/syntatis-feature-flipper/)
 
