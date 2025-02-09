@@ -121,11 +121,9 @@
             "node_modules",
             "package-lock.json",
             "package.json",
-            "build",
             "src",
             "tests",
             "vendor",
-            "vendor-bin",
             "!dist/autoload/composer.json",
             "!dist/autoload/vendor"
         ]
