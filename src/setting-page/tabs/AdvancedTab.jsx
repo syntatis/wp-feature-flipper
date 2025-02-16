@@ -54,7 +54,7 @@ export const AdvancedTab = () => {
 								</p>
 								<p>
 									{ __(
-										'When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron.',
+										'When disabling this feature, it is recommended to set up a server cron job as the replacement to trigger WP-Cron.',
 										'syntatis-feature-flipper'
 									) }
 								</p>
