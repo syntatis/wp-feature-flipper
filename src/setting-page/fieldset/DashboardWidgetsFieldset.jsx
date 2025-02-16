@@ -23,7 +23,7 @@ export const DashboardWidgetsFieldset = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'If switched off, all widgets will be hidden from the dashboard.',
+				'If switched off, all widgets will be hidden from the Dashboard.',
 				'syntatis-feature-flipper'
 			) }
 			onChange={ setEnabled }
@@ -42,7 +42,7 @@ export const DashboardWidgetsFieldset = () => {
 						) }
 						label={ __( 'Widgets', 'syntatis-feature-flipper' ) }
 						description={ __(
-							'Unchecked widgets will be hidden from the dashboard.',
+							'Unchecked widgets will not be shown in the Dashboard.',
 							'syntatis-feature-flipper'
 						) }
 						{ ...inputProps( 'dashboard_widgets_enabled' ) }

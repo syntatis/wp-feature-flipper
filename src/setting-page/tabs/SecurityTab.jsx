@@ -34,7 +34,7 @@ export const SecurityTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									"By default, WordPress allows admins to edit theme and plugin file directly from the dashboard, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data.",
+									"By default, WordPress allows admins to edit theme and plugin file directly from the admin area, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -63,10 +63,10 @@ export const SecurityTab = () => {
 				<SwitchFieldset
 					name="xmlrpc"
 					id="xmlrpc"
-					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
+					title="XML-RPC"
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, it will disable the XML-RPC endpoint.',
+						'If switched off, the XML-RPC endpoint will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -105,7 +105,7 @@ export const SecurityTab = () => {
 						<HelpContent readmore="https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/">
 							<p>
 								{ __(
-									'When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints.',
+									'When enabled, you will need to pass authentication using the WordPress Password Application to access the REST API endpoints.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -131,7 +131,7 @@ export const SecurityTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'By default, WordPress uses the username in the author URL, which poses a security risk as it exposes login names, making brute-force attacks easier.',
+									"By default, WordPress uses the username in the author's URL. This poses a security risk as it exposes author's username to login, making brute-force attacks easier.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -147,7 +147,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to harden the login page on the site.',
+					'Options to harden the login page.',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -253,13 +253,7 @@ export const SecurityTab = () => {
 							</p>
 							<p>
 								{ __(
-									'This setting, when enabled, will block known bots and crawlers from accessing the login page, which can help protect your site from brute-force attacks.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'Keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
+									'This setting will block bots and crawlers from accessing the login page, which can help protect your site from some attacks, like brute-force. Though, keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -299,7 +293,7 @@ export const SecurityTab = () => {
 							</p>
 							<p>
 								{ __(
-									'It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password.',
+									'It allows users to generate unique passwords that enable third-party applications to authenticate without needing to share the users main password.',
 									'syntatis-feature-flipper'
 								) }
 							</p>

@@ -25,7 +25,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, the footer text in the admin area will be removed.',
+						'If switched off, the footer text in the admin area will be shown.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {
@@ -55,11 +55,11 @@ export const AdminTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						label={ __(
-							'Enable WordPress update notification message',
+							'Enable update notification message',
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'If switched off, WordPress will not show notification message when update is available.',
+							'If switched off, notification message will not be shown when update is available.',
 							'syntatis-feature-flipper'
 						) }
 					/>
@@ -68,7 +68,7 @@ export const AdminTab = () => {
 			<Fieldset
 				title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Customize the Admin bar area',
+					'Options to customize the Admin Bar area',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -105,7 +105,7 @@ export const AdminTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'In WordPress, the "environment type" identifies the setup of a site at different stages, such as development and deployment. These types include:',
+									'In WordPress, the "environment type" identifies the setup of a site at different stages. These types include:',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -130,7 +130,7 @@ export const AdminTab = () => {
 										) }{ ' ' }
 									</strong>
 									{ __(
-										'For testing the site remotely before moving to staging.',
+										'For testing the site, usually on a remote server, before moving to staging.',
 										'syntatis-feature-flipper'
 									) }
 								</li>

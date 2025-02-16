@@ -19,7 +19,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, WordPress will not create attachment pages for media files.',
+						'If switched off, the attachment page for the media files will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -44,7 +44,7 @@ export const MediaTab = () => {
 							</p>
 							<p>
 								{ __(
-									'If disabled, the attachment page will automatically redirect visitors to the homepage.',
+									'If disabled, the attachment page will be disabled and automatically redirect visitors to the homepage when they try to access it.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -63,7 +63,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, attachment page will get a randomized slug instead of taking from the original file name.',
+						'If switched off, the attachment page will get a randomized slug instead of taking from the original file name.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -91,7 +91,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Enable the infinite scroll for media library',
+						'Enable the infinite scroll on the media library',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(

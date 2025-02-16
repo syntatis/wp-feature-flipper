@@ -31,11 +31,11 @@ export const AdvancedTab = () => {
 						id="cron"
 						title="Cron"
 						label={ __(
-							'Enable cron',
+							'Enable Cron',
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'If switched off, WordPress will not run scheduled events.',
+							'If switched off, scheduled events will not run.',
 							'syntatis-feature-flipper'
 						) }
 						help={
@@ -54,7 +54,7 @@ export const AdvancedTab = () => {
 								</p>
 								<p>
 									{ __(
-										'When disabling this feature, it is recommended to set up a server cron job to trigger WP-Cron.',
+										'When disabling this feature, it is recommended to set up a server cron job as the replacement to trigger WP-Cron.',
 										'syntatis-feature-flipper'
 									) }
 								</p>

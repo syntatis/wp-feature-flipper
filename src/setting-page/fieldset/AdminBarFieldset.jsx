@@ -14,11 +14,11 @@ export const AdminBarFieldset = () => {
 			id="admin-bar"
 			title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
 			label={ __(
-				'Show the Admin bar on the front end',
+				'Show the Admin Bar on the front end',
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'If switched off, the Admin bar will not be displayed on the front end.',
+				'If switched off, the Admin Bar will not be displayed on the front end.',
 				'syntatis-feature-flipper'
 			) }
 			help={
@@ -37,7 +37,7 @@ export const AdminBarFieldset = () => {
 					defaultValue={ getOption( 'admin_bar_menu' ) }
 					label={ __( 'Menu', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'Unchecked menu items will be hidden from the Admin bar.',
+						'Unchecked menu items will be removed from the Admin Bar.',
 						'syntatis-feature-flipper'
 					) }
 					{ ...inputProps( 'admin_bar_menu' ) }
