@@ -29,7 +29,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
-						"While Emojis are fun, if you're not using it in your posts or pages, you can safely disable them to reduce the number of requests from the additional scripts and styles require to load them.",
+						"While Emojis are fun, if you're not using it in your posts or pages, you might want to consider disabling them to reduce the number of requests from the additional scripts and styles require to load them.",
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -49,7 +49,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
-						'The version script specifies the version of a enqueued script in the URL query string like "?ver=5.9.3". This helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly.',
+						'WordPress adds the script version on the URL of the file, for example, "?ver=5.9.3". This helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -66,7 +66,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
-						'jQuery Migrate is a WordPress library that ensures older themes and plugins work with newer versions of jQuery. This helps developers update their code while keeping older sites functional. If your site is up-to-date, you can safely disable jQuery Migrate.',
+						'jQuery Migrate is a library that ensures older themes and plugins work with newer versions of jQuery. This helps developers update their code while keeping older sites functional. If your site is up-to-date, you can safely disable jQuery Migrate.',
 						'syntatis-feature-flipper'
 					) }
 				/>
