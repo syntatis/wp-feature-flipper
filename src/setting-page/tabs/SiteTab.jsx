@@ -21,7 +21,7 @@ export const SiteTab = () => {
 					id="emojis"
 					title={ __( 'Emojis', 'syntatis-feature-flipper' ) }
 					label={ __(
-						'Enable the WordPress built-in emojis',
+						'Enable the built-in emojis',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
@@ -41,11 +41,11 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Show scripts and styles version',
+						'Add scripts and styles version',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, WordPress will not append the version to the scripts and styles URLs.',
+						'If switched off, the scripts and styles version will not be added in the URLs.',
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
@@ -56,13 +56,13 @@ export const SiteTab = () => {
 				<SwitchFieldset
 					name="jquery_migrate"
 					id="jquery-migrate"
-					title={ __( 'jQuery Migrate', 'syntatis-feature-flipper' ) }
+					title="jQuery Migrate"
 					label={ __(
 						'Load jQuery Migrate script',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, WordPress will not load the jQuery Migrate script.',
+						'If switched off, the jQuery Migrate script file will not be loaded.',
 						'syntatis-feature-flipper'
 					) }
 					help={ __(

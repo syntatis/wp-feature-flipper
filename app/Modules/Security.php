@@ -65,7 +65,7 @@ final class Security implements Hookable, Extendable
 			? $access
 			: new WP_Error(
 				'rest_login_required',
-				__('You must be logged in to access this resource.', 'syntatis-feature-flipper'),
+				__('Unauthorized API access.', 'syntatis-feature-flipper'),
 				[
 					'status' => rest_authorization_required_code(),
 				],

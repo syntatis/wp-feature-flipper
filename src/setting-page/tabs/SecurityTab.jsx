@@ -63,7 +63,7 @@ export const SecurityTab = () => {
 				<SwitchFieldset
 					name="xmlrpc"
 					id="xmlrpc"
-					title={ __( 'XML-RPC', 'syntatis-feature-flipper' ) }
+					title="XML-RPC"
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
 						'If switched off, it will disable the XML-RPC endpoint.',

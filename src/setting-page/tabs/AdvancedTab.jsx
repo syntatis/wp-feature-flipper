@@ -31,7 +31,7 @@ export const AdvancedTab = () => {
 						id="cron"
 						title="Cron"
 						label={ __(
-							'Enable cron',
+							'Enable Cron',
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
