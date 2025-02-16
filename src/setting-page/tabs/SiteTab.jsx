@@ -49,7 +49,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					help={ __(
-						'WordPress adds the script version on the URL of the file, for example, "?ver=5.9.3". This helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly.',
+						'WordPress adds the script version on the URL of the file, for example, "?ver=5.9.3". This version helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly.',
 						'syntatis-feature-flipper'
 					) }
 				/>
