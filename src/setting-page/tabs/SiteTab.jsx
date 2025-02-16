@@ -121,7 +121,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will remove the generator meta tag which shows the current WordPress version installed.',
+						'If switched off, it will remove the generator meta tag which shows the current version of WordPress installed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
