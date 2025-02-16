@@ -34,7 +34,7 @@ export const SecurityTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									"By default, WordPress allows admins to edit theme and plugin file directly from the dashboard, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data.",
+									"By default, WordPress allows admins to edit theme and plugin file directly from the admin area, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data.",
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -66,7 +66,7 @@ export const SecurityTab = () => {
 					title="XML-RPC"
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, it will disable the XML-RPC endpoint.',
+						'If switched off, the XML-RPC endpoint will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={

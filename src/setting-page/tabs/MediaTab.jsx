@@ -19,7 +19,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, WordPress will not create attachment pages for media files.',
+						'If switched off, the attachment page for the media files will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -44,7 +44,7 @@ export const MediaTab = () => {
 							</p>
 							<p>
 								{ __(
-									'If disabled, the attachment page will automatically redirect visitors to the homepage.',
+									'If disabled, the attachment page will be disabled and automatically redirect visitors to the homepage when they try to access it.',
 									'syntatis-feature-flipper'
 								) }
 							</p>

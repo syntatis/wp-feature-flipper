@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-16T12:38:40+00:00\n"
+"POT-Creation-Date: 2025-02-16T13:10:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -191,11 +191,11 @@ msgid "Admin Bar"
 msgstr ""
 
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:16
-msgid "Show the Admin bar on the front end"
+msgid "Show the Admin Bar on the front end"
 msgstr ""
 
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:20
-msgid "If switched off, the Admin bar will not be displayed on the front end."
+msgid "If switched off, the Admin Bar will not be displayed on the front end."
 msgstr ""
 
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:27
@@ -207,7 +207,7 @@ msgid "Menu"
 msgstr ""
 
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:39
-msgid "Unchecked menu items will be hidden from the Admin bar."
+msgid "Unchecked menu items will be removed from the Admin Bar."
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:20
@@ -219,7 +219,7 @@ msgid "Enable Dashboard widgets"
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:25
-msgid "If switched off, all widgets will be hidden from the dashboard."
+msgid "If switched off, all widgets will be hidden from the Dashboard."
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:43
@@ -227,7 +227,7 @@ msgid "Widgets"
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:44
-msgid "Unchecked widgets will be hidden from the dashboard."
+msgid "Unchecked widgets will not be shown in the Dashboard."
 msgstr ""
 
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:26
@@ -533,7 +533,7 @@ msgid "Show the footer text"
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:27
-msgid "If switched off, the footer text in the admin area will be removed."
+msgid "If switched off, the footer text in the admin area will be shown."
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:46
@@ -713,7 +713,7 @@ msgid "Enable page for uploaded media files"
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:21
-msgid "If switched off, WordPress will not create attachment pages for media files."
+msgid "If switched off, the attachment page for the media files will be disabled."
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:28
@@ -729,7 +729,7 @@ msgid "Starting with WordPress 6.4, attachment pages are disabled by default for
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:46
-msgid "If disabled, the attachment page will automatically redirect visitors to the homepage."
+msgid "If disabled, the attachment page will be disabled and automatically redirect visitors to the homepage when they try to access it."
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:57
@@ -781,7 +781,7 @@ msgid "If switched off, it will disable the WordPress built-in file editor for t
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:36
-msgid "By default, WordPress allows admins to edit theme and plugin file directly from the dashboard, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data."
+msgid "By default, WordPress allows admins to edit theme and plugin file directly from the admin area, but it's a security risk. Mistakes can break the site, and hackers who gain access can exploit it to compromise all your data."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:42
@@ -793,7 +793,7 @@ msgid "Enable XML-RPC"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:68
-msgid "If switched off, it will disable the XML-RPC endpoint."
+msgid "If switched off, the XML-RPC endpoint will be disabled."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:75
@@ -981,7 +981,7 @@ msgid "If switched off, the scripts and styles version will not be added in the 
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:51
-msgid "WordPress adds the script version on the URL of the file, for example, \"?ver=5.9.3\". This version helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is recommended to ensure scripts are update correctly."
+msgid "WordPress adds the script version on the file URL, e.g. \"?ver=5.9.3\". This version helps browsers detect updates and load the latest script instead of using an outdated cached one. Keeping this parameter enabled is generally recommended to ensure scripts are update correctly."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:60
@@ -1009,7 +1009,7 @@ msgid "Enable RSD link"
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:90
-msgid "If switched off, it will remove the Really Simple Discovery (RSD) link from the webpage head."
+msgid "If switched off, the Really Simple Discovery (RSD) link will be removed from the webpage head."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:97
