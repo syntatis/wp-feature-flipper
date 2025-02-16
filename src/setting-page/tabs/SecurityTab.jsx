@@ -66,7 +66,7 @@ export const SecurityTab = () => {
 					title="XML-RPC"
 					label={ __( 'Enable XML-RPC', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, the XML-RPC endpoint will be disabled.',
+						'If switched off, the XML-RPC endpoint will not be accessible.',
 						'syntatis-feature-flipper'
 					) }
 					help={
