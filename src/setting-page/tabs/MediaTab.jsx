@@ -15,7 +15,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Enable page for uploaded media files',
+						'Enable the attacment page',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
@@ -44,7 +44,7 @@ export const MediaTab = () => {
 							</p>
 							<p>
 								{ __(
-									'If disabled, the attachment page will be disabled and automatically redirect visitors to the homepage when they try to access it.',
+									'When the attachment page will is disabled, it automatically redirect visitors to the homepage when they try to access it.',
 									'syntatis-feature-flipper'
 								) }
 							</p>

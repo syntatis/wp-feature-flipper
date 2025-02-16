@@ -35,7 +35,7 @@ export const AdvancedTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'If switched off, scheduled events will not run.',
+							'If switched off, scheduled tasks will not run.',
 							'syntatis-feature-flipper'
 						) }
 						help={
