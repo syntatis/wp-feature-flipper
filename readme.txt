@@ -4,7 +4,7 @@ Contributors: tfirdaus
 Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -135,6 +135,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 1.9.3 =
+
+* Fix inconsistencis in some translatable strings.
+* Fix menu options on the Admin Bar setting.
+
 = 1.9.2 =
 
 * Add "Help" tab in the setting page.
@@ -148,23 +153,3 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 * Add option to obfuscate usernames.
 * Add an uninstaller to remove the plugin option when the plugin is uninstalled.
-
-= 1.8.2 =
-
-* Fix Blueprint deprecated schema.
-* Add option stash for "Post Types" value
-* Add option stash for "Dashboard Widgets"
-
-= 1.8.1 =
-
-* Fix WordPress blueprint.
-* Several minor code improvements.
-
-= 1.8.0 =
-
-* Add option to select user main identifier.
-* Add option to put site on Maintenance mode.
-* Improve WooCommerce compatibility.
-* Improve compatibility with WordPress native `wp_attachment_pages_enabled` option.
-* Fix function compatibility for WordPress 6.0.
-* Several other bugs and issues fixes, and improvements.

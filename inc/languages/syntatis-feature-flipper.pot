@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 1.9.2\n"
+"Project-Id-Version: Feature Flipper 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-16T14:16:17+00:00\n"
+"POT-Creation-Date: 2025-02-16T16:43:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Features"
 msgstr ""
 
-#: app/SettingPage.php:133
+#: app/SettingPage.php:134
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:35
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:35
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:73
@@ -104,32 +104,32 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: app/SettingPage.php:213
+#: app/SettingPage.php:214
 msgid "About"
 msgstr ""
 
 #. translators: %s the link to the plugin page in WordPress.org.
-#: app/SettingPage.php:222
+#: app/SettingPage.php:223
 msgid "This setting page is provided by the %s plugin."
 msgstr ""
 
-#: app/SettingPage.php:225
+#: app/SettingPage.php:226
 msgid "Here, you can manage some of the core WordPress features like Comments, the Block Editor (Gutenberg), Emojis, XML-RPC, Feeds, Updates, Automatic Updates, Cron, Heartbeat, and more. If you don't need certain features, you can easily toggle them off or customize their behavior."
 msgstr ""
 
-#: app/SettingPage.php:226
+#: app/SettingPage.php:227
 msgid "The plugin also includes additional utility features, which you can enable or disable as needed."
 msgstr ""
 
-#: app/SettingPage.php:238
+#: app/SettingPage.php:239
 msgid "For more information:"
 msgstr ""
 
-#: app/SettingPage.php:239
+#: app/SettingPage.php:240
 msgid "Support forums"
 msgstr ""
 
-#: app/SettingPage.php:240
+#: app/SettingPage.php:241
 msgid "Github.com Repository"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgid "Enable Dashboard widgets"
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:25
-msgid "If switched off, all widgets will be hidden from the Dashboard."
+msgid "If switched off, all widgets will not be shown in the Dashboard."
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:43
@@ -364,47 +364,47 @@ msgstr ""
 msgid "The maximum number of revisions to keep."
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:19
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:20
 msgid "Access"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:20
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:21
 msgid "Select how accessible your site should be to visitors."
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:27
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:28
 msgid "Public"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:31
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:32
 msgid "Private"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:35
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:36
 msgid "Maintenance"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:48
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:49
 msgid "Headline"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:56
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:57
 msgid "Provide a headline to display on the maintenance page."
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:63
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:64
 msgid "Please provide a headline for the maintenance page."
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:73
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:74
 msgid "Message"
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:81
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:82
 msgid "Provide a brief message to display on the maintenance page."
 msgstr ""
 
-#: src/setting-page/fieldset/SiteAccessFieldset.jsx:89
+#: src/setting-page/fieldset/SiteAccessFieldset.jsx:90
 msgid "Please provide a brief message for the maintenance page."
 msgstr ""
 
@@ -533,7 +533,7 @@ msgid "Show the footer text"
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:27
-msgid "If switched off, the footer text in the admin area will be shown."
+msgid "If switched off, the footer text in the admin area will not be shown."
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:46
@@ -629,7 +629,7 @@ msgid "Enable Cron"
 msgstr ""
 
 #: src/setting-page/tabs/AdvancedTab.jsx:37
-msgid "If switched off, scheduled events will not run."
+msgid "If switched off, scheduled tasks will not run."
 msgstr ""
 
 #: src/setting-page/tabs/AdvancedTab.jsx:44
@@ -693,7 +693,7 @@ msgid "Enable RSS feeds"
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:111
-msgid "If switched off, it will disable the RSS feed URLs."
+msgid "If switched off, the RSS feed URLs will not be accessible."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:118
@@ -709,7 +709,7 @@ msgid "Attachment Page"
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:17
-msgid "Enable page for uploaded media files"
+msgid "Enable the attachment page"
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:21
@@ -729,7 +729,7 @@ msgid "Starting with WordPress 6.4, attachment pages are disabled by default for
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:46
-msgid "If disabled, the attachment page will be disabled and automatically redirect visitors to the homepage when they try to access it."
+msgid "When the attachment page will is disabled, it automatically redirect visitors to the homepage when they try to access it."
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:57
@@ -793,7 +793,7 @@ msgid "Enable XML-RPC"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:68
-msgid "If switched off, the XML-RPC endpoint will be disabled."
+msgid "If switched off, the XML-RPC endpoint will not be accessible."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:75
