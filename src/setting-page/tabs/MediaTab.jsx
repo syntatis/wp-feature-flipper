@@ -15,7 +15,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Enable the attacment page',
+						'Enable the attachment page',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
