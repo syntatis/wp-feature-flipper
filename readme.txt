@@ -4,7 +4,7 @@ Contributors: tfirdaus
 Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -134,6 +134,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 6. And more...
 
 == Changelog ==
+
+= 1.9.2 =
+
+* Add "Help" tab in the setting page.
+* Refine some translatable strings.
 
 = 1.9.1 =
 
