@@ -82,7 +82,6 @@ final class SettingPage implements Hookable
 		}
 
 		$manifest = Assets::manifest('dist/assets/setting-page/index.asset.php');
-		$this->initInlineData();
 
 		wp_enqueue_style(
 			$this->scriptHandle,
@@ -107,6 +106,8 @@ final class SettingPage implements Hookable
 		if (! Admin::isScreen($this->appName)) {
 			return;
 		}
+
+		$this->initInlineData();
 
 		wp_add_inline_script(
 			$this->scriptHandle,
