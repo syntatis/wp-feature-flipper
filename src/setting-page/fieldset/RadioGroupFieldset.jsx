@@ -15,6 +15,7 @@ export const RadioGroupFieldset = ( {
 	isSelected,
 	help,
 	options,
+	orientation,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 
@@ -39,6 +40,7 @@ export const RadioGroupFieldset = ( {
 					description={ description }
 					isDisabled={ isDisabled }
 					isSelected={ isSelected }
+					orientation={ orientation }
 				>
 					{ options.map( ( { label, value, ...props } ) => (
 						<Radio key={ value } value={ value } { ...props }>

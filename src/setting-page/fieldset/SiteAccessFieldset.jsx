@@ -15,6 +15,7 @@ export const SiteAccessFieldset = () => {
 		<Fieldset>
 			<RadioGroupFieldset
 				name="site_access"
+				orientation="horizontal"
 				id="site-access"
 				title={ __( 'Access', 'syntatis-feature-flipper' ) }
 				description={ __(
