@@ -54,7 +54,7 @@ export const UpdatesFieldset = () => {
 								'syntatis-feature-flipper'
 							) }
 							description={ __(
-								'Enable updates for WordPress core, plugins, themes, and translations.',
+								'Enable updates for WordPress core, plugins, and themes.',
 								'syntatis-feature-flipper'
 							) }
 						/>
@@ -75,7 +75,7 @@ export const UpdatesFieldset = () => {
 								isReadOnly={ ! values.updates }
 								defaultSelected={ values.auto_updates }
 								description={ __(
-									'Enable automatic updates for WordPress core, plugins, themes, and translations.',
+									'Enable automatic updates for WordPress core, plugins, and themes.',
 									'syntatis-feature-flipper'
 								) }
 								label={ __(
@@ -99,10 +99,7 @@ export const UpdatesFieldset = () => {
 										aria-hidden
 										className={ styles.heading }
 									>
-										{ __(
-											'WordPress',
-											'syntatis-feature-flipper'
-										) }
+										WordPress
 									</div>
 									<div className={ styles.inputs }>
 										<Checkbox
