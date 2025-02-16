@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-07T18:32:45+00:00\n"
+"POT-Creation-Date: 2025-02-16T09:31:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -92,7 +92,7 @@ msgid "Feature Settings"
 msgstr ""
 
 #: app/SettingPage.php:64
-msgid "Feature"
+msgid "Features"
 msgstr ""
 
 #: app/SettingPage.php:133
@@ -162,19 +162,19 @@ msgid "Production"
 msgstr ""
 
 #: src/admin-bar/EnvironmentType/EnvironmentType.jsx:13
-msgid "You're currently working on the \"Local\" environment of the site. It typically runs on a local computer or local server for development, testing, and debugging purposes."
+msgid "You're currently working on the \"Local\" environment. It typically runs on a local computer or local server for development, testing, and debugging purposes."
 msgstr ""
 
 #: src/admin-bar/EnvironmentType/EnvironmentType.jsx:17
-msgid "You're currently working on the \"Development\" environment of the site, typically used for developing, testing, and debugging before it is launched on the staging platform. This environment is usually remotely accessed using SSH or SFTP."
+msgid "You're currently working on the \"Development\" environment. It typically used for developing, testing, and debugging before it is launched on the staging platform. This environment is usually remotely accessed using SSH or SFTP."
 msgstr ""
 
 #: src/admin-bar/EnvironmentType/EnvironmentType.jsx:21
-msgid "You're currently working on the \"Staging\" environment of the site. This environment typically closely mimics the production environment, used for validating any modifications or upgrades before they are applied to the live site."
+msgid "You're currently working on the \"Staging\" environment. It typically closely mimics the production environment, used for validating any modifications or upgrades before they are applied to the live site."
 msgstr ""
 
 #: src/admin-bar/EnvironmentType/EnvironmentType.jsx:25
-msgid "You're currently working on the \"Production\" site. The is the live environment where public users can access the site. Maintaining its stability and security is critical. Please be cautious when making changes on the site."
+msgid "You're currently working on the \"Production\" site. This environment is where the public users can access the site. Maintaining its stability and security is critical. Please be cautious when making changes on the site."
 msgstr ""
 
 #: src/setting-page/components/HelpContent/HelpContent.jsx:18
@@ -585,7 +585,7 @@ msgid "If switched off, the current environment type of the site will not be sho
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:107
-msgid "In WordPress, the \"environment type\" identifies the setup of a site at different stages, such as development and deployment. These types include:"
+msgid "In WordPress, the \"environment type\" identifies the setup of a site at different stages. These types include:"
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:115
@@ -601,7 +601,7 @@ msgid "Development:"
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:132
-msgid "For testing the site remotely before moving to staging."
+msgid "For testing the site, usually on a remote server, before moving to staging."
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:139
@@ -761,7 +761,7 @@ msgid "Infinite Scroll"
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:93
-msgid "Enable the infinite scroll for media library"
+msgid "Enable the infinite scroll on the media library"
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:97
@@ -825,7 +825,7 @@ msgid "If switched off, it will allow users to make request to the public API en
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:107
-msgid "When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints."
+msgid "When enabled, you will need to pass authentication using the WordPress Password Application to access the REST API endpoints."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:118
@@ -841,7 +841,7 @@ msgid "If switched on, it will obfuscate usernames of the users to hide the real
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:133
-msgid "By default, WordPress uses the username in the author URL, which poses a security risk as it exposes login names, making brute-force attacks easier."
+msgid "By default, WordPress uses the username in the author's URL. This poses a security risk as it exposes author's username to login, making brute-force attacks easier."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:148
@@ -849,7 +849,7 @@ msgid "Login"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:149
-msgid "Options to harden the login page on the site."
+msgid "Options to harden the login page."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:157
@@ -917,42 +917,38 @@ msgid "Your login page should only be accessed by humans, not bots or crawlers. 
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:255
-msgid "This setting, when enabled, will block known bots and crawlers from accessing the login page, which can help protect your site from brute-force attacks."
+msgid "This setting will block bots and crawlers from accessing the login page, which can help protect your site from some attacks, like brute-force. Though, keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:261
-msgid "Keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers."
-msgstr ""
-
-#: src/setting-page/tabs/SecurityTab.jsx:271
+#: src/setting-page/tabs/SecurityTab.jsx:265
 msgid "Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:272
+#: src/setting-page/tabs/SecurityTab.jsx:266
 msgid "Options to configure the passwords used on the site."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:280
+#: src/setting-page/tabs/SecurityTab.jsx:274
 msgid "Application Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:284
+#: src/setting-page/tabs/SecurityTab.jsx:278
 msgid "Enable the Application Passwords"
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:288
+#: src/setting-page/tabs/SecurityTab.jsx:282
 msgid "If switched off, third-party applications will not be able to use Application Passwords for authentication."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:295
+#: src/setting-page/tabs/SecurityTab.jsx:289
 msgid "The Application Passwords in WordPress is a security feature that's first introduced in WordPress 5.6."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:301
-msgid "It allows users to generate unique passwords that enable third-party applications to authenticate with the site without needing to expose the users main password."
+#: src/setting-page/tabs/SecurityTab.jsx:295
+msgid "It allows users to generate unique passwords that enable third-party applications to authenticate without needing to share the users main password."
 msgstr ""
 
-#: src/setting-page/tabs/SecurityTab.jsx:307
+#: src/setting-page/tabs/SecurityTab.jsx:301
 msgid "If you don't use any third-party applications that require this feature, it's generally safe to disable it."
 msgstr ""
 
@@ -1049,7 +1045,7 @@ msgid "If switched off, it will remove the generator meta tag which shows WordPr
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:130
-msgid "The generator meta tag in WordPress reveals the CMS version used on a site, which can pose security risks by exposing potential vulnerabilities to attackers."
+msgid "The generator meta tag reveals the WordPress version, which can pose security risks by exposing potential vulnerabilities on that version to attackers."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:136

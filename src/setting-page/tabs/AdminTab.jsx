@@ -105,7 +105,7 @@ export const AdminTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'In WordPress, the "environment type" identifies the setup of a site at different stages, such as development and deployment. These types include:',
+									'In WordPress, the "environment type" identifies the setup of a site at different stages. These types include:',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -130,7 +130,7 @@ export const AdminTab = () => {
 										) }{ ' ' }
 									</strong>
 									{ __(
-										'For testing the site remotely before moving to staging.',
+										'For testing the site, usually on a remote server, before moving to staging.',
 										'syntatis-feature-flipper'
 									) }
 								</li>

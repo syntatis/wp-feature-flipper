@@ -105,7 +105,7 @@ export const SecurityTab = () => {
 						<HelpContent readmore="https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/">
 							<p>
 								{ __(
-									'When enabled, you will need to pass authenticattion with WordPress Password Application to access the REST API endpoints.',
+									'When enabled, you will need to pass authentication using the WordPress Password Application to access the REST API endpoints.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -147,7 +147,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to harden the login page on the site.',
+					'Options to harden the login page.',
 					'syntatis-feature-flipper'
 				) }
 			>

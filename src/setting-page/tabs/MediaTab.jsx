@@ -91,7 +91,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Enable the infinite scroll for media library',
+						'Enable the infinite scroll on the media library',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(

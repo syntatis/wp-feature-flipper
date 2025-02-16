@@ -61,7 +61,7 @@ final class SettingPage implements Hookable
 		add_submenu_page(
 			'options-general.php', // Parent slug.
 			__('Feature Settings', 'syntatis-feature-flipper'),
-			__('Feature', 'syntatis-feature-flipper'),
+			__('Features', 'syntatis-feature-flipper'),
 			'manage_options',
 			$this->appName,
 			function (): void {

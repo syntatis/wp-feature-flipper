@@ -128,7 +128,7 @@ export const SiteTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'The generator meta tag in WordPress reveals the CMS version used on a site, which can pose security risks by exposing potential vulnerabilities to attackers.',
+									'The generator meta tag reveals the WordPress version, which can pose security risks by exposing potential vulnerabilities on that version to attackers.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
