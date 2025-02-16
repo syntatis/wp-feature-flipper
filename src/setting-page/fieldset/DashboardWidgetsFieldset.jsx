@@ -23,7 +23,7 @@ export const DashboardWidgetsFieldset = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'If switched off, all widgets will be hidden from the Dashboard.',
+				'If switched off, all widgets will not be shown in the Dashboard.',
 				'syntatis-feature-flipper'
 			) }
 			onChange={ setEnabled }

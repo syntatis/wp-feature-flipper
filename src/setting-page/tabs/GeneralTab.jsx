@@ -109,7 +109,7 @@ export const GeneralTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will disable the RSS feed URLs.',
+						'If switched off, the RSS feed URLs will not be accessible.',
 						'syntatis-feature-flipper'
 					) }
 					help={
