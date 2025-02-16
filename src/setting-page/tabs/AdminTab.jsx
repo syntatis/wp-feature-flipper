@@ -55,11 +55,11 @@ export const AdminTab = () => {
 							'syntatis-feature-flipper'
 						) }
 						label={ __(
-							'Enable WordPress update notification message',
+							'Enable update notification message',
 							'syntatis-feature-flipper'
 						) }
 						description={ __(
-							'If switched off, WordPress will not show notification message when update is available.',
+							'If switched off, notification message will not be shown when update is available.',
 							'syntatis-feature-flipper'
 						) }
 					/>

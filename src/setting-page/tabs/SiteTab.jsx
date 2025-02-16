@@ -117,18 +117,18 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Add WordPress generator meta tag',
+						'Add the generator meta tag',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will remove the generator meta tag which shows WordPress and its version.',
+						'If switched off, it will remove the generator meta tag which shows the current WordPress version installed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
 						<HelpContent>
 							<p>
 								{ __(
-									'The generator meta tag reveals the WordPress version, which can pose security risks by exposing potential vulnerabilities on that version to attackers.',
+									'The generator meta tag reveals the current WordPress version installed, which can pose security risks by exposing potential vulnerabilities of the version.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
