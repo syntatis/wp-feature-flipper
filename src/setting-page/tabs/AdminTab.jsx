@@ -68,7 +68,7 @@ export const AdminTab = () => {
 			<Fieldset
 				title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Customize the Admin bar area',
+					'Options to customize the Admin Bar area',
 					'syntatis-feature-flipper'
 				) }
 			>

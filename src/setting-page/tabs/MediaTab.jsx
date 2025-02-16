@@ -63,7 +63,7 @@ export const MediaTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, attachment page will get a randomized slug instead of taking from the original file name.',
+						'If switched off, the attachment page will get a randomized slug instead of taking from the original file name.',
 						'syntatis-feature-flipper'
 					) }
 					help={

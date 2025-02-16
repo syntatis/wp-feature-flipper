@@ -17,14 +17,14 @@ export const RevisionsFieldset = () => {
 			title={ __( 'Revisions', 'syntatis-feature-flipper' ) }
 			label={ __( 'Enable post revisions', 'syntatis-feature-flipper' ) }
 			description={ __(
-				'If switched off, WordPress will not save revisions of your posts.',
+				'If switched off, revisions of your posts will not be saved.',
 				'syntatis-feature-flipper'
 			) }
 			help={
 				<HelpContent readmore="https://wordpress.org/documentation/article/revisions/">
 					<p>
 						{ __(
-							'While WordPress revision feature is helpful for recovering content, storing too many revisions can clutter your database, slow down performance, and use up storage space.',
+							'While the revision feature is helpful for recovering content, storing too many revisions can clutter the database, slow down performance, and use up storage space.',
 							'syntatis-feature-flipper'
 						) }
 					</p>
