@@ -253,7 +253,7 @@ export const SecurityTab = () => {
 							</p>
 							<p>
 								{ __(
-									'This setting will block bots and crawlers from accessing the login page, which can help protect your site from brute-force attacks. Though, keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
+									'This setting will block bots and crawlers from accessing the login page, which can help protect your site from some attacks, like brute-force. Though, keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
