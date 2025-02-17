@@ -90,7 +90,13 @@ export const GeneralTab = () => {
 						<HelpContent readmore="https://wordpress.org/documentation/article/trackbacks-and-pingbacks/#pingbacks">
 							<p>
 								{ __(
-									'Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers.',
+									'Pingbacks in WordPress are automatic notifications sent when one blog links to another.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
