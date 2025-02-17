@@ -135,6 +135,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 1.9.5 =
+
+* Improve setting main labels.
+* Make some minor improvements on handling default values.
+
 = 1.9.4 =
 
 * Fix missing translatable strings.
