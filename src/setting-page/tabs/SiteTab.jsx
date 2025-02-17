@@ -12,7 +12,7 @@ export const SiteTab = () => {
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to control the scripts, styles, and images loaded on the site.',
+					'Settings to control the scripts, styles, and images loaded on the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -74,7 +74,7 @@ export const SiteTab = () => {
 			<Fieldset
 				title="Metadata"
 				description={ __(
-					'Options to control the metadata added in the HTML document head section.',
+					'Settings to control the metadata added in the HTML document head section of the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
