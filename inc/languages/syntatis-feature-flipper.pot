@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-17T08:38:26+00:00\n"
+"POT-Creation-Date: 2025-02-17T09:14:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -67,7 +67,7 @@ msgid "Maintenance"
 msgstr ""
 
 #: app/Features/MaintenanceMode.php:116
-msgid "The site is currently in maintenance mode"
+msgid "The site is currently in Maintenance mode"
 msgstr ""
 
 #: app/Features/PrivateMode.php:121
@@ -76,7 +76,7 @@ msgid "Private"
 msgstr ""
 
 #: app/Features/PrivateMode.php:138
-msgid "The site is currently in private mode"
+msgid "The site is currently in Private mode"
 msgstr ""
 
 #: app/Modules/Security.php:68

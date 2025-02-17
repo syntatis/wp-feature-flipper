@@ -135,7 +135,7 @@ final class PrivateMode implements Hookable
 	 */
 	public function showRightNowStatus(): void
 	{
-		$message = __('The site is currently in private mode', 'syntatis-feature-flipper');
+		$message = __('The site is currently in Private mode', 'syntatis-feature-flipper');
 
 		if (current_user_can('manage_options')) {
 			$message = sprintf(
