@@ -44,7 +44,7 @@ export const MediaTab = () => {
 							</p>
 							<p>
 								{ __(
-									'When the attachment page will is disabled, it automatically redirect visitors to the homepage when they try to access it.',
+									'When the attachment page is disabled, it will automatically redirect visitors to the homepage when they try to access it.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
