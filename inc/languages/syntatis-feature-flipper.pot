@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-16T16:43:12+00:00\n"
+"POT-Creation-Date: 2025-02-17T00:29:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -644,63 +644,83 @@ msgstr ""
 msgid "When disabling this feature, it is recommended to set up a server cron job as the replacement to trigger WP-Cron."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:31
+#: src/setting-page/tabs/GeneralTab.jsx:30
+msgid "Block-based Widgets"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:34
 msgid "Enable the block-based widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:37
+#: src/setting-page/tabs/GeneralTab.jsx:40
 msgid "If switched off, the block-based widgets will be disabled and the classic widgets will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:41
+#: src/setting-page/tabs/GeneralTab.jsx:44
 msgid "The current theme in-use does not support block-based widgets."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:51
+#: src/setting-page/tabs/GeneralTab.jsx:53
+msgid "Comments"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:54
 msgid "Enable comments"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:55
+#: src/setting-page/tabs/GeneralTab.jsx:58
 msgid "If switched off, comments will be disabled site-wide."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:65
+#: src/setting-page/tabs/GeneralTab.jsx:67
+msgid "Embeds"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:68
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:69
+#: src/setting-page/tabs/GeneralTab.jsx:72
 msgid "If switched off, it will disable other sites from embedding content from your site, and vice-versa."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:78
+#: src/setting-page/tabs/GeneralTab.jsx:80
+msgid "Self-ping"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:81
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:82
+#: src/setting-page/tabs/GeneralTab.jsx:85
 msgid "If switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:89
+#: src/setting-page/tabs/GeneralTab.jsx:92
 msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:95
+#: src/setting-page/tabs/GeneralTab.jsx:98
 msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:107
+#: src/setting-page/tabs/GeneralTab.jsx:109
+msgid "Feeds"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:110
 msgid "Enable RSS feeds"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:111
+#: src/setting-page/tabs/GeneralTab.jsx:114
 msgid "If switched off, the RSS feed URLs will not be accessible."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:118
+#: src/setting-page/tabs/GeneralTab.jsx:121
 msgid "An RSS feed, which stands for \"Really Simple Syndication\" or \"Rich Site Summary\", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:124
+#: src/setting-page/tabs/GeneralTab.jsx:127
 msgid "Disabling feeds can help prevent content scraping and reduce server load."
 msgstr ""
 
