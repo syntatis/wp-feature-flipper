@@ -116,11 +116,11 @@ export const SecurityTab = () => {
 					name="obfuscate_usernames"
 					id="obfuscate-usernames"
 					title={ __(
-						'Obfuscate Usernames',
+						'Username Obfuscation',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Obfuscate usernames with random identifier',
+						'Obfuscate the usernames with random identifier',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
