@@ -25,6 +25,18 @@ final class MaintenanceMode implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(Option::hook('sanitize:site_maintenance_args'), [$this, 'sanitizeArgsOption'], PHP_INT_MAX);
+		$hook->addFilter(Option::hook('default:site_maintenance_args'), static function (): array {
+			return [
+				'headline' => __(
+					'Under Maintenance 🚧',
+					'syntatis-feature-flipper',
+				),
+				'message' => __(
+					'We are currently performing some scheduled maintenance. We will be back as soon as possible.',
+					'syntatis-feature-flipper',
+				),
+			];
+		}, PHP_INT_MAX);
 
 		if (Option::get('site_access') !== 'maintenance') {
 			return;
