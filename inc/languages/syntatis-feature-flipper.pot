@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-17T09:14:23+00:00\n"
+"POT-Creation-Date: 2025-02-17T15:44:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -118,7 +118,7 @@ msgstr ""
 
 #. translators: %s the link to the plugin page in WordPress.org.
 #: app/SettingPage.php:223
-msgid "This setting page is provided by the %s plugin."
+msgid "This setting page is provided by %s plugin."
 msgstr ""
 
 #: app/SettingPage.php:226
@@ -126,7 +126,7 @@ msgid "Here, you can manage some of the core WordPress features like Comments, t
 msgstr ""
 
 #: app/SettingPage.php:227
-msgid "The plugin also includes additional utility features, which you can enable or disable as needed."
+msgid "The plugin also includes additional utility features, which you can enable or disable as needed in this setting page as well."
 msgstr ""
 
 #: app/SettingPage.php:239
