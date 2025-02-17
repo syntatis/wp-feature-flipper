@@ -44,7 +44,7 @@ export const HeartbeatFieldset = () => {
 				'syntatis-feature-flipper'
 			) }
 			description={ __(
-				'If switched off, WordPress will will not be sending requests to the Heartbeat API.',
+				'If switched off, WordPress will stop sending Heartbeat API requests.',
 				'syntatis-feature-flipper'
 			) }
 			help={
