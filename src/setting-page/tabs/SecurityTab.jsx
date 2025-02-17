@@ -27,7 +27,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will disable the WordPress built-in file editor for themes and plugins.',
+						'If switched off, the built-in file editor for themes and plugins will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -98,7 +98,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will allow users to make request to the public API endpoints without authentication.',
+						'If switched off, all public API will be accessible without authentication.',
 						'syntatis-feature-flipper'
 					) }
 					help={
