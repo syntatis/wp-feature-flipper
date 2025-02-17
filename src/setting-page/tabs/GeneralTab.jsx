@@ -27,7 +27,10 @@ export const GeneralTab = () => {
 					}
 					name="block_based_widgets"
 					id="block-based-widgets"
-					title="Block-based Widgets"
+					title={ __(
+						'Block-based Widgets',
+						'syntatis-feature-flipper'
+					) }
 					label={ __(
 						'Enable the block-based widgets',
 						'syntatis-feature-flipper'
@@ -47,7 +50,7 @@ export const GeneralTab = () => {
 				<SwitchFieldset
 					name="comments"
 					id="comments"
-					title="Comments"
+					title={ __( 'Comments', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable comments',
 						'syntatis-feature-flipper'
@@ -61,7 +64,7 @@ export const GeneralTab = () => {
 				<SwitchFieldset
 					name="embed"
 					id="embed"
-					title="Embed"
+					title={ __( 'Embeds', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable post embedding',
 						'syntatis-feature-flipper'
@@ -74,7 +77,7 @@ export const GeneralTab = () => {
 				<SwitchFieldset
 					name="self_ping"
 					id="self-ping"
-					title="Self-ping"
+					title={ __( 'Self-ping', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable self-pingbacks',
 						'syntatis-feature-flipper'
@@ -103,7 +106,7 @@ export const GeneralTab = () => {
 				<SwitchFieldset
 					name="feeds"
 					id="feeds"
-					title="Feeds"
+					title={ __( 'Feeds', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable RSS feeds',
 						'syntatis-feature-flipper'
