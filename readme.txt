@@ -135,9 +135,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 1.9.4 =
+
+* Fix missing translatable strings.
+* Fix translation loaded too early.
+
 = 1.9.3 =
 
-* Fix inconsistencis in some translatable strings.
+* Fix inconsistencies in some translatable strings.
 * Fix menu options on the Admin Bar setting.
 
 = 1.9.2 =
