@@ -203,7 +203,7 @@ export const SecurityTab = () => {
 					name="obfuscate_login_error"
 					id="obfuscate-login-error"
 					title={ __(
-						'Obfuscate Error',
+						'Error Obfuscation',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
