@@ -12,7 +12,7 @@ export const SiteTab = () => {
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to control the scripts, styles, and images loaded on the site.',
+					'Settings to control the scripts, styles, and images loaded on the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -74,7 +74,7 @@ export const SiteTab = () => {
 			<Fieldset
 				title="Metadata"
 				description={ __(
-					'Options to control the metadata added in the HTML document head section.',
+					'Settings to control the metadata added in the HTML document head section of the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -121,7 +121,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will remove the generator meta tag which shows the current version of WordPress installed.',
+						'If switched off, the generator meta tag on the webpage head which shows the current version of WordPress installed will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -147,7 +147,7 @@ export const SiteTab = () => {
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head.',
+						'If switched off, the shortlink meta tag which shows the short URL on the webpage head will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={

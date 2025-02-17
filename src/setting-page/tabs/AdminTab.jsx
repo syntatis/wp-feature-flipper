@@ -25,7 +25,7 @@ export const AdminTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, the footer text in the admin area will not be shown.',
+						'If switched off, the footer text in the admin area will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					onChange={ ( checked ) => {

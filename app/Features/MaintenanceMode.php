@@ -113,7 +113,7 @@ final class MaintenanceMode implements Hookable
 	 */
 	public function showRightNowStatus(): void
 	{
-		$message = __('The site is currently in maintenance mode', 'syntatis-feature-flipper');
+		$message = __('The site is currently in Maintenance mode', 'syntatis-feature-flipper');
 
 		if (current_user_can('manage_options')) {
 			$message = sprintf(

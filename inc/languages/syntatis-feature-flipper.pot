@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-17T01:22:57+00:00\n"
+"POT-Creation-Date: 2025-02-17T15:47:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -67,7 +67,7 @@ msgid "Maintenance"
 msgstr ""
 
 #: app/Features/MaintenanceMode.php:116
-msgid "The site is currently in maintenance mode"
+msgid "The site is currently in Maintenance mode"
 msgstr ""
 
 #: app/Features/PrivateMode.php:121
@@ -76,7 +76,7 @@ msgid "Private"
 msgstr ""
 
 #: app/Features/PrivateMode.php:138
-msgid "The site is currently in private mode"
+msgid "The site is currently in Private mode"
 msgstr ""
 
 #: app/Modules/Security.php:68
@@ -118,7 +118,7 @@ msgstr ""
 
 #. translators: %s the link to the plugin page in WordPress.org.
 #: app/SettingPage.php:223
-msgid "This setting page is provided by the %s plugin."
+msgid "This setting page is provided by %s plugin."
 msgstr ""
 
 #: app/SettingPage.php:226
@@ -126,7 +126,7 @@ msgid "Here, you can manage some of the core WordPress features like Comments, t
 msgstr ""
 
 #: app/SettingPage.php:227
-msgid "The plugin also includes additional utility features, which you can enable or disable as needed."
+msgid "The plugin also includes additional utility features, which you can enable or disable as needed in this setting page as well."
 msgstr ""
 
 #: app/SettingPage.php:239
@@ -219,7 +219,7 @@ msgid "Enable Dashboard widgets"
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:25
-msgid "If switched off, all widgets will not be shown in the Dashboard."
+msgid "If switched off, all widgets will be removed from the Dashboard."
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:43
@@ -227,7 +227,7 @@ msgid "Widgets"
 msgstr ""
 
 #: src/setting-page/fieldset/DashboardWidgetsFieldset.jsx:44
-msgid "Unchecked widgets will not be shown in the Dashboard."
+msgid "Unchecked widgets will be removed from the Dashboard."
 msgstr ""
 
 #: src/setting-page/fieldset/GutenbergFieldset.jsx:26
@@ -255,7 +255,7 @@ msgid "Enable the Heartbeat API"
 msgstr ""
 
 #: src/setting-page/fieldset/HeartbeatFieldset.jsx:46
-msgid "If switched off, WordPress will will not be sending requests to the Heartbeat API."
+msgid "If switched off, WordPress will stop sending Heartbeat API requests."
 msgstr ""
 
 #: src/setting-page/fieldset/HeartbeatFieldset.jsx:53
@@ -533,7 +533,7 @@ msgid "Show the footer text"
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:27
-msgid "If switched off, the footer text in the admin area will not be shown."
+msgid "If switched off, the footer text in the admin area will be removed."
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:46
@@ -680,47 +680,59 @@ msgstr ""
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:72
-msgid "If switched off, it will disable other sites from embedding content from your site, and vice-versa."
-msgstr ""
-
-#: src/setting-page/tabs/GeneralTab.jsx:80
-msgid "Self-ping"
+#: src/setting-page/tabs/GeneralTab.jsx:75
+msgid "The Embed feature in WordPress allows you to embed a post, page, or custom post type into another post or page. It's a way to easily share and reference your own content within your website or within other WordPress sites."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:81
+msgid "If you're not planning to use this feature, you can can always disable it."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:88
+msgid "If switched off, other sites will not be able to embed content from your site, and vice-versa."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:96
+msgid "Self-ping"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:97
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:85
+#: src/setting-page/tabs/GeneralTab.jsx:101
 msgid "If switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:92
-msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another. If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
-msgstr ""
-
-#: src/setting-page/tabs/GeneralTab.jsx:98
-msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
-msgstr ""
-
-#: src/setting-page/tabs/GeneralTab.jsx:109
-msgid "Feeds"
-msgstr ""
-
-#: src/setting-page/tabs/GeneralTab.jsx:110
-msgid "Enable RSS feeds"
+#: src/setting-page/tabs/GeneralTab.jsx:108
+msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another."
 msgstr ""
 
 #: src/setting-page/tabs/GeneralTab.jsx:114
+msgid "If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:120
+msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:131
+msgid "Feeds"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:132
+msgid "Enable RSS feeds"
+msgstr ""
+
+#: src/setting-page/tabs/GeneralTab.jsx:136
 msgid "If switched off, the RSS feed URLs will not be accessible."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:121
+#: src/setting-page/tabs/GeneralTab.jsx:143
 msgid "An RSS feed, which stands for \"Really Simple Syndication\" or \"Rich Site Summary\", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:127
+#: src/setting-page/tabs/GeneralTab.jsx:149
 msgid "Disabling feeds can help prevent content scraping and reduce server load."
 msgstr ""
 
@@ -749,7 +761,7 @@ msgid "Starting with WordPress 6.4, attachment pages are disabled by default for
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:46
-msgid "When the attachment page will is disabled, it automatically redirect visitors to the homepage when they try to access it."
+msgid "When the attachment page is disabled, it will automatically redirect visitors to the homepage when they try to access it."
 msgstr ""
 
 #: src/setting-page/tabs/MediaTab.jsx:57
@@ -789,7 +801,7 @@ msgid "Starting with WordPress 5.8, infinite scrolling is disabled by default in
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:24
-msgid "File Edit"
+msgid "File Editor"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:25
@@ -797,7 +809,7 @@ msgid "Enable the File Editor"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:29
-msgid "If switched off, it will disable the WordPress built-in file editor for themes and plugins."
+msgid "If switched off, the built-in file editor for themes and plugins will be disabled."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:36
@@ -833,7 +845,7 @@ msgid "Enable REST API Authentication"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:100
-msgid "If switched off, it will allow users to make request to the public API endpoints without authentication."
+msgid "If switched off, all public API will be accessible without authentication."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:107
@@ -841,11 +853,11 @@ msgid "When enabled, you will need to pass authentication using the WordPress Pa
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:118
-msgid "Obfuscate Usernames"
+msgid "Username Obfuscation"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:122
-msgid "Obfuscate usernames with random identifier"
+msgid "Obfuscate the usernames with random identifier"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:126
@@ -861,7 +873,7 @@ msgid "Login"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:149
-msgid "Options to harden the login page."
+msgid "Settings to help improving the security on the login page."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:157
@@ -893,7 +905,7 @@ msgid "Only email"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:205
-msgid "Obfuscate Error"
+msgid "Error Obfuscation"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:209
@@ -937,7 +949,7 @@ msgid "Passwords"
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:266
-msgid "Options to configure the passwords used on the site."
+msgid "Settings to configure the passwords used on the site."
 msgstr ""
 
 #: src/setting-page/tabs/SecurityTab.jsx:274
@@ -969,7 +981,7 @@ msgid "Assets"
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:14
-msgid "Options to control the scripts, styles, and images loaded on the site."
+msgid "Settings to control the scripts, styles, and images loaded on the site."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:22
@@ -1017,7 +1029,7 @@ msgid "jQuery Migrate is a library that ensures older themes and plugins work wi
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:76
-msgid "Options to control the metadata added in the HTML document head section."
+msgid "Settings to control the metadata added in the HTML document head section of the site."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:85
@@ -1049,7 +1061,7 @@ msgid "Add the generator meta tag"
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:123
-msgid "If switched off, it will remove the generator meta tag which shows the current version of WordPress installed."
+msgid "If switched off, the generator meta tag on the webpage head which shows the current version of WordPress installed will be removed."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:130
@@ -1069,7 +1081,7 @@ msgid "Add Shortlink"
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:149
-msgid "If switched off, it will remove the shortlink meta tag which shows the short URL of the webpage head."
+msgid "If switched off, the shortlink meta tag which shows the short URL on the webpage head will be removed."
 msgstr ""
 
 #: src/setting-page/tabs/SiteTab.jsx:156

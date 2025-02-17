@@ -21,13 +21,13 @@ export const SecurityTab = () => {
 				<SwitchFieldset
 					name="file_edit"
 					id="file-edit"
-					title={ __( 'File Edit', 'syntatis-feature-flipper' ) }
+					title={ __( 'File Editor', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable the File Editor',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will disable the WordPress built-in file editor for themes and plugins.',
+						'If switched off, the built-in file editor for themes and plugins will be disabled.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -98,7 +98,7 @@ export const SecurityTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, it will allow users to make request to the public API endpoints without authentication.',
+						'If switched off, all public API will be accessible without authentication.',
 						'syntatis-feature-flipper'
 					) }
 					help={
@@ -116,11 +116,11 @@ export const SecurityTab = () => {
 					name="obfuscate_usernames"
 					id="obfuscate-usernames"
 					title={ __(
-						'Obfuscate Usernames',
+						'Username Obfuscation',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
-						'Obfuscate usernames with random identifier',
+						'Obfuscate the usernames with random identifier',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
@@ -147,7 +147,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Login', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to harden the login page.',
+					'Settings to help improving the security on the login page.',
 					'syntatis-feature-flipper'
 				) }
 			>
@@ -203,7 +203,7 @@ export const SecurityTab = () => {
 					name="obfuscate_login_error"
 					id="obfuscate-login-error"
 					title={ __(
-						'Obfuscate Error',
+						'Error Obfuscation',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
@@ -264,7 +264,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Options to configure the passwords used on the site.',
+					'Settings to configure the passwords used on the site.',
 					'syntatis-feature-flipper'
 				) }
 			>
