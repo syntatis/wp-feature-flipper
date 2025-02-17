@@ -21,7 +21,7 @@ export const SecurityTab = () => {
 				<SwitchFieldset
 					name="file_edit"
 					id="file-edit"
-					title={ __( 'File Edit', 'syntatis-feature-flipper' ) }
+					title={ __( 'File Editor', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable the File Editor',
 						'syntatis-feature-flipper'
