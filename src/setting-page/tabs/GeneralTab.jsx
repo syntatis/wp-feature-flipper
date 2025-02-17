@@ -69,8 +69,24 @@ export const GeneralTab = () => {
 						'Enable post embedding',
 						'syntatis-feature-flipper'
 					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									"The Embed feature in WordPress allows you to embed a post, page, or custom post type into another post or page. It's a way to easily share and reference your own content within your website or within other WordPress sites.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									"If you're not planning to use this feature, you can can always disable it.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
 					description={ __(
-						'If switched off, it will disable other sites from embedding content from your site, and vice-versa.',
+						'If switched off, other sites will not be able to embed content from your site, and vice-versa.',
 						'syntatis-feature-flipper'
 					) }
 				/>
