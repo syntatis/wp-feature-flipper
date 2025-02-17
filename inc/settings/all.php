@@ -30,24 +30,25 @@ return [
 	 */
 	(new Setting('gutenberg', 'boolean'))
 		->withDefault(true),
+	/**
+	 * Since it is too early to determine all the post types registered on the
+	 * site, the default value for the `gutenberg_post_types` options will
+	 * be provided through the default option filter.
+	 *
+	 * @see Syntatis\FeatureFlipper\Features\Gutenberg
+	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
+	 */
 	(new Setting('gutenberg_post_types', 'array'))
-		->apiSchema(['items' => ['type' => 'string']])
-		/**
-		 * Since it is too early to determine all the post types registered on the
-		 * site, the default value will be applied through the plugin filter.
-		 *
-		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
-		 */
-		->withDefault(null),
-	(new Setting('block_based_widgets', 'boolean'))
-		/**
-		 * Since it's too early to determine whether the current theme supports the
-		 * block-based widgets, set the default to `null`, and patch it through
-		 * the filter.
-		 *
-		 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
-		 */
-		->withDefault(null),
+		->apiSchema(['items' => ['type' => 'string']]),
+	/**
+	 * Since it's too early to determine whether the current theme supports the
+	 * block-based widgets, the default value for the `block_based_widgets`
+	 * options will be provided through the default option filter.
+	 *
+	 * @see Syntatis\FeatureFlipper\Modules\General
+	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
+	 */
+	(new Setting('block_based_widgets', 'boolean')),
 	(new Setting('revisions', 'boolean'))
 		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
 	(new Setting('revisions_max', 'integer'))
@@ -112,8 +113,7 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Media
 	 */
-	(new Setting('attachment_page', 'boolean'))
-		->withDefault(null),
+	(new Setting('attachment_page', 'boolean')),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
 	(new Setting('media_infinite_scroll', 'boolean'))
@@ -141,23 +141,22 @@ return [
 	 */
 	(new Setting('site_access', 'string'))
 		->withDefault('public'),
+	/**
+	 * The default value for `site_maintenance_args` options requires values
+	 * of translatable string for the `headline` and `message` properties.
+	 * The default value will be set via the filter. Otherwise, it will
+	 * throw an error due to the translations called too early.
+	 *
+	 * @see app/Features/MaintenanceMode.php
+	 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/l10n.php#L1371-L1380
+	 */
 	(new Setting('site_maintenance_args', 'object'))
 		->apiSchema([
 			'properties' => [
 				'headline' => ['type' => 'string'],
 				'message' => ['type' => 'string'],
 			],
-		])
-		/**
-		 * The default requires translatable string values for the `headline` and
-		 * `message` properties. The default value will be set via the filter.
-		 * Otherwise, it will throw an error due to the translations called
-		 * too early.
-		 *
-		 * @see app/Features/MaintenanceMode.php#L28
-		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/l10n.php#L1371-L1380
-		 */
-		->withDefault(null),
+		]),
 
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
