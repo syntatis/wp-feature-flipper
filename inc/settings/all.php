@@ -148,16 +148,16 @@ return [
 				'message' => ['type' => 'string'],
 			],
 		])
-		->withDefault([
-			'headline' => __(
-				'Under Maintenance 🚧',
-				'syntatis-feature-flipper',
-			),
-			'message' => __(
-				'We are currently performing some scheduled maintenance. We will be back as soon as possible.',
-				'syntatis-feature-flipper',
-			),
-		]),
+		/**
+		 * The default requires translatable string values for the `headline` and
+		 * `message` properties. The default value will be set via the filter.
+		 * Otherwise, it will throw an error due to the translations called
+		 * too early.
+		 *
+		 * @see app/Features/MaintenanceMode.php#L28
+		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/l10n.php#L1371-L1380
+		 */
+		->withDefault(null),
 
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
