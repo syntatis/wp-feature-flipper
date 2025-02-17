@@ -1,6 +1,6 @@
 {
     "name": "syntatis-feature-flipper",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "description": "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress®",
     "author": {
         "name": "Thoriq Firdaus",
