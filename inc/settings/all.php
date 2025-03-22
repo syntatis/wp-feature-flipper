@@ -48,7 +48,7 @@ return [
 	 * @see Syntatis\FeatureFlipper\Modules\General
 	 * @see https://developer.wordpress.org/reference/hooks/default_option_option/
 	 */
-	(new Setting('block_based_widgets', 'boolean')),
+	new Setting('block_based_widgets', 'boolean'),
 	(new Setting('revisions', 'boolean'))
 		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
 	(new Setting('revisions_max', 'integer'))
@@ -113,7 +113,7 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Media
 	 */
-	(new Setting('attachment_page', 'boolean')),
+	new Setting('attachment_page', 'boolean'),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
 	(new Setting('media_infinite_scroll', 'boolean'))
