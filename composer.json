@@ -44,7 +44,7 @@
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-        "filp/whoops": "^2.17",
+        "filp/whoops": "^2.18",
         "johnbillion/wp-compat": "^1.1",
         "nunomaduro/collision": "^5.11",
         "php-stubs/wordpress-tests-stubs": "^6.7",
