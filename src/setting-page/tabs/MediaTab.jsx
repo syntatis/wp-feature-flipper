@@ -144,7 +144,7 @@ export const MediaTab = () => {
 						<HelpContent>
 							<p>
 								{ __(
-									'By default, you can switch between grid and list view in the media library. This setting allows you to select which mode to use when viewing the media library.',
+									'This setting allows you to select which mode to use when viewing the media library.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
