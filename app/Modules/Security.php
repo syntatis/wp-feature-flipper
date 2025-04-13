@@ -102,7 +102,7 @@ final class Security implements Hookable, Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		// yield new LoginIdentifier();
+		yield new LoginIdentifier();
 		yield new ObfuscateUsernames();
 	}
 }
