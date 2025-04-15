@@ -1,4 +1,5 @@
 export { AdminBarFieldset } from './AdminBarFieldset';
+export { CommentsFieldset } from './CommentsFieldset';
 export { DashboardWidgetsFieldset } from './DashboardWidgetsFieldset';
 export { GutenbergFieldset } from './GutenbergFieldset';
 export { HeartbeatFieldset } from './HeartbeatFieldset';

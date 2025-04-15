@@ -64,6 +64,10 @@ return [
 		->withDefault(true),
 	(new Setting('comments', 'boolean'))
 		->withDefault(true),
+	(new Setting('comment_minchars_enabled', 'boolean'))
+		->withDefault(false),
+	(new Setting('comment_minchars', 'number'))
+		->withDefault(10),
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
 

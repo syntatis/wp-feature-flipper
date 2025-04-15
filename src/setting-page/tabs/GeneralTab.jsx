@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import {
+	CommentsFieldset,
 	GutenbergFieldset,
 	RevisionsFieldset,
 	SwitchFieldset,
@@ -47,19 +48,7 @@ export const GeneralTab = () => {
 							  )
 					}
 				/>
-				<SwitchFieldset
-					name="comments"
-					id="comments"
-					title={ __( 'Comments', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Enable comments',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'If switched off, comments will be disabled site-wide.',
-						'syntatis-feature-flipper'
-					) }
-				/>
+				<CommentsFieldset />
 				<RevisionsFieldset />
 				<SwitchFieldset
 					name="embed"
