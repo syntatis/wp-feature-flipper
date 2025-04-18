@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\FeatureFlipper\Features;
+namespace Syntatis\FeatureFlipper\Features\Comments;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
