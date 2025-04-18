@@ -43,6 +43,9 @@ export const SettingsProvider = ( { children, inlineData, nonceData } ) => {
 				getOption: ( name ) => {
 					return getOption( `${ optionPrefix }${ name }` );
 				},
+				getOptionName: ( name ) => {
+					return `${ optionPrefix }${ name }`;
+				},
 				labelProps: ( id ) => {
 					return {
 						htmlFor: `${ attrPrefix }${ id }`,
