@@ -47,7 +47,7 @@
         "filp/whoops": "^2.18",
         "johnbillion/wp-compat": "^1.2",
         "nunomaduro/collision": "^5.11",
-        "php-stubs/wordpress-tests-stubs": "^6.7",
+        "php-stubs/wordpress-tests-stubs": "^6.8",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
