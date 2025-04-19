@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
 use SSFV\Psr\Container\ContainerInterface;
@@ -35,32 +37,20 @@ final class Security implements Hookable, Extendable
 			define('DISALLOW_FILE_EDIT', true);
 		}
 
-		if (! Option::isOn('application_passwords')) {
-			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
-		}
-
-		if (Option::isOn('obfuscate_login_error')) {
-			$hook->addFilter('login_errors', [$this, 'filterLoginErrorMessage']);
-		}
-
-		if (Option::isOn('login_block_bots')) {
-			$hook->addAction('wp', [$this, 'blockBots'], PHP_INT_MIN);
-		}
-
-		if (! Option::isOn('authenticated_rest_api')) {
+		if (Option::isOn('application_passwords')) {
 			return;
 		}
 
-		$hook->addFilter('rest_authentication_errors', [$this, 'apiForceAuthentication']);
+		$hook->addFilter('wp_is_application_passwords_available', '__return_false');
 	}
 
-	/**
-	 * @param WP_Error|true|null $access
-	 *
-	 * @return WP_Error|true|null
-	 */
-	public function apiForceAuthentication($access)
+	#[Filter('rest_authentication_errors')]
+	public function apiForceAuthentication(WP_Error|bool|null $access): WP_Error|bool|null
 	{
+		if (! Option::isOn('authenticated_rest_api')) {
+			return $access;
+		}
+
 		return is_user_logged_in()
 			? $access
 			: new WP_Error(
@@ -72,17 +62,28 @@ final class Security implements Hookable, Extendable
 			);
 	}
 
-	public function filterLoginErrorMessage(): string
+	#[Filter('login_errors')]
+	public function addLoginErrorMessage(string $errorMessage): string
 	{
+		if (! Option::isOn('obfuscate_login_error')) {
+			return $errorMessage;
+		}
+
 		return __(
 			'<strong>Error:</strong> Login failed. Please ensure your credentials are correct.',
 			'syntatis-feature-flipper',
 		);
 	}
 
+	#[Action('wp', priority: PHP_INT_MIN)]
 	public function blockBots(): void
 	{
-		if (! URL::isLogin()) {
+		/**
+		 * If the login_block_bots option is not enabled, or if the current URL is
+		 * not a login page, return early to prevent unnecessary processing for
+		 * non-login requests.
+		 */
+		if (! Option::isOn('login_block_bots') || ! URL::isLogin()) {
 			return;
 		}
 
