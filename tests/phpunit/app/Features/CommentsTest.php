@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Syntatis\Tests\Features\Comments;
+namespace Syntatis\Tests\Features;
 
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Features\Comments\Comments;
+use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WithAdminBar;
