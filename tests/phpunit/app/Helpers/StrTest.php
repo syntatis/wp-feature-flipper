@@ -55,4 +55,22 @@ class StrTest extends WPTestCase
 		yield ['foo', '🚀'];
 		yield ['🙌🎉✨🚀', '✨'];
 	}
+
+	/**
+	 * @dataProvider dataLength
+	 * @testdox should return length of the string
+	 */
+	public function testLength(string $value, int $length): void
+	{
+		$this->assertEquals($length, Str::length($value));
+	}
+
+	public static function dataLength(): iterable
+	{
+		yield ['foo', 3];
+		yield ['a', 1];
+		yield ['', 0];
+		yield ['අයේෂ්', 5];
+		yield ['🙌🎉✨🚀', 4];
+	}
 }

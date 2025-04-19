@@ -36,10 +36,6 @@
       "openssl",
       "pcntl",
       "pcre",
-      "pdo_ibm",
-      "pdo_mysql",
-      "pdo_pgsql",
-      "pdo_sqlite",
       "PDO",
       "pgsql",
       "Phar",
@@ -78,7 +74,7 @@
       "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[php]": {
-      "editor.defaultFormatter": "valeryanm.vscode-phpsab"
+      "editor.defaultFormatter": "wongjn.php-sniffer"
     },
     "files.exclude": {
       "**/.git": true,
@@ -98,6 +94,6 @@
       "**/.history/**",
       "**/CVS/**"
     ],
-    "phpsab.snifferMode": "onSave",
-    "phpsab.snifferShowSources": true
-  }
+    "phpSniffer.autoDetect": true,
+    "phpSniffer.run": "onSave"
+}

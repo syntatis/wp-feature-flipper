@@ -8,6 +8,7 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
+use WPDieException;
 
 use const PHP_INT_MAX;
 
@@ -66,5 +67,37 @@ class GeneralTest extends WPTestCase
 		Option::update('block_based_widgets', true);
 
 		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(false));
+	}
+
+	/** @testdox should return the comment value as is */
+	public function testFilterPreprocessComment(): void
+	{
+		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'hello world!']);
+
+		$this->assertEquals(['comment_content' => 'hello world!'], $comment);
+	}
+
+	/** @testdox should fail with WPDieException exception */
+	public function testFilterPreprocessCommentFailed(): void
+	{
+		$this->expectException(WPDieException::class);
+		$this->expectExceptionMessage('Comment&#039;s too short. Please add something more helpful.');
+
+		$this->instance->filterPreprocessComment(['comment_content' => 'hi']);
+	}
+
+	/** @testdox should fail with WPDieException exception when length is updated */
+	public function testFilterPreprocessCommentUpdatedLengthFailed(): void
+	{
+		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'hello world!']);
+
+		$this->assertEquals(['comment_content' => 'hello world!'], $comment);
+
+		Option::update('comment_min_length', 20);
+
+		$this->expectException(WPDieException::class);
+		$this->expectExceptionMessage('Comment&#039;s too short. Please add something more helpful.');
+
+		$this->instance->filterPreprocessComment(['comment_content' => 'hi']);
 	}
 }
