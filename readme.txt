@@ -5,7 +5,7 @@ Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.0
 Tested up to: 6.7
 Stable tag: 1.9.5
-Requires PHP: 7.4
+Requires PHP: 8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

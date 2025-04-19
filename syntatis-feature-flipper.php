@@ -13,7 +13,7 @@ declare(strict_types=1);
  * Description:       Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
  * Version:           1.9.5
  * Requires at least: 6.0
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            Thoriq Firdaus
  * Author URI:        https://github.com/tfirdaus
  * License:           GPL-3.0
