@@ -87,9 +87,7 @@ final class Security implements Hookable, Extendable
 			return;
 		}
 
-		$crawlerDetect = new CrawlerDetect();
-
-		if (! $crawlerDetect->isCrawler()) {
+		if (! (new CrawlerDetect())->isCrawler()) {
 			return;
 		}
 
