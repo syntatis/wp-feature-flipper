@@ -104,7 +104,7 @@ final class General implements Hookable, Extendable
 		}
 
 		$minLength = Option::get('comment_min_length');
-		$minLength = ! is_int($minLength) && is_numeric($minLength) ? absint($minLength) : null;
+		$minLength = is_numeric($minLength) ? absint($minLength) : null;
 
 		if ($minLength === null) {
 			return $commentData;
