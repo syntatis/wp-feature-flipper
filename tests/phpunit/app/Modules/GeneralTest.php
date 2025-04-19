@@ -39,6 +39,8 @@ class GeneralTest extends WPTestCase
 	{
 		$this->assertTrue(Option::isOn('block_based_widgets'));
 		$this->assertTrue(Option::isOn('revisions'));
+		$this->assertFalse(Option::isOn('revisions_max_enabled'));
+		$this->assertSame(5, Option::get('revisions_max'));
 	}
 
 	/** @testdox should return updated values */
@@ -46,9 +48,41 @@ class GeneralTest extends WPTestCase
 	{
 		Option::update('block_based_widgets', false);
 		Option::update('revisions', false);
+		Option::update('revisions_max_enabled', true);
+		Option::update('revisions_max', 10);
 
 		$this->assertFalse(Option::isOn('block_based_widgets'));
 		$this->assertFalse(Option::isOn('revisions'));
+		$this->assertTrue(Option::isOn('revisions_max_enabled'));
+		$this->assertSame(10, Option::get('revisions_max'));
+	}
+
+	/** @testdox should be enabled or disabled based on the "revisions" option value */
+	public function testRevisionsEnabled(): void
+	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+
+		$this->assertTrue(Option::isOn('revisions'));
+		$this->assertTrue(wp_revisions_enabled(get_post($postId)));
+
+		Option::update('revisions', false);
+
+		$this->assertFalse(Option::isOn('revisions'));
+		$this->assertFalse(wp_revisions_enabled(get_post($postId)));
+	}
+
+	/** @testdox should return the number of revisions to keep */
+	public function testRevisionsMaxNumber(): void
+	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+
+		Option::update('revisions_max_enabled', true);
+
+		$this->assertSame(5, wp_revisions_to_keep(get_post($postId)));
+
+		Option::update('revisions_max', 10);
+
+		$this->assertSame(10, wp_revisions_to_keep(get_post($postId)));
 	}
 
 	/** @testdox should return inherited value */

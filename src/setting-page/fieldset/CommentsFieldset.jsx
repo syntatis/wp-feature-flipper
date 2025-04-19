@@ -50,7 +50,7 @@ export const CommentsFieldset = () => {
 							/>
 						}
 						description={ __(
-							'The minimum number of characters required to post a comment.',
+							'Apply minimum number of characters required to post a comment.',
 							'syntatis-feature-flipper'
 						) }
 					/>
