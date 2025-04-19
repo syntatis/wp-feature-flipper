@@ -51,13 +51,10 @@ return [
 	new Setting('block_based_widgets', 'boolean'),
 	(new Setting('revisions', 'boolean'))
 		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
+	(new Setting('revisions_max_enabled', 'boolean'))
+		->withDefault(false),
 	(new Setting('revisions_max', 'integer'))
-		/**
-		 * The default value will be set to the value of the `WP_POST_REVISIONS`.
-		 *
-		 * @see https://wordpress.org/documentation/article/revisions/#revision-options
-		 */
-		->withDefault(defined('WP_POST_REVISIONS') && is_numeric(WP_POST_REVISIONS) ? (int) WP_POST_REVISIONS : null),
+		->withDefault(5),
 	(new Setting('self_ping', 'boolean'))
 		->withDefault(true),
 	(new Setting('embed', 'boolean'))

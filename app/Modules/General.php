@@ -55,21 +55,29 @@ final class General implements Hookable, Extendable
 			$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MAX);
 		}
 
-		$maxRevisions = Option::get('revisions_max');
-
-		if (! Option::isOn('revisions')) {
-			if (! defined('WP_POST_REVISIONS')) {
-				define('WP_POST_REVISIONS', 0);
-			}
-
-			$maxRevisions = 0;
+		/**
+		 * When revisions are disabled, force the maximum revisions to 0 to prevent
+		 * WordPress from creating any revisions.
+		 */
+		if (! Option::isOn('revisions') && ! defined('WP_POST_REVISIONS')) {
+			define('WP_POST_REVISIONS', 0);
 		}
 
 		$hook->addFilter(
 			'wp_revisions_to_keep',
-			static fn ($num) => is_numeric($maxRevisions) ?
-				(int) $maxRevisions :
-				$num,
+			static function ($num) {
+				if (! Option::isOn('revisions')) {
+					return 0;
+				}
+
+				if (! Option::isOn('revisions_max_enabled')) {
+					return $num;
+				}
+
+				$max = Option::get('revisions_max');
+
+				return is_numeric($max) ? (int) $max : $num;
+			},
 			PHP_INT_MAX,
 		);
 	}

@@ -1,13 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { TextField } from '@syntatis/kubrick';
+import { Checkbox, TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
 import { useSettingsContext } from '../form';
 import { HelpContent } from '../components';
 
 export const RevisionsFieldset = () => {
-	const { getOption, optionPrefix } = useSettingsContext();
+	const { getOption, getOptionName } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
+	const [ isMaxEnabled, setMaxEnabled ] = useState(
+		getOption( 'revisions_max_enabled' )
+	);
 	const revisionMax = getOption( 'revisions_max' );
 
 	return (
@@ -40,30 +43,36 @@ export const RevisionsFieldset = () => {
 		>
 			{ isEnabled && (
 				<div style={ { marginTop: '1rem' } }>
-					<TextField
-						min={ 1 }
-						max={ 100 }
-						placeholder={
-							typeof revisionMax === 'number' ? revisionMax : '∞'
-						}
-						defaultValue={ revisionMax }
-						type="number"
-						name={ `${ optionPrefix }revisions_max` }
-						className="code"
-						suffix={
-							<span aria-hidden>
-								{ __(
-									'Revisions',
-									'syntatis-feature-flipper'
-								) }
-							</span>
-						}
-						aria-label={ __(
-							'Maximum',
+					<Checkbox
+						label={ __(
+							'Maximum revisions:',
 							'syntatis-feature-flipper'
 						) }
+						name={ getOptionName( 'revisions_max_enabled' ) }
+						onChange={ setMaxEnabled }
+						defaultSelected={ isMaxEnabled }
+						suffix={
+							<TextField
+								min={ 1 }
+								max={ 100 }
+								placeholder={
+									typeof revisionMax === 'number'
+										? revisionMax
+										: '∞'
+								}
+								defaultValue={ revisionMax }
+								type="number"
+								name={ getOptionName( 'revisions_max' ) }
+								className="code"
+								aria-label={ __(
+									'Maximum',
+									'syntatis-feature-flipper'
+								) }
+								isReadOnly={ ! isMaxEnabled }
+							/>
+						}
 						description={ __(
-							'The maximum number of revisions to keep.',
+							'Apply maximum number of revisions to keep.',
 							'syntatis-feature-flipper'
 						) }
 					/>
