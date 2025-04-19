@@ -57,34 +57,6 @@ class GeneralTest extends WPTestCase
 		$this->assertSame(10, Option::get('revisions_max'));
 	}
 
-	/** @testdox should be enabled or disabled based on the "revisions" option value */
-	public function testRevisionsEnabled(): void
-	{
-		$postId = self::factory()->post->create(['post_type' => 'post']);
-
-		$this->assertTrue(Option::isOn('revisions'));
-		$this->assertTrue(wp_revisions_enabled(get_post($postId)));
-
-		Option::update('revisions', false);
-
-		$this->assertFalse(Option::isOn('revisions'));
-		$this->assertFalse(wp_revisions_enabled(get_post($postId)));
-	}
-
-	/** @testdox should return the number of revisions to keep */
-	public function testRevisionsMaxNumber(): void
-	{
-		$postId = self::factory()->post->create(['post_type' => 'post']);
-
-		Option::update('revisions_max_enabled', true);
-
-		$this->assertSame(5, wp_revisions_to_keep(get_post($postId)));
-
-		Option::update('revisions_max', 10);
-
-		$this->assertSame(10, wp_revisions_to_keep(get_post($postId)));
-	}
-
 	/** @testdox should return inherited value */
 	public function testFilterUseWidgetsBlockEditor(): void
 	{
@@ -120,7 +92,49 @@ class GeneralTest extends WPTestCase
 		$this->instance->filterPreprocessComment(['comment_content' => 'hi']);
 	}
 
-	/** @testdox should fail with WPDieException exception when length is updated */
+	/**
+	 * @group feature-revisions
+	 * @testdox should be enabled or disabled based on the "revisions" option value
+	 */
+	public function testRevisionsEnabled(): void
+	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+
+		$this->assertTrue(Option::isOn('revisions'));
+		$this->assertTrue(wp_revisions_enabled(get_post($postId)));
+		$this->assertSame(-1, wp_revisions_to_keep(get_post($postId)));
+
+		Option::update('revisions', false);
+
+		$this->assertFalse(Option::isOn('revisions'));
+		$this->assertFalse(wp_revisions_enabled(get_post($postId)));
+		$this->assertSame(0, wp_revisions_to_keep(get_post($postId)));
+	}
+
+	/**
+	 * @group feature-revisions
+	 * @testdox should return the number of revisions to keep
+	 */
+	public function testRevisionsMaxNumber(): void
+	{
+		$postId = self::factory()->post->create(['post_type' => 'post']);
+
+		$this->assertFalse(Option::isOn('revisions_max_enabled'));
+		$this->assertSame(-1, wp_revisions_to_keep(get_post($postId)));
+
+		Option::update('revisions_max_enabled', true);
+
+		$this->assertSame(5, wp_revisions_to_keep(get_post($postId)));
+
+		Option::update('revisions_max', 10);
+
+		$this->assertSame(10, wp_revisions_to_keep(get_post($postId)));
+	}
+
+	/**
+	 * @group feature-comments
+	 * @testdox should return the number of revisions to keep
+	 */
 	public function testFilterPreprocessCommentUpdatedLengthFailed(): void
 	{
 		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'hello world!']);
@@ -132,6 +146,6 @@ class GeneralTest extends WPTestCase
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too short. Please add something more helpful.');
 
-		$this->instance->filterPreprocessComment(['comment_content' => 'hi']);
+		$this->instance->filterPreprocessComment(['comment_content' => 'hello world!']);
 	}
 }
