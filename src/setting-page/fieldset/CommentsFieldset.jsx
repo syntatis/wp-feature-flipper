@@ -38,7 +38,7 @@ export const CommentsFieldset = () => {
 						suffix={
 							<TextField
 								className={ `${ styles.minInput } code` }
-								min={ 10 }
+								min={ 1 }
 								name={ getOptionName( 'comment_min_length' ) }
 								defaultValue={ minChars }
 								type="number"
