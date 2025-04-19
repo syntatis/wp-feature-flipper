@@ -6,11 +6,12 @@ import { useSettingsContext } from '../form';
 import styles from './CommentsFieldset.module.scss';
 
 export const CommentsFieldset = () => {
-	const { getOption, optionPrefix } = useSettingsContext();
+	const { getOption, getOptionName } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'comments' ) );
-	const [ isMinEnabled, setMinEnabled ] = useState(
-		getOption( 'comment_minchars_enabled' )
-	);
+
+	const minCharsEnabled = getOption( 'comment_min_length_enabled' );
+	const minChars = getOption( 'comment_min_length' );
+	const [ isMinEnabled, setMinEnabled ] = useState( minCharsEnabled );
 
 	return (
 		<SwitchFieldset
@@ -28,26 +29,24 @@ export const CommentsFieldset = () => {
 				<div className={ styles.details }>
 					<Checkbox
 						label={ __(
-							'Set minimum',
+							'Minimum length:',
 							'syntatis-feature-flipper'
 						) }
+						name={ getOptionName( 'comment_min_length_enabled' ) }
 						onChange={ setMinEnabled }
+						defaultSelected={ isMinEnabled }
 						suffix={
 							<TextField
+								className={ `${ styles.minInput } code` }
+								min={ 10 }
+								name={ getOptionName( 'comment_min_length' ) }
+								defaultValue={ minChars }
+								type="number"
+								isReadOnly={ ! isMinEnabled }
 								suffix={ __(
 									'characters',
 									'syntatis-feature-flipper'
 								) }
-								className={ `${ styles.minInput } code` }
-								min={ 10 }
-								name={ `${ optionPrefix }comment_minchars` }
-								aria-label={ __(
-									'Minimum characters',
-									'syntatis-feature-flipper'
-								) }
-								defaultValue={ getOption( 'comment_minchars' ) }
-								type="number"
-								isDisabled={ ! isMinEnabled }
 							/>
 						}
 						description={ __(
