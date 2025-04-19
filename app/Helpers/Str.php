@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
+use function function_exists;
+use function mb_strlen;
 use function strlen;
 use function substr_compare;
 
@@ -26,5 +28,15 @@ final class Str
 		$needleLength = strlen($needle);
 
 		return $needleLength <= strlen($haystack) && substr_compare($haystack, $needle, -$needleLength) === 0;
+	}
+
+	/** @return int|false */
+	public static function length(string $value, string $encoding = 'UTF-8')
+	{
+		if (function_exists('mb_strlen')) {
+			return mb_strlen($value, $encoding);
+		}
+
+		return strlen($value);
 	}
 }
