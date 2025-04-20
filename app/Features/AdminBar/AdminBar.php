@@ -44,7 +44,7 @@ final class AdminBar implements Hookable
 		);
 		$hook->addFilter(
 			Option::hook('admin_bar_menu'),
-			static fn ($value) => Option::patch(
+			static fn (mixed $value) => Option::patch(
 				'admin_bar_menu',
 				is_array($value) ? $value : [],
 				self::getRegisteredMenu(),

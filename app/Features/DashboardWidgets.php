@@ -40,7 +40,7 @@ final class DashboardWidgets implements Hookable
 		);
 		$hook->addFilter(
 			Option::hook('dashboard_widgets_enabled'),
-			static fn ($value) => Option::patch(
+			static fn (mixed $value): array => Option::patch(
 				'dashboard_widgets_enabled',
 				is_array($value) ? $value : [],
 				self::getAllDashboardId(),

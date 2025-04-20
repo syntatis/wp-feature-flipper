@@ -21,15 +21,15 @@ final class Updates implements Hookable, Extendable
 	{
 		$hook->addFilter(
 			Option::hook('updates'),
-			static fn ($value) => Helpers\Updates::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\Updates::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			Option::hook('default:auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			Option::hook('auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 
 		if (! Option::isOn('updates')) {

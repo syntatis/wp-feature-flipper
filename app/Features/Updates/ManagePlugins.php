@@ -19,8 +19,8 @@ final class ManagePlugins implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$updatesFn = static fn ($value) => Updates::components((bool) $value)->isEnabled();
-		$autoUpdateFn = static fn ($value): bool => Option::isOn('update_plugins') ?
+		$updatesFn = static fn (mixed $value) => Updates::components((bool) $value)->isEnabled();
+		$autoUpdateFn = static fn (mixed $value): bool => Option::isOn('update_plugins') ?
 			AutoUpdate::components((bool) $value)->isEnabled() :
 			false;
 

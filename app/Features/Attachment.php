@@ -38,7 +38,7 @@ final class Attachment implements Hookable
 		});
 		$hook->addAction(
 			Option::hook('add:attachment_page'),
-			static function ($option, $value): void {
+			static function (string $option, mixed $value): void {
 				update_option('wp_attachment_pages_enabled', (bool) $value ? '1' : '0');
 			},
 			10,
@@ -46,7 +46,7 @@ final class Attachment implements Hookable
 		);
 		$hook->addAction(
 			Option::hook('update:attachment_page'),
-			static function ($oldValue, $newValue): void {
+			static function (string $oldValue, string $newValue): void {
 				update_option('wp_attachment_pages_enabled', (bool) $newValue ? '1' : '0');
 			},
 			10,

@@ -30,7 +30,7 @@ final class ObfuscateUsernames implements Hookable
 	{
 		$hook->addAction(
 			Option::hook('add:obfuscate_usernames'),
-			static function (string $optionName, $value): void {
+			static function (string $optionName, mixed $value): void {
 				if ((bool) $value !== true) {
 					return;
 				}
@@ -42,7 +42,7 @@ final class ObfuscateUsernames implements Hookable
 		);
 		$hook->addAction(
 			Option::hook('update:obfuscate_usernames'),
-			static function ($oldValue, $value): void {
+			static function (mixed $oldValue, mixed $value): void {
 				$oldValue = (bool) $oldValue;
 				$value = (bool) $value;
 

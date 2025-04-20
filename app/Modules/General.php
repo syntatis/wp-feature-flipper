@@ -19,7 +19,6 @@ use function array_filter;
 use function define;
 use function defined;
 use function is_array;
-use function is_int;
 use function is_numeric;
 use function is_string;
 use function str_starts_with;
@@ -65,7 +64,14 @@ final class General implements Hookable, Extendable
 
 		$hook->addFilter(
 			'wp_revisions_to_keep',
-			static function ($num) {
+			/**
+			 * Filter the number of revisions to keep for a post.
+			 *
+			 * @see https://developer.wordpress.org/reference/hooks/wp_revisions_to_keep/
+			 *
+			 * @param int $num The number of revisions to keep.
+			 */
+			static function (int $num): int {
 				if (! Option::isOn('revisions')) {
 					return 0;
 				}
@@ -123,7 +129,7 @@ final class General implements Hookable, Extendable
 			get_bloginfo('charset'),
 		);
 
-		if (is_int($length) && $length < $minLength) {
+		if ($length < $minLength) {
 			wp_die(
 				esc_html(__('Comment\'s too short. Please add something more helpful.', 'syntatis-feature-flipper')),
 				esc_html(__('Comment Error', 'syntatis-feature-flipper')),

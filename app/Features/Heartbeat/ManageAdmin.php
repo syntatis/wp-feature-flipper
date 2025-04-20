@@ -28,11 +28,11 @@ final class ManageAdmin implements Hookable
 		 */
 		$hook->addFilter(
 			Option::hook('heartbeat_admin'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			Option::hook('default:heartbeat_admin'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 

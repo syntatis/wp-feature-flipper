@@ -30,7 +30,7 @@ final class Str
 		return $needleLength <= strlen($haystack) && substr_compare($haystack, $needle, -$needleLength) === 0;
 	}
 
-	public static function length(string $value, string $encoding = 'UTF-8'): int|false
+	public static function length(string $value, string $encoding = 'UTF-8'): int
 	{
 		if (function_exists('mb_strlen')) {
 			return mb_strlen($value, $encoding);

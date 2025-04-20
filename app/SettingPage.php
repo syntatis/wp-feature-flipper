@@ -124,7 +124,7 @@ final class SettingPage implements Hookable
 	 * @return array<string>
 	 */
 	#[Action('plugin_action_links', acceptedArgs: 2)]
-	public function addPluginActionLinks(array $links, string $pluginFile): array
+	public function pluginActionLinks(array $links, string $pluginFile): array
 	{
 		if (basename($pluginFile, '.php') !== $this->appName) {
 			return $links;
@@ -190,7 +190,7 @@ final class SettingPage implements Hookable
 		$keys = array_keys($all);
 		$data = array_filter(
 			$data,
-			static fn ($key): bool => in_array($key, $keys, true),
+			static fn (string $key): bool => in_array($key, $keys, true),
 			ARRAY_FILTER_USE_KEY,
 		);
 

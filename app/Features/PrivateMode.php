@@ -37,7 +37,7 @@ final class PrivateMode implements Hookable
 		 * This filter will ensure that the old value from the `site_private` will
 		 * be carried over and mapped to the `site_access` option.
 		 */
-		$optionCallback = static function ($value) {
+		$optionCallback = static function (mixed $value): mixed {
 			/**
 			 * The `site_private` option stores a boolean, which will be stored as
 			 * `1` or `""`. If it is `1`, it means that the option is already set.

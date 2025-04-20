@@ -24,15 +24,15 @@ final class ManagePostEditor implements Hookable
 		 * Filter the Heartbeat settings for the post editor screen.
 		 *
 		 * When Heartbeat is disabled from the global option, it should also disable
-		 * the "heartbeat_post_editor" option.
+		 * the `heartbeat_post_editor` option.
 		 */
 		$hook->addFilter(
 			Option::hook('heartbeat_post_editor'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			Option::hook('default:heartbeat_post_editor'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 

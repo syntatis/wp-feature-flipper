@@ -30,7 +30,7 @@ final class Gutenberg implements Hookable
 		);
 		$hook->addFilter(
 			Option::hook('gutenberg_post_types'),
-			static fn ($value) => Option::patch(
+			static fn (mixed $value) => Option::patch(
 				'gutenberg_post_types',
 				is_array($value) ? $value : [],
 				self::getPostTypes(),
@@ -79,7 +79,7 @@ final class Gutenberg implements Hookable
 	{
 		return array_values(array_filter(
 			get_post_types(['public' => true]),
-			static fn ($key): bool => use_block_editor_for_post_type($key),
+			static fn (string $key): bool => use_block_editor_for_post_type($key),
 		));
 	}
 }

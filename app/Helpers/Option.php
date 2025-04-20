@@ -165,7 +165,7 @@ final class Option
 		}
 
 		if (count($source) <= count($stashed)) {
-			$value = array_filter($value, static fn ($v) => in_array($v, $source, true));
+			$value = array_filter($value, static fn (mixed $v) => in_array($v, $source, true));
 		}
 
 		return array_values(
