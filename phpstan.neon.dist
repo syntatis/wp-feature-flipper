@@ -14,10 +14,16 @@ parameters:
       identifier: shipmonk.checkedExceptionInYieldingMethod
     -
       identifier: shipmonk.forbiddenCast
+    -
+      identifier: shipmonk.deadMethod
+      paths:
+        - app/Modules/*
+        - app/SettingPage.php
+        - app/CommonScripts.php
 
   ## syntatis/phpstan-psr-11
   syntatis:
-        psr-11: SSFV\Psr\Container\ContainerInterface
+    psr-11: SSFV\Psr\Container\ContainerInterface
 
   ## johnbillion/wp-compat
   WPCompat:

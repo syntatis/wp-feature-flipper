@@ -39,14 +39,14 @@ final class General implements Hookable, Extendable
 		);
 
 		if (! Option::isOn('self_ping')) {
-			$hook->addFilter('pre_ping', static function (&$links): void {
+			$hook->addFilter('pre_ping', static function (mixed &$links): void {
 				if (! is_array($links)) {
 					return;
 				}
 
 				$links = array_filter(
 					$links,
-					static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
+					static fn (mixed $link) => is_string($link) && ! str_starts_with($link, home_url()),
 				);
 			}, 99);
 		}

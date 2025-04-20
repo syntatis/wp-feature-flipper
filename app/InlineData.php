@@ -40,21 +40,12 @@ final class InlineData implements ArrayAccess, JsonSerializable
 
 	public function offsetExists(mixed $offset): bool
 	{
-		if (is_string($offset)) {
-			return isset($this->data[$offset]);
-		}
-
-		return false;
+		return isset($this->data[$offset]);
 	}
 
-	/** @return mixed $offset */
 	public function offsetGet(mixed $offset): mixed
 	{
-		if (is_string($offset)) {
-			return $this->data[$offset] ?? null;
-		}
-
-		return null;
+		return $this->data[$offset] ?? null;
 	}
 
 	public function offsetSet(mixed $offset, mixed $value): void
