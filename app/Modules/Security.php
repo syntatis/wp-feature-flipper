@@ -26,6 +26,8 @@ final class Security implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
+
 		if (! Option::isOn('xmlrpc')) {
 			$hook->addFilter('pings_open', '__return_false');
 			$hook->addFilter('xmlrpc_enabled', '__return_false');
