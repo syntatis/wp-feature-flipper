@@ -213,7 +213,7 @@ final class Comments implements Hookable
 	 *
 	 * @return array<int>|array<WP_Comment>|null
 	 */
-	public function filterCommentsPreQuery(?array $comments, WP_Comment_Query $query): ?array
+	public function filterCommentsPreQuery(array|null $comments, WP_Comment_Query $query): array|null
 	{
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
 		$postType = $query->query_vars['post_type'] ?? '';
@@ -256,7 +256,7 @@ final class Comments implements Hookable
 	 *
 	 * @return object|array<string,int>
 	 */
-	public function filterCommentsCount($count, int $postId)
+	public function filterCommentsCount(object|array $count, int $postId): object|array
 	{
 		if (
 			(Admin::isScreen('dashboard') && $postId === 0) ||

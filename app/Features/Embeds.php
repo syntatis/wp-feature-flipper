@@ -63,7 +63,7 @@ final class Embeds implements Hookable
 	 *
 	 * @return array<mixed>|false
 	 */
-	public function disableResponseData(array $data)
+	public function disableResponseData(array $data): array|false
 	{
 		if (defined('REST_REQUEST') && REST_REQUEST) {
 			return false;

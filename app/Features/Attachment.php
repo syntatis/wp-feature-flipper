@@ -102,7 +102,7 @@ final class Attachment implements Hookable
 
 				try {
 					return (string) Uuid::v5(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
-				} catch (Throwable $th) {
+				} catch (Throwable) {
 					return $slug;
 				}
 			},

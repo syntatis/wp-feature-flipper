@@ -24,7 +24,7 @@ class ManageAdminTest extends WPTestCase
 	/**
 	 * Stores the original `WP_Scripts` instance.
 	 */
-	private ?WP_Scripts $wpScripts;
+	private WP_Scripts|null $wpScripts;
 	private Hook $hook;
 	private ManageAdmin $instance;
 
@@ -138,7 +138,7 @@ class ManageAdminTest extends WPTestCase
 	 * @param mixed $value  The value to update the "heartbeat_admin_interval" option.
 	 * @param mixed $expect The expected value returned.
 	 */
-	public function testFilterSettingsOnAdminPage($value, $expect): void
+	public function testFilterSettingsOnAdminPage(mixed $value, mixed $expect): void
 	{
 		// Setup.
 		$GLOBALS['pagenow'] = 'index.php'; // phpcs:ignore

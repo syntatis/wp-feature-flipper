@@ -48,7 +48,7 @@ final class RegisteredMenu
 		],
 	];
 
-	private ?WP_Admin_Bar $wpAdminBar;
+	private WP_Admin_Bar|null $wpAdminBar;
 
 	/** @phpstan-var array<non-empty-string,RegisteredMenuType> */
 	private array $registeredMenu;
@@ -67,7 +67,7 @@ final class RegisteredMenu
 	 *
 	 * @phpstan-return array<non-empty-string,RegisteredMenuType>
 	 */
-	public static function all(?string $level = null): array
+	public static function all(string|null $level = null): array
 	{
 		$instance = new self();
 

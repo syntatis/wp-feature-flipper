@@ -55,7 +55,7 @@ final class ManageThemes implements Hookable
 	 *
 	 * @param object|bool $cache The Plugins update information cache.
 	 */
-	public function filterSiteTransientUpdate($cache): object
+	public function filterSiteTransientUpdate(object|bool $cache): object
 	{
 		return (object) [
 			'response' => [],

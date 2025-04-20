@@ -15,7 +15,7 @@ use const PHP_INT_MAX;
 
 final class LoginIdentifier implements Hookable
 {
-	private ?string $identifier;
+	private string|null $identifier;
 
 	public function __construct()
 	{

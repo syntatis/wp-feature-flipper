@@ -118,7 +118,7 @@ class GutenbergTest extends WPTestCase
 	 *
 	 * @param mixed $expect The expected value returned from the stash option.
 	 */
-	public function testStashOptions(array $options, $expect): void
+	public function testStashOptions(array $options, mixed $expect): void
 	{
 		$this->instance->stashOptions($options);
 

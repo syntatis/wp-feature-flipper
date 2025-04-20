@@ -139,7 +139,7 @@ final class MaintenanceMode implements Hookable
 	 *
 	 * @return array<string,string>
 	 */
-	public function sanitizeArgsOption($value): array
+	public function sanitizeArgsOption(mixed $value): array
 	{
 		$value = is_array($value) ? $value : [];
 		$headline = $value['headline'] ?? '';

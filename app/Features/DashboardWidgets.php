@@ -168,7 +168,7 @@ final class DashboardWidgets implements Hookable
 	 *
 	 * @return array<string,array{id:string,title:string}>|null List of dashboard widgets.
 	 */
-	private static function getRegisteredWidgets(WP_Screen $screen): ?array
+	private static function getRegisteredWidgets(WP_Screen $screen): array|null
 	{
 		if (! in_array($screen->id, ['dashboard', 'settings_page_' . App::name()], true)) {
 			return null;
@@ -234,7 +234,7 @@ final class DashboardWidgets implements Hookable
 	 * @return array<string,array<string,array<string,array<string,mixed>>>>
 	 * @phpstan-return DashboardWidgetCollection|null
 	 */
-	private static function getRawWidgets(): ?array
+	private static function getRawWidgets(): array|null
 	{
 		if (! isset($GLOBALS['wp_meta_boxes']) || ! is_array($GLOBALS['wp_meta_boxes'])) {
 			return null;

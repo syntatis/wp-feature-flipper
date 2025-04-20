@@ -86,7 +86,7 @@ class MaintenanceModeTest extends WPTestCase
 	 * @param mixed               $value    The value to sanitize.
 	 * @param array<string,mixed> $expected The expected returned value.
 	 */
-	public function testSanitizeArgsOption($value, array $expected): void
+	public function testSanitizeArgsOption(mixed $value, array $expected): void
 	{
 		$this->assertSame($expected, $this->instance->sanitizeArgsOption($value));
 	}

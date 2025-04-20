@@ -53,10 +53,8 @@ final class Gutenberg implements Hookable
 	 * Filter the value to determine whether to use the block editor for a post.
 	 *
 	 * @see https://developer.wordpress.org/reference/hooks/use_block_editor_for_post/
-	 *
-	 * @param int|WP_Post $post
 	 */
-	public function filterUseBlockEditorForPost(bool $value, $post): bool
+	public function filterUseBlockEditorForPost(bool $value, int|WP_Post $post): bool
 	{
 		// If the Gutenberg feature is disabled, force the classic editor.
 		if (! Option::isOn('gutenberg')) {

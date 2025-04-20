@@ -54,10 +54,8 @@ final class ManagePlugins implements Hookable
 	 * Plugins update feature is disabled.
 	 *
 	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L409
-	 *
-	 * @param object|bool $cache
 	 */
-	public function filterSiteTransientUpdate($cache): object
+	public function filterSiteTransientUpdate(object|bool $cache): object
 	{
 		return (object) [
 			'response' => [],

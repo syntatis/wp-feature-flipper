@@ -204,7 +204,7 @@ final class ObfuscateUsernames implements Hookable
 	}
 
 	/** @phpstan-return non-empty-string|null */
-	private static function getUuid(WP_User $user): ?string
+	private static function getUuid(WP_User $user): string|null
 	{
 		$uuid = get_user_meta($user->ID, self::USER_UUID_META_KEY, true);
 

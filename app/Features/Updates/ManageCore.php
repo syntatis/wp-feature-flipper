@@ -69,7 +69,7 @@ final class ManageCore implements Hookable
 	 *
 	 * @param mixed $cache The WordPress Core update information cache.
 	 */
-	public function filterSiteTransientUpdate($cache = null): object
+	public function filterSiteTransientUpdate(mixed $cache = null): object
 	{
 		return (object) [
 			'updates' => [],
@@ -81,10 +81,8 @@ final class ManageCore implements Hookable
 
 	/**
 	 * Prevent the Core update check from being scheduled.
-	 *
-	 * @return object|false
 	 */
-	public function filterScheduleEvent(object $event)
+	public function filterScheduleEvent(object $event): object|false
 	{
 		if (property_exists($event, 'hook') && $event->hook === 'wp_version_check') {
 			return false;
