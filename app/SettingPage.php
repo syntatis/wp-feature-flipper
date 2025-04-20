@@ -37,6 +37,7 @@ final class SettingPage implements Hookable
 	/** @phpstan-var non-empty-string */
 	private string $appName;
 
+	/** @phpstan-var non-empty-string */
 	private string $scriptHandle;
 
 	private string $inlineData = '';
