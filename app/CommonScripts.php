@@ -16,8 +16,8 @@ final class CommonScripts implements Hookable
 		$hook->parse($this);
 	}
 
-	#[Action('admin_enqueue_scripts')]
-	#[Action('wp_enqueue_scripts')]
+	#[Action(name: 'admin_enqueue_scripts')]
+	#[Action(name: 'wp_enqueue_scripts')]
 	public function enqueueScripts(): void
 	{
 		if (! is_user_logged_in()) {
