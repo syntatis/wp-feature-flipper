@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Post;
@@ -21,8 +23,7 @@ final class Gutenberg implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
-		$hook->addFilter('use_block_editor_for_post', [$this, 'filterUseBlockEditorForPost'], PHP_INT_MAX, 2);
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('default:gutenberg_post_types'),
 			static fn () => self::getPostTypes(),
@@ -40,6 +41,7 @@ final class Gutenberg implements Hookable
 	}
 
 	/** @param array<string> $options List of option names that have been updated. */
+	#[Action(name: 'syntatis/feature_flipper/updated_options', priority: PHP_INT_MAX)]
 	public function stashOptions(array $options): void
 	{
 		if (! in_array(Option::name('gutenberg_post_types'), $options, true)) {
@@ -54,7 +56,8 @@ final class Gutenberg implements Hookable
 	 *
 	 * @see https://developer.wordpress.org/reference/hooks/use_block_editor_for_post/
 	 */
-	public function filterUseBlockEditorForPost(bool $value, int|WP_Post $post): bool
+	#[Filter(name: 'use_block_editor_for_post', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function useBlockEditorForPost(bool $value, int|WP_Post $post): bool
 	{
 		// If the Gutenberg feature is disabled, force the classic editor.
 		if (! Option::isOn('gutenberg')) {
