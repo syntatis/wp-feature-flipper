@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Symfony\Component\Uid\Uuid;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -28,6 +30,7 @@ final class ObfuscateUsernames implements Hookable
 
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
 		$hook->addAction(
 			Option::hook('add:obfuscate_usernames'),
 			static function (string $optionName, mixed $value): void {
@@ -55,19 +58,18 @@ final class ObfuscateUsernames implements Hookable
 			10,
 			2,
 		);
+	}
 
+	#[Action(name: 'pre_get_posts', priority: PHP_INT_MAX)]
+	public function preGetPosts(WP_Query $query): void
+	{
 		if (! Option::isOn('obfuscate_usernames')) {
 			return;
 		}
 
-		$hook->addAction('pre_get_posts', [$this, 'preGetPosts'], PHP_INT_MAX);
-		$hook->addFilter('author_link', [$this, 'filterAuthorLink'], PHP_INT_MAX, 3);
-		$hook->addFilter('insert_custom_user_meta', [$this, 'filterInsertCustomUserMeta'], PHP_INT_MAX, 2);
-		$hook->addFilter('rest_prepare_user', [$this, 'filterRestPrepareUser'], PHP_INT_MAX, 2);
-	}
-
-	public function preGetPosts(WP_Query $query): void
-	{
+		/**
+		 * Only run this filter on the front end and if the query is for an author.
+		 */
 		if (! $query->is_author()) {
 			return;
 		}
@@ -112,8 +114,13 @@ final class ObfuscateUsernames implements Hookable
 		// phpcs:enable
 	}
 
-	public function filterRestPrepareUser(WP_REST_Response $response, WP_User $user): WP_REST_Response
+	#[Filter(name: 'rest_prepare_user', priority: PHP_INT_MAX)]
+	public function restPrepareUser(WP_REST_Response $response, WP_User $user): WP_REST_Response
 	{
+		if (! Option::isOn('obfuscate_usernames')) {
+			return $response;
+		}
+
 		$data = $response->get_data();
 
 		if (is_array($data)) {
@@ -129,8 +136,13 @@ final class ObfuscateUsernames implements Hookable
 		return $response;
 	}
 
-	public function filterAuthorLink(string $link, int $userId, string $authorSlug): string
+	#[Filter(name: 'author_link', priority: PHP_INT_MAX)]
+	public function authorLink(string $link, int $userId, string $authorSlug): string
 	{
+		if (! Option::isOn('obfuscate_usernames')) {
+			return $link;
+		}
+
 		/**
 		 * Only change the author link when the permalink structure is not set to
 		 * plain.
@@ -153,7 +165,8 @@ final class ObfuscateUsernames implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function filterInsertCustomUserMeta(array $customMeta, WP_User $user): array
+	#[Filter(name: 'insert_custom_user_meta', priority: PHP_INT_MAX)]
+	public function insertCustomUserMeta(array $customMeta, WP_User $user): array
 	{
 		$uuid = self::getUuid($user);
 
