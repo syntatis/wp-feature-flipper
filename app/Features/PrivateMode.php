@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -28,6 +29,8 @@ final class PrivateMode implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
+
 		/**
 		 * Handle legacy option.
 		 *
@@ -72,19 +75,16 @@ final class PrivateMode implements Hookable
 		};
 		$hook->addAction(Option::hook('add:site_access'), $updateOptionCallback, PHP_INT_MAX);
 		$hook->addAction(Option::hook('update:site_access'), $updateOptionCallback, PHP_INT_MAX);
-
-		if (Option::get('site_access') !== 'private') {
-			return;
-		}
-
-		$hook->addAction('admin_bar_menu', [$this, 'adminBarMenu'], PHP_INT_MIN);
-		$hook->addAction('rightnow_end', [$this, 'showRightNowStatus'], PHP_INT_MIN);
-		$hook->addAction('template_redirect', [$this, 'forceLogin'], PHP_INT_MIN);
 		$hook->addFilter('login_site_html_link', '__return_empty_string', PHP_INT_MAX);
 	}
 
+	#[Action(name: 'template_redirect', priority: PHP_INT_MIN)]
 	public function forceLogin(): void
 	{
+		if (! self::isPrivate()) {
+			return;
+		}
+
 		if (
 			URL::isLogin() ||
 			is_user_logged_in() ||
@@ -103,6 +103,7 @@ final class PrivateMode implements Hookable
 	/**
 	 * Show the "Maintenance" status on the admin bar menu.
 	 */
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MIN)]
 	public function adminBarMenu(WP_Admin_Bar $wpAdminBar): void
 	{
 		if (! is_admin()) {
@@ -133,10 +134,14 @@ final class PrivateMode implements Hookable
 	/**
 	 * Show the "Private" status at the "At a glance" dashboard widget.
 	 */
+	#[Action(name: 'rightnow_end', priority: PHP_INT_MIN)]
 	public function showRightNowStatus(): void
 	{
 		$message = __('The site is currently in Private mode', 'syntatis-feature-flipper');
 
+		/**
+		 * If the user is an admin, show a link to the settings page.
+		 */
 		if (current_user_can('manage_options')) {
 			$message = sprintf(
 				'<a href="%s">%s</a>',
@@ -154,5 +159,10 @@ final class PrivateMode implements Hookable
 			HTML,
 			wp_kses($message, ['a' => ['href' => true]]),
 		);
+	}
+
+	private static function isPrivate(): bool
+	{
+		return Option::get('site_access') === 'private';
 	}
 }
