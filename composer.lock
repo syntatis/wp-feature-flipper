@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5185a398509d04fa3c28b92c17b97bec",
+    "content-hash": "1a87f03f0375106fdcd8b57c28e0db45",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -373,16 +373,16 @@
         },
         {
             "name": "syntatis/codex",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex.git",
-                "reference": "1e30177efae4f61e9d4f20acfe67aa0e2317007a"
+                "reference": "d51a115dccdb66a05999883c2aa81135a443e854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex/zipball/1e30177efae4f61e9d4f20acfe67aa0e2317007a",
-                "reference": "1e30177efae4f61e9d4f20acfe67aa0e2317007a",
+                "url": "https://api.github.com/repos/syntatis/codex/zipball/d51a115dccdb66a05999883c2aa81135a443e854",
+                "reference": "d51a115dccdb66a05999883c2aa81135a443e854",
                 "shasum": ""
             },
             "require": {
@@ -398,11 +398,11 @@
                 "phpstan/phpstan-phpunit": "^2.0",
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^9.6",
-                "roots/wordpress": "^6.7",
+                "roots/wordpress": "^6.8",
                 "symfony/var-dumper": "^5.4",
-                "syntatis/coding-standard": "^1.5",
+                "syntatis/coding-standard": "^2.0",
                 "szepeviktor/phpstan-wordpress": "^2.0",
-                "wp-phpunit/wp-phpunit": "^6.7",
+                "wp-phpunit/wp-phpunit": "^6.8",
                 "yoast/phpunit-polyfills": "^4.0"
             },
             "type": "library",
@@ -436,9 +436,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex/issues",
-                "source": "https://github.com/syntatis/codex/tree/v0.2.0"
+                "source": "https://github.com/syntatis/codex/tree/v0.3.0"
             },
-            "time": "2025-04-12T12:31:40+00:00"
+            "time": "2025-04-20T17:48:32+00:00"
         },
         {
             "name": "syntatis/codex-settings-provider",
