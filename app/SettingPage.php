@@ -102,7 +102,7 @@ final class SettingPage implements Hookable
 		wp_set_script_translations($this->scriptHandle, 'syntatis-feature-flipper');
 	}
 
-	#[Action('admin_bar_menu', priority: PHP_INT_MAX)]
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MAX)]
 	public function addInlineScript(): void
 	{
 		if (! Admin::isScreen($this->appName)) {
@@ -123,7 +123,7 @@ final class SettingPage implements Hookable
 	 *
 	 * @return array<string>
 	 */
-	#[Action('plugin_action_links', acceptedArgs: 2)]
+	#[Action(name: 'plugin_action_links', acceptedArgs: 2)]
 	public function pluginActionLinks(array $links, string $pluginFile): array
 	{
 		if (basename($pluginFile, '.php') !== $this->appName) {
