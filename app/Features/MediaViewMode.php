@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
@@ -23,9 +24,11 @@ final class MediaViewMode implements Hookable
 		 * Force the media library to use the specified view mode.
 		 */
 		$_GET['mode'] = $mode;
-		$hook->addAction('admin_enqueue_scripts', [$this, 'addInlineScript']);
+
+		$hook->parse($this);
 	}
 
+	#[Action(name: 'admin_enqueue_scripts')]
 	public function addInlineScript(): void
 	{
 		$screen = get_current_screen();
