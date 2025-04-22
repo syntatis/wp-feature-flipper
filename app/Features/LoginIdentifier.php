@@ -41,7 +41,7 @@ final class LoginIdentifier implements Hookable
 		}
 	}
 
-	#[Filter('gettext', priority: 20, acceptedArgs: 3)]
+	#[Filter(name: 'gettext', priority: 20, acceptedArgs: 3)]
 	public function getText(string $translation, string $text, string $domain): string
 	{
 		if (! URL::isLogin() || $domain !== 'default') {
