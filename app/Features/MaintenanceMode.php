@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -24,6 +26,7 @@ final class MaintenanceMode implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
 		$hook->addFilter(Option::hook('sanitize:site_maintenance_args'), [$this, 'sanitizeArgsOption'], PHP_INT_MAX);
 		$hook->addFilter(Option::hook('default:site_maintenance_args'), static function (): array {
 			return [
@@ -37,20 +40,12 @@ final class MaintenanceMode implements Hookable
 				),
 			];
 		}, PHP_INT_MAX);
-
-		if (Option::get('site_access') !== 'maintenance') {
-			return;
-		}
-
-		$hook->addAction('admin_bar_menu', [$this, 'adminBarMenu'], PHP_INT_MIN);
-		$hook->addAction('rightnow_end', [$this, 'showRightNowStatus'], PHP_INT_MIN);
-		$hook->addAction('template_redirect', [$this, 'templateRedirect'], PHP_INT_MIN);
-		$hook->addFilter('wp_title', [$this, 'filterPageTitle'], PHP_INT_MAX, 2);
 	}
 
+	#[Action(name: 'template_redirect', priority: PHP_INT_MIN)]
 	public function templateRedirect(): void
 	{
-		if (is_user_logged_in()) {
+		if (! self::isMaintenanceMode() || is_user_logged_in()) {
 			return;
 		}
 
@@ -69,8 +64,13 @@ final class MaintenanceMode implements Hookable
 		exit;
 	}
 
-	public function filterPageTitle(string $title, string $separator): string
+	#[Filter(name: 'wp_title', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function pageTitle(string $title, string $separator): string
 	{
+		if (! self::isMaintenanceMode()) {
+			return $title;
+		}
+
 		return sprintf(
 			'%s %s %s',
 			_x('Under Maintenance', 'Maintenance page title', 'syntatis-feature-flipper'),
@@ -82,8 +82,14 @@ final class MaintenanceMode implements Hookable
 	/**
 	 * Show the "Maintenance" status on the admin bar menu.
 	 */
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MIN)]
 	public function adminBarMenu(WP_Admin_Bar $wpAdminBar): void
 	{
+		if (! self::isMaintenanceMode()) {
+			return;
+		}
+
+		// Only show the node if the user is logged in and has access to the admin bar.
 		if (! is_admin()) {
 			return;
 		}
@@ -111,8 +117,13 @@ final class MaintenanceMode implements Hookable
 	/**
 	 * Show the "Private" status at the "At a glance" dashboard widget.
 	 */
+	#[Action(name: 'rightnow_end', priority: PHP_INT_MIN)]
 	public function showRightNowStatus(): void
 	{
+		if (! self::isMaintenanceMode()) {
+			return;
+		}
+
 		$message = __('The site is currently in Maintenance mode', 'syntatis-feature-flipper');
 
 		if (current_user_can('manage_options')) {
@@ -149,5 +160,10 @@ final class MaintenanceMode implements Hookable
 			'headline' => wp_strip_all_tags(is_string($headline) ? $headline : ''),
 			'message' => wp_strip_all_tags(is_string($message) ? $message : ''),
 		];
+	}
+
+	private static function isMaintenanceMode(): bool
+	{
+		return Option::get('site_access') === 'maintenance';
 	}
 }
