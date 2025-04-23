@@ -31,6 +31,7 @@ final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
@@ -111,11 +112,10 @@ final class General implements Hookable, Extendable
 	#[Filter(name: 'preprocess_comment', priority: PHP_INT_MAX)]
 	public function preprocessComment(array $commentData = []): array
 	{
-		if (! Option::isOn('comment_min_length_enabled')) {
-			return $commentData;
-		}
-
-		if (! isset($commentData['comment_content'])) {
+		if (
+			! Option::isOn('comment_min_length_enabled') ||
+			! isset($commentData['comment_content'])
+		) {
 			return $commentData;
 		}
 
