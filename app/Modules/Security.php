@@ -46,7 +46,7 @@ final class Security implements Hookable, Extendable
 		$hook->addFilter('wp_is_application_passwords_available', '__return_false');
 	}
 
-	#[Filter('rest_authentication_errors')]
+	#[Filter(name: 'rest_authentication_errors')]
 	public function apiForceAuthentication(WP_Error|bool|null $access): WP_Error|bool|null
 	{
 		if (! Option::isOn('authenticated_rest_api')) {
@@ -64,7 +64,7 @@ final class Security implements Hookable, Extendable
 			);
 	}
 
-	#[Filter('login_errors')]
+	#[Filter(name: 'login_errors')]
 	public function addLoginErrorMessage(string $errorMessage): string
 	{
 		if (! Option::isOn('obfuscate_login_error')) {
@@ -77,7 +77,7 @@ final class Security implements Hookable, Extendable
 		);
 	}
 
-	#[Action('wp', priority: PHP_INT_MIN)]
+	#[Action(name: 'wp', priority: PHP_INT_MIN)]
 	public function blockBots(): void
 	{
 		/**

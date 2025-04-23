@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\Updates;
@@ -27,16 +28,14 @@ final class ManageCore implements Hookable
 			AutoUpdate::components((bool) $value)->isEnabled() :
 			false;
 
+		$hook->parse($this);
 		$hook->addFilter(Option::hook('default:auto_update_core'), $autoUpdateFn);
 		$hook->addFilter(Option::hook('default:update_core'), $updatesFn);
 		$hook->addFilter(Option::hook('auto_update_core'), $autoUpdateFn);
 		$hook->addFilter(Option::hook('update_core'), $updatesFn);
 
 		if (! Option::isOn('update_core')) {
-			$hook->addFilter('schedule_event', [$this, 'filterScheduleEvent']);
 			$hook->addFilter('send_core_update_notification_email', '__return_false');
-			$hook->addFilter('site_transient_update_core', [$this, 'filterSiteTransientUpdate']);
-			$hook->addFilter('site_status_tests', [$this, 'filterSiteStatusTests']);
 			$hook->removeAction('admin_init', '_maybe_update_core');
 			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
 			$hook->removeAction('wp_version_check', 'wp_version_check');
@@ -69,8 +68,13 @@ final class ManageCore implements Hookable
 	 *
 	 * @param mixed $cache The WordPress Core update information cache.
 	 */
-	public function filterSiteTransientUpdate(mixed $cache = null): object
+	#[Filter(name: 'site_transient_update_core')]
+	public function siteTransientUpdateCore(mixed $cache = null): mixed
 	{
+		if (Option::isOn('update_core')) {
+			return $cache;
+		}
+
 		return (object) [
 			'updates' => [],
 			'translations' => [],
@@ -82,8 +86,13 @@ final class ManageCore implements Hookable
 	/**
 	 * Prevent the Core update check from being scheduled.
 	 */
-	public function filterScheduleEvent(object $event): object|false
+	#[Filter(name: 'schedule_event')]
+	public function scheduleEvent(object $event): object|false
 	{
+		if (Option::isOn('update_core')) {
+			return $event;
+		}
+
 		if (property_exists($event, 'hook') && $event->hook === 'wp_version_check') {
 			return false;
 		}
@@ -103,8 +112,13 @@ final class ManageCore implements Hookable
 	 *
 	 * @return array<string,array<string,mixed>>
 	 */
+	#[Filter(name: 'site_status_tests')]
 	public function filterSiteStatusTests(array $tests): array
 	{
+		if (Option::isOn('update_core')) {
+			return $tests;
+		}
+
 		unset($tests['async']['background_updates']);
 		unset($tests['direct']['plugin_theme_auto_updates']);
 

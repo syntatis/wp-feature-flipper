@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Comments;
@@ -30,7 +31,6 @@ final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
 			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
@@ -48,10 +48,6 @@ final class General implements Hookable, Extendable
 					static fn (mixed $link) => is_string($link) && ! str_starts_with($link, home_url()),
 				);
 			}, 99);
-		}
-
-		if (Option::isOn('comment_min_length_enabled')) {
-			$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MAX);
 		}
 
 		/**
@@ -93,7 +89,8 @@ final class General implements Hookable, Extendable
 	 *
 	 * @see https://developer.wordpress.org/reference/hooks/use_widgets_block_editor/
 	 */
-	public function filterUseWidgetsBlockEditor(bool $value): bool
+	#[Filter(name: 'use_widgets_block_editor', priority: PHP_INT_MAX)]
+	public function useWidgetsBlockEditor(bool $value): bool
 	{
 		$option = Option::get('block_based_widgets');
 
@@ -111,8 +108,13 @@ final class General implements Hookable, Extendable
 	 *
 	 * @return array{comment_content?:string|null} The filtered comment data.
 	 */
-	public function filterPreprocessComment(array $commentData = []): array
+	#[Filter(name: 'preprocess_comment', priority: PHP_INT_MAX)]
+	public function preprocessComment(array $commentData = []): array
 	{
+		if (! Option::isOn('comment_min_length_enabled')) {
+			return $commentData;
+		}
+
 		if (! isset($commentData['comment_content'])) {
 			return $commentData;
 		}
