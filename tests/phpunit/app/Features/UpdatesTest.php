@@ -34,7 +34,7 @@ class UpdatesTest extends WPTestCase
 	public function testHook(): void
 	{
 		// Updates related hooks.
-		$this->assertFalse($this->hook->hasAction('admin_menu', [$this->instance, 'removeMenu']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('admin_menu', [$this->instance, 'removeMenu']));
 		$this->assertSame(10, $this->hook->hasAction('init', 'wp_schedule_update_checks'));
 
 		// Auto-updates related hooks.

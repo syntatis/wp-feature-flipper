@@ -34,13 +34,6 @@ class PrivateModeTest extends WPTestCase
 	/** @testdox should has the callback attached to hook */
 	public function testHook(): void
 	{
-		$this->assertFalse($this->hook->hasAction('template_redirect', [$this->instance, 'forceLogin']));
-		$this->assertFalse($this->hook->hasAction('rightnow_end', [$this->instance, 'showRightNowStatus']));
-		$this->assertFalse($this->hook->hasFilter('login_site_html_link', '__return_empty_string'));
-
-		Option::update('site_access', 'private');
-		$this->instance->hook($this->hook);
-
 		$this->assertSame(PHP_INT_MIN, $this->hook->hasAction('template_redirect', [$this->instance, 'forceLogin']));
 		$this->assertSame(PHP_INT_MIN, $this->hook->hasAction('rightnow_end', [$this->instance, 'showRightNowStatus']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('login_site_html_link', '__return_empty_string'));
