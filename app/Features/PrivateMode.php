@@ -78,9 +78,15 @@ final class PrivateMode implements Hookable
 		$hook->addFilter('login_site_html_link', '__return_empty_string', PHP_INT_MAX);
 	}
 
+	/**
+	 * Redirect to the login page if the site is in private mode.
+	 */
 	#[Action(name: 'template_redirect', priority: PHP_INT_MIN)]
 	public function forceLogin(): void
 	{
+		/**
+		 * If the site is not in private mode, users should not be redirected.
+		 */
 		if (! self::isPrivate()) {
 			return;
 		}
