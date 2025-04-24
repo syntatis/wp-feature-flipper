@@ -57,6 +57,9 @@ final class Updates implements Hookable, Extendable
 	#[Action(name: 'admin_menu', priority: PHP_INT_MAX)]
 	public function removeMenu(): void
 	{
+		/**
+		 * If the Updates feature is enabled, we don't need to remove the menu.
+		 */
 		if (Option::isOn('updates')) {
 			return;
 		}
