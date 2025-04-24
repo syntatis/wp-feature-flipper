@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\AutoUpdate;
 use Syntatis\FeatureFlipper\Features\Updates\Helpers\Updates;
@@ -19,11 +20,12 @@ final class ManagePlugins implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$updatesFn = static fn ($value) => Updates::components((bool) $value)->isEnabled();
-		$autoUpdateFn = static fn ($value): bool => Option::isOn('update_plugins') ?
+		$updatesFn = static fn (mixed $value) => Updates::components((bool) $value)->isEnabled();
+		$autoUpdateFn = static fn (mixed $value): bool => Option::isOn('update_plugins') ?
 			AutoUpdate::components((bool) $value)->isEnabled() :
 			false;
 
+		$hook->parse($this);
 		$hook->addFilter(Option::hook('default:auto_update_plugins'), $autoUpdateFn);
 		$hook->addFilter(Option::hook('default:update_plugins'), $updatesFn);
 		$hook->addFilter(Option::hook('auto_update_plugins'), $autoUpdateFn);
@@ -36,7 +38,6 @@ final class ManagePlugins implements Hookable
 			$hook->removeAction('load-update-core.php', 'wp_update_plugins');
 			$hook->removeAction('load-update.php', 'wp_update_plugins');
 			$hook->removeAction('wp_update_plugins', 'wp_update_plugins');
-			$hook->addFilter('site_transient_update_plugins', [$this, 'filterSiteTransientUpdate']);
 		}
 
 		if (Option::isOn('auto_update_plugins')) {
@@ -54,11 +55,14 @@ final class ManagePlugins implements Hookable
 	 * Plugins update feature is disabled.
 	 *
 	 * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/update.php#L409
-	 *
-	 * @param object|bool $cache
 	 */
-	public function filterSiteTransientUpdate($cache): object
+	#[Filter(name: 'site_transient_update_plugins')]
+	public function siteTransientUpdatePlugins(object|bool $cache): object|bool
 	{
+		if (Option::isOn('update_plugins')) {
+			return $cache;
+		}
+
 		return (object) [
 			'response' => [],
 			'translations' => [],

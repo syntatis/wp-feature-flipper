@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Modules;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Comments;
@@ -19,7 +20,6 @@ use function array_filter;
 use function define;
 use function defined;
 use function is_array;
-use function is_int;
 use function is_numeric;
 use function is_string;
 use function str_starts_with;
@@ -31,7 +31,7 @@ final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
@@ -39,20 +39,16 @@ final class General implements Hookable, Extendable
 		);
 
 		if (! Option::isOn('self_ping')) {
-			$hook->addFilter('pre_ping', static function (&$links): void {
+			$hook->addFilter('pre_ping', static function (mixed &$links): void {
 				if (! is_array($links)) {
 					return;
 				}
 
 				$links = array_filter(
 					$links,
-					static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
+					static fn (mixed $link) => is_string($link) && ! str_starts_with($link, home_url()),
 				);
 			}, 99);
-		}
-
-		if (Option::isOn('comment_min_length_enabled')) {
-			$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MAX);
 		}
 
 		/**
@@ -65,7 +61,14 @@ final class General implements Hookable, Extendable
 
 		$hook->addFilter(
 			'wp_revisions_to_keep',
-			static function ($num) {
+			/**
+			 * Filter the number of revisions to keep for a post.
+			 *
+			 * @see https://developer.wordpress.org/reference/hooks/wp_revisions_to_keep/
+			 *
+			 * @param int $num The number of revisions to keep.
+			 */
+			static function (int $num): int {
 				if (! Option::isOn('revisions')) {
 					return 0;
 				}
@@ -87,7 +90,8 @@ final class General implements Hookable, Extendable
 	 *
 	 * @see https://developer.wordpress.org/reference/hooks/use_widgets_block_editor/
 	 */
-	public function filterUseWidgetsBlockEditor(bool $value): bool
+	#[Filter(name: 'use_widgets_block_editor', priority: PHP_INT_MAX)]
+	public function useWidgetsBlockEditor(bool $value): bool
 	{
 		$option = Option::get('block_based_widgets');
 
@@ -105,9 +109,13 @@ final class General implements Hookable, Extendable
 	 *
 	 * @return array{comment_content?:string|null} The filtered comment data.
 	 */
-	public function filterPreprocessComment(array $commentData = []): array
+	#[Filter(name: 'preprocess_comment', priority: PHP_INT_MAX)]
+	public function preprocessComment(array $commentData = []): array
 	{
-		if (! isset($commentData['comment_content'])) {
+		if (
+			! Option::isOn('comment_min_length_enabled') ||
+			! isset($commentData['comment_content'])
+		) {
 			return $commentData;
 		}
 
@@ -123,7 +131,7 @@ final class General implements Hookable, Extendable
 			get_bloginfo('charset'),
 		);
 
-		if (is_int($length) && $length < $minLength) {
+		if ($length < $minLength) {
 			wp_die(
 				esc_html(__('Comment\'s too short. Please add something more helpful.', 'syntatis-feature-flipper')),
 				esc_html(__('Comment Error', 'syntatis-feature-flipper')),

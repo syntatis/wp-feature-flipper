@@ -7,6 +7,8 @@ namespace Syntatis\FeatureFlipper\Features\AdminBar;
 use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Assets;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -35,8 +37,7 @@ final class AdminBar implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('default:admin_bar_menu'),
 			static fn () => self::getRegisteredMenu(),
@@ -44,30 +45,17 @@ final class AdminBar implements Hookable
 		);
 		$hook->addFilter(
 			Option::hook('admin_bar_menu'),
-			static fn ($value) => Option::patch(
+			static fn (mixed $value) => Option::patch(
 				'admin_bar_menu',
 				is_array($value) ? $value : [],
 				self::getRegisteredMenu(),
 			),
 			PHP_INT_MAX,
 		);
-		$hook->addAction('admin_bar_menu', [$this, 'removeNodes'], PHP_INT_MAX);
-		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addFilter('show_admin_bar', [$this, 'showAdminBar'], PHP_INT_MAX);
-
-		if (! Option::isOn('admin_bar_howdy')) {
-			$hook->addAction('admin_bar_menu', [$this, 'addMyAccountNode'], PHP_INT_MAX);
-		}
-
-		if (! Option::isOn('admin_bar_env_type')) {
-			return;
-		}
-
-		$hook->addAction('admin_bar_menu', [$this, 'addEnvironmentTypeNode']);
 	}
 
 	/** @param array<string> $options List of option names that have been updated. */
+	#[Action(name: 'syntatis/feature_flipper/updated_options')]
 	public function stashOptions(array $options): void
 	{
 		if (! in_array(Option::name('admin_bar_menu'), $options, true)) {
@@ -84,7 +72,8 @@ final class AdminBar implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	#[Filter(name: 'syntatis/feature_flipper/inline_data')]
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 
@@ -102,6 +91,8 @@ final class AdminBar implements Hookable
 		return $data;
 	}
 
+	#[Action(name: 'admin_enqueue_scripts')]
+	#[Action(name: 'wp_enqueue_scripts')]
 	public function enqueueScripts(): void
 	{
 		if (! is_user_logged_in()) {
@@ -130,6 +121,7 @@ final class AdminBar implements Hookable
 		);
 	}
 
+	#[Action(name: 'admin_bar_menu')]
 	public function removeNodes(WP_Admin_Bar $wpAdminBar): void
 	{
 		$adminBarMenu = Option::get('admin_bar_menu');
@@ -147,8 +139,13 @@ final class AdminBar implements Hookable
 		}
 	}
 
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MAX)]
 	public function addMyAccountNode(WP_Admin_Bar $wpAdminBar): void
 	{
+		if (! Option::isOn('admin_bar_howdy')) {
+			return;
+		}
+
 		$currentUser = wp_get_current_user();
 		$userId = get_current_user_id();
 		$avatar = get_avatar($userId, 26);
@@ -164,8 +161,13 @@ final class AdminBar implements Hookable
 		]);
 	}
 
+	#[Action(name: 'admin_bar_menu')]
 	public function addEnvironmentTypeNode(WP_Admin_Bar $wpAdminBar): void
 	{
+		if (! Option::isOn('admin_bar_env_type')) {
+			return;
+		}
+
 		$id = $this->appName . '-environment-type';
 		$inlineData = wp_json_encode(['environmentType' => wp_get_environment_type()]);
 		$wpAdminBar->add_node(
@@ -199,6 +201,7 @@ final class AdminBar implements Hookable
 		$wpAdminBar->add_node($myAccNodeDecoded);
 	}
 
+	#[Filter(name: 'show_admin_bar', priority: PHP_INT_MAX)]
 	public function showAdminBar(bool $value): bool
 	{
 		return is_user_logged_in() ? Option::isOn('admin_bar') : $value;

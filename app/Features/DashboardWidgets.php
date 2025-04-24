@@ -7,6 +7,8 @@ namespace Syntatis\FeatureFlipper\Features;
 use ArrayAccess;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -30,9 +32,7 @@ final class DashboardWidgets implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
-		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('default:dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
@@ -40,7 +40,7 @@ final class DashboardWidgets implements Hookable
 		);
 		$hook->addFilter(
 			Option::hook('dashboard_widgets_enabled'),
-			static fn ($value) => Option::patch(
+			static fn (mixed $value): array => Option::patch(
 				'dashboard_widgets_enabled',
 				is_array($value) ? $value : [],
 				self::getAllDashboardId(),
@@ -49,6 +49,7 @@ final class DashboardWidgets implements Hookable
 		);
 	}
 
+	#[Action(name: 'wp_dashboard_setup', priority: PHP_INT_MAX)]
 	public function setup(): void
 	{
 		if (Admin::isScreen(App::name())) {
@@ -66,6 +67,7 @@ final class DashboardWidgets implements Hookable
 	}
 
 	/** @param array<string> $options List of option names that have been updated. */
+	#[Action(name: 'syntatis/feature_flipper/updated_options')]
 	public function stashOptions(array $options): void
 	{
 		if (
@@ -108,7 +110,8 @@ final class DashboardWidgets implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	#[Filter(name: 'syntatis/feature_flipper/inline_data')]
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		if (! Admin::isScreen(App::name())) {
 			return $data;
@@ -168,7 +171,7 @@ final class DashboardWidgets implements Hookable
 	 *
 	 * @return array<string,array{id:string,title:string}>|null List of dashboard widgets.
 	 */
-	private static function getRegisteredWidgets(WP_Screen $screen): ?array
+	private static function getRegisteredWidgets(WP_Screen $screen): array|null
 	{
 		if (! in_array($screen->id, ['dashboard', 'settings_page_' . App::name()], true)) {
 			return null;
@@ -234,7 +237,7 @@ final class DashboardWidgets implements Hookable
 	 * @return array<string,array<string,array<string,array<string,mixed>>>>
 	 * @phpstan-return DashboardWidgetCollection|null
 	 */
-	private static function getRawWidgets(): ?array
+	private static function getRawWidgets(): array|null
 	{
 		if (! isset($GLOBALS['wp_meta_boxes']) || ! is_array($GLOBALS['wp_meta_boxes'])) {
 			return null;

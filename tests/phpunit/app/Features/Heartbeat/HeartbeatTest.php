@@ -23,7 +23,7 @@ class HeartbeatTest extends WPTestCase
 	/**
 	 * Stores the original `WP_Scripts` instance.
 	 */
-	private ?WP_Scripts $wpScripts;
+	private WP_Scripts|null $wpScripts;
 	private Hook $hook;
 	private Heartbeat $instance;
 

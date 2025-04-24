@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -29,9 +30,10 @@ final class Heartbeat implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('init', [$this, 'deregisterScripts'], PHP_INT_MAX);
+		$hook->parse($this);
 	}
 
+	#[Action(name: 'init', priority: PHP_INT_MAX)]
 	public function deregisterScripts(): void
 	{
 		if (Option::isOn('heartbeat')) {

@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper\Features\Updates;
 
 use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -19,21 +20,21 @@ final class Updates implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->parse($this);
 		$hook->addFilter(
 			Option::hook('updates'),
-			static fn ($value) => Helpers\Updates::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\Updates::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			Option::hook('default:auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 		$hook->addFilter(
 			Option::hook('auto_updates'),
-			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
+			static fn (mixed $value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 
 		if (! Option::isOn('updates')) {
-			$hook->addAction('admin_menu', [$this, 'removeMenu'], PHP_INT_MAX);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
@@ -53,8 +54,16 @@ final class Updates implements Hookable, Extendable
 	/**
 	 * Remove the "Updates" menu from the Menu in the admin area.
 	 */
+	#[Action(name: 'admin_menu', priority: PHP_INT_MAX)]
 	public function removeMenu(): void
 	{
+		/**
+		 * If the Updates feature is enabled, we don't need to remove the menu.
+		 */
+		if (Option::isOn('updates')) {
+			return;
+		}
+
 		remove_submenu_page('index.php', 'update-core.php');
 	}
 

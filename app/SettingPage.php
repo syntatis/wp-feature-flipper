@@ -6,6 +6,7 @@ namespace Syntatis\FeatureFlipper;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Codex\Settings\Settings;
 use Syntatis\FeatureFlipper\Helpers\Admin;
@@ -36,6 +37,7 @@ final class SettingPage implements Hookable
 	/** @phpstan-var non-empty-string */
 	private string $appName;
 
+	/** @phpstan-var non-empty-string */
 	private string $scriptHandle;
 
 	private string $inlineData = '';
@@ -49,13 +51,11 @@ final class SettingPage implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_bar_menu', [$this, 'addInlineScript'], PHP_INT_MAX);
-		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
-		$hook->addAction('admin_menu', [$this, 'addMenu']);
+		$hook->parse($this);
 		$hook->addAction('load-settings_page_' . $this->appName, [$this, 'addHelpTab']);
-		$hook->addFilter('plugin_action_links', [$this, 'filterPluginActionLinks'], 10, 2);
 	}
 
+	#[Action('admin_menu')]
 	public function addMenu(): void
 	{
 		add_submenu_page(
@@ -75,6 +75,7 @@ final class SettingPage implements Hookable
 	}
 
 	/** @param string $adminPage The current admin page. */
+	#[Action('admin_enqueue_scripts')]
 	public function enqueueAdminScripts(string $adminPage): void
 	{
 		if (! Admin::isScreen($this->appName)) {
@@ -101,6 +102,7 @@ final class SettingPage implements Hookable
 		wp_set_script_translations($this->scriptHandle, 'syntatis-feature-flipper');
 	}
 
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MAX)]
 	public function addInlineScript(): void
 	{
 		if (! Admin::isScreen($this->appName)) {
@@ -121,7 +123,8 @@ final class SettingPage implements Hookable
 	 *
 	 * @return array<string>
 	 */
-	public function filterPluginActionLinks(array $links, string $pluginFile): array
+	#[Action(name: 'plugin_action_links', acceptedArgs: 2)]
+	public function pluginActionLinks(array $links, string $pluginFile): array
 	{
 		if (basename($pluginFile, '.php') !== $this->appName) {
 			return $links;
@@ -187,7 +190,7 @@ final class SettingPage implements Hookable
 		$keys = array_keys($all);
 		$data = array_filter(
 			$data,
-			static fn ($key): bool => in_array($key, $keys, true),
+			static fn (string $key): bool => in_array($key, $keys, true),
 			ARRAY_FILTER_USE_KEY,
 		);
 

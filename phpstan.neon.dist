@@ -14,10 +14,18 @@ parameters:
       identifier: shipmonk.checkedExceptionInYieldingMethod
     -
       identifier: shipmonk.forbiddenCast
+    -
+      # Todo: Add customization as plugins https://github.com/shipmonk-rnd/dead-code-detector?tab=readme-ov-file#customization
+      identifier: shipmonk.deadMethod
+      paths:
+        - app/Modules/*
+        - app/Features/*
+        - app/SettingPage.php
+        - app/CommonScripts.php
 
   ## syntatis/phpstan-psr-11
   syntatis:
-        psr-11: SSFV\Psr\Container\ContainerInterface
+    psr-11: SSFV\Psr\Container\ContainerInterface
 
   ## johnbillion/wp-compat
   WPCompat:

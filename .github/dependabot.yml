@@ -20,7 +20,7 @@ updates:
       - "composer"
     ignore:
       - dependency-name: "symfony/*"
-        versions: [">=6.0"]
+        versions: [">=7.0"]
     groups:
       composer-require:
         dependency-type: "production"

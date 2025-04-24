@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\URL;
 
 use function is_string;
 
-use const PHP_INT_MAX;
-
 final class LoginIdentifier implements Hookable
 {
-	private ?string $identifier;
+	private string|null $identifier;
 
 	public function __construct()
 	{
@@ -29,7 +28,7 @@ final class LoginIdentifier implements Hookable
 			return;
 		}
 
-		$hook->addFilter('gettext', [$this, 'filterGetText'], PHP_INT_MAX, 3);
+		$hook->parse($this);
 
 		switch ($this->identifier) {
 			case 'email':
@@ -42,7 +41,8 @@ final class LoginIdentifier implements Hookable
 		}
 	}
 
-	public function filterGetText(string $translation, string $text, string $domain): string
+	#[Filter(name: 'gettext', priority: 20, acceptedArgs: 3)]
+	public function getText(string $translation, string $text, string $domain): string
 	{
 		if (! URL::isLogin() || $domain !== 'default') {
 			return $translation;
@@ -51,15 +51,11 @@ final class LoginIdentifier implements Hookable
 		if ($text === 'Username or Email Address') {
 			$identifier = $this->identifier;
 
-			switch ($identifier) {
-				case 'username':
-					// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- Translation will be handled by Core
-					return __('Username');
-
-				case 'email':
-					// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- Translation will be handled by Core
-					return __('Email');
-			}
+			return match ($identifier) {
+				'username' => __('Username'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- Translation will be handled by Core
+				'email' => __('Email'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- Translation will be handled by Core
+				default => $translation,
+			};
 		}
 
 		return $translation;

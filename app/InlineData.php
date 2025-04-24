@@ -38,35 +38,17 @@ final class InlineData implements ArrayAccess, JsonSerializable
 		];
 	}
 
-	/** @param mixed $offset */
-	public function offsetExists($offset): bool
+	public function offsetExists(mixed $offset): bool
 	{
-		if (is_string($offset)) {
-			return isset($this->data[$offset]);
-		}
-
-		return false;
+		return isset($this->data[$offset]);
 	}
 
-	/**
-	 * @param mixed $offset
-	 *
-	 * @return mixed $offset
-	 */
-	public function offsetGet($offset)
+	public function offsetGet(mixed $offset): mixed
 	{
-		if (is_string($offset)) {
-			return $this->data[$offset] ?? null;
-		}
-
-		return null;
+		return $this->data[$offset] ?? null;
 	}
 
-	/**
-	 * @param mixed $offset
-	 * @param mixed $value
-	 */
-	public function offsetSet($offset, $value): void
+	public function offsetSet(mixed $offset, mixed $value): void
 	{
 		if (! is_string($offset) || $value === null) {
 			return;
@@ -75,8 +57,7 @@ final class InlineData implements ArrayAccess, JsonSerializable
 		$this->data[$offset] = $value;
 	}
 
-	/** @param mixed $offset */
-	public function offsetUnset($offset): void
+	public function offsetUnset(mixed $offset): void
 	{
 		throw new BadMethodCallException('Cannot unset data');
 	}

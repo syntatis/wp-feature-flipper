@@ -26,10 +26,8 @@ final class Option
 	 * Retrieve the value of the plugin option.
 	 *
 	 * @phpstan-param non-empty-string $name
-	 *
-	 * @return mixed
 	 */
-	public static function get(string $name)
+	public static function get(string $name): mixed
 	{
 		return get_option(self::name($name));
 	}
@@ -51,7 +49,7 @@ final class Option
 	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
 	 * @phpstan-param non-empty-string $name
 	 */
-	public static function update(string $name, $value): bool
+	public static function update(string $name, mixed $value): bool
 	{
 		return update_option(self::name($name), $value);
 	}
@@ -63,7 +61,7 @@ final class Option
 	 * @param mixed  $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
 	 * @phpstan-param non-empty-string $name
 	 */
-	public static function add(string $name, $value): bool
+	public static function add(string $name, mixed $value): bool
 	{
 		return add_option(self::name($name), $value);
 	}
@@ -167,7 +165,7 @@ final class Option
 		}
 
 		if (count($source) <= count($stashed)) {
-			$value = array_filter($value, static fn ($v) => in_array($v, $source, true));
+			$value = array_filter($value, static fn (mixed $v) => in_array($v, $source, true));
 		}
 
 		return array_values(

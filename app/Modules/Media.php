@@ -23,7 +23,7 @@ final class Media implements Hookable, Extendable
 
 		$hook->addFilter(
 			'jpeg_quality',
-			static function ($quality) {
+			static function (): mixed {
 				if (! Option::isOn('jpeg_compression')) {
 					return 100;
 				}

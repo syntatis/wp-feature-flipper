@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -17,28 +19,28 @@ final class ManagePostEditor implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
+		$hook->parse($this);
 
 		/**
 		 * Filter the Heartbeat settings for the post editor screen.
 		 *
 		 * When Heartbeat is disabled from the global option, it should also disable
-		 * the "heartbeat_post_editor" option.
+		 * the `heartbeat_post_editor` option.
 		 */
 		$hook->addFilter(
 			Option::hook('heartbeat_post_editor'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			Option::hook('default:heartbeat_post_editor'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 
 	/**
 	 * Deregister the Heartbeat script in the post editor screen.
 	 */
+	#[Action(name: 'admin_init', priority: PHP_INT_MAX)]
 	public function deregisterScripts(): void
 	{
 		if (! self::isPostEditor() || Option::isOn('heartbeat_post_editor')) {
@@ -55,7 +57,8 @@ final class ManagePostEditor implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function filterSettings(array $settings): array
+	#[Filter(name: 'heartbeat_settings', priority: PHP_INT_MAX)]
+	public function settings(array $settings): array
 	{
 		if (
 			! self::isPostEditor() ||

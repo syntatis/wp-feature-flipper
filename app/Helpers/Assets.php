@@ -49,7 +49,7 @@ final class Assets
 	 */
 	private static function sanitizeDependencies(array $dependencies): array
 	{
-		$filtered = array_filter($dependencies, static fn ($dep) => is_string($dep) && $dep !== '');
+		$filtered = array_filter($dependencies, static fn (mixed $dep) => is_string($dep) && $dep !== '');
 
 		return array_values(array_map('sanitize_key', $filtered));
 	}

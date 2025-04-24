@@ -6,6 +6,8 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -35,39 +37,7 @@ final class Comments implements Hookable
 			return;
 		}
 
-		$hook->addFilter('rest_endpoints', [$this, 'filterRestEndpoints'], PHP_INT_MAX);
-		$hook->addFilter('xmlrpc_methods', [$this, 'filterXmlrpcMethods'], PHP_INT_MAX);
-
-		/**
-		 * Remove comments UI from the admin area.
-		 */
-		$hook->addAction('admin_bar_menu', [$this, 'removeAdminBarMenu'], PHP_INT_MAX);
-		$hook->addAction('admin_init', [$this, 'removePostTypeSupport'], PHP_INT_MAX);
-		$hook->addAction('admin_menu', [$this, 'removeAdminMenu'], PHP_INT_MAX);
-		$hook->addAction('do_meta_boxes', [$this, 'removePostMetabox'], PHP_INT_MAX);
-
-		/**
-		 * Remove Core comments blocks from the block editor.
-		 */
-		$hook->addAction('init', [$this, 'unregisterBlocksServer'], PHP_INT_MAX);
-		$hook->addAction('enqueue_block_editor_assets', [$this, 'unregisterBlocksClient'], PHP_INT_MAX);
-
-		/**
-		 * Modify the comments query to prevent comments from being displayed in the
-		 * admin "Dashboard".
-		 */
-		$hook->addFilter('comments_pre_query', [$this, 'filterCommentsPreQuery'], PHP_INT_MAX, 2);
-		$hook->addFilter('wp_count_comments', [$this, 'filterCommentsCount'], PHP_INT_MAX, 2);
-
-		/**
-		 * Prevent comments from being displayed on the theme template.
-		 *
-		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
-		 */
-		$hook->addFilter('comments_array', [$this, 'filterCommentsArray'], PHP_INT_MAX, 2);
-		$hook->addFilter('comments_open', [$this, 'filterCommentsOpen'], PHP_INT_MAX, 2);
-		$hook->addFilter('get_comments_number', [$this, 'filterGetCommentsNumber'], PHP_INT_MAX, 2);
-		$hook->addFilter('pings_open', [$this, 'filterPingsOpen'], PHP_INT_MAX, 2);
+		$hook->parse($this);
 
 		/**
 		 * Handle feed links and page for comments.
@@ -77,6 +47,7 @@ final class Comments implements Hookable
 		$hook->addFilter('post_comments_feed_link_html', '__return_empty_string', PHP_INT_MAX);
 	}
 
+	#[Action(name: 'admin_init', priority: PHP_INT_MAX)]
 	public function removePostTypeSupport(): void
 	{
 		foreach (get_post_types_by_support('comments') as $postType) {
@@ -89,6 +60,7 @@ final class Comments implements Hookable
 		}
 	}
 
+	#[Action(name: 'do_meta_boxes', priority: PHP_INT_MAX)]
 	public function removePostMetabox(string $postType): void
 	{
 		if (in_array($postType, self::EXCLUDE_POST_TYPES, true)) {
@@ -99,6 +71,7 @@ final class Comments implements Hookable
 		remove_meta_box('commentsdiv', $postType, 'normal');
 	}
 
+	#[Action(name: 'admin_menu', priority: PHP_INT_MAX)]
 	public function removeAdminMenu(): void
 	{
 		if (Admin::isScreen('comment.php') || Admin::isScreen('edit-comments.php')) {
@@ -122,11 +95,13 @@ final class Comments implements Hookable
 		remove_submenu_page('options-general.php', 'options-discussion.php');
 	}
 
+	#[Action(name: 'admin_bar_menu', priority: PHP_INT_MAX)]
 	public function removeAdminBarMenu(WP_Admin_Bar $wpAdminBar): void
 	{
 		$wpAdminBar->remove_node('comments');
 	}
 
+	#[Action(name: 'init', priority: PHP_INT_MAX)]
 	public function unregisterBlocksServer(): void
 	{
 		$blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
@@ -157,6 +132,7 @@ final class Comments implements Hookable
 		}
 	}
 
+	#[Action(name: 'enqueue_block_editor_assets', priority: PHP_INT_MAX)]
 	public function unregisterBlocksClient(): void
 	{
 		$assetFile = App::dir('dist/assets/comments/index.asset.php');
@@ -182,7 +158,8 @@ final class Comments implements Hookable
 	 *
 	 * @return array<string,string>
 	 */
-	public function filterXmlrpcMethods(array $methods): array
+	#[Filter(name: 'xmlrpc_methods', priority: PHP_INT_MAX)]
+	public function xmlrpcMethods(array $methods): array
 	{
 		unset($methods['wp.deleteComment']);
 		unset($methods['wp.editComment']);
@@ -200,7 +177,8 @@ final class Comments implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function filterRestEndpoints(array $endpoints): array
+	#[Filter(name: 'rest_endpoints', priority: PHP_INT_MAX)]
+	public function restEndpoints(array $endpoints): array
 	{
 		unset($endpoints['/wp/v2/comments']);
 		unset($endpoints['/wp/v2/comments/(?P<id>[\d]+)']);
@@ -213,7 +191,8 @@ final class Comments implements Hookable
 	 *
 	 * @return array<int>|array<WP_Comment>|null
 	 */
-	public function filterCommentsPreQuery(?array $comments, WP_Comment_Query $query): ?array
+	#[Filter(name: 'comments_pre_query', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function commentsPreQuery(array|null $comments, WP_Comment_Query $query): array|null
 	{
 		// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps -- WordPress core variable.
 		$postType = $query->query_vars['post_type'] ?? '';
@@ -256,7 +235,8 @@ final class Comments implements Hookable
 	 *
 	 * @return object|array<string,int>
 	 */
-	public function filterCommentsCount($count, int $postId)
+	#[Filter(name: 'wp_count_comments', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function countComments(object|array $count, int $postId): object|array
 	{
 		if (
 			(Admin::isScreen('dashboard') && $postId === 0) ||
@@ -284,7 +264,8 @@ final class Comments implements Hookable
 	 *
 	 * @return array<WP_Comment>
 	 */
-	public function filterCommentsArray(array $comments, int $postId): array
+	#[Filter(name: 'comments_array', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function commentsArray(array $comments, int $postId): array
 	{
 		if (! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)) {
 			return [];
@@ -296,19 +277,8 @@ final class Comments implements Hookable
 	/**
 	 * Filter whether the current post is open for comments.
 	 */
-	public function filterCommentsOpen(bool $isOpen, int $postId): bool
-	{
-		if (! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)) {
-			return false;
-		}
-
-		return $isOpen;
-	}
-
-	/**
-	 * Filter whether the current post is open for pings.
-	 */
-	public function filterPingsOpen(bool $isOpen, int $postId): bool
+	#[Filter(name: 'comments_open', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function commentsOpen(bool $isOpen, int $postId): bool
 	{
 		if (! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)) {
 			return false;
@@ -320,12 +290,26 @@ final class Comments implements Hookable
 	/**
 	 * Filter the number of comments a post has to show on the theme template.
 	 */
-	public function filterGetCommentsNumber(int $number, int $postId): int
+	#[Filter(name: 'get_comments_number', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function getCommentsNumber(int $number, int $postId): int
 	{
 		if (! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)) {
 			return 0;
 		}
 
 		return $number;
+	}
+
+	/**
+	 * Filter whether the current post is open for pings.
+	 */
+	#[Filter(name: 'pings_open', priority: PHP_INT_MAX, acceptedArgs: 2)]
+	public function pingsOpen(bool $isOpen, int $postId): bool
+	{
+		if (! in_array(get_post_type($postId), self::EXCLUDE_POST_TYPES, true)) {
+			return false;
+		}
+
+		return $isOpen;
 	}
 }

@@ -75,7 +75,7 @@ final class URL
 		return false;
 	}
 
-	private static function parsePath(string $url): ?string
+	private static function parsePath(string $url): string|null
 	{
 		$path = parse_url($url, PHP_URL_PATH);
 

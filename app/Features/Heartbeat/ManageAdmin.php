@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Features\Heartbeat;
 
 use SSFV\Codex\Contracts\Hookable;
+use SSFV\Codex\Foundation\Hooks\Action;
+use SSFV\Codex\Foundation\Hooks\Filter;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -17,8 +19,7 @@ final class ManageAdmin implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_init', [$this, 'deregisterScripts'], PHP_INT_MAX);
-		$hook->addFilter('heartbeat_settings', [$this, 'filterSettings'], PHP_INT_MAX);
+		$hook->parse($this);
 
 		/**
 		 * Filter the Heartbeat settings for the admin area.
@@ -28,17 +29,18 @@ final class ManageAdmin implements Hookable
 		 */
 		$hook->addFilter(
 			Option::hook('heartbeat_admin'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 		$hook->addFilter(
 			Option::hook('default:heartbeat_admin'),
-			static fn ($value) => Option::isOn('heartbeat') ? $value : false,
+			static fn (mixed $value) => Option::isOn('heartbeat') ? $value : false,
 		);
 	}
 
 	/**
 	 * Deregister the Heartbeat script in the admin area.
 	 */
+	#[Action(name: 'admin_init', priority: PHP_INT_MAX)]
 	public function deregisterScripts(): void
 	{
 		if (
@@ -59,7 +61,8 @@ final class ManageAdmin implements Hookable
 	 *
 	 * @return array<string,mixed>
 	 */
-	public function filterSettings(array $settings = []): array
+	#[Filter(name: 'heartbeat_settings', priority: PHP_INT_MAX)]
+	public function settings(array $settings = []): array
 	{
 		/**
 		 * If it's not admin, return the settings as is.
