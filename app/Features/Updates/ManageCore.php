@@ -113,7 +113,7 @@ final class ManageCore implements Hookable
 	 * @return array<string,array<string,mixed>>
 	 */
 	#[Filter(name: 'site_status_tests')]
-	public function filterSiteStatusTests(array $tests): array
+	public function siteStatusTests(array $tests = []): array
 	{
 		if (Option::isOn('update_core')) {
 			return $tests;
