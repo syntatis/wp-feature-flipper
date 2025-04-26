@@ -114,18 +114,28 @@ final class General implements Hookable, Extendable
 		$minLength = Option::get('comment_min_length');
 		$minLength = is_numeric($minLength) ? absint($minLength) : null;
 
-		if ($minLength === null) {
-			return $commentData;
-		}
+		$maxLength = Option::get('comment_max_length');
+		$maxLength = is_numeric($maxLength) ? absint($maxLength) : null;
 
 		$length = Str::length(
 			strip_tags($commentData['comment_content']),
 			get_bloginfo('charset'),
 		);
 
-		if (is_int($length) && $length < $minLength) {
+		if (is_int($length) && $minLength !== null && $length < $minLength) {
 			wp_die(
-				esc_html(__('Comment\'s too short. Please add something more helpful.', 'syntatis-feature-flipper')),
+				esc_html(__('Comment\'s too short. Please write something more helpful.', 'syntatis-feature-flipper')),
+				esc_html(__('Comment Error', 'syntatis-feature-flipper')),
+				[
+					'response' => 400,
+					'back_link' => true,
+				],
+			);
+		}
+
+		if (is_int($length) && $maxLength !== null && $length > $maxLength) {
+			wp_die(
+				esc_html(__('Comment\'s too long. Please write more concisely.', 'syntatis-feature-flipper')),
 				esc_html(__('Comment Error', 'syntatis-feature-flipper')),
 				[
 					'response' => 400,
