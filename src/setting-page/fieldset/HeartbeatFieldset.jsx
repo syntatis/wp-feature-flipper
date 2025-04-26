@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { Checkbox, Option, Select } from '@syntatis/kubrick';
 import { useState } from '@wordpress/element';
 import { SwitchFieldset } from './SwitchFieldset';
-import { Details, HelpContent } from '../components';
+import { HelpContent } from '../components';
 import { useSettingsContext } from '../form';
 import styles from './HeartbeatFieldset.module.scss';
 
@@ -71,188 +71,180 @@ export const HeartbeatFieldset = () => {
 			}
 		>
 			{ values.heartbeat && (
-				<Details
-					summary={ __( 'Settings', 'syntatis-feature-flipper' ) }
-				>
-					<div className={ styles.group }>
-						<div
-							id="heartbeat-on-admin"
-							role="group"
-							aria-labelledby="heartbeat-on-admin-head"
-						>
-							<div id="heartbeat-on-admin-head">
-								<strong>
-									{ __(
-										'On admin',
-										'syntatis-feature-flipper'
-									) }
-								</strong>
-							</div>
-							<Checkbox
-								{ ...inputProps( 'heartbeat_admin' ) }
-								defaultSelected={ values.heartbeat_admin }
-								onChange={ ( checked ) => {
-									setValues( ( currentValues ) => {
-										return {
-											...currentValues,
-											heartbeat_admin: checked,
-										};
-									} );
-								} }
-								label={ __(
-									'Enable request on the admin area once every',
-									'syntatis-feature-flipper'
-								) }
-								suffix={
-									<Select
-										{ ...inputProps(
-											'heartbeat_admin_interval'
-										) }
-										name={ undefined } // Name is set in the hidden input.
-										onSelectionChange={ ( value ) => {
-											setValues( ( currentValues ) => {
-												return {
-													...currentValues,
-													heartbeat_admin_interval:
-														value,
-												};
-											} );
-										} }
-										selectedItem={
-											values.heartbeat_admin_interval
-										}
-										isDisabled={ ! values.heartbeat_admin }
-									>
-										<Option value={ 15 }>
-											{ __(
-												'15 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 30 }>
-											{ __(
-												'30 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 60 }>
-											{ __(
-												'1 minute',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 120 }>
-											{ __(
-												'2 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 300 }>
-											{ __(
-												'5 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 600 }>
-											{ __(
-												'10 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-									</Select>
-								}
-							/>
+				<div className={ styles.group }>
+					<div
+						id="heartbeat-on-admin"
+						role="group"
+						aria-labelledby="heartbeat-on-admin-head"
+					>
+						<div id="heartbeat-on-admin-head">
+							<strong>
+								{ __( 'On admin', 'syntatis-feature-flipper' ) }
+							</strong>
 						</div>
-						<div
-							id="heartbeat-on-post-editor"
-							role="group"
-							aria-labelledby="heartbeat-on-post-editor-head"
-						>
-							<div id="heartbeat-on-post-editor-head">
-								<strong>
-									{ __(
-										'On post editor',
-										'syntatis-feature-flipper'
+						<Checkbox
+							{ ...inputProps( 'heartbeat_admin' ) }
+							defaultSelected={ values.heartbeat_admin }
+							onChange={ ( checked ) => {
+								setValues( ( currentValues ) => {
+									return {
+										...currentValues,
+										heartbeat_admin: checked,
+									};
+								} );
+							} }
+							label={ __(
+								'Enable request on the admin area once every',
+								'syntatis-feature-flipper'
+							) }
+							suffix={
+								<Select
+									{ ...inputProps(
+										'heartbeat_admin_interval'
 									) }
-								</strong>
-							</div>
-							<Checkbox
-								{ ...inputProps( 'heartbeat_post_editor' ) }
-								defaultSelected={ values.heartbeat_post_editor }
-								onChange={ ( checked ) => {
-									setValues( ( currentValues ) => {
-										return {
-											...currentValues,
-											heartbeat_post_editor: checked,
-										};
-									} );
-								} }
-								label={ __(
-									'Enable request on the post editor once every',
-									'syntatis-feature-flipper'
-								) }
-								suffix={
-									<Select
-										{ ...inputProps(
-											'heartbeat_post_editor_interval'
+									name={ undefined } // Name is set in the hidden input.
+									onSelectionChange={ ( value ) => {
+										setValues( ( currentValues ) => {
+											return {
+												...currentValues,
+												heartbeat_admin_interval: value,
+											};
+										} );
+									} }
+									selectedItem={
+										values.heartbeat_admin_interval
+									}
+									isDisabled={ ! values.heartbeat_admin }
+								>
+									<Option value={ 15 }>
+										{ __(
+											'15 seconds',
+											'syntatis-feature-flipper'
 										) }
-										name={ undefined } // Name is set in the hidden input.
-										onSelectionChange={ ( value ) => {
-											setValues( ( currentValues ) => {
-												return {
-													...currentValues,
-													heartbeat_post_editor_interval:
-														value,
-												};
-											} );
-										} }
-										selectedItem={
-											values.heartbeat_post_editor_interval
-										}
-										isDisabled={
-											! values.heartbeat_post_editor
-										}
-									>
-										<Option value={ 15 }>
-											{ __(
-												'15 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 30 }>
-											{ __(
-												'30 seconds',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 60 }>
-											{ __(
-												'1 minute',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-										<Option value={ 120 }>
-											{ __(
-												'2 minutes',
-												'syntatis-feature-flipper'
-											) }
-										</Option>
-									</Select>
-								}
-							/>
-						</div>
-						<input
-							type="hidden"
-							name={ `${ optionPrefix }heartbeat_admin_interval` }
-							value={ values.heartbeat_admin_interval }
-						/>
-						<input
-							type="hidden"
-							name={ `${ optionPrefix }heartbeat_post_editor_interval` }
-							value={ values.heartbeat_post_editor_interval }
+									</Option>
+									<Option value={ 30 }>
+										{ __(
+											'30 seconds',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 60 }>
+										{ __(
+											'1 minute',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 120 }>
+										{ __(
+											'2 minutes',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 300 }>
+										{ __(
+											'5 minutes',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 600 }>
+										{ __(
+											'10 minutes',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+								</Select>
+							}
 						/>
 					</div>
-				</Details>
+					<div
+						id="heartbeat-on-post-editor"
+						role="group"
+						aria-labelledby="heartbeat-on-post-editor-head"
+					>
+						<div id="heartbeat-on-post-editor-head">
+							<strong>
+								{ __(
+									'On post editor',
+									'syntatis-feature-flipper'
+								) }
+							</strong>
+						</div>
+						<Checkbox
+							{ ...inputProps( 'heartbeat_post_editor' ) }
+							defaultSelected={ values.heartbeat_post_editor }
+							onChange={ ( checked ) => {
+								setValues( ( currentValues ) => {
+									return {
+										...currentValues,
+										heartbeat_post_editor: checked,
+									};
+								} );
+							} }
+							label={ __(
+								'Enable request on the post editor once every',
+								'syntatis-feature-flipper'
+							) }
+							suffix={
+								<Select
+									{ ...inputProps(
+										'heartbeat_post_editor_interval'
+									) }
+									name={ undefined } // Name is set in the hidden input.
+									onSelectionChange={ ( value ) => {
+										setValues( ( currentValues ) => {
+											return {
+												...currentValues,
+												heartbeat_post_editor_interval:
+													value,
+											};
+										} );
+									} }
+									selectedItem={
+										values.heartbeat_post_editor_interval
+									}
+									isDisabled={
+										! values.heartbeat_post_editor
+									}
+								>
+									<Option value={ 15 }>
+										{ __(
+											'15 seconds',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 30 }>
+										{ __(
+											'30 seconds',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 60 }>
+										{ __(
+											'1 minute',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+									<Option value={ 120 }>
+										{ __(
+											'2 minutes',
+											'syntatis-feature-flipper'
+										) }
+									</Option>
+								</Select>
+							}
+						/>
+					</div>
+					<input
+						type="hidden"
+						name={ `${ optionPrefix }heartbeat_admin_interval` }
+						value={ values.heartbeat_admin_interval }
+					/>
+					<input
+						type="hidden"
+						name={ `${ optionPrefix }heartbeat_post_editor_interval` }
+						value={ values.heartbeat_post_editor_interval }
+					/>
+				</div>
 			) }
 		</SwitchFieldset>
 	);
