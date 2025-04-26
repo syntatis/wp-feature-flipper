@@ -8,10 +8,14 @@ import styles from './CommentsFieldset.module.scss';
 export const CommentsFieldset = () => {
 	const { getOption, getOptionName } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'comments' ) );
-
-	const minCharsEnabled = getOption( 'comment_min_length_enabled' );
+	const [ isMinEnabled, setMinEnabled ] = useState(
+		getOption( 'comment_min_length_enabled' )
+	);
+	const [ isMaxEnabled, setMaxEnabled ] = useState(
+		getOption( 'comment_max_length_enabled' )
+	);
 	const minChars = getOption( 'comment_min_length' );
-	const [ isMinEnabled, setMinEnabled ] = useState( minCharsEnabled );
+	const maxChars = getOption( 'comment_max_length' );
 
 	return (
 		<SwitchFieldset
@@ -35,9 +39,13 @@ export const CommentsFieldset = () => {
 						name={ getOptionName( 'comment_min_length_enabled' ) }
 						onChange={ setMinEnabled }
 						defaultSelected={ isMinEnabled }
+						description={ __(
+							'Apply minimum number of characters required to post a comment.',
+							'syntatis-feature-flipper'
+						) }
 						suffix={
 							<TextField
-								className={ `${ styles.minInput } code` }
+								className={ `${ styles.inputNumber } code` }
 								min={ 1 }
 								name={ getOptionName( 'comment_min_length' ) }
 								defaultValue={ minChars }
@@ -49,10 +57,33 @@ export const CommentsFieldset = () => {
 								) }
 							/>
 						}
-						description={ __(
-							'Apply minimum number of characters required to post a comment.',
+					/>
+					<Checkbox
+						label={ __(
+							'Maximum length:',
 							'syntatis-feature-flipper'
 						) }
+						name={ getOptionName( 'comment_max_length_enabled' ) }
+						onChange={ setMaxEnabled }
+						defaultSelected={ isMaxEnabled }
+						description={ __(
+							'Apply maximum number of characters required to post a comment.',
+							'syntatis-feature-flipper'
+						) }
+						suffix={
+							<TextField
+								className={ `${ styles.inputNumber } code` }
+								min={ 1 }
+								name={ getOptionName( 'comment_max_length' ) }
+								defaultValue={ maxChars }
+								type="number"
+								isReadOnly={ ! isMaxEnabled }
+								suffix={ __(
+									'characters',
+									'syntatis-feature-flipper'
+								) }
+							/>
+						}
 					/>
 				</div>
 			) }
