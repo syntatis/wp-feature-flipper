@@ -19,13 +19,13 @@ use function array_filter;
 use function define;
 use function defined;
 use function is_array;
-use function is_int;
 use function is_numeric;
 use function is_string;
 use function str_starts_with;
 use function strip_tags;
 
 use const PHP_INT_MAX;
+use const PHP_INT_MIN;
 
 final class General implements Hookable, Extendable
 {
@@ -51,9 +51,7 @@ final class General implements Hookable, Extendable
 			}, 99);
 		}
 
-		if (Option::isOn('comment_min_length_enabled')) {
-			$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MAX);
-		}
+		$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MIN);
 
 		/**
 		 * When revisions are disabled, force the maximum revisions to 0 to prevent
@@ -111,27 +109,45 @@ final class General implements Hookable, Extendable
 			return $commentData;
 		}
 
-		$minLength = Option::get('comment_min_length');
-		$minLength = is_numeric($minLength) ? absint($minLength) : null;
-
-		if ($minLength === null) {
-			return $commentData;
-		}
-
 		$length = Str::length(
 			strip_tags($commentData['comment_content']),
 			get_bloginfo('charset'),
 		);
 
-		if (is_int($length) && $length < $minLength) {
-			wp_die(
-				esc_html(__('Comment\'s too short. Please add something more helpful.', 'syntatis-feature-flipper')),
-				esc_html(__('Comment Error', 'syntatis-feature-flipper')),
-				[
-					'response' => 400,
-					'back_link' => true,
-				],
-			);
+		if ($length === false) {
+			return $commentData;
+		}
+
+		if (Option::isOn('comment_min_length_enabled')) {
+			$minLength = Option::get('comment_min_length');
+			$minLength = is_numeric($minLength) ? absint($minLength) : null;
+
+			if ($minLength !== null && $length < $minLength) {
+				wp_die(
+					esc_html(__('Comment\'s too short. Please write something more helpful.', 'syntatis-feature-flipper')),
+					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
+					[
+						'response' => 400,
+						'back_link' => true,
+					],
+				);
+			}
+		}
+
+		if (Option::isOn('comment_max_length_enabled')) {
+			$maxLength = Option::get('comment_max_length');
+			$maxLength = is_numeric($maxLength) ? absint($maxLength) : null;
+
+			if ($maxLength !== null && $length > $maxLength) {
+				wp_die(
+					esc_html(__('Comment\'s too long. Please write more concisely.', 'syntatis-feature-flipper')),
+					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
+					[
+						'response' => 400,
+						'back_link' => true,
+					],
+				);
+			}
 		}
 
 		return $commentData;

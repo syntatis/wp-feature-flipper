@@ -65,6 +65,10 @@ return [
 		->withDefault(false),
 	(new Setting('comment_min_length', 'number'))
 		->withDefault(10),
+	(new Setting('comment_max_length_enabled', 'boolean'))
+		->withDefault(false),
+	(new Setting('comment_max_length', 'number'))
+		->withDefault(100),
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
 
