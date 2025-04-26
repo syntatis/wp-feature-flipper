@@ -13,6 +13,7 @@ use Syntatis\Tests\WPTestCase;
 use WPDieException;
 
 use const PHP_INT_MAX;
+use const PHP_INT_MIN;
 
 /** @group module-general */
 class GeneralTest extends WPTestCase
@@ -36,6 +37,7 @@ class GeneralTest extends WPTestCase
 	public function testHook(): void
 	{
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('use_widgets_block_editor', [$this->instance, 'filterUseWidgetsBlockEditor']));
+		$this->assertSame(PHP_INT_MIN, $this->hook->hasFilter('preprocess_comment', [$this->instance, 'filterPreprocessComment']));
 	}
 
 	/** @testdox should default values */
@@ -79,23 +81,6 @@ class GeneralTest extends WPTestCase
 		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(false));
 	}
 
-	/** @testdox should return the comment value as is */
-	public function testFilterPreprocessComment(): void
-	{
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'hello world!']);
-
-		$this->assertEquals(['comment_content' => 'hello world!'], $comment);
-	}
-
-	/** @testdox should fail with WPDieException exception */
-	public function testFilterPreprocessCommentFailed(): void
-	{
-		$this->expectException(WPDieException::class);
-		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
-
-		$this->instance->filterPreprocessComment(['comment_content' => 'hi']);
-	}
-
 	/**
 	 * @group feature-revisions
 	 * @testdox should be enabled or disabled based on the "revisions" option value
@@ -137,13 +122,30 @@ class GeneralTest extends WPTestCase
 
 	/**
 	 * @group feature-comments
+	 * @testdox should return the comment value as is when the comment min length is disabled
+	 */
+	public function testMinCommentLengthDisabled(): void
+	{
+		$this->assertFalse(Option::isOn('comment_min_length_enabled'));
+
+		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
+
+		$this->assertEquals(['comment_content' => 'Hi!'], $comment);
+	}
+
+	/**
+	 * @group feature-comments
 	 * @testdox should return the comment value or fail the comment is too short (default: 10 characters)
 	 */
-	public function testMinCommentLengthDefault(): void
+	public function testMinCommentLengthEnabled(): void
 	{
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'hello world!']); // 12 characters.
+		Option::update('comment_min_length_enabled', true);
 
-		$this->assertEquals(['comment_content' => 'hello world!'], $comment);
+		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
+		$this->assertEquals(
+			['comment_content' => 'hello world!'],
+			$this->instance->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
+		);
 
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
@@ -157,8 +159,10 @@ class GeneralTest extends WPTestCase
 	 */
 	public function testMinCommentLengthUpdated(): void
 	{
+		Option::update('comment_min_length_enabled', true);
 		Option::update('comment_min_length', 20);
 
+		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
 		$this->assertSame(20, Option::get('comment_min_length'));
 
 		// Asserting with value about 20 characters.
@@ -178,10 +182,27 @@ class GeneralTest extends WPTestCase
 
 	/**
 	 * @group feature-comments
+	 * @testdox should return the comment value as is when the comment max length is disabled
+	 */
+	public function testMaxCommentLengthDisabled(): void
+	{
+		$this->assertFalse(Option::isOn('comment_max_length_enabled'));
+
+		$text = $this->faker->realTextBetween(101, 200);
+		$comment = $this->instance->filterPreprocessComment(['comment_content' => $text]);
+
+		$this->assertEquals(['comment_content' => $text], $comment);
+	}
+
+	/**
+	 * @group feature-comments
 	 * @testdox should return the comment value or fail when the comment is too long (default: 100 characters)
 	 */
-	public function testMaxCommentLengthDefault(): void
+	public function testMaxCommentLengthEnabled(): void
 	{
+		Option::update('comment_max_length_enabled', true);
+
+		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
 		$this->assertSame(100, Option::get('comment_max_length'));
 
 		// Asserting with value about 100 characters.
@@ -206,8 +227,10 @@ class GeneralTest extends WPTestCase
 	 */
 	public function testMaxCommentLengthUpdated(): void
 	{
+		Option::update('comment_max_length_enabled', true);
 		Option::update('comment_max_length', 300);
 
+		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
 		$this->assertSame(300, Option::get('comment_max_length'));
 
 		// Asserting with value about 300 characters.
