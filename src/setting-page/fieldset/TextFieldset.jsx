@@ -1,20 +1,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
-import { Switch } from '@syntatis/kubrick';
+import clsx from 'clsx/lite';
+import { TextField } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
 import { HelpTip } from '../components';
 import styles from './styles.module.scss';
 
-export const SwitchFieldset = ( {
+export const TextFieldset = ( {
 	description,
 	id,
 	label,
 	name,
-	onChange,
 	title,
 	children,
 	isDisabled,
-	isSelected,
+	isReadOnly,
+	placeholder,
 	help,
+	type = 'text',
+	className,
+	validate,
+	validateBehavior,
 } ) => {
 	const { labelProps, inputProps, getOption } = useSettingsContext();
 
@@ -27,19 +32,18 @@ export const SwitchFieldset = ( {
 				</span>
 			</th>
 			<td>
-				<Switch
+				<TextField
 					{ ...inputProps( name ) }
-					className={ styles.field }
-					onChange={ ( checked ) => {
-						if ( onChange !== undefined ) {
-							onChange( checked );
-						}
-					} }
-					defaultSelected={ getOption( name ) }
+					type={ type }
+					className={ clsx( styles.field, className ) }
+					defaultValue={ getOption( name ) }
+					placeholder={ placeholder }
 					description={ description }
 					label={ label }
 					isDisabled={ isDisabled }
-					isSelected={ isSelected }
+					isReadOnly={ isReadOnly }
+					validate={ validate }
+					validationBehavior={ validateBehavior }
 				/>
 				{ children }
 			</td>
