@@ -7,9 +7,8 @@ namespace Syntatis\Tests\Features;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\LoginIdentifier;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\Tests\WPTestCase;
-use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\URL;
+use Syntatis\Tests\WPTestCase;
 
 use const PHP_INT_MAX;
 
