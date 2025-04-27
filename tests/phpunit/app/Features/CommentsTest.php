@@ -215,13 +215,13 @@ class CommentsTest extends WPTestCase
 		$instance = WP_Block_Type_Registry::get_instance();
 
 		foreach ($commentBlocks as $blockName) {
-			$this->assertTrue($instance->is_registered($blockName));
+			$this->assertTrue($instance->is_registered($blockName), 'Block ' . $blockName . ' should be registered');
 		}
 
 		$this->instance->unregisterBlocksServer();
 
 		foreach ($commentBlocks as $blockName) {
-			$this->assertFalse($instance->is_registered($blockName));
+			$this->assertFalse($instance->is_registered($blockName), 'Block ' . $blockName . ' should not be registered');
 		}
 	}
 
