@@ -36,7 +36,7 @@ final class Mail implements Hookable
 			static function (string $value): string {
 				$name = Option::get('mail_from_name');
 
-				if (is_string($name) && trim($name) === '') {
+				if (is_string($name) && trim($name) !== '') {
 					return $name;
 				}
 
