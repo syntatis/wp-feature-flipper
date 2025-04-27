@@ -8,6 +8,8 @@ use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\LoginIdentifier;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
+use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\Helpers\URL;
 
 use const PHP_INT_MAX;
 
@@ -107,7 +109,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
-		$this->assertTrue(is_login());
+		$this->assertTrue(URL::isLogin());
 		$this->assertSame('Email', $instance->filterGetText('Username or Email Address', 'Username or Email Address', 'default'));
 	}
 
@@ -121,7 +123,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
-		$this->assertTrue(is_login());
+		$this->assertTrue(URL::isLogin());
 		$this->assertSame('Username', $instance->filterGetText('Username or Email Address', 'Username or Email Address', 'default'));
 	}
 
@@ -133,7 +135,7 @@ class LoginIdentifierTest extends WPTestCase
 		$instance = new LoginIdentifier();
 		$instance->hook($this->hook);
 
-		$this->assertFalse(is_login());
+		$this->assertFalse(URL::isLogin());
 		$this->assertSame('Username or Email Address', $instance->filterGetText('Username or Email Address', 'Username or Email Address', 'default'));
 	}
 }
