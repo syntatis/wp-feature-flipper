@@ -13,16 +13,10 @@ use WP_Query;
 
 use function is_string;
 
-use const PHP_INT_MAX;
-
 final class Attachment implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('option_wp_attachment_pages_enabled', static function ($value): string {
-			return $value === '1' ? $value : '0';
-		}, PHP_INT_MAX);
-
 		$hook->addFilter(Option::hook('default:attachment_page'), static function (): bool {
 			/**
 			 * In WordPress 6.4, A new option, `wp_attachment_pages_enabled` is introduced

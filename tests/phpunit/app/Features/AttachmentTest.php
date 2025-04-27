@@ -9,6 +9,9 @@ use Syntatis\FeatureFlipper\Features\Attachment;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
+use function in_array;
+use function version_compare;
+
 /**
  * @group feature-attachment
  * @group module-media
@@ -31,8 +34,15 @@ class AttachmentTest extends WPTestCase
 	/** @testdox should return the default value */
 	public function testOptionDefault(): void
 	{
-		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
-		$this->assertFalse(Option::isOn('attachment_page'));
+		$wpVersion = $GLOBALS['wp_version'];
+
+		if (version_compare($wpVersion, '6.4', '>=')) {
+			$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
+			$this->assertFalse(Option::isOn('attachment_page'));
+		} else {
+			$this->assertFalse(get_option('wp_attachment_pages_enabled'));
+			$this->assertTrue(Option::isOn('attachment_page'));
+		}
 	}
 
 	/** @testdox should return the default as true when the option is set to 1 */
@@ -44,17 +54,33 @@ class AttachmentTest extends WPTestCase
 		$this->assertTrue(Option::isOn('attachment_page'));
 	}
 
-	/** @testdox should update the option */
+	/** @testdox should update the option and `wp_attachment_pages_enabled` */
 	public function testOptionUpdated(): void
 	{
-		Option::update('attachment_page', true);
+		$wpVersion = $GLOBALS['wp_version'];
 
-		$this->assertEquals('1', get_option('wp_attachment_pages_enabled'));
-		$this->assertTrue(Option::isOn('attachment_page'));
+		if (version_compare($wpVersion, '6.4', '>=')) {
+			$this->assertTrue(Option::update('attachment_page', true));
+			$this->assertTrue(Option::isOn('attachment_page'));
+			$this->assertSame('1', get_option('wp_attachment_pages_enabled'));
+		} else {
+			// Updating the option would fail since `true` is the default value in WordPress 6.3 or older.
+			$this->assertFalse(Option::update('attachment_page', true));
+			$this->assertTrue(Option::isOn('attachment_page'));
 
-		Option::update('attachment_page', false);
+			/**
+			 * On an older version, the `wp_attachment_pages_enabled` may not exists so it should return
+			 * the default, or `1` if option is set after the upgrade.
+			 *
+			 * @see https://github.com/WordPress/WordPress/blob/712a4ea227fee52af3106072b5b3e51e82c2449a/wp-admin/includes/upgrade.php#L2373-L2374
+			 */
+			$value = in_array(get_option('wp_attachment_pages_enabled', null), ['1', null]) ? '1' : '0';
 
-		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
+			$this->assertSame('1', $value);
+		}
+
+		$this->assertTrue(Option::update('attachment_page', false));
 		$this->assertFalse(Option::isOn('attachment_page'));
+		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
 	}
 }
