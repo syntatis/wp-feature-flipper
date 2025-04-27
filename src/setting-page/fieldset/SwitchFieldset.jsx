@@ -29,7 +29,7 @@ export const SwitchFieldset = ( {
 			<td>
 				<Switch
 					{ ...inputProps( name ) }
-					className={ styles.root }
+					className={ styles.field }
 					onChange={ ( checked ) => {
 						if ( onChange !== undefined ) {
 							onChange( checked );
