@@ -13,6 +13,8 @@ use Syntatis\Tests\WPTestCase;
 use WP_Block_Type_Registry;
 use WP_Comment_Query;
 
+use function version_compare;
+
 use const PHP_INT_MAX;
 
 /**
@@ -192,7 +194,10 @@ class CommentsTest extends WPTestCase
 		$this->assertNull($wpAdminBar->get_node('comments'));
 	}
 
-	/** @testdox should remove comments-related block from core */
+	/**
+	 * @group test
+	 * @testdox should remove comments-related block from core
+	 */
 	public function testUnregisterBlocksServer(): void
 	{
 		$commentBlocks = [
@@ -202,7 +207,6 @@ class CommentsTest extends WPTestCase
 			'core/comment-edit-link',
 			'core/comment-reply-link',
 			'core/comment-template',
-			'core/comments',
 			'core/comments-pagination',
 			'core/comments-pagination-next',
 			'core/comments-pagination-numbers',
@@ -212,16 +216,22 @@ class CommentsTest extends WPTestCase
 			'core/post-comments-form',
 			'core/post-comments',
 		];
+
+		if (version_compare($GLOBALS['wp_version'], '6.1', '>=')) {
+			/** @see https://github.com/WordPress/WordPress/blob/712a4ea227fee52af3106072b5b3e51e82c2449a/wp-includes/blocks/comments.php#L8-L27 */
+			$commentBlocks[] = 'core/comments';
+		}
+
 		$instance = WP_Block_Type_Registry::get_instance();
 
 		foreach ($commentBlocks as $blockName) {
-			$this->assertTrue($instance->is_registered($blockName));
+			$this->assertTrue($instance->is_registered($blockName), 'Block ' . $blockName . ' should be registered');
 		}
 
 		$this->instance->unregisterBlocksServer();
 
 		foreach ($commentBlocks as $blockName) {
-			$this->assertFalse($instance->is_registered($blockName));
+			$this->assertFalse($instance->is_registered($blockName), 'Block ' . $blockName . ' should not be registered');
 		}
 	}
 
