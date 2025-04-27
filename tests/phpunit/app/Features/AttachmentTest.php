@@ -31,18 +31,26 @@ class AttachmentTest extends WPTestCase
 		$this->instance->hook($this->hook);
 	}
 
-	/** @testdox should return the default value */
+	/** @testdox should return the default value (wp >= 6.4) */
 	public function testOptionDefault(): void
 	{
-		$wpVersion = $GLOBALS['wp_version'];
-
-		if (version_compare($wpVersion, '6.4', '>=')) {
-			$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
-			$this->assertFalse(Option::isOn('attachment_page'));
-		} else {
-			$this->assertFalse(get_option('wp_attachment_pages_enabled'));
-			$this->assertTrue(Option::isOn('attachment_page'));
+		if (! version_compare($GLOBALS['wp_version'], '6.4', '>=')) {
+			$this->markTestSkipped('This test is only for WordPress 6.4 or newer.');
 		}
+
+		$this->assertEquals('0', get_option('wp_attachment_pages_enabled'));
+		$this->assertFalse(Option::isOn('attachment_page'));
+	}
+
+	/** @testdox should return the default value (wp < 6.4) */
+	public function testOptionDefaultVerLte64(): void
+	{
+		if (! version_compare($GLOBALS['wp_version'], '6.4', '<')) {
+			$this->markTestSkipped('This test is only for WordPress 6.3 or older.');
+		}
+
+		$this->assertFalse(get_option('wp_attachment_pages_enabled'));
+		$this->assertTrue(Option::isOn('attachment_page'));
 	}
 
 	/** @testdox should return the default as true when the option is set to 1 */
