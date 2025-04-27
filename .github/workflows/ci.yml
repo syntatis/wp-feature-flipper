@@ -52,10 +52,7 @@ jobs:
       max-parallel: 2
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-
-    env:
-      # TODO: Add the ability to run the tests against multiple the WordPress core versions.
-      WP_ENV_CORE: "WordPress/WordPress"
+        wp-core-version: ["WordPress/WordPress", "WordPress/WordPress#6.0.0"]
 
     steps:
       - name: Checkout code
@@ -84,7 +81,11 @@ jobs:
 
       - name: Start wp-env
         run: |
-          echo '{"phpVersion": "${{ matrix.php-version }}"}' > .wp-env.override.json
+          jq -n \
+             --arg phpVersion "${{ matrix.php-version }}" \
+             --arg wpCoreVersion "${{ matrix.wp-core-version }}" \
+            '{"phpVersion":$phpVersion, "core":$wpCoreVersion}' \
+            > .wp-env.override.json
           npm run wp-env:start
           npm run wp-env:tests-wordpress php -- -v
 
