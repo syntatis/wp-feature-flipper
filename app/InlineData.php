@@ -28,6 +28,7 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	{
 		$this->data = [
 			'$wp' => [
+				'siteUrl' => get_site_url(),
 				'permalinkStructure' => (bool) get_option('permalink_structure'),
 				'postTypes' => self::getPostTypes(),
 				'themeSupport' => [
