@@ -42,6 +42,8 @@ jobs:
 
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: highest
 
       - name: Run PHPCS
         run: composer run phpcs
