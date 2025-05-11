@@ -16,10 +16,17 @@ use WP_Scripts;
 
 use function array_diff;
 
+use const PHP_INT_MAX;
+
 final class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		/**
+		 * Disable the WordPress built-in sitemap.
+		 */
+		$hook->addFilter('wp_sitemaps_enabled', static fn () => Option::isOn('sitemap'), PHP_INT_MAX);
+
 		if (! Option::isOn('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has

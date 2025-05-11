@@ -148,6 +148,8 @@ return [
 	 */
 	(new Setting('site_access', 'string'))
 		->withDefault('public'),
+	(new Setting('sitemap', 'boolean'))
+		->withDefault(true),
 	/**
 	 * The default value for `site_maintenance_args` options requires values
 	 * of translatable string for the `headline` and `message` properties.
