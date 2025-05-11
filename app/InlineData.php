@@ -7,6 +7,7 @@ namespace Syntatis\FeatureFlipper;
 use ArrayAccess;
 use BadMethodCallException;
 use JsonSerializable;
+use ReturnTypeWillChange;
 use SSFV\Codex\Facades\App;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Post_Type;
@@ -55,6 +56,7 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	 *
 	 * @return mixed
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		if (is_string($offset)) {
