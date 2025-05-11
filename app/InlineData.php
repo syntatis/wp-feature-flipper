@@ -53,7 +53,7 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	/**
 	 * @param mixed $offset
 	 *
-	 * @return mixed $offset
+	 * @return mixed
 	 */
 	public function offsetGet($offset)
 	{

@@ -55,4 +55,19 @@ class MailTest extends WPTestCase
 		$this->assertSame('Acme', Option::get('mail_from_name'));
 		$this->assertSame('Acme', apply_filters('wp_mail_from_name', 'WordPress'));
 	}
+
+	public function testMailSendingDefault(): void
+	{
+		$this->assertTrue(Option::get('mail_sending'));
+	}
+
+	public function testMailSendingFilter(): void
+	{
+		$this->assertNull(apply_filters('pre_wp_mail', null));
+
+		$this->assertTrue(Option::update('mail_sending', false));
+		$this->assertFalse(Option::get('mail_sending'));
+
+		$this->assertFalse(apply_filters('pre_wp_mail', null));
+	}
 }

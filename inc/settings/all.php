@@ -188,6 +188,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Email
 	 */
+	(new Setting('mail_sending', 'boolean'))
+		->withDefault(true),
 	(new Setting('mail_from_address'))
 		->withDefault(null),
 	(new Setting('mail_from_name'))

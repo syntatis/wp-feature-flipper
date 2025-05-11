@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { TextFieldset } from '../fieldset';
+import { SwitchFieldset, TextFieldset } from '../fieldset';
 
 export const MailTab = () => {
 	const { inlineData } = useSettingsContext();
@@ -8,6 +8,21 @@ export const MailTab = () => {
 
 	return (
 		<Form>
+			<Fieldset>
+				<SwitchFieldset
+					name="mail_sending"
+					id="mail-sending"
+					title={ __( 'Sending', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable sending emails',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, WordPress will not send any emails.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+			</Fieldset>
 			<Fieldset
 				title={ __( 'Attributes', 'syntatis-feature-flipper' ) }
 				description={ __(
