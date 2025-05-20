@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9d19db704f5882d5f8cb7d8e942483f",
+    "content-hash": "5b28b2f3f3d6f05499c52dde29660786",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -442,16 +442,16 @@
         },
         {
             "name": "syntatis/codex-settings-provider",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex-settings-provider.git",
-                "reference": "ec67722ed794c150aa084876daa638e5266b5af9"
+                "reference": "604409f7affc4351f2324d08e60cff96e2967f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex-settings-provider/zipball/ec67722ed794c150aa084876daa638e5266b5af9",
-                "reference": "ec67722ed794c150aa084876daa638e5266b5af9",
+                "url": "https://api.github.com/repos/syntatis/codex-settings-provider/zipball/604409f7affc4351f2324d08e60cff96e2967f19",
+                "reference": "604409f7affc4351f2324d08e60cff96e2967f19",
                 "shasum": ""
             },
             "require": {
@@ -465,12 +465,12 @@
                 "phpstan/phpstan-phpunit": "^1.4",
                 "phpstan/phpstan-strict-rules": "^1.6",
                 "phpunit/phpunit": "^9.6",
-                "roots/wordpress": "^6.7",
+                "roots/wordpress": "^6.8",
                 "symfony/var-dumper": "^5.4",
-                "syntatis/codex": "^0.1",
-                "syntatis/coding-standard": "^1.5",
+                "syntatis/codex": "^0.3",
+                "syntatis/coding-standard": "^2.0",
                 "szepeviktor/phpstan-wordpress": "^1.3",
-                "wp-phpunit/wp-phpunit": "^6.7",
+                "wp-phpunit/wp-phpunit": "^6.8",
                 "yoast/phpunit-polyfills": "^4.0"
             },
             "type": "library",
@@ -503,9 +503,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex-settings-provider/issues",
-                "source": "https://github.com/syntatis/codex-settings-provider/tree/v0.2.0"
+                "source": "https://github.com/syntatis/codex-settings-provider/tree/v0.3.0"
             },
-            "time": "2025-04-12T12:20:51+00:00"
+            "time": "2025-05-11T16:20:57+00:00"
         }
     ],
     "packages-dev": [
