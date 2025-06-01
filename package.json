@@ -24,11 +24,11 @@
     },
     "dependencies": {
         "@syntatis/kubrick": "^0.1.0",
-        "@wordpress/api-fetch": "^7.23.0",
-        "@wordpress/dom-ready": "^4.23.0",
-        "@wordpress/element": "^6.23.0",
+        "@wordpress/api-fetch": "^7.24.0",
+        "@wordpress/dom-ready": "^4.24.0",
+        "@wordpress/element": "^6.24.0",
         "@wordpress/i18n": "^5.22.0",
-        "@wordpress/icons": "^10.23.0",
+        "@wordpress/icons": "^10.24.0",
         "clsx": "^2.1.1",
         "lodash-es": "^4.17.21",
         "use-session-storage-state": "^19.0.1"
