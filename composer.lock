@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66e8e93027ba6fa667718f203103ca77",
+    "content-hash": "678b5d068623b10891289a1fdc8df1ba",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1098,16 +1098,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.18.0",
+            "version": "2.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e"
+                "reference": "8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
-                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26",
+                "reference": "8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26",
                 "shasum": ""
             },
             "require": {
@@ -1157,7 +1157,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.0"
+                "source": "https://github.com/filp/whoops/tree/2.18.1"
             },
             "funding": [
                 {
@@ -1165,7 +1165,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-15T12:00:00+00:00"
+            "time": "2025-06-03T18:56:14+00:00"
         },
         {
             "name": "gettext/gettext",
@@ -4180,16 +4180,16 @@
         },
         {
             "name": "shipmonk/dead-code-detector",
-            "version": "0.12.1",
+            "version": "0.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/dead-code-detector.git",
-                "reference": "12af219888e245e9f16cd36ab5fe701f2e426a97"
+                "reference": "71b842269e9a29634e34074e723023e4e151518b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/12af219888e245e9f16cd36ab5fe701f2e426a97",
-                "reference": "12af219888e245e9f16cd36ab5fe701f2e426a97",
+                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/71b842269e9a29634e34074e723023e4e151518b",
+                "reference": "71b842269e9a29634e34074e723023e4e151518b",
                 "shasum": ""
             },
             "require": {
@@ -4249,22 +4249,22 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/dead-code-detector/issues",
-                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.12.1"
+                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.12.2"
             },
-            "time": "2025-05-20T07:02:46+00:00"
+            "time": "2025-05-22T07:50:57+00:00"
         },
         {
             "name": "shipmonk/phpstan-rules",
-            "version": "4.1.3",
+            "version": "4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/phpstan-rules.git",
-                "reference": "879bcdc09a8633b035c667ef9bd83c6f942f7796"
+                "reference": "69059a59c0a6ae2091bd279b2507a579fded835a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/879bcdc09a8633b035c667ef9bd83c6f942f7796",
-                "reference": "879bcdc09a8633b035c667ef9bd83c6f942f7796",
+                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/69059a59c0a6ae2091bd279b2507a579fded835a",
+                "reference": "69059a59c0a6ae2091bd279b2507a579fded835a",
                 "shasum": ""
             },
             "require": {
@@ -4307,9 +4307,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/phpstan-rules/issues",
-                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.1.3"
+                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.1.4"
             },
-            "time": "2025-05-16T07:35:56+00:00"
+            "time": "2025-05-28T14:05:08+00:00"
         },
         {
             "name": "slevomat/coding-standard",
