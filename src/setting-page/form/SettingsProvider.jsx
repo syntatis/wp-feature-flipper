@@ -14,6 +14,7 @@ export const SettingsProvider = ( { children, inlineData, nonceData } ) => {
 		setValues,
 		submit,
 		getOption,
+		hasOption,
 		initialValues,
 		updatedValues,
 	} = useSettings( {
@@ -42,6 +43,9 @@ export const SettingsProvider = ( { children, inlineData, nonceData } ) => {
 				},
 				getOption: ( name ) => {
 					return getOption( `${ optionPrefix }${ name }` );
+				},
+				hasOption: ( name ) => {
+					return hasOption( `${ optionPrefix }${ name }` );
 				},
 				getOptionName: ( name ) => {
 					return `${ optionPrefix }${ name }`;

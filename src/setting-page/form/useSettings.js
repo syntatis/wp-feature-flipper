@@ -43,6 +43,10 @@ export const useSettings = ( { optionPrefix, nonceData } ) => {
 		return values[ name ];
 	}
 
+	function hasOption( name ) {
+		return Object.keys( values ).includes( name );
+	}
+
 	useEffect( () => {
 		if ( updating ) {
 			setErrorMessages( {} );
@@ -105,6 +109,7 @@ export const useSettings = ( { optionPrefix, nonceData } ) => {
 		setValues,
 		setStatus,
 		getOption,
+		hasOption,
 		initialValues: preloaded,
 		updatedValues,
 	};

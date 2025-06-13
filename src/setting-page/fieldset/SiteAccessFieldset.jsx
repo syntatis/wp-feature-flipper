@@ -8,7 +8,7 @@ import { SwitchFieldset } from './SwitchFieldset';
 import { Details } from '../components';
 
 export const SiteAccessFieldset = () => {
-	const { getOption, optionPrefix } = useSettingsContext();
+	const { getOption, hasOption, optionPrefix } = useSettingsContext();
 	const [ siteAccess, setSiteAccess ] = useState(
 		getOption( 'site_access' )
 	);
@@ -103,20 +103,22 @@ export const SiteAccessFieldset = () => {
 					</Details>
 				) }
 			</RadioGroupFieldset>
-			<SwitchFieldset
-				name="sitemap"
-				id="sitemap"
-				title={ __( 'Sitemap', 'syntatis-feature-flipper' ) }
-				label={ __( 'Enable Sitemap', 'syntatis-feature-flipper' ) }
-				description={ __(
-					'If switched off, the wp-sitemap.xml file will not be generated.',
-					'syntatis-feature-flipper'
-				) }
-				help={ __(
-					'The Sitempa file helps search engines find and index your site content. WordPress, since version 5.5, automatically generates a Sitemap file at wp-sitemap.xml. If you would like to keep your site fully private or not indexed, you can disable this feature.',
-					'syntatis-feature-flipper'
-				) }
-			/>
+			{ hasOption( 'sitemap' ) && (
+				<SwitchFieldset
+					name="sitemap"
+					id="sitemap"
+					title={ __( 'Sitemap', 'syntatis-feature-flipper' ) }
+					label={ __( 'Enable Sitemap', 'syntatis-feature-flipper' ) }
+					description={ __(
+						'If switched off, the wp-sitemap.xml file will not be generated.',
+						'syntatis-feature-flipper'
+					) }
+					help={ __(
+						'The Sitempa file helps search engines find and index your site content. WordPress, since version 5.5, automatically generates a Sitemap file at wp-sitemap.xml. If you would like to keep your site fully private or not indexed, you can disable this feature.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+			) }
 		</Fieldset>
 	);
 };
