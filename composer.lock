@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8cde40dafd2f28a4685d0f9da708ff9",
+    "content-hash": "95c537cd1c2ae473c3e12a5ee52efac9",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -62,16 +62,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.3.4",
+            "version": "v1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "d3b7ff28994e1b0de764ab7412fa269a79634ff3"
+                "reference": "fbf1a3e81d61b088e7af723fb3c7a4ee92ac7e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/d3b7ff28994e1b0de764ab7412fa269a79634ff3",
-                "reference": "d3b7ff28994e1b0de764ab7412fa269a79634ff3",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/fbf1a3e81d61b088e7af723fb3c7a4ee92ac7e34",
+                "reference": "fbf1a3e81d61b088e7af723fb3c7a4ee92ac7e34",
                 "shasum": ""
             },
             "require": {
@@ -108,9 +108,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.3.4"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.3.5"
             },
-            "time": "2025-03-05T23:12:10+00:00"
+            "time": "2025-06-11T17:58:05+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -220,7 +220,7 @@
         },
         {
             "name": "symfony/polyfill-uuid",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-uuid.git",
@@ -279,7 +279,7 @@
                 "uuid"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -442,16 +442,16 @@
         },
         {
             "name": "syntatis/codex-settings-provider",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex-settings-provider.git",
-                "reference": "ec67722ed794c150aa084876daa638e5266b5af9"
+                "reference": "604409f7affc4351f2324d08e60cff96e2967f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex-settings-provider/zipball/ec67722ed794c150aa084876daa638e5266b5af9",
-                "reference": "ec67722ed794c150aa084876daa638e5266b5af9",
+                "url": "https://api.github.com/repos/syntatis/codex-settings-provider/zipball/604409f7affc4351f2324d08e60cff96e2967f19",
+                "reference": "604409f7affc4351f2324d08e60cff96e2967f19",
                 "shasum": ""
             },
             "require": {
@@ -465,12 +465,12 @@
                 "phpstan/phpstan-phpunit": "^1.4",
                 "phpstan/phpstan-strict-rules": "^1.6",
                 "phpunit/phpunit": "^9.6",
-                "roots/wordpress": "^6.7",
+                "roots/wordpress": "^6.8",
                 "symfony/var-dumper": "^5.4",
-                "syntatis/codex": "^0.1",
-                "syntatis/coding-standard": "^1.5",
+                "syntatis/codex": "^0.3",
+                "syntatis/coding-standard": "^2.0",
                 "szepeviktor/phpstan-wordpress": "^1.3",
-                "wp-phpunit/wp-phpunit": "^6.7",
+                "wp-phpunit/wp-phpunit": "^6.8",
                 "yoast/phpunit-polyfills": "^4.0"
             },
             "type": "library",
@@ -503,9 +503,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex-settings-provider/issues",
-                "source": "https://github.com/syntatis/codex-settings-provider/tree/v0.2.0"
+                "source": "https://github.com/syntatis/codex-settings-provider/tree/v0.3.0"
             },
-            "time": "2025-04-12T12:20:51+00:00"
+            "time": "2025-05-11T16:20:57+00:00"
         }
     ],
     "packages-dev": [
@@ -707,16 +707,16 @@
         },
         {
             "name": "doctrine/coding-standard",
-            "version": "13.0.0",
+            "version": "13.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/coding-standard.git",
-                "reference": "8132673b9075d648c07f7f69cb3f4cc436709b77"
+                "reference": "0affd62169186f32de725ca612e6129e81186a21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/8132673b9075d648c07f7f69cb3f4cc436709b77",
-                "reference": "8132673b9075d648c07f7f69cb3f4cc436709b77",
+                "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/0affd62169186f32de725ca612e6129e81186a21",
+                "reference": "0affd62169186f32de725ca612e6129e81186a21",
                 "shasum": ""
             },
             "require": {
@@ -757,9 +757,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/coding-standard/issues",
-                "source": "https://github.com/doctrine/coding-standard/tree/13.0.0"
+                "source": "https://github.com/doctrine/coding-standard/tree/13.0.1"
             },
-            "time": "2025-03-23T15:38:56+00:00"
+            "time": "2025-05-14T10:54:19+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1098,16 +1098,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.18.0",
+            "version": "2.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e"
+                "reference": "89dabca1490bc77dbcab41c2b20968c7e44bf7c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
-                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/89dabca1490bc77dbcab41c2b20968c7e44bf7c3",
+                "reference": "89dabca1490bc77dbcab41c2b20968c7e44bf7c3",
                 "shasum": ""
             },
             "require": {
@@ -1157,7 +1157,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.0"
+                "source": "https://github.com/filp/whoops/tree/2.18.2"
             },
             "funding": [
                 {
@@ -1165,7 +1165,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-15T12:00:00+00:00"
+            "time": "2025-06-11T20:42:19+00:00"
         },
         {
             "name": "gettext/gettext",
@@ -1325,20 +1325,20 @@
         },
         {
             "name": "hamcrest/hamcrest-php",
-            "version": "v2.0.1",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hamcrest/hamcrest-php.git",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3"
+                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
+                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3|^7.0|^8.0"
+                "php": "^7.4|^8.0"
             },
             "replace": {
                 "cordoval/hamcrest-php": "*",
@@ -1346,8 +1346,8 @@
                 "kodova/hamcrest-php": "*"
             },
             "require-dev": {
-                "phpunit/php-file-iterator": "^1.4 || ^2.0",
-                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
+                "phpunit/php-file-iterator": "^1.4 || ^2.0 || ^3.0",
+                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
@@ -1370,9 +1370,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hamcrest/hamcrest-php/issues",
-                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
+                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.1.1"
             },
-            "time": "2020-07-09T08:09:16+00:00"
+            "time": "2025-04-30T06:54:44+00:00"
         },
         {
             "name": "jawira/case-converter",
@@ -1651,16 +1651,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.13.0",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "024473a478be9df5fdaca2c793f2232fe788e414"
+                "reference": "1720ddd719e16cf0db4eb1c6eca108031636d46c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/024473a478be9df5fdaca2c793f2232fe788e414",
-                "reference": "024473a478be9df5fdaca2c793f2232fe788e414",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/1720ddd719e16cf0db4eb1c6eca108031636d46c",
+                "reference": "1720ddd719e16cf0db4eb1c6eca108031636d46c",
                 "shasum": ""
             },
             "require": {
@@ -1699,7 +1699,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.0"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.1"
             },
             "funding": [
                 {
@@ -1707,20 +1707,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-12T12:17:51+00:00"
+            "time": "2025-04-29T12:36:36+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.4.0",
+            "version": "v5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "447a020a1f875a434d62f2a401f53b82a396e494"
+                "reference": "ae59794362fe85e051a58ad36b289443f57be7a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/447a020a1f875a434d62f2a401f53b82a396e494",
-                "reference": "447a020a1f875a434d62f2a401f53b82a396e494",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ae59794362fe85e051a58ad36b289443f57be7a9",
+                "reference": "ae59794362fe85e051a58ad36b289443f57be7a9",
                 "shasum": ""
             },
             "require": {
@@ -1763,9 +1763,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.4.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.5.0"
             },
-            "time": "2024-12-30T11:07:19+00:00"
+            "time": "2025-05-31T08:24:38+00:00"
         },
         {
             "name": "nunomaduro/collision",
@@ -1973,17 +1973,62 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
-            "name": "php-stubs/wordpress-stubs",
-            "version": "v6.8.0",
+            "name": "php-stubs/wordpress-seo-stubs",
+            "version": "v20.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "1824db4d1d00d32c0119175d2369d9425dbc4953"
+                "url": "https://github.com/php-stubs/wordpress-seo-stubs.git",
+                "reference": "67c69a1a6dfeabd600498b3f8239c5b531dc8156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/1824db4d1d00d32c0119175d2369d9425dbc4953",
-                "reference": "1824db4d1d00d32c0119175d2369d9425dbc4953",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-seo-stubs/zipball/67c69a1a6dfeabd600498b3f8239c5b531dc8156",
+                "reference": "67c69a1a6dfeabd600498b3f8239c5b531dc8156",
+                "shasum": ""
+            },
+            "require": {
+                "php-stubs/wordpress-stubs": "^5.3.0 || ^6.0"
+            },
+            "require-dev": {
+                "php": "~7.1",
+                "php-stubs/generator": "^0.8"
+            },
+            "suggest": {
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Yoas SEO function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/wordpress-seo-stubs",
+            "keywords": [
+                "PHPStan",
+                "seo",
+                "static analysis",
+                "wordpress",
+                "yoast"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/wordpress-seo-stubs/issues",
+                "source": "https://github.com/php-stubs/wordpress-seo-stubs/tree/v20.5.1"
+            },
+            "time": "2023-04-21T20:41:07+00:00"
+        },
+        {
+            "name": "php-stubs/wordpress-stubs",
+            "version": "v6.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/wordpress-stubs.git",
+                "reference": "92e444847d94f7c30f88c60004648f507688acd5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/92e444847d94f7c30f88c60004648f507688acd5",
+                "reference": "92e444847d94f7c30f88c60004648f507688acd5",
                 "shasum": ""
             },
             "conflict": {
@@ -1991,7 +2036,7 @@
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-                "nikic/php-parser": "^4.13",
+                "nikic/php-parser": "^5.4",
                 "php": "^7.4 || ^8.0",
                 "php-stubs/generator": "^0.8.3",
                 "phpdocumentor/reflection-docblock": "^5.4.1",
@@ -2019,9 +2064,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.8.0"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.8.1"
             },
-            "time": "2025-04-17T15:13:53+00:00"
+            "time": "2025-05-02T12:33:34+00:00"
         },
         {
             "name": "php-stubs/wordpress-tests-stubs",
@@ -2064,231 +2109,27 @@
             "time": "2025-04-15T20:54:04+00:00"
         },
         {
-            "name": "phpcompatibility/php-compatibility",
-            "version": "9.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "9fb324479acf6f39452e0655d2429cc0d3914243"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/9fb324479acf6f39452e0655d2429cc0d3914243",
-                "reference": "9fb324479acf6f39452e0655d2429cc0d3914243",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2.3 || ^3.0.2"
-            },
-            "conflict": {
-                "squizlabs/php_codesniffer": "2.6.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5 || ^5.0 || ^6.0 || ^7.0"
-            },
-            "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically.",
-                "roave/security-advisories": "dev-master || Helps prevent installing dependencies with known security issues."
-            },
-            "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Wim Godden",
-                    "homepage": "https://github.com/wimg",
-                    "role": "lead"
-                },
-                {
-                    "name": "Juliette Reinders Folmer",
-                    "homepage": "https://github.com/jrfnl",
-                    "role": "lead"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/PHPCompatibility/PHPCompatibility/graphs/contributors"
-                }
-            ],
-            "description": "A set of sniffs for PHP_CodeSniffer that checks for PHP cross-version compatibility.",
-            "homepage": "http://techblog.wimgodden.be/tag/codesniffer/",
-            "keywords": [
-                "compatibility",
-                "phpcs",
-                "standards"
-            ],
-            "support": {
-                "issues": "https://github.com/PHPCompatibility/PHPCompatibility/issues",
-                "source": "https://github.com/PHPCompatibility/PHPCompatibility"
-            },
-            "time": "2019-12-27T09:44:58+00:00"
-        },
-        {
-            "name": "phpcompatibility/phpcompatibility-paragonie",
-            "version": "1.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie.git",
-                "reference": "293975b465e0e709b571cbf0c957c6c0a7b9a2ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityParagonie/zipball/293975b465e0e709b571cbf0c957c6c0a7b9a2ac",
-                "reference": "293975b465e0e709b571cbf0c957c6c0a7b9a2ac",
-                "shasum": ""
-            },
-            "require": {
-                "phpcompatibility/php-compatibility": "^9.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-                "paragonie/random_compat": "dev-master",
-                "paragonie/sodium_compat": "dev-master"
-            },
-            "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0 || This Composer plugin will sort out the PHP_CodeSniffer 'installed_paths' automatically.",
-                "roave/security-advisories": "dev-master || Helps prevent installing dependencies with known security issues."
-            },
-            "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Wim Godden",
-                    "role": "lead"
-                },
-                {
-                    "name": "Juliette Reinders Folmer",
-                    "role": "lead"
-                }
-            ],
-            "description": "A set of rulesets for PHP_CodeSniffer to check for PHP cross-version compatibility issues in projects, while accounting for polyfills provided by the Paragonie polyfill libraries.",
-            "homepage": "http://phpcompatibility.com/",
-            "keywords": [
-                "compatibility",
-                "paragonie",
-                "phpcs",
-                "polyfill",
-                "standards",
-                "static analysis"
-            ],
-            "support": {
-                "issues": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie/issues",
-                "security": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie/security/policy",
-                "source": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/PHPCompatibility",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/jrfnl",
-                    "type": "github"
-                },
-                {
-                    "url": "https://opencollective.com/php_codesniffer",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2024-04-24T21:30:46+00:00"
-        },
-        {
-            "name": "phpcompatibility/phpcompatibility-wp",
-            "version": "2.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPCompatibility/PHPCompatibilityWP.git",
-                "reference": "80ccb1a7640995edf1b87a4409fa584cd5869469"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityWP/zipball/80ccb1a7640995edf1b87a4409fa584cd5869469",
-                "reference": "80ccb1a7640995edf1b87a4409fa584cd5869469",
-                "shasum": ""
-            },
-            "require": {
-                "phpcompatibility/php-compatibility": "^9.0",
-                "phpcompatibility/phpcompatibility-paragonie": "^1.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
-            },
-            "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0 || This Composer plugin will sort out the PHP_CodeSniffer 'installed_paths' automatically.",
-                "roave/security-advisories": "dev-master || Helps prevent installing dependencies with known security issues."
-            },
-            "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Wim Godden",
-                    "role": "lead"
-                },
-                {
-                    "name": "Juliette Reinders Folmer",
-                    "role": "lead"
-                }
-            ],
-            "description": "A ruleset for PHP_CodeSniffer to check for PHP cross-version compatibility issues in projects, while accounting for polyfills provided by WordPress.",
-            "homepage": "http://phpcompatibility.com/",
-            "keywords": [
-                "compatibility",
-                "phpcs",
-                "standards",
-                "static analysis",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/PHPCompatibility/PHPCompatibilityWP/issues",
-                "security": "https://github.com/PHPCompatibility/PHPCompatibilityWP/security/policy",
-                "source": "https://github.com/PHPCompatibility/PHPCompatibilityWP"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/PHPCompatibility",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/jrfnl",
-                    "type": "github"
-                },
-                {
-                    "url": "https://opencollective.com/php_codesniffer",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2025-01-16T22:34:19+00:00"
-        },
-        {
             "name": "phpcsstandards/phpcsextra",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSExtra.git",
-                "reference": "46d08eb86eec622b96c466adec3063adfed280dd"
+                "reference": "8cb1a93708f82778c5fdc46106998c2072565418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/46d08eb86eec622b96c466adec3063adfed280dd",
-                "reference": "46d08eb86eec622b96c466adec3063adfed280dd",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/8cb1a93708f82778c5fdc46106998c2072565418",
+                "reference": "8cb1a93708f82778c5fdc46106998c2072565418",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4",
-                "phpcsstandards/phpcsutils": "^1.0.9",
+                "phpcsstandards/phpcsutils": "^1.0.12",
                 "squizlabs/php_codesniffer": "^3.12.1"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0",
-                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "php-parallel-lint/php-parallel-lint": "^1.4.0",
                 "phpcsstandards/phpcsdevcs": "^1.1.6",
                 "phpcsstandards/phpcsdevtools": "^1.2.1",
                 "phpunit/phpunit": "^4.5 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
@@ -2347,33 +2188,33 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-04-20T23:35:32+00:00"
+            "time": "2025-06-08T19:59:14+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.0.12",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c"
+                "reference": "65355670ac17c34cd235cf9d3ceae1b9252c4dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/87b233b00daf83fb70f40c9a28692be017ea7c6c",
-                "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/65355670ac17c34cd235cf9d3ceae1b9252c4dad",
+                "reference": "65355670ac17c34cd235cf9d3ceae1b9252c4dad",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
                 "php": ">=5.4",
-                "squizlabs/php_codesniffer": "^3.10.0 || 4.0.x-dev@dev"
+                "squizlabs/php_codesniffer": "^3.13.0 || ^4.0"
             },
             "require-dev": {
                 "ext-filter": "*",
                 "php-parallel-lint/php-console-highlighter": "^1.0",
-                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "php-parallel-lint/php-parallel-lint": "^1.4.0",
                 "phpcsstandards/phpcsdevcs": "^1.1.6",
-                "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0"
+                "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0 || ^3.0.0"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -2410,6 +2251,7 @@
                 "phpcodesniffer-standard",
                 "phpcs",
                 "phpcs3",
+                "phpcs4",
                 "standards",
                 "static analysis",
                 "tokens",
@@ -2433,9 +2275,13 @@
                 {
                     "url": "https://opencollective.com/php_codesniffer",
                     "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcsstandards",
+                    "type": "thanks_dev"
                 }
             ],
-            "time": "2024-05-20T13:34:27+00:00"
+            "time": "2025-06-12T04:32:33+00:00"
         },
         {
             "name": "phpstan/extension-installer",
@@ -2534,16 +2380,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.14",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2"
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
                 "shasum": ""
             },
             "require": {
@@ -2588,25 +2434,25 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-02T15:32:28+00:00"
+            "time": "2025-05-21T20:55:28+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "9d8e7d4e32711715ad78a1fb6ec368df9af01fdf"
+                "reference": "468e02c9176891cc901143da118f09dc9505fc2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/9d8e7d4e32711715ad78a1fb6ec368df9af01fdf",
-                "reference": "9d8e7d4e32711715ad78a1fb6ec368df9af01fdf",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/468e02c9176891cc901143da118f09dc9505fc2f",
+                "reference": "468e02c9176891cc901143da118f09dc9505fc2f",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.1.13"
+                "phpstan/phpstan": "^2.1.15"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
@@ -2633,9 +2479,9 @@
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.2"
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.3"
             },
-            "time": "2025-04-26T19:59:57+00:00"
+            "time": "2025-05-14T10:56:57+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -3059,16 +2905,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.22",
+            "version": "9.6.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f80235cb4d3caa59ae09be3adf1ded27521d1a9c"
+                "reference": "43d2cb18d0675c38bd44982a5d1d88f6d53d8d95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f80235cb4d3caa59ae09be3adf1ded27521d1a9c",
-                "reference": "f80235cb4d3caa59ae09be3adf1ded27521d1a9c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/43d2cb18d0675c38bd44982a5d1d88f6d53d8d95",
+                "reference": "43d2cb18d0675c38bd44982a5d1d88f6d53d8d95",
                 "shasum": ""
             },
             "require": {
@@ -3079,7 +2925,7 @@
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "myclabs/deep-copy": "^1.12.1",
+                "myclabs/deep-copy": "^1.13.1",
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=7.3",
@@ -3142,7 +2988,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.22"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.23"
             },
             "funding": [
                 {
@@ -3154,11 +3000,19 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://liberapay.com/sebastianbergmann",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/sebastianbergmann",
+                    "type": "thanks_dev"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/phpunit/phpunit",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-05T13:48:26+00:00"
+            "time": "2025-05-02T06:40:34+00:00"
         },
         {
             "name": "psr/log",
@@ -4175,16 +4029,16 @@
         },
         {
             "name": "shipmonk/dead-code-detector",
-            "version": "0.11.0",
+            "version": "0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/dead-code-detector.git",
-                "reference": "337b299d0e56d0727f2dd537fad0e2b166574f16"
+                "reference": "3c273e0ec3902ca35ba88a3e6c8fcc38367c58e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/337b299d0e56d0727f2dd537fad0e2b166574f16",
-                "reference": "337b299d0e56d0727f2dd537fad0e2b166574f16",
+                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/3c273e0ec3902ca35ba88a3e6c8fcc38367c58e1",
+                "reference": "3c273e0ec3902ca35ba88a3e6c8fcc38367c58e1",
                 "shasum": ""
             },
             "require": {
@@ -4244,22 +4098,22 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/dead-code-detector/issues",
-                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.11.0"
+                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.11.1"
             },
-            "time": "2025-04-04T12:18:36+00:00"
+            "time": "2025-05-15T15:04:54+00:00"
         },
         {
             "name": "shipmonk/phpstan-rules",
-            "version": "4.1.2",
+            "version": "4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/phpstan-rules.git",
-                "reference": "7517d6ee50ea03b41e4cf317e3db9ff1cb16f382"
+                "reference": "69059a59c0a6ae2091bd279b2507a579fded835a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/7517d6ee50ea03b41e4cf317e3db9ff1cb16f382",
-                "reference": "7517d6ee50ea03b41e4cf317e3db9ff1cb16f382",
+                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/69059a59c0a6ae2091bd279b2507a579fded835a",
+                "reference": "69059a59c0a6ae2091bd279b2507a579fded835a",
                 "shasum": ""
             },
             "require": {
@@ -4302,38 +4156,38 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/phpstan-rules/issues",
-                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.1.2"
+                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.1.4"
             },
-            "time": "2025-05-05T15:45:44+00:00"
+            "time": "2025-05-28T14:05:08+00:00"
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.17.1",
+            "version": "8.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "9bad414288a59cd5bc55f9a4042784431fb18b8c"
+                "reference": "458d665acd49009efebd7e0cb385d71ae9ac3220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/9bad414288a59cd5bc55f9a4042784431fb18b8c",
-                "reference": "9bad414288a59cd5bc55f9a4042784431fb18b8c",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/458d665acd49009efebd7e0cb385d71ae9ac3220",
+                "reference": "458d665acd49009efebd7e0cb385d71ae9ac3220",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
                 "php": "^7.4 || ^8.0",
                 "phpstan/phpdoc-parser": "^2.1.0",
-                "squizlabs/php_codesniffer": "^3.12.2"
+                "squizlabs/php_codesniffer": "^3.13.0"
             },
             "require-dev": {
                 "phing/phing": "3.0.1",
                 "php-parallel-lint/php-parallel-lint": "1.4.0",
-                "phpstan/phpstan": "2.1.12",
-                "phpstan/phpstan-deprecation-rules": "2.0.1",
+                "phpstan/phpstan": "2.1.17",
+                "phpstan/phpstan-deprecation-rules": "2.0.3",
                 "phpstan/phpstan-phpunit": "2.0.6",
                 "phpstan/phpstan-strict-rules": "2.0.4",
-                "phpunit/phpunit": "9.6.8|10.5.45|11.4.4|11.5.17|12.1.3"
+                "phpunit/phpunit": "9.6.8|10.5.45|11.4.4|11.5.21|12.1.3"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -4357,7 +4211,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.17.1"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.19.1"
             },
             "funding": [
                 {
@@ -4369,20 +4223,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-25T18:38:26+00:00"
+            "time": "2025-06-09T17:53:57+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.12.2",
+            "version": "3.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa"
+                "reference": "1b71b4dd7e7ef651ac749cea67e513c0c832f4bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
-                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/1b71b4dd7e7ef651ac749cea67e513c0c832f4bd",
+                "reference": "1b71b4dd7e7ef651ac749cea67e513c0c832f4bd",
                 "shasum": ""
             },
             "require": {
@@ -4453,7 +4307,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-04-13T04:10:18+00:00"
+            "time": "2025-06-12T15:04:34+00:00"
         },
         {
             "name": "symfony/console",
@@ -4822,7 +4676,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -4881,7 +4735,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -4901,7 +4755,7 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
@@ -4959,7 +4813,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -4979,7 +4833,7 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -5040,7 +4894,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -5060,19 +4914,20 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341"
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/85181ba99b2345b0ef10ce42ecac37612d9fd341",
-                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
                 "shasum": ""
             },
             "require": {
+                "ext-iconv": "*",
                 "php": ">=7.2"
             },
             "provide": {
@@ -5120,7 +4975,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -5136,11 +4991,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2024-12-23T08:48:59+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
@@ -5196,7 +5051,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -5594,16 +5449,16 @@
         },
         {
             "name": "syntatis/codex-companion",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex-companion.git",
-                "reference": "44b834f159d00aa36bbe9259103c266c5664ab1a"
+                "reference": "4598a99bb8f749bec11a3b782a90fa1c4db29dc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/44b834f159d00aa36bbe9259103c266c5664ab1a",
-                "reference": "44b834f159d00aa36bbe9259103c266c5664ab1a",
+                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/4598a99bb8f749bec11a3b782a90fa1c4db29dc1",
+                "reference": "4598a99bb8f749bec11a3b782a90fa1c4db29dc1",
                 "shasum": ""
             },
             "require": {
@@ -5629,11 +5484,12 @@
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^9.6",
                 "symfony/var-dumper": "^5.4",
-                "syntatis/coding-standard": "^1.5"
+                "syntatis/coding-standard": "^2.0"
             },
             "bin": [
                 "bin/codex",
-                "bin/php-scoper"
+                "bin/php-scoper",
+                "bin/php-scoper-0.17.5"
             ],
             "type": "composer-plugin",
             "extra": {
@@ -5664,9 +5520,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex-companion/issues",
-                "source": "https://github.com/syntatis/codex-companion/tree/v0.2.2"
+                "source": "https://github.com/syntatis/codex-companion/tree/v0.2.3"
             },
-            "time": "2025-02-09T11:51:19+00:00"
+            "time": "2025-06-13T03:01:39+00:00"
         },
         {
             "name": "syntatis/coding-standard",
@@ -5854,16 +5710,16 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "f7beb13cd22998e3d913fdb897a1e2553ccd637e"
+                "reference": "963887b04c21fe7ac78e61c1351f8b00fff9f8f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/f7beb13cd22998e3d913fdb897a1e2553ccd637e",
-                "reference": "f7beb13cd22998e3d913fdb897a1e2553ccd637e",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/963887b04c21fe7ac78e61c1351f8b00fff9f8f8",
+                "reference": "963887b04c21fe7ac78e61c1351f8b00fff9f8f8",
                 "shasum": ""
             },
             "require": {
@@ -5910,9 +5766,9 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.1"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.2"
             },
-            "time": "2024-12-01T02:13:05+00:00"
+            "time": "2025-02-12T18:43:37+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -6469,12 +6325,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4 || ^8.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
