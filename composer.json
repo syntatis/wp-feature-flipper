@@ -56,7 +56,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.2.6",
-        "shipmonk/dead-code-detector": "^0.12.2",
+        "shipmonk/dead-code-detector": "^0.12.3",
         "shipmonk/phpstan-rules": "^4.1",
         "symfony/var-dumper": "^5.4",
         "syntatis/codex-companion": "^0.2.2",
