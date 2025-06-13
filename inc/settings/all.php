@@ -149,7 +149,14 @@ return [
 	(new Setting('site_access', 'string'))
 		->withDefault('public'),
 	(new Setting('sitemap', 'boolean'))
-		->withDefault(true),
+		->withDefault(true)
+		/**
+		 * If Yoast SEO is active, do not include this setting in API.
+		 *
+		 * This will exclude the setting from the API response, and
+		 * thus will also not be included in the settings page.
+		 */
+		->apiSchema(! class_exists('WPSEO_Options')),
 	/**
 	 * The default value for `site_maintenance_args` options requires values
 	 * of translatable string for the `headline` and `message` properties.
