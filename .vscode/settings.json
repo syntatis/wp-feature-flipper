@@ -94,6 +94,7 @@
       "**/.history/**",
       "**/CVS/**"
     ],
+    "intelephense.compatibility.preferPsalmPhpstanPrefixedAnnotations": true,
     "phpsab.snifferMode": "onSave",
-    "phpsab.snifferShowSources": true
+    "phpsab.snifferShowSources": true,
 }
