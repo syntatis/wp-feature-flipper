@@ -59,7 +59,7 @@
         "shipmonk/dead-code-detector": "^0.12.3",
         "shipmonk/phpstan-rules": "^4.1",
         "symfony/var-dumper": "^5.4",
-        "syntatis/codex-companion": "^0.2.2",
+        "syntatis/codex-companion": "^0.2.3",
         "syntatis/coding-standard": "^2.0",
         "syntatis/phpstan-psr-11": "^1.0",
         "szepeviktor/phpstan-wordpress": "^2.0",
