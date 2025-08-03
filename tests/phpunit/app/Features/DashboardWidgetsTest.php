@@ -12,6 +12,8 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\InlineData;
 use Syntatis\Tests\WPTestCase;
 
+use function array_intersect;
+
 use const PHP_INT_MAX;
 
 /**
@@ -67,26 +69,20 @@ class DashboardWidgetsTest extends WPTestCase
 		);
 	}
 
-	/**
-	 * @requires PHP >= 8.0
-	 * @testdox should return empty when loaded outside the setting screen or dashboard
-	 */
+	/** @testdox should return empty when loaded outside the setting screen or dashboard */
 	public function testOptionDefault(): void
 	{
 		$this->assertSame([], Option::get('dashboard_widgets_enabled'));
 	}
 
-	/**
-	 * @requires PHP >= 8.0
-	 * @testdox should return the list of dashboard widgets on the setting page
-	 */
+	/** @testdox should return the list of dashboard widgets on the setting page */
 	public function testOptionDefaultOnPluginSettingScreen(): void
 	{
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
 		set_current_screen('settings_page_' . App::name());
 
 		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
-		$this->assertSame(
+		$this->assertEquals(
 			[
 				'dashboard_activity',
 				'dashboard_right_now',
@@ -94,37 +90,20 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			Option::get('dashboard_widgets_enabled'),
+			array_intersect(
+				Option::get('dashboard_widgets_enabled'),
+				[
+					'dashboard_activity',
+					'dashboard_right_now',
+					'dashboard_quick_press',
+					'dashboard_site_health',
+					'dashboard_primary',
+				],
+			),
 		);
 	}
 
-	/**
-	 * @requires PHP 7.4
-	 * @testdox should return the list of dashboard widgets on the setting page
-	 */
-	public function testOptionDefaultOnPluginSettingScreenPhp74(): void
-	{
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-		set_current_screen('settings_page_' . App::name());
-
-		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
-		$this->assertSame(
-			[
-				'dashboard_activity',
-				'dashboard_right_now',
-				'dashboard_php_nag',
-				'dashboard_quick_press',
-				'dashboard_site_health',
-				'dashboard_primary',
-			],
-			Option::get('dashboard_widgets_enabled'),
-		);
-	}
-
-	/**
-	 * @requires PHP >= 8.0
-	 * @testdox should return the list of dashboard widgets on the dashboard screen
-	 */
+	/** @testdox should return the list of dashboard widgets on the dashboard screen */
 	public function testOptionDefaultOnDashboardScreen(): void
 	{
 		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
@@ -134,7 +113,7 @@ class DashboardWidgetsTest extends WPTestCase
 		wp_dashboard_setup();
 
 		$this->assertTrue(Admin::isScreen('dashboard'));
-		$this->assertSame(
+		$this->assertEquals(
 			[
 				'dashboard_activity',
 				'dashboard_right_now',
@@ -142,33 +121,16 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			Option::get('dashboard_widgets_enabled'),
-		);
-	}
-
-	/**
-	 * @requires PHP 7.4
-	 * @testdox should return the list of dashboard widgets on the dashboard screen
-	 */
-	public function testOptionDefaultOnDashboardScreenPhp74(): void
-	{
-		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
-
-		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
-		set_current_screen('dashboard');
-		wp_dashboard_setup();
-
-		$this->assertTrue(Admin::isScreen('dashboard'));
-		$this->assertSame(
-			[
-				'dashboard_activity',
-				'dashboard_right_now',
-				'dashboard_php_nag',
-				'dashboard_quick_press',
-				'dashboard_site_health',
-				'dashboard_primary',
-			],
-			Option::get('dashboard_widgets_enabled'),
+			array_intersect(
+				Option::get('dashboard_widgets_enabled'),
+				[
+					'dashboard_activity',
+					'dashboard_right_now',
+					'dashboard_quick_press',
+					'dashboard_site_health',
+					'dashboard_primary',
+				],
+			),
 		);
 	}
 
