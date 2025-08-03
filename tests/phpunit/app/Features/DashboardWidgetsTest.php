@@ -92,7 +92,10 @@ class DashboardWidgetsTest extends WPTestCase
 		);
 	}
 
-	/** @testdox should return the list of dashboard widgets on the dashboard screen */
+	/**
+	 * @requires PHP 8.0
+	 * @testdox should return the list of dashboard widgets on the dashboard screen
+	 */
 	public function testOptionDefaultOnDashboardScreen(): void
 	{
 		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
@@ -106,6 +109,32 @@ class DashboardWidgetsTest extends WPTestCase
 			[
 				'dashboard_activity',
 				'dashboard_right_now',
+				'dashboard_quick_press',
+				'dashboard_site_health',
+				'dashboard_primary',
+			],
+			Option::get('dashboard_widgets_enabled'),
+		);
+	}
+
+	/**
+	 * @requires PHP 7.4
+	 * @testdox should return the list of dashboard widgets on the dashboard screen
+	 */
+	public function testOptionDefaultOnDashboardScreenPhp74(): void
+	{
+		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
+
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('dashboard');
+		wp_dashboard_setup();
+
+		$this->assertTrue(Admin::isScreen('dashboard'));
+		$this->assertSame(
+			[
+				'dashboard_activity',
+				'dashboard_right_now',
+				'dashboard_php_nag',
 				'dashboard_quick_press',
 				'dashboard_site_health',
 				'dashboard_primary',
