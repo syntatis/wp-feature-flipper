@@ -15,10 +15,20 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use function define;
 use function defined;
 
+use const PHP_INT_MAX;
+
 final class Advanced implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter(
+			'pre_wp_mail',
+			static function ($value) {
+				return (bool) Option::get('mail_sending') ? $value : false;
+			},
+			PHP_INT_MAX,
+		);
+
 		if (Option::isOn('cron') || defined('DISABLE_WP_CRON')) {
 			return;
 		}

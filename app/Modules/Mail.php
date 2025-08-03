@@ -44,13 +44,5 @@ final class Mail implements Hookable
 			},
 			PHP_INT_MAX,
 		);
-
-		$hook->addFilter(
-			'pre_wp_mail',
-			static function ($value) {
-				return (bool) Option::get('mail_sending') ? $value : false;
-			},
-			PHP_INT_MAX,
-		);
 	}
 }
