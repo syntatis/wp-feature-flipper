@@ -67,7 +67,10 @@ class DashboardWidgetsTest extends WPTestCase
 		);
 	}
 
-	/** @testdox should return empty when loaded outside the setting screen or dashboard */
+	/**
+	 * @requires PHP >= 8.0
+	 * @testdox should return empty when loaded outside the setting screen or dashboard
+	 */
 	public function testOptionDefault(): void
 	{
 		$this->assertSame([], Option::get('dashboard_widgets_enabled'));
@@ -93,7 +96,30 @@ class DashboardWidgetsTest extends WPTestCase
 	}
 
 	/**
-	 * @requires PHP 8.0
+	 * @requires PHP 7.4
+	 * @testdox should return the list of dashboard widgets on the setting page
+	 */
+	public function testOptionDefaultOnPluginSettingScreenPhp74(): void
+	{
+		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+		set_current_screen('settings_page_' . App::name());
+
+		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
+		$this->assertSame(
+			[
+				'dashboard_activity',
+				'dashboard_right_now',
+				'dashboard_php_nag',
+				'dashboard_quick_press',
+				'dashboard_site_health',
+				'dashboard_primary',
+			],
+			Option::get('dashboard_widgets_enabled'),
+		);
+	}
+
+	/**
+	 * @requires PHP >= 8.0
 	 * @testdox should return the list of dashboard widgets on the dashboard screen
 	 */
 	public function testOptionDefaultOnDashboardScreen(): void
