@@ -146,25 +146,6 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
-	(new Setting('site_access', 'string'))
-		->withDefault('public'),
-	/**
-	 * The default value for `site_maintenance_args` options requires values
-	 * of translatable string for the `headline` and `message` properties.
-	 * The default value will be set via the filter. Otherwise, it will
-	 * throw an error due to the translations called too early.
-	 *
-	 * @see app/Features/MaintenanceMode.php
-	 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/l10n.php#L1371-L1380
-	 */
-	(new Setting('site_maintenance_args', 'object'))
-		->apiSchema([
-			'properties' => [
-				'headline' => ['type' => 'string'],
-				'message' => ['type' => 'string'],
-			],
-		]),
-
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),
