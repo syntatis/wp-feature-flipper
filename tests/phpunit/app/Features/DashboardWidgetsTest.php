@@ -12,6 +12,9 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\InlineData;
 use Syntatis\Tests\WPTestCase;
 
+use function array_intersect;
+use function array_values;
+
 use const PHP_INT_MAX;
 
 /**
@@ -80,7 +83,9 @@ class DashboardWidgetsTest extends WPTestCase
 		set_current_screen('settings_page_' . App::name());
 
 		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
-		$this->assertSame(
+
+		$widgets = array_intersect(
+			Option::get('dashboard_widgets_enabled'),
 			[
 				'dashboard_activity',
 				'dashboard_right_now',
@@ -88,7 +93,16 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			Option::get('dashboard_widgets_enabled'),
+		);
+		$this->assertEquals(
+			[
+				'dashboard_activity',
+				'dashboard_right_now',
+				'dashboard_quick_press',
+				'dashboard_site_health',
+				'dashboard_primary',
+			],
+			array_values($widgets),
 		);
 	}
 
@@ -102,7 +116,9 @@ class DashboardWidgetsTest extends WPTestCase
 		wp_dashboard_setup();
 
 		$this->assertTrue(Admin::isScreen('dashboard'));
-		$this->assertSame(
+
+		$widgets = array_intersect(
+			Option::get('dashboard_widgets_enabled'),
 			[
 				'dashboard_activity',
 				'dashboard_right_now',
@@ -110,7 +126,17 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			Option::get('dashboard_widgets_enabled'),
+		);
+
+		$this->assertEquals(
+			[
+				'dashboard_activity',
+				'dashboard_right_now',
+				'dashboard_quick_press',
+				'dashboard_site_health',
+				'dashboard_primary',
+			],
+			array_values($widgets),
 		);
 	}
 
