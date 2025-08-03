@@ -84,7 +84,7 @@ class DashboardWidgetsTest extends WPTestCase
 
 		$this->assertTrue(Admin::isScreen('settings_page_' . App::name()));
 
-		$widgests = array_intersect(
+		$widgets = array_intersect(
 			Option::get('dashboard_widgets_enabled'),
 			[
 				'dashboard_activity',
@@ -102,7 +102,7 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			array_values($widgests),
+			array_values($widgets),
 		);
 	}
 
@@ -117,7 +117,7 @@ class DashboardWidgetsTest extends WPTestCase
 
 		$this->assertTrue(Admin::isScreen('dashboard'));
 
-		$widgests = array_intersect(
+		$widgets = array_intersect(
 			Option::get('dashboard_widgets_enabled'),
 			[
 				'dashboard_activity',
@@ -136,7 +136,7 @@ class DashboardWidgetsTest extends WPTestCase
 				'dashboard_site_health',
 				'dashboard_primary',
 			],
-			array_values($widgests),
+			array_values($widgets),
 		);
 	}
 
