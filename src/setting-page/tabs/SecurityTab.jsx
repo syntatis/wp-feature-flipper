@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { RadioGroupFieldset, SwitchFieldset } from '../fieldset';
+import { SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 const themeEditors = document.querySelector(
@@ -147,131 +147,6 @@ export const SecurityTab = () => {
 						}
 					/>
 				) }
-			</Fieldset>
-			<Fieldset
-				title={ __( 'Login', 'syntatis-feature-flipper' ) }
-				description={ __(
-					'Settings to help improving the security on the login page.',
-					'syntatis-feature-flipper'
-				) }
-			>
-				<RadioGroupFieldset
-					name="login_identifier"
-					id="login-identifier"
-					title={ __( 'Identifier', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'Select which user identifier to use for login.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									'By default, WordPress allows users to log in using either their username or email address. This setting allows you to restrict the login to only one of these options.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									"It's generally recommended to use only the email address to make it harder for attackers to guess the login credentials.",
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-					options={ [
-						{
-							label: __(
-								'Both username and email',
-								'syntatis-feature-flipper'
-							),
-							value: 'both',
-						},
-						{
-							label: __(
-								'Only username',
-								'syntatis-feature-flipper'
-							),
-							value: 'username',
-						},
-						{
-							label: __(
-								'Only email',
-								'syntatis-feature-flipper'
-							),
-							value: 'email',
-						},
-					] }
-				/>
-				<SwitchFieldset
-					name="obfuscate_login_error"
-					id="obfuscate-login-error"
-					title={ __(
-						'Error Obfuscation',
-						'syntatis-feature-flipper'
-					) }
-					label={ __(
-						'Obfuscate the error message when login fails',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'If switched on, a more generic error message will be shown when the login fails.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									'WordPress shows detailed error messages on the login page when someone types the wrong username or password. These messages are helpful for users but can also give hackers clues to break into your site.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'This setting, when enabled, will obfuscate the error message to make it less informative, which can help protect your site and makes it harder for hackers to guess the correct username or password.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-				/>
-				<SwitchFieldset
-					name="login_block_bots"
-					id="login-block-bots"
-					title={ __( 'Block Bots', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Block bots from the login page',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'If switched on, known bots, crawlers, and spiders will be blocked from accessing the login page.',
-						'syntatis-feature-flipper'
-					) }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									'Your login page should only be accessed by humans, not bots or crawlers. Bots can try to brute-force their way into your site by guessing usernames and passwords.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'This setting will block bots and crawlers from accessing the login page, which can help protect your site from some attacks, like brute-force. Though, keep in mind that this setting is only intended to block common known bots. It may not block sophisticated bots or human attackers.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-				/>
-			</Fieldset>
-			<Fieldset
-				title={ __( 'Passwords', 'syntatis-feature-flipper' ) }
-				description={ __(
-					'Settings to configure the passwords used on the site.',
-					'syntatis-feature-flipper'
-				) }
-			>
 				<SwitchFieldset
 					name="application_passwords"
 					id="application-passwords"

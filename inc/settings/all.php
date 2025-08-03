@@ -175,18 +175,6 @@ return [
 		->withDefault(true),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
-	(new Setting('obfuscate_usernames', 'boolean'))
-		->withDefault(false),
-
-	// Security: Login.
-	(new Setting('login_identifier', 'string'))
-		->withDefault('both'),
-	(new Setting('obfuscate_login_error', 'boolean'))
-		->withDefault(false),
-	(new Setting('login_block_bots', 'boolean'))
-		->withDefault(false),
-
-	// Security: Passwords.
 	(new Setting('application_passwords', 'boolean'))
 		->withDefault(true),
 	/**

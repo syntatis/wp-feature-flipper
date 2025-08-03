@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
-use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Jaybizzle\CrawlerDetect\CrawlerDetect;
-use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\LoginIdentifier;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\URL;
 use WP_Error;
 
 use function define;
 use function defined;
 
-use const PHP_INT_MIN;
-
-final class Security implements Hookable, Extendable
+final class Security implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
@@ -36,14 +29,6 @@ final class Security implements Hookable, Extendable
 
 		if (! Option::isOn('application_passwords')) {
 			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
-		}
-
-		if (Option::isOn('obfuscate_login_error')) {
-			$hook->addFilter('login_errors', [$this, 'filterLoginErrorMessage']);
-		}
-
-		if (Option::isOn('login_block_bots')) {
-			$hook->addAction('wp', [$this, 'blockBots'], PHP_INT_MIN);
 		}
 
 		if (! Option::isOn('authenticated_rest_api')) {
@@ -69,38 +54,5 @@ final class Security implements Hookable, Extendable
 					'status' => rest_authorization_required_code(),
 				],
 			);
-	}
-
-	public function filterLoginErrorMessage(): string
-	{
-		return __(
-			'<strong>Error:</strong> Login failed. Please ensure your credentials are correct.',
-			'syntatis-feature-flipper',
-		);
-	}
-
-	public function blockBots(): void
-	{
-		if (! URL::isLogin()) {
-			return;
-		}
-
-		$crawlerDetect = new CrawlerDetect();
-
-		if (! $crawlerDetect->isCrawler()) {
-			return;
-		}
-
-		wp_die(
-			esc_html(__('You are not allowed to access this page.', 'syntatis-feature-flipper')),
-			esc_html(__('Forbidden', 'syntatis-feature-flipper')),
-			403,
-		);
-	}
-
-	/** @return iterable<object> */
-	public function getInstances(ContainerInterface $container): iterable
-	{
-		yield new LoginIdentifier();
 	}
 }
