@@ -92,8 +92,6 @@ return [
 		->withDefault(null),
 	(new Setting('admin_footer_text', 'boolean'))
 		->withDefault(true),
-	(new Setting('update_nags', 'boolean'))
-		->withDefault(true),
 
 	// Admin: Admin Bar.
 	(new Setting('admin_bar', 'boolean'))
@@ -207,6 +205,8 @@ return [
 	(new Setting('auto_update_plugins', 'boolean'))
 		->withDefault(true),
 	(new Setting('auto_update_themes', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_nags', 'boolean'))
 		->withDefault(true),
 
 	// Heartbeat.
