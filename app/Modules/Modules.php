@@ -36,7 +36,6 @@ final class Modules implements IteratorAggregate
 		yield new Media();
 		yield new Security();
 		yield new Site();
-		yield new Mail();
 	}
 
 	/**
