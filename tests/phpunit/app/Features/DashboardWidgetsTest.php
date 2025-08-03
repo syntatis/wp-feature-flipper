@@ -76,7 +76,10 @@ class DashboardWidgetsTest extends WPTestCase
 		$this->assertSame([], Option::get('dashboard_widgets_enabled'));
 	}
 
-	/** @testdox should return the list of dashboard widgets on the setting page */
+	/**
+	 * @requires PHP >= 8.0
+	 * @testdox should return the list of dashboard widgets on the setting page
+	 */
 	public function testOptionDefaultOnPluginSettingScreen(): void
 	{
 		wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
