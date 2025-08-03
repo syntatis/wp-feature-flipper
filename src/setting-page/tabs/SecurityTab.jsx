@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form, useSettingsContext } from '../form';
+import { Fieldset, Form } from '../form';
 import { SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
@@ -15,8 +15,6 @@ const originalDisplay = {
 };
 
 export const SecurityTab = () => {
-	const { inlineData } = useSettingsContext();
-
 	return (
 		<Form>
 			<Fieldset>
@@ -114,39 +112,6 @@ export const SecurityTab = () => {
 						</HelpContent>
 					}
 				/>
-				{ inlineData.$wp.permalinkStructure && (
-					<SwitchFieldset
-						name="obfuscate_usernames"
-						id="obfuscate-usernames"
-						title={ __(
-							'Username Obfuscation',
-							'syntatis-feature-flipper'
-						) }
-						label={ __(
-							'Obfuscate the usernames with random identifier',
-							'syntatis-feature-flipper'
-						) }
-						description={ __(
-							'If switched on, it will obfuscate usernames of the users to hide the real ones.',
-							'syntatis-feature-flipper'
-						) }
-						help={
-							<HelpContent>
-								<p>
-									{ __(
-										"By default, WordPress uses the username in the author's URL. This poses a security risk as it exposes author's username to login, making brute-force attacks easier.",
-										'syntatis-feature-flipper'
-									) }
-								</p>
-								<p>
-									{ __(
-										"You can enable this option to obfuscate the user's real username/slug in the site public-facing URLs with a random identity to mitigate the risk."
-									) }
-								</p>
-							</HelpContent>
-						}
-					/>
-				) }
 				<SwitchFieldset
 					name="application_passwords"
 					id="application-passwords"
