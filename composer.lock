@@ -2563,16 +2563,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.21",
+            "version": "2.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1ccf445757458c06a04eb3f803603cb118fe5fa6"
+                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1ccf445757458c06a04eb3f803603cb118fe5fa6",
-                "reference": "1ccf445757458c06a04eb3f803603cb118fe5fa6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/41600c8379eb5aee63e9413fe9e97273e25d57e4",
+                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4",
                 "shasum": ""
             },
             "require": {
@@ -2617,7 +2617,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-28T19:35:08+00:00"
+            "time": "2025-08-04T19:17:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -4212,16 +4212,16 @@
         },
         {
             "name": "shipmonk/dead-code-detector",
-            "version": "0.13.0",
+            "version": "0.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/dead-code-detector.git",
-                "reference": "d7cf34827e29aeb977260c01ce8f12a7d17fa7e6"
+                "reference": "18a28eb9c3ab1ced99bbe722a6889f1180034c7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/d7cf34827e29aeb977260c01ce8f12a7d17fa7e6",
-                "reference": "d7cf34827e29aeb977260c01ce8f12a7d17fa7e6",
+                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/18a28eb9c3ab1ced99bbe722a6889f1180034c7c",
+                "reference": "18a28eb9c3ab1ced99bbe722a6889f1180034c7c",
                 "shasum": ""
             },
             "require": {
@@ -4281,9 +4281,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/dead-code-detector/issues",
-                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.0"
+                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.1"
             },
-            "time": "2025-07-21T15:01:43+00:00"
+            "time": "2025-08-04T09:10:06+00:00"
         },
         {
             "name": "shipmonk/phpstan-rules",
