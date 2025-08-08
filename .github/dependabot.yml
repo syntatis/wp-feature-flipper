@@ -6,7 +6,7 @@ updates:
       interval: "monthly"
     labels:
       - "dependencies"
-      - "ci-cd"
+      - "chore"
 
   - package-ecosystem: "composer"
     versioning-strategy: increase
@@ -17,7 +17,7 @@ updates:
       day: "friday"
     labels:
       - "dependencies"
-      - "composer"
+      - "chore"
     ignore:
       - dependency-name: "symfony/*"
         versions: [">=6.0"]
@@ -42,7 +42,7 @@ updates:
       day: "sunday"
     labels:
       - "dependencies"
-      - "npm"
+      - "chore"
     allow:
       - dependency-type: "direct"
     groups:
