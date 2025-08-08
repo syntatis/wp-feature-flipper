@@ -48,6 +48,7 @@ final class Updates implements Hookable, Extendable
 		$hook->addFilter('auto_update_translation', '__return_false');
 		$hook->addFilter('automatic_updater_disabled', '__return_false');
 		$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
+		$hook->removeFilter('auto_plugin_update_send_email', '__return_false');
 	}
 
 	/**
