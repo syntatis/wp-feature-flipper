@@ -39,8 +39,6 @@ export const AdvancedTab = () => {
 							'syntatis-feature-flipper'
 						) }
 					/>
-				</Fieldset>
-				<Fieldset>
 					<UpdatesFieldset />
 					{ getOption( 'updates' ) && (
 						<SwitchFieldset
