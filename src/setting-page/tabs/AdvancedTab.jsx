@@ -25,6 +25,19 @@ export const AdvancedTab = () => {
 			</Notice>
 			<Form>
 				<Fieldset>
+					<SwitchFieldset
+						name="mail_sending"
+						id="mail-sending"
+						title={ __( 'Mailing', 'syntatis-feature-flipper' ) }
+						label={ __(
+							'Enable sending emails',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'If switched off, WordPress will not send any emails.',
+							'syntatis-feature-flipper'
+						) }
+					/>
 					<UpdatesFieldset />
 					<SwitchFieldset
 						name="cron"

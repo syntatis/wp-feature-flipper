@@ -4,7 +4,6 @@ import {
 	AdminTab,
 	AdvancedTab,
 	GeneralTab,
-	MailTab,
 	MediaTab,
 	SecurityTab,
 	SiteTab,
@@ -41,12 +40,6 @@ export const Page = () => {
 					title={ __( 'Site', 'syntatis-feature-flipper' ) }
 				>
 					<SiteTab />
-				</Tab>
-				<Tab
-					key="mail"
-					title={ __( 'Mail', 'syntatis-feature-flipper' ) }
-				>
-					<MailTab />
 				</Tab>
 				<Tab
 					key="security"

@@ -92,8 +92,6 @@ return [
 		->withDefault(null),
 	(new Setting('admin_footer_text', 'boolean'))
 		->withDefault(true),
-	(new Setting('update_nags', 'boolean'))
-		->withDefault(true),
 
 	// Admin: Admin Bar.
 	(new Setting('admin_bar', 'boolean'))
@@ -146,25 +144,6 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
-	(new Setting('site_access', 'string'))
-		->withDefault('public'),
-	/**
-	 * The default value for `site_maintenance_args` options requires values
-	 * of translatable string for the `headline` and `message` properties.
-	 * The default value will be set via the filter. Otherwise, it will
-	 * throw an error due to the translations called too early.
-	 *
-	 * @see app/Features/MaintenanceMode.php
-	 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/l10n.php#L1371-L1380
-	 */
-	(new Setting('site_maintenance_args', 'object'))
-		->apiSchema([
-			'properties' => [
-				'headline' => ['type' => 'string'],
-				'message' => ['type' => 'string'],
-			],
-		]),
-
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),
@@ -183,20 +162,6 @@ return [
 
 	/**
 	 * --------------------------------------------------------
-	 * Email
-	 * --------------------------------------------------------
-	 *
-	 * @see \Syntatis\FeatureFlipper\Modules\Email
-	 */
-	(new Setting('mail_sending', 'boolean'))
-		->withDefault(true),
-	(new Setting('mail_from_address'))
-		->withDefault(null),
-	(new Setting('mail_from_name'))
-		->withDefault(null),
-
-	/**
-	 * --------------------------------------------------------
 	 * Security
 	 * --------------------------------------------------------
 	 *
@@ -208,18 +173,6 @@ return [
 		->withDefault(true),
 	(new Setting('authenticated_rest_api', 'boolean'))
 		->withDefault(false),
-	(new Setting('obfuscate_usernames', 'boolean'))
-		->withDefault(false),
-
-	// Security: Login.
-	(new Setting('login_identifier', 'string'))
-		->withDefault('both'),
-	(new Setting('obfuscate_login_error', 'boolean'))
-		->withDefault(false),
-	(new Setting('login_block_bots', 'boolean'))
-		->withDefault(false),
-
-	// Security: Passwords.
 	(new Setting('application_passwords', 'boolean'))
 		->withDefault(true),
 	/**
@@ -229,6 +182,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Advanced
 	 */
+	(new Setting('mail_sending', 'boolean'))
+		->withDefault(true),
 	(new Setting('cron', 'boolean'))
 		->withDefault(true),
 
@@ -250,6 +205,8 @@ return [
 	(new Setting('auto_update_plugins', 'boolean'))
 		->withDefault(true),
 	(new Setting('auto_update_themes', 'boolean'))
+		->withDefault(true),
+	(new Setting('update_nags', 'boolean'))
 		->withDefault(true),
 
 	// Heartbeat.

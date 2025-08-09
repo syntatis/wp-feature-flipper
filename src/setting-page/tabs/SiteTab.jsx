@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
-import { SiteAccessFieldset, SwitchFieldset } from '../fieldset';
+import { SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 export const SiteTab = () => {
@@ -8,7 +8,6 @@ export const SiteTab = () => {
 
 	return (
 		<Form>
-			<SiteAccessFieldset />
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(

@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Modules;
 
 use _WP_Dependency;
-use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\MaintenanceMode;
-use Syntatis\FeatureFlipper\Features\PrivateMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
 use function array_diff;
 
-final class Site implements Hookable, Extendable
+final class Site implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
@@ -69,12 +65,5 @@ final class Site implements Hookable, Extendable
 
 		$hook->removeAction('wp_head', 'wp_shortlink_wp_head');
 		$hook->removeAction('wp_head', 'wp_shortlink_header');
-	}
-
-	/** @return iterable<object> */
-	public function getInstances(ContainerInterface $container): iterable
-	{
-		yield new MaintenanceMode();
-		yield new PrivateMode();
 	}
 }

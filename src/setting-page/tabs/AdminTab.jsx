@@ -16,26 +16,6 @@ export const AdminTab = () => {
 		<Form>
 			<Fieldset>
 				<DashboardWidgetsFieldset />
-				<SwitchFieldset
-					name="admin_footer_text"
-					id="admin-footer-text"
-					title={ __( 'Footer Text', 'syntatis-feature-flipper' ) }
-					label={ __(
-						'Show the footer text',
-						'syntatis-feature-flipper'
-					) }
-					description={ __(
-						'If switched off, the footer text in the admin area will be removed.',
-						'syntatis-feature-flipper'
-					) }
-					onChange={ ( checked ) => {
-						if ( wpFooter ) {
-							wpFooter.style.display = checked
-								? wpFooterDisplayStyle
-								: 'none';
-						}
-					} }
-				/>
 				{ getOption( 'updates' ) && (
 					<SwitchFieldset
 						name="update_nags"
@@ -64,6 +44,26 @@ export const AdminTab = () => {
 						) }
 					/>
 				) }
+				<SwitchFieldset
+					name="admin_footer_text"
+					id="admin-footer-text"
+					title={ __( 'Footer Text', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Show the footer text',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, the footer text in the admin area will be removed.',
+						'syntatis-feature-flipper'
+					) }
+					onChange={ ( checked ) => {
+						if ( wpFooter ) {
+							wpFooter.style.display = checked
+								? wpFooterDisplayStyle
+								: 'none';
+						}
+					} }
+				/>
 			</Fieldset>
 			<Fieldset
 				title={ __( 'Admin Bar', 'syntatis-feature-flipper' ) }

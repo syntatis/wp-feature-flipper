@@ -6,7 +6,6 @@ export { HeartbeatFieldset } from './HeartbeatFieldset';
 export { ImageQualityFieldset } from './ImageQualityFieldset';
 export { RadioGroupFieldset } from './RadioGroupFieldset';
 export { RevisionsFieldset } from './RevisionsFieldset';
-export { SiteAccessFieldset } from './SiteAccessFieldset';
 export { SwitchFieldset } from './SwitchFieldset';
 export { TextFieldset } from './TextFieldset';
 export { UpdatesFieldset } from './UpdatesFieldset';
