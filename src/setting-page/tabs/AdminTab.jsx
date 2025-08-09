@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form } from '../form';
+import { Fieldset, Form, useSettingsContext } from '../form';
 import {
 	AdminBarFieldset,
 	DashboardWidgetsFieldset,
@@ -11,10 +11,39 @@ const wpFooter = document.querySelector( '#wpfooter' );
 const wpFooterDisplayStyle = wpFooter?.style?.display;
 
 export const AdminTab = () => {
+	const { getOption } = useSettingsContext();
 	return (
 		<Form>
 			<Fieldset>
 				<DashboardWidgetsFieldset />
+				{ getOption( 'updates' ) && (
+					<SwitchFieldset
+						name="update_nags"
+						id="update-nags"
+						help={
+							<HelpContent>
+								<p>
+									{ __(
+										'This option will only remove the update notice that appear at the top of the admin area.It does not prevent the updates itself. To disable the updates, you can switch them off from the "Advanced › Updates" option.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+							</HelpContent>
+						}
+						title={ __(
+							'Update Nags',
+							'syntatis-feature-flipper'
+						) }
+						label={ __(
+							'Enable update notification message',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'If switched off, notification message will not be shown when update is available.',
+							'syntatis-feature-flipper'
+						) }
+					/>
+				) }
 				<SwitchFieldset
 					name="admin_footer_text"
 					id="admin-footer-text"
