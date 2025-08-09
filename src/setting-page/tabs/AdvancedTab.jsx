@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Fieldset, Form, useSettingsContext } from '../form';
+import { Fieldset, Form } from '../form';
 import {
 	HeartbeatFieldset,
 	SwitchFieldset,
