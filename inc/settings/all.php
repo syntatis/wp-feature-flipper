@@ -167,6 +167,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Security
 	 */
+	(new Setting('wp_version', 'boolean'))
+		->withDefault(true),
 	(new Setting('xmlrpc', 'boolean'))
 		->withDefault(true),
 	(new Setting('file_edit', 'boolean'))

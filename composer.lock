@@ -373,16 +373,16 @@
         },
         {
             "name": "syntatis/codex",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex.git",
-                "reference": "d51a115dccdb66a05999883c2aa81135a443e854"
+                "reference": "1078c19421f37300aeeabfce5f9e39197c82d5e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex/zipball/d51a115dccdb66a05999883c2aa81135a443e854",
-                "reference": "d51a115dccdb66a05999883c2aa81135a443e854",
+                "url": "https://api.github.com/repos/syntatis/codex/zipball/1078c19421f37300aeeabfce5f9e39197c82d5e8",
+                "reference": "1078c19421f37300aeeabfce5f9e39197c82d5e8",
                 "shasum": ""
             },
             "require": {
@@ -391,7 +391,7 @@
                 "pimple/pimple": "^3.5"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpstan/extension-installer": "^1.4",
                 "phpstan/phpstan": "^2.1",
@@ -423,7 +423,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "The extension codebase for WordPress®",
+            "description": "Helpers, facades, and service container for WordPress® extensions",
             "homepage": "https://github.com/syntatis/codex",
             "keywords": [
                 "extensions",
@@ -436,9 +436,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex/issues",
-                "source": "https://github.com/syntatis/codex/tree/v0.3.0"
+                "source": "https://github.com/syntatis/codex/tree/v0.3.1"
             },
-            "time": "2025-04-20T17:48:32+00:00"
+            "time": "2025-08-09T15:28:07+00:00"
         },
         {
             "name": "syntatis/codex-settings-provider",
