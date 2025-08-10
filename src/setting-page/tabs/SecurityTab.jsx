@@ -19,6 +19,51 @@ export const SecurityTab = () => {
 		<Form>
 			<Fieldset>
 				<SwitchFieldset
+					name="wp_version"
+					id="wp-version"
+					title={ __(
+						'WordPress Version',
+						'syntatis-feature-flipper'
+					) }
+					label={ __(
+						'Generate the WordPress version',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, the WordPress version meta information will not be generated.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									"By default, WordPress generates a meta tag in the site's header that reveals the current WordPress version. This information can be useful for developers and users, but it also poses a security risk.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'Disabling this feature helps protect your site from potential attacks that target specific WordPress versions.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+					onChange={ ( checked ) => {
+						if ( themeEditors ) {
+							themeEditors.parentElement.style.display = ! checked
+								? 'none'
+								: originalDisplay.themeEditors;
+						}
+						if ( pluginEditors ) {
+							pluginEditors.parentElement.style.display =
+								! checked
+									? 'none'
+									: originalDisplay.pluginEditors;
+						}
+					} }
+				/>
+				<SwitchFieldset
 					name="file_edit"
 					id="file-edit"
 					title={ __( 'File Editor', 'syntatis-feature-flipper' ) }
