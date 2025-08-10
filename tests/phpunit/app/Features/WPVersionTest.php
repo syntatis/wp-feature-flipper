@@ -48,6 +48,14 @@ class WPVersionTest extends WPTestCase
 		$this->assertInstanceOf(WPVersion::class, $instance);
 	}
 
+	public function testHook(): void
+	{
+		$this->assertSame(10, has_action('script_loader_src', [WPVersion::class, 'removeVersionFromArg']));
+		$this->assertSame(10, has_action('style_loader_src', [WPVersion::class, 'removeVersionFromArg']));
+		$this->assertSame(10, has_action('the_generator', '__return_empty_string'));
+		$this->assertFalse(has_action('wp_head', 'wp_generator'));
+	}
+
 	/** @dataProvider dataRemoveVersionFromArg */
 	public function testRemoveVersionFromArg(string $src, string $expected): void
 	{
