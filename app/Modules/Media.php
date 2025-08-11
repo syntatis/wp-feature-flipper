@@ -9,7 +9,6 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\Attachment;
-use Syntatis\FeatureFlipper\Features\MediaViewMode;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 final class Media implements Hookable, Extendable
@@ -38,6 +37,5 @@ final class Media implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new Attachment();
-		yield new MediaViewMode();
 	}
 }
