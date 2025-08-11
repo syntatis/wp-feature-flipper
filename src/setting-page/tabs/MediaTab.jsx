@@ -1,10 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import {
-	ImageQualityFieldset,
-	RadioGroupFieldset,
-	SwitchFieldset,
-} from '../fieldset';
+import { ImageQualityFieldset, SwitchFieldset } from '../fieldset';
 import { HelpContent } from '../components';
 
 export const MediaTab = () => {
@@ -109,48 +105,6 @@ export const MediaTab = () => {
 							<p>
 								{ __(
 									'Starting with WordPress 5.8, infinite scrolling is disabled by default in the Media Library. This setting allows you to reenable it.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-						</HelpContent>
-					}
-				/>
-				<RadioGroupFieldset
-					name="media_view_mode"
-					id="media-view-mode"
-					title={ __( 'View', 'syntatis-feature-flipper' ) }
-					description={ __(
-						'Select the layout mode to view images in the media library.',
-						'syntatis-feature-flipper'
-					) }
-					options={ [
-						{
-							label: __(
-								'Grid and List',
-								'syntatis-feature-flipper'
-							),
-							value: 'both',
-						},
-						{
-							label: __( 'Grid', 'syntatis-feature-flipper' ),
-							value: 'grid',
-						},
-						{
-							label: __( 'List', 'syntatis-feature-flipper' ),
-							value: 'list',
-						},
-					] }
-					help={
-						<HelpContent>
-							<p>
-								{ __(
-									'This setting allows you to select which mode to use when viewing the media library.',
-									'syntatis-feature-flipper'
-								) }
-							</p>
-							<p>
-								{ __(
-									'Selecting to either "Grid" or "List" will disable the ability to switch between views, so everyone will see the same view mode.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
