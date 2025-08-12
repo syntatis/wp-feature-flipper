@@ -18,11 +18,7 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, the search functionality will be disabled, and end users will not be able to use search on the site to find posts, pages, or other content.',
-						'syntatis-feature-flipper'
-					) }
-					help={ __(
-						"While Emojis are fun, if you're not using it in your posts or pages, you might want to consider disabling them to reduce the number of requests from the additional scripts and styles require to load them.",
+						'If switched off, the end users will not be able to use search to find posts, pages, or other content on the site.',
 						'syntatis-feature-flipper'
 					) }
 				/>
@@ -136,14 +132,14 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, the generator meta tag on the webpage head which shows the current version of WordPress installed will be removed.',
+						'If switched off, the generator meta tag shows the current version of WordPress installed will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
 						<HelpContent>
 							<p>
 								{ __(
-									'The generator meta tag reveals the current WordPress version installed, which can pose security risks by exposing potential vulnerabilities of the version.',
+									'The generator meta tag reveals the current WordPress version installed on the site in the website head tag, which can pose security risks by exposing potential vulnerabilities of the version.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
