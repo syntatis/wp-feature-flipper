@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\PasswordReset;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Error;
 
 use function define;
 use function defined;
 
-final class Security implements Hookable
+final class Security implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
@@ -27,32 +30,36 @@ final class Security implements Hookable
 			define('DISALLOW_FILE_EDIT', true);
 		}
 
-		if (! Option::isOn('application_passwords')) {
-			$hook->addFilter('wp_is_application_passwords_available', '__return_false');
-		}
+		$hook->addFilter('wp_is_application_passwords_available', static function ($available) {
+			/**
+			 * If the password application is enabled, return whatever value is passed
+			 * to the filter. Otherwise, always return `false`.
+			 */
+			return Option::isOn('application_passwords') ? $available : false;
+		});
+		$hook->addFilter(
+			'rest_authentication_errors',
+			static function ($access) {
+				if (! Option::isOn('authenticated_rest_api') || is_user_logged_in()) {
+					return $access;
+				}
 
-		if (! Option::isOn('authenticated_rest_api')) {
-			return;
-		}
-
-		$hook->addFilter('rest_authentication_errors', [$this, 'apiForceAuthentication']);
+				return new WP_Error(
+					'rest_login_required',
+					__('Unauthorized API access.', 'syntatis-feature-flipper'),
+					[
+						'status' => rest_authorization_required_code(),
+					],
+				);
+			},
+		);
 	}
 
-	/**
-	 * @param WP_Error|true|null $access
-	 *
-	 * @return WP_Error|true|null
-	 */
-	public function apiForceAuthentication($access)
+	/** @inheritDoc */
+	public function getInstances(ContainerInterface $container): iterable
 	{
-		return is_user_logged_in()
-			? $access
-			: new WP_Error(
-				'rest_login_required',
-				__('Unauthorized API access.', 'syntatis-feature-flipper'),
-				[
-					'status' => rest_authorization_required_code(),
-				],
-			);
+		yield 'password_reset' => ! Option::isOn('password_reset')
+			? new PasswordReset()
+			: null;
 	}
 }

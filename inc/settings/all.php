@@ -169,7 +169,7 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Security
 	 */
-	(new Setting('wp_version', 'boolean'))
+	(new Setting('password_reset', 'boolean'))
 		->withDefault(true),
 	(new Setting('xmlrpc', 'boolean'))
 		->withDefault(true),
