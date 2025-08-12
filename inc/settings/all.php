@@ -119,8 +119,6 @@ return [
 	new Setting('attachment_page', 'boolean'),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
-	(new Setting('media_view_mode', 'string'))
-		->withDefault('both'),
 	(new Setting('media_infinite_scroll', 'boolean'))
 		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
