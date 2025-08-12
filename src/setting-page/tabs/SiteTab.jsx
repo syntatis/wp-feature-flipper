@@ -158,7 +158,7 @@ export const SiteTab = () => {
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, the shortlink meta tag which shows the short URL on the webpage head will be removed.',
+						'If switched off, the shortlink meta tag which shows the short URL of the page will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
