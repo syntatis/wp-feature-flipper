@@ -8,6 +8,21 @@ export const SiteTab = () => {
 
 	return (
 		<Form>
+			<Fieldset>
+				<SwitchFieldset
+					name="public_search"
+					id="public-search"
+					title={ __( 'Search', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable public content search',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, the end users will not be able to use search to find posts, pages, or other content on the site.',
+						'syntatis-feature-flipper'
+					) }
+				/>
+			</Fieldset>
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
@@ -111,23 +126,20 @@ export const SiteTab = () => {
 				<SwitchFieldset
 					name="generator_tag"
 					id="generator-tag"
-					title={ __(
-						'Generator Meta Tag',
-						'syntatis-feature-flipper'
-					) }
+					title={ __( 'Generator Tag', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Add the generator meta tag',
 						'syntatis-feature-flipper'
 					) }
 					description={ __(
-						'If switched off, the generator meta tag on the webpage head which shows the current version of WordPress installed will be removed.',
+						'If switched off, the generator meta tag shows the current version of WordPress installed will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
 						<HelpContent>
 							<p>
 								{ __(
-									'The generator meta tag reveals the current WordPress version installed, which can pose security risks by exposing potential vulnerabilities of the version.',
+									'The generator meta tag reveals the current WordPress version installed on the site in the website head tag, which can pose security risks by exposing potential vulnerabilities of the version.',
 									'syntatis-feature-flipper'
 								) }
 							</p>
@@ -146,7 +158,7 @@ export const SiteTab = () => {
 					title={ __( 'Shortlink', 'syntatis-feature-flipper' ) }
 					label={ __( 'Add Shortlink', 'syntatis-feature-flipper' ) }
 					description={ __(
-						'If switched off, the shortlink meta tag which shows the short URL on the webpage head will be removed.',
+						'If switched off, the shortlink meta tag which shows the short URL of the page will be removed.',
 						'syntatis-feature-flipper'
 					) }
 					help={
