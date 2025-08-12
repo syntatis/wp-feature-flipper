@@ -142,6 +142,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
+	(new Setting('sitemap', 'boolean'))
+		->withDefault(true),
 	(new Setting('public_search', 'boolean'))
 		->withDefault(true),
 	// Site: Assets.

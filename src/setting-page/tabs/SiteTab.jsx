@@ -22,6 +22,35 @@ export const SiteTab = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
+				<SwitchFieldset
+					name="sitemap"
+					id="sitemap"
+					title={ __( 'Sitemap', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable the XML sitemap',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, the built-in XML sitemap in WordPress will not be generated.',
+						'syntatis-feature-flipper'
+					) }
+					help={
+						<HelpContent>
+							<p>
+								{ __(
+									"The XML sitemap is a file that helps search engines like Google and Bing find and index your site's content. Starting in WordPress version 5.5 and later, this feature is built-in.",
+									'syntatis-feature-flipper'
+								) }
+							</p>
+							<p>
+								{ __(
+									'If you have other plugins that generate or manage sitemaps, or if you simply want to keep your site private, you can disable this feature.',
+									'syntatis-feature-flipper'
+								) }
+							</p>
+						</HelpContent>
+					}
+				/>
 			</Fieldset>
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }

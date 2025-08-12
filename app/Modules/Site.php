@@ -19,6 +19,8 @@ final class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter('wp_sitemaps_enabled', static fn () => Option::isOn('sitemap'));
+
 		if (! Option::isOn('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
