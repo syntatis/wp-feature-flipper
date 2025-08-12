@@ -37,6 +37,10 @@ final class PublicSearch implements Hookable
 	 */
 	public static function disableEndpoint($result, WP_REST_Server $server, WP_REST_Request $request)
 	{
+		if (is_user_logged_in()) {
+			return $result;
+		}
+
 		if (strpos($request->get_route(), '/wp/v2/search') !== false) {
 			return new WP_Error(
 				'rest_no_route',
