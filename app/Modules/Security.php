@@ -33,7 +33,9 @@ final class Security implements Hookable, Extendable
 		$hook->addFilter('wp_is_application_passwords_available', static function ($available) {
 			/**
 			 * If the password application is enabled, return whatever value is passed
-			 * to the filter. Otherwise, always return `false`.
+			 * to the filter. This allows other modification to the availability of
+			 * the application passwords, such as from other plugins, or themes
+			 * to take effect. Otherwise, always return `false`.
 			 */
 			return Option::isOn('application_passwords') ? $available : false;
 		});
@@ -58,8 +60,6 @@ final class Security implements Hookable, Extendable
 	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'password_reset' => ! Option::isOn('password_reset')
-			? new PasswordReset()
-			: null;
+		yield 'password_reset' => Option::isOn('password_reset') ? null : new PasswordReset();
 	}
 }
