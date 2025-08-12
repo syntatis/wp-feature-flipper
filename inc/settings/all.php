@@ -144,6 +144,8 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
+	(new Setting('public_search', 'boolean'))
+		->withDefault(true),
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),

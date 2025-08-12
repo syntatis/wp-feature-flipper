@@ -8,6 +8,25 @@ export const SiteTab = () => {
 
 	return (
 		<Form>
+			<Fieldset>
+				<SwitchFieldset
+					name="public_search"
+					id="public-search"
+					title={ __( 'Search', 'syntatis-feature-flipper' ) }
+					label={ __(
+						'Enable public content search',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, the search functionality will be disabled, and end users will not be able to use search on the site to find posts, pages, or other content.',
+						'syntatis-feature-flipper'
+					) }
+					help={ __(
+						"While Emojis are fun, if you're not using it in your posts or pages, you might want to consider disabling them to reduce the number of requests from the additional scripts and styles require to load them.",
+						'syntatis-feature-flipper'
+					) }
+				/>
+			</Fieldset>
 			<Fieldset
 				title={ __( 'Assets', 'syntatis-feature-flipper' ) }
 				description={ __(
@@ -111,10 +130,7 @@ export const SiteTab = () => {
 				<SwitchFieldset
 					name="generator_tag"
 					id="generator-tag"
-					title={ __(
-						'Generator Meta Tag',
-						'syntatis-feature-flipper'
-					) }
+					title={ __( 'Generator Tag', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Add the generator meta tag',
 						'syntatis-feature-flipper'
