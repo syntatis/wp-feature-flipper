@@ -4,65 +4,65 @@ import { TextField } from '@syntatis/kubrick';
 import { Fieldset, useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
 
-export const ImageQualityFieldset = () => {
+export const ImageSizesFieldset = () => {
 	const { getOption, getOptionName } = useSettingsContext();
 	const [ values, setValues ] = useState( {
-		jpegCompression: getOption( 'jpeg_compression' ),
+		bigImageSize: getOption( 'big_image_size' ),
 	} );
 
 	return (
 		<Fieldset
-			title={ __( 'Image Quality', 'syntatis-feature-flipper' ) }
+			title={ __( 'Image Sizes', 'syntatis-feature-flipper' ) }
 			description={ __(
-				'Settings to control the quality of the uploaded images.',
+				'Settings to control the size of the uploaded images.',
 				'syntatis-feature-flipper'
 			) }
 		>
 			<SwitchFieldset
-				name="jpeg_compression"
-				id="jpeg-compression"
-				title="JPEG"
+				name="big_image_size"
+				id="big-image-size"
+				title="Big Image Size"
 				label={ __(
-					'Enable JPEG image compression',
+					'Enable big image size threshold',
 					'syntatis-feature-flipper'
 				) }
 				description={ __(
-					'If switched off, the image with JPEG format will be uploaded with the original quality.',
+					'If switched off, WordPress will not scale down images that exceed the specified threshold.',
 					'syntatis-feature-flipper'
 				) }
 				onChange={ ( value ) => {
 					setValues( ( currentValues ) => {
 						return {
 							...currentValues,
-							jpegCompression: value,
+							bigImageSize: value,
 						};
 					} );
 				} }
 			>
-				{ values.jpegCompression && (
+				{ values.bigImageSize && (
 					<div style={ { marginTop: '1rem' } }>
 						<TextField
 							min={ 10 }
-							max={ 100 }
+							max={ 9999 }
 							type="number"
-							name={ getOptionName( 'jpeg_compression_quality' ) }
+							name={ getOptionName( 'big_image_size_threshold' ) }
 							defaultValue={ getOption(
-								'jpeg_compression_quality'
+								'big_image_size_threshold'
 							) }
 							className="code"
 							prefix={
 								<span aria-hidden>
 									{ __(
-										'Quality',
+										'Threshold',
 										'syntatis-feature-flipper'
 									) }
 								</span>
 							}
 							aria-label={ __(
-								'Quality',
+								'The threshold big image threshold size',
 								'syntatis-feature-flipper'
 							) }
-							suffix="%"
+							suffix="px"
 						/>
 					</div>
 				) }

@@ -21,6 +21,13 @@ final class Media implements Hookable, Extendable
 		);
 
 		$hook->addFilter(
+			'big_image_size_threshold',
+			static fn () => Option::isOn('big_image_size') ?
+				Option::get('big_image_size_threshold') :
+				false,
+		);
+
+		$hook->addFilter(
 			'jpeg_quality',
 			static function ($quality) {
 				if (! Option::isOn('jpeg_compression')) {

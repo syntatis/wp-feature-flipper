@@ -9,3 +9,4 @@ export { RevisionsFieldset } from './RevisionsFieldset';
 export { SwitchFieldset } from './SwitchFieldset';
 export { TextFieldset } from './TextFieldset';
 export { UpdatesFieldset } from './UpdatesFieldset';
+export { ImageSizesFieldset } from './ImageSizesFieldset';

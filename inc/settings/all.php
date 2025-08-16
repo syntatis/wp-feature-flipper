@@ -129,6 +129,10 @@ return [
 	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
 		->withDefault(82),
+	(new Setting('big_image_size', 'boolean'))
+		->withDefault(true),
+	(new Setting('big_image_size_threshold', 'integer'))
+		->withDefault(2560),
 
 	/**
 	 * --------------------------------------------------------

@@ -1,6 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form } from '../form';
-import { ImageQualityFieldset, SwitchFieldset } from '../fieldset';
+import {
+	ImageQualityFieldset,
+	SwitchFieldset,
+	ImageSizesFieldset,
+} from '../fieldset';
 import { HelpContent } from '../components';
 
 export const MediaTab = () => {
@@ -83,13 +87,11 @@ export const MediaTab = () => {
 						</HelpContent>
 					}
 				/>
-			</Fieldset>
-			<Fieldset title={ __( 'Library', 'syntatis-feature-flipper' ) }>
 				<SwitchFieldset
 					name="media_infinite_scroll"
 					id="media-infinite-scroll"
 					title={ __(
-						'Infinite Scroll',
+						'Media Infinite Scroll',
 						'syntatis-feature-flipper'
 					) }
 					label={ __(
@@ -112,6 +114,7 @@ export const MediaTab = () => {
 					}
 				/>
 			</Fieldset>
+			<ImageSizesFieldset />
 			<ImageQualityFieldset />
 		</Form>
 	);
