@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Modules;
 
 use _WP_Dependency;
+use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
+use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\PublicSearch;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
 use function array_diff;
 
-final class Site implements Hookable
+final class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
+		$hook->addFilter('wp_sitemaps_enabled', static fn () => Option::isOn('sitemap'));
+
 		if (! Option::isOn('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
@@ -66,5 +71,11 @@ final class Site implements Hookable
 
 		$hook->removeAction('wp_head', 'wp_shortlink_wp_head');
 		$hook->removeAction('wp_head', 'wp_shortlink_header');
+	}
+
+	/** @return iterable<object|null> */
+	public function getInstances(ContainerInterface $container): iterable
+	{
+		yield 'public_search' => Option::isOn('public_search') ? null : new PublicSearch();
 	}
 }

@@ -119,8 +119,6 @@ return [
 	new Setting('attachment_page', 'boolean'),
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
-	(new Setting('media_view_mode', 'string'))
-		->withDefault('both'),
 	(new Setting('media_infinite_scroll', 'boolean'))
 		->withDefault(false),
 	(new Setting('jpeg_compression', 'boolean'))
@@ -144,6 +142,10 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Site
 	 */
+	(new Setting('sitemap', 'boolean'))
+		->withDefault(true),
+	(new Setting('public_search', 'boolean'))
+		->withDefault(true),
 	// Site: Assets.
 	(new Setting('emojis', 'boolean'))
 		->withDefault(true),
@@ -167,7 +169,7 @@ return [
 	 *
 	 * @see \Syntatis\FeatureFlipper\Modules\Security
 	 */
-	(new Setting('wp_version', 'boolean'))
+	(new Setting('password_reset', 'boolean'))
 		->withDefault(true),
 	(new Setting('xmlrpc', 'boolean'))
 		->withDefault(true),
