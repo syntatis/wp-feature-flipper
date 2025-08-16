@@ -5,7 +5,7 @@ import { Fieldset, useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
 
 export const ImageQualityFieldset = () => {
-	const { getOption } = useSettingsContext();
+	const { getOption, getOptionName } = useSettingsContext();
 	const [ values, setValues ] = useState( {
 		jpegCompression: getOption( 'jpeg_compression' ),
 	} );
@@ -45,7 +45,7 @@ export const ImageQualityFieldset = () => {
 							min={ 10 }
 							max={ 100 }
 							type="number"
-							name="jpeg_compression_quality"
+							name={ getOptionName( 'jpeg_compression_quality' ) }
 							defaultValue={ getOption(
 								'jpeg_compression_quality'
 							) }

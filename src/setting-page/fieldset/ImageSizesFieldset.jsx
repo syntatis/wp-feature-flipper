@@ -5,7 +5,7 @@ import { Fieldset, useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
 
 export const ImageSizesFieldset = () => {
-	const { getOption } = useSettingsContext();
+	const { getOption, getOptionName } = useSettingsContext();
 	const [ values, setValues ] = useState( {
 		bigImageSize: getOption( 'big_image_size' ),
 	} );
@@ -27,7 +27,7 @@ export const ImageSizesFieldset = () => {
 					'syntatis-feature-flipper'
 				) }
 				description={ __(
-					'If switched off, WordPress will not scale down big images that exceed the specified threshold.',
+					'If switched off, WordPress will not scale down images that exceed the specified threshold.',
 					'syntatis-feature-flipper'
 				) }
 				onChange={ ( value ) => {
@@ -45,7 +45,7 @@ export const ImageSizesFieldset = () => {
 							min={ 10 }
 							max={ 9999 }
 							type="number"
-							name="big_image_size_threshold"
+							name={ getOptionName( 'big_image_size_threshold' ) }
 							defaultValue={ getOption(
 								'big_image_size_threshold'
 							) }
