@@ -34,7 +34,7 @@ final class CommentLength implements Hookable
 	 * Filter the comment content before it is processed.
 	 *
 	 * @param array{comment_content?:string|null} $commentData The comment data.
-     * @see https://developer.wordpress.org/reference/hooks/preprocess_comment/
+	 * @see https://developer.wordpress.org/reference/hooks/preprocess_comment/
 	 *
 	 * @return array{comment_content?:string|null} The filtered comment data.
 	 */
