@@ -8,7 +8,6 @@ use Faker\Factory;
 use Faker\Generator;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Comments;
-use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
