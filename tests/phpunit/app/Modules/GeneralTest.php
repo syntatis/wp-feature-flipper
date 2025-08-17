@@ -12,7 +12,6 @@ use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
 
 use const PHP_INT_MAX;
-use const PHP_INT_MIN;
 
 /** @group module-general */
 class GeneralTest extends WPTestCase
