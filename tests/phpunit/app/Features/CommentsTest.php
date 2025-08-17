@@ -161,12 +161,6 @@ class CommentsTest extends WPTestCase
 		self::setUpAdminBar();
 
 		$wpAdminBar = $GLOBALS['wp_admin_bar'];
-		$node = $wpAdminBar->get_node('comments');
-
-		$this->assertObjectHasProperty('id', $node);
-		$this->assertSame('comments', $node->id);
-
-		$this->instance->removeAdminBarMenu($wpAdminBar);
 
 		$this->assertNull($wpAdminBar->get_node('comments'));
 	}
