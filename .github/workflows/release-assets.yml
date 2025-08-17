@@ -1,4 +1,4 @@
-name: release-assets
+name: Release Assets to WordPress.org
 
 on:
   workflow_dispatch:
