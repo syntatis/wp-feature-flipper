@@ -6,11 +6,13 @@ namespace Syntatis\FeatureFlipper\Helpers;
 
 use InvalidArgumentException;
 use SSFV\Codex\Facades\Config;
+use SSFV\Codex\Settings\Settings;
 use Syntatis\FeatureFlipper\Concerns\DontInstantiate;
 
 use function array_diff;
 use function array_filter;
 use function array_intersect;
+use function array_keys;
 use function array_unique;
 use function array_values;
 use function count;
@@ -211,5 +213,10 @@ final class Option
 		}
 
 		return $name;
+	}
+
+	public static function primeCache(Settings $settings): void
+	{
+		wp_prime_option_caches(array_keys($settings->getAll()['all'] ?? []));
 	}
 }

@@ -44,8 +44,8 @@ final class Site implements Hookable, Extendable
 			$hook->addFilter('style_loader_src', $callback);
 		}
 
-		if (! Option::isOn('jquery_migrate')) {
-			$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
+		$hook->addAction('wp_default_scripts', static function (WP_Scripts $scripts): void {
+			if (! Option::isOn('jquery_migrate')) {
 				$jquery = $scripts->query('jquery', 'registered');
 
 				if (! $jquery instanceof _WP_Dependency) {
@@ -53,29 +53,33 @@ final class Site implements Hookable, Extendable
 				}
 
 				$jquery->deps = array_diff($jquery->deps, ['jquery-migrate']);
-			});
-		}
+			}
+		});
 
-		if (! Option::isOn('rsd_link')) {
-			$hook->removeAction('wp_head', 'rsd_link');
-		}
+		$hook->addAction('init', static function () use ($hook): void {
+			if (is_admin()) {
+				return;
+			}
 
-		if (! Option::isOn('generator_tag')) {
-			$hook->addFilter('the_generator', '__return_empty_string');
-			$hook->removeAction('wp_head', 'wp_generator');
-		}
+			if (! Option::isOn('rsd_link')) {
+				$hook->removeAction('wp_head', 'rsd_link');
+			}
 
-		if (Option::isOn('shortlink')) {
-			return;
-		}
+			if (! Option::isOn('generator_tag')) {
+				$hook->addFilter('the_generator', '__return_empty_string');
+				$hook->removeAction('wp_head', 'wp_generator');
+			}
 
-		$hook->removeAction('wp_head', 'wp_shortlink_wp_head');
-		$hook->removeAction('wp_head', 'wp_shortlink_header');
+			if (! Option::isOn('shortlink')) {
+				$hook->removeAction('wp_head', 'wp_shortlink_wp_head');
+				$hook->removeAction('wp_head', 'wp_shortlink_header');
+			}
+		});
 	}
 
 	/** @return iterable<object|null> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'public_search' => Option::isOn('public_search') ? null : new PublicSearch();
+		yield 'public_search' => ! Option::isOn('public_search') ? new PublicSearch() : null;
 	}
 }

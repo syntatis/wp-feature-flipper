@@ -8,7 +8,6 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
-use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 use WP_Block_Type_Registry;
 use WP_Comment;
@@ -31,10 +30,6 @@ final class Comments implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		if (Option::isOn('comments')) {
-			return;
-		}
-
 		$hook->addFilter('rest_endpoints', [$this, 'filterRestEndpoints'], PHP_INT_MAX);
 		$hook->addFilter('xmlrpc_methods', [$this, 'filterXmlrpcMethods'], PHP_INT_MAX);
 

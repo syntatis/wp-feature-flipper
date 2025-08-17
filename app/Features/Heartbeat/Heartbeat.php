@@ -34,15 +34,13 @@ final class Heartbeat implements Hookable, Extendable
 
 	public function deregisterScripts(): void
 	{
-		if (Option::isOn('heartbeat')) {
-			return;
+		if (! Option::isOn('heartbeat')) {
+			/**
+			 * If the feature is disabled, deregister the Heartbeat API script, which
+			 * effectively stopping all the Heartbeat API requests on all pages.
+			 */
+			wp_deregister_script('heartbeat');
 		}
-
-		/**
-		 * If the feature is disabled, deregister the Heartbeat API script, which
-		 * effectively stopping all the Heartbeat API requests on all pages.
-		 */
-		wp_deregister_script('heartbeat');
 	}
 
 	/** @return iterable<object> */

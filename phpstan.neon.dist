@@ -21,4 +21,4 @@ parameters:
 
   ## johnbillion/wp-compat
   WPCompat:
-    requiresAtLeast: '6.0'
+    requiresAtLeast: '6.4'
