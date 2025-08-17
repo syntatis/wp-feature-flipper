@@ -34,19 +34,16 @@ final class General implements Hookable, Extendable
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);
+		$hook->addFilter('pre_ping', static function (&$links): void {
+			if (Option::isOn('self_ping') || ! is_array($links)) {
+				return;
+			}
 
-		if (! Option::isOn('self_ping')) {
-			$hook->addFilter('pre_ping', static function (&$links): void {
-				if (! is_array($links)) {
-					return;
-				}
-
-				$links = array_filter(
-					$links,
-					static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
-				);
-			}, 99);
-		}
+			$links = array_filter(
+				$links,
+				static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
+			);
+		}, 99);
 
 		/**
 		 * When revisions are disabled, force the maximum revisions to 0 to prevent
