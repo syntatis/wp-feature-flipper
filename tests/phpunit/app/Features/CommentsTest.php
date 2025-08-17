@@ -14,7 +14,6 @@ use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
 use WP_Block_Type_Registry;
 use WP_Comment_Query;
-use WPDieException;
 
 use function version_compare;
 
@@ -64,32 +63,6 @@ class CommentsTest extends WPTestCase
 	/** @testdox should have callback attached to hooks */
 	public function testHook(): void
 	{
-		$this->assertFalse($this->hook->hasFilter('rest_endpoints', [$this->instance, 'filterRestEndpoints']));
-		$this->assertFalse($this->hook->hasFilter('xmlrpc_methods', [$this->instance, 'filterXmlrpcMethods']));
-
-		$this->assertFalse($this->hook->hasAction('admin_bar_menu', [$this->instance, 'removeAdminBarMenu']));
-		$this->assertFalse($this->hook->hasAction('admin_init', [$this->instance, 'removePostTypeSupport']));
-		$this->assertFalse($this->hook->hasAction('admin_menu', [$this->instance, 'removeAdminMenu']));
-		$this->assertFalse($this->hook->hasAction('do_meta_boxes', [$this->instance, 'removePostMetabox']));
-
-		$this->assertFalse($this->hook->hasAction('init', [$this->instance, 'unregisterBlocksServer']));
-		$this->assertFalse($this->hook->hasAction('enqueue_block_editor_assets', [$this->instance, 'unregisterBlocksClient']));
-
-		$this->assertFalse($this->hook->hasFilter('comments_pre_query', [$this->instance, 'filterCommentsPreQuery']));
-		$this->assertFalse($this->hook->hasFilter('wp_count_comments', [$this->instance, 'filterCommentsCount']));
-
-		$this->assertFalse($this->hook->hasFilter('comments_array', [$this->instance, 'filterCommentsArray']));
-		$this->assertFalse($this->hook->hasFilter('comments_open', [$this->instance, 'filterCommentsOpen']));
-		$this->assertFalse($this->hook->hasFilter('get_comments_number', [$this->instance, 'filterGetCommentsNumber']));
-		$this->assertFalse($this->hook->hasFilter('pings_open', [$this->instance, 'filterPingsOpen']));
-
-		$this->assertFalse($this->hook->hasFilter('feed_links_show_comments_feed', '__return_false'));
-		$this->assertFalse($this->hook->hasFilter('post_comments_feed_link', '__return_empty_string'));
-		$this->assertFalse($this->hook->hasFilter('post_comments_feed_link_html', '__return_empty_string'));
-
-		// Disable the "comments" feature.
-		Option::update('comments', false);
-
 		// Reload the hooks.
 		$this->instance->hook($this->hook);
 
@@ -545,134 +518,5 @@ class CommentsTest extends WPTestCase
 	{
 		yield 'post' => ['post', 0];
 		yield 'product' => ['product', 2];
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value as is when the comment min length is disabled
-	 */
-	public function testMinCommentLengthDisabled(): void
-	{
-		$this->assertFalse(Option::isOn('comment_min_length_enabled'));
-
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
-
-		$this->assertEquals(['comment_content' => 'Hi!'], $comment);
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value or fail the comment is too short (default: 10 characters)
-	 */
-	public function testMinCommentLengthEnabled(): void
-	{
-		Option::update('comment_min_length_enabled', true);
-
-		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
-		$this->assertEquals(
-			['comment_content' => 'hello world!'],
-			$this->instance->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
-		);
-
-		$this->expectException(WPDieException::class);
-		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
-
-		$this->instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value or fail the comment is too short (updated: 20 characters)
-	 */
-	public function testMinCommentLengthUpdated(): void
-	{
-		Option::update('comment_min_length_enabled', true);
-		Option::update('comment_min_length', 20);
-
-		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
-		$this->assertSame(20, Option::get('comment_min_length'));
-
-		// Asserting with value about 20 characters.
-		$text = $this->faker->realTextBetween(20, 30);
-		$this->assertEquals(
-			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
-				['comment_content' => $text],
-			),
-		);
-
-		$this->expectException(WPDieException::class);
-		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
-
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => $this->faker->text(19)]);
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value as is when the comment max length is disabled
-	 */
-	public function testMaxCommentLengthDisabled(): void
-	{
-		$this->assertFalse(Option::isOn('comment_max_length_enabled'));
-
-		$text = $this->faker->realTextBetween(101, 200);
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => $text]);
-
-		$this->assertEquals(['comment_content' => $text], $comment);
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value or fail when the comment is too long (default: 100 characters)
-	 */
-	public function testMaxCommentLengthEnabled(): void
-	{
-		Option::update('comment_max_length_enabled', true);
-
-		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
-		$this->assertSame(100, Option::get('comment_max_length'));
-
-		// Asserting with value about 100 characters.
-		$text = $this->faker->text(100);
-		$this->assertEquals(
-			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
-				['comment_content' => $text],
-			),
-		);
-
-		$this->expectException(WPDieException::class);
-		$this->expectExceptionMessage('Comment&#039;s too long. Please write more concisely.');
-
-		// Asserting with value about 101 or more characters.
-		$this->instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(101, 200)]);
-	}
-
-	/**
-	 * @group feature-comments
-	 * @testdox should return the comment value or fail when the comment is too long (300 characters)
-	 */
-	public function testMaxCommentLengthUpdated(): void
-	{
-		Option::update('comment_max_length_enabled', true);
-		Option::update('comment_max_length', 300);
-
-		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
-		$this->assertSame(300, Option::get('comment_max_length'));
-
-		// Asserting with value about 300 characters.
-		$text = $this->faker->text(300);
-		$this->assertEquals(
-			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
-				['comment_content' => $text],
-			),
-		);
-
-		$this->expectException(WPDieException::class);
-		$this->expectExceptionMessage('Comment&#039;s too long. Please write more concisely.');
-
-		// Asserting with value about 301 or more characters.
-		$this->instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(300, 400)]);
 	}
 }

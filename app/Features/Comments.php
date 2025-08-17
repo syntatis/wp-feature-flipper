@@ -8,8 +8,6 @@ use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Facades\App;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
-use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\Str;
 use WP_Admin_Bar;
 use WP_Block_Type_Registry;
 use WP_Comment;
@@ -25,7 +23,6 @@ use function remove_post_type_support;
 use function strip_tags;
 
 use const PHP_INT_MAX;
-use const PHP_INT_MIN;
 
 final class Comments implements Hookable
 {
@@ -33,12 +30,6 @@ final class Comments implements Hookable
 
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MIN);
-
-		if (Option::isOn('comments')) {
-			return;
-		}
-
 		$hook->addFilter('rest_endpoints', [$this, 'filterRestEndpoints'], PHP_INT_MAX);
 		$hook->addFilter('xmlrpc_methods', [$this, 'filterXmlrpcMethods'], PHP_INT_MAX);
 
@@ -331,62 +322,5 @@ final class Comments implements Hookable
 		}
 
 		return $number;
-	}
-
-	/**
-	 * Filter the comment content before it is processed.
-	 *
-	 * @param array{comment_content?:string|null} $commentData The comment data. {@see https://developer.wordpress.org/reference/hooks/preprocess_comment/}.
-	 *
-	 * @return array{comment_content?:string|null} The filtered comment data.
-	 */
-	public function filterPreprocessComment(array $commentData = []): array
-	{
-		if (! isset($commentData['comment_content'])) {
-			return $commentData;
-		}
-
-		$length = Str::length(
-			strip_tags($commentData['comment_content']),
-			get_bloginfo('charset'),
-		);
-
-		if ($length === false) {
-			return $commentData;
-		}
-
-		if (Option::isOn('comment_min_length_enabled')) {
-			$minLength = Option::get('comment_min_length');
-			$minLength = is_numeric($minLength) ? absint($minLength) : null;
-
-			if ($minLength !== null && $length < $minLength) {
-				wp_die(
-					esc_html(__('Comment\'s too short. Please write something more helpful.', 'syntatis-feature-flipper')),
-					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
-					[
-						'response' => 400,
-						'back_link' => true,
-					],
-				);
-			}
-		}
-
-		if (Option::isOn('comment_max_length_enabled')) {
-			$maxLength = Option::get('comment_max_length');
-			$maxLength = is_numeric($maxLength) ? absint($maxLength) : null;
-
-			if ($maxLength !== null && $length > $maxLength) {
-				wp_die(
-					esc_html(__('Comment\'s too long. Please write more concisely.', 'syntatis-feature-flipper')),
-					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
-					[
-						'response' => 400,
-						'back_link' => true,
-					],
-				);
-			}
-		}
-
-		return $commentData;
 	}
 }

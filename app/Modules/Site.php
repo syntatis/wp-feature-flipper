@@ -80,6 +80,6 @@ final class Site implements Hookable, Extendable
 	/** @return iterable<object|null> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'public_search' => Option::isOn('public_search') ? null : new PublicSearch();
+		yield 'public_search' => ! Option::isOn('public_search') ? new PublicSearch() : null;
 	}
 }

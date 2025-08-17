@@ -8,6 +8,7 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
@@ -91,7 +92,14 @@ final class General implements Hookable, Extendable
 	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'comments' => new Comments();
+		$minLengthEnabled = Option::isOn('comment_min_length_enabled');
+		$maxLengthEnabled = Option::isOn('comment_max_length_enabled');
+
+		yield 'comment_length' => $minLengthEnabled || $maxLengthEnabled ?
+			new CommentLength($minLengthEnabled, $maxLengthEnabled) :
+			null;
+
+		yield 'comments' => ! Option::isOn('comments') ? new Comments() : null;
 		yield 'embeds' => ! Option::isOn('embed') ? new Embeds() : null;
 		yield 'feeds' => ! Option::isOn('feeds') && ! is_admin() ? new Feeds() : null;
 		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
