@@ -39,6 +39,7 @@ final class Security implements Hookable, Extendable
 			 */
 			return Option::isOn('application_passwords') ? $available : false;
 		});
+
 		$hook->addFilter(
 			'rest_authentication_errors',
 			static function ($access) {
@@ -60,6 +61,6 @@ final class Security implements Hookable, Extendable
 	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'password_reset' => Option::isOn('password_reset') ? null : new PasswordReset();
+		yield 'password_reset' => ! Option::isOn('password_reset') ? new PasswordReset() : null;
 	}
 }

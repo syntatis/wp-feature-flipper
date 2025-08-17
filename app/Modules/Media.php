@@ -29,20 +29,15 @@ final class Media implements Hookable, Extendable
 
 		$hook->addFilter(
 			'jpeg_quality',
-			static function ($quality) {
-				if (! Option::isOn('jpeg_compression')) {
-					return 100;
-				}
-
-				return Option::get('jpeg_compression_quality');
-			},
-			99,
+			static fn ($quality) => Option::isOn('jpeg_compression') ?
+				Option::get('jpeg_compression_quality') :
+				100,
 		);
 	}
 
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new Attachment();
+		yield 'attachment' => new Attachment();
 	}
 }

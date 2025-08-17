@@ -6,7 +6,6 @@ namespace Syntatis\FeatureFlipper\Features;
 
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
-use Syntatis\FeatureFlipper\Helpers\Option;
 
 use const PHP_INT_MIN;
 
@@ -14,10 +13,6 @@ final class Feeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if (Option::isOn('feeds')) {
-			return;
-		}
-
 		// Disable feeds.
 		$hook->addAction('do_feed', [$this, 'toHomepage'], PHP_INT_MIN);
 		$hook->addAction('do_feed_rdf', [$this, 'toHomepage'], PHP_INT_MIN);

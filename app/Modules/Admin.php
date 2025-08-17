@@ -16,7 +16,7 @@ final class Admin implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		if (Option::isOn('admin_footer_text')) {
+		if (! is_admin() || Option::isOn('admin_footer_text')) {
 			return;
 		}
 
@@ -24,10 +24,10 @@ final class Admin implements Hookable, Extendable
 		$hook->addFilter('update_footer', '__return_empty_string', 99);
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new DashboardWidgets();
-		yield new AdminBar();
+		yield 'admin_bar' => new AdminBar();
+		yield 'dashboard_widgets' => is_admin() ? new DashboardWidgets() : null;
 	}
 }

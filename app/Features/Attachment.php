@@ -53,7 +53,6 @@ final class Attachment implements Hookable
 			2,
 		);
 
-		// 1. Attachment Page.
 		if (! Option::isOn('attachment_page')) {
 			$hook->addAction('template_redirect', function (): void {
 				if (! is_attachment()) {
@@ -89,13 +88,13 @@ final class Attachment implements Hookable
 			}, 99, 2);
 		}
 
-		if (Option::isOn('attachment_slug')) {
-			return;
-		}
-
 		$hook->addFilter(
 			'wp_unique_post_slug',
 			static function (string $slug, string $id, string $status, string $type): string {
+				if (Option::isOn('attachment_slug')) {
+					return $slug;
+				}
+
 				if ($type !== 'attachment' || Uuid::isValid($slug)) {
 					return $slug;
 				}

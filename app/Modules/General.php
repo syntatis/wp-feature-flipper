@@ -8,12 +8,12 @@ use SSFV\Codex\Contracts\Extendable;
 use SSFV\Codex\Contracts\Hookable;
 use SSFV\Codex\Foundation\Hooks\Hook;
 use SSFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Gutenberg;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\Str;
 
 use function array_filter;
 use function define;
@@ -22,10 +22,8 @@ use function is_array;
 use function is_numeric;
 use function is_string;
 use function str_starts_with;
-use function strip_tags;
 
 use const PHP_INT_MAX;
-use const PHP_INT_MIN;
 
 final class General implements Hookable, Extendable
 {
@@ -37,21 +35,16 @@ final class General implements Hookable, Extendable
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);
+		$hook->addFilter('pre_ping', static function (&$links): void {
+			if (Option::isOn('self_ping') || ! is_array($links)) {
+				return;
+			}
 
-		if (! Option::isOn('self_ping')) {
-			$hook->addFilter('pre_ping', static function (&$links): void {
-				if (! is_array($links)) {
-					return;
-				}
-
-				$links = array_filter(
-					$links,
-					static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
-				);
-			}, 99);
-		}
-
-		$hook->addFilter('preprocess_comment', [$this, 'filterPreprocessComment'], PHP_INT_MIN);
+			$links = array_filter(
+				$links,
+				static fn ($link) => is_string($link) && ! str_starts_with($link, home_url()),
+			);
+		}, 99);
 
 		/**
 		 * When revisions are disabled, force the maximum revisions to 0 to prevent
@@ -96,73 +89,19 @@ final class General implements Hookable, Extendable
 		return (bool) $option === true;
 	}
 
-	/**
-	 * Filter the comment content before it is processed.
-	 *
-	 * @param array{comment_content?:string|null} $commentData The comment data. {@see https://developer.wordpress.org/reference/hooks/preprocess_comment/}.
-	 *
-	 * @return array{comment_content?:string|null} The filtered comment data.
-	 */
-	public function filterPreprocessComment(array $commentData = []): array
-	{
-		if (! isset($commentData['comment_content'])) {
-			return $commentData;
-		}
-
-		$length = Str::length(
-			strip_tags($commentData['comment_content']),
-			get_bloginfo('charset'),
-		);
-
-		if ($length === false) {
-			return $commentData;
-		}
-
-		if (Option::isOn('comment_min_length_enabled')) {
-			$minLength = Option::get('comment_min_length');
-			$minLength = is_numeric($minLength) ? absint($minLength) : null;
-
-			if ($minLength !== null && $length < $minLength) {
-				wp_die(
-					esc_html(__('Comment\'s too short. Please write something more helpful.', 'syntatis-feature-flipper')),
-					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
-					[
-						'response' => 400,
-						'back_link' => true,
-					],
-				);
-			}
-		}
-
-		if (Option::isOn('comment_max_length_enabled')) {
-			$maxLength = Option::get('comment_max_length');
-			$maxLength = is_numeric($maxLength) ? absint($maxLength) : null;
-
-			if ($maxLength !== null && $length > $maxLength) {
-				wp_die(
-					esc_html(__('Comment\'s too long. Please write more concisely.', 'syntatis-feature-flipper')),
-					esc_html(__('Comment Error', 'syntatis-feature-flipper')),
-					[
-						'response' => 400,
-						'back_link' => true,
-					],
-				);
-			}
-		}
-
-		return $commentData;
-	}
-
-	/**
-	 * Proivide other features to load managed within the General section.
-	 *
-	 * @return iterable<object>
-	 */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new Comments();
-		yield new Embeds();
-		yield new Feeds();
-		yield new Gutenberg();
+		$minLengthEnabled = Option::isOn('comment_min_length_enabled');
+		$maxLengthEnabled = Option::isOn('comment_max_length_enabled');
+
+		yield 'comment_length' => $minLengthEnabled || $maxLengthEnabled ?
+			new CommentLength($minLengthEnabled, $maxLengthEnabled) :
+			null;
+
+		yield 'comments' => ! Option::isOn('comments') ? new Comments() : null;
+		yield 'embeds' => ! Option::isOn('embed') ? new Embeds() : null;
+		yield 'feeds' => ! Option::isOn('feeds') && ! is_admin() ? new Feeds() : null;
+		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
 	}
 }
