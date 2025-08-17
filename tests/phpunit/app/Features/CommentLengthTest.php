@@ -11,7 +11,6 @@ use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
-use Syntatis\Tests\WithAdminBar;
 use Syntatis\Tests\WPTestCase;
 use WPDieException;
 
@@ -23,10 +22,7 @@ use const PHP_INT_MIN;
  */
 class CommentLengthTest extends WPTestCase
 {
-	use WithAdminBar;
-
 	private Hook $hook;
-	private CommentLength $instance;
 	private Generator $faker;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
@@ -34,16 +30,17 @@ class CommentLengthTest extends WPTestCase
 	{
 		parent::set_up();
 
-		$this->hook = new Hook();
-		$this->instance = new CommentLength(true, true);
-		$this->instance->hook($this->hook);
 		$this->faker = Factory::create();
 	}
 
 	/** @testdox should have callback attached to hooks */
 	public function testHook(): void
 	{
-		$this->assertSame(PHP_INT_MIN, $this->hook->hasFilter('preprocess_comment', [$this->instance, 'filterPreprocessComment']));
+		$hook = new Hook();
+		$instance = new CommentLength(true, true);
+		$instance->hook($hook);
+
+		$this->assertSame(PHP_INT_MIN, $hook->hasFilter('preprocess_comment', [$instance, 'filterPreprocessComment']));
 	}
 
 	/**
@@ -64,16 +61,17 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMinCommentLengthEnabled(): void
 	{
+		$instance = new CommentLength(true, true);
+
 		$this->assertEquals(
 			['comment_content' => 'hello world!'],
-			((new CommentLength(true, true)))
-				->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
+			$instance->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
 		);
 
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
 
-		$this->instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
+		$instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
 	}
 
 	/**
@@ -86,18 +84,23 @@ class CommentLengthTest extends WPTestCase
 
 		$this->assertSame(20, Option::get('comment_min_length'));
 
+		$instance = new CommentLength(true, true);
+
 		// Asserting with value about 20 characters.
 		$text = $this->faker->realTextBetween(20, 30);
 		$this->assertEquals(
 			['comment_content' => $text],
-			(new CommentLength(true, true))
-				->filterPreprocessComment(['comment_content' => $text]),
+			$instance->filterPreprocessComment(['comment_content' => $text]),
 		);
 
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
 
-		$comment = (new CommentLength(true, true))->filterPreprocessComment(['comment_content' => $this->faker->text(19)]);
+		/**
+		 * Even though that the comment is 19 characters long, it will still trigger the exception,
+		 * because the minimum comment length is updated to 20.
+		 */
+		$instance->filterPreprocessComment(['comment_content' => $this->faker->text(19)]);
 	}
 
 	/**
@@ -106,10 +109,8 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMaxCommentLengthDisabled(): void
 	{
-		$this->assertFalse(Option::isOn('comment_max_length_enabled'));
-
 		$text = $this->faker->realTextBetween(101, 200);
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => $text]);
+		$comment = (new CommentLength(true, false))->filterPreprocessComment(['comment_content' => $text]);
 
 		$this->assertEquals(['comment_content' => $text], $comment);
 	}
@@ -120,25 +121,22 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMaxCommentLengthEnabled(): void
 	{
-		Option::update('comment_max_length_enabled', true);
-
-		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
 		$this->assertSame(100, Option::get('comment_max_length'));
+
+		$instance = new CommentLength(true, true);
 
 		// Asserting with value about 100 characters.
 		$text = $this->faker->text(100);
 		$this->assertEquals(
 			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
-				['comment_content' => $text],
-			),
+			$instance->filterPreprocessComment(['comment_content' => $text]),
 		);
 
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too long. Please write more concisely.');
 
 		// Asserting with value about 101 or more characters.
-		$this->instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(101, 200)]);
+		$instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(101, 200)]);
 	}
 
 	/**
@@ -147,17 +145,17 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMaxCommentLengthUpdated(): void
 	{
-		Option::update('comment_max_length_enabled', true);
 		Option::update('comment_max_length', 300);
 
-		$this->assertTrue(Option::isOn('comment_max_length_enabled'));
 		$this->assertSame(300, Option::get('comment_max_length'));
+
+		$instance = new CommentLength(true, true);
 
 		// Asserting with value about 300 characters.
 		$text = $this->faker->text(300);
 		$this->assertEquals(
 			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
+			$instance->filterPreprocessComment(
 				['comment_content' => $text],
 			),
 		);
@@ -166,6 +164,6 @@ class CommentLengthTest extends WPTestCase
 		$this->expectExceptionMessage('Comment&#039;s too long. Please write more concisely.');
 
 		// Asserting with value about 301 or more characters.
-		$this->instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(300, 400)]);
+		$instance->filterPreprocessComment(['comment_content' => $this->faker->realTextBetween(300, 400)]);
 	}
 }
