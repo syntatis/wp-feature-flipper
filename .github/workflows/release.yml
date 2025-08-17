@@ -1,4 +1,4 @@
-name: Release to WordPress.org
+name: Release to WP.org
 
 on:
   workflow_dispatch:
