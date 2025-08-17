@@ -78,8 +78,9 @@ jobs:
         run: composer analyze
 
   test:
+    needs: [typo, lint, analyze]
     runs-on: ubuntu-latest
-    name: Analyze
+    name: Test
 
     strategy:
       fail-fast: true
