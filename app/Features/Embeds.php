@@ -23,10 +23,6 @@ final class Embeds implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		if (Option::isOn('embed')) {
-			return;
-		}
-
 		$hook->addAction('init', fn () => $this->disables($hook), PHP_INT_MAX);
 	}
 

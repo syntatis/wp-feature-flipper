@@ -95,8 +95,8 @@ final class General implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield 'comments' => new Comments();
-		yield 'embeds' => new Embeds();
-		yield 'feeds' => ! is_admin() ? new Feeds() : null;
+		yield 'embeds' => ! Option::isOn('embed') ? new Embeds() : null;
+		yield 'feeds' => ! Option::isOn('feeds') && ! is_admin() ? new Feeds() : null;
 		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
 	}
 }
