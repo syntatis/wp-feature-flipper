@@ -32,23 +32,22 @@ final class Updates implements Hookable, Extendable
 			static fn ($value) => Helpers\AutoUpdate::global((bool) $value)->isEnabled(),
 		);
 
+		$hook->addAction('admin_menu', [$this, 'removeMenu'], PHP_INT_MAX);
+
 		if (! Option::isOn('updates')) {
-			$hook->addAction('admin_menu', [$this, 'removeMenu'], PHP_INT_MAX);
 			$hook->removeAction('init', 'wp_schedule_update_checks');
 		}
 
-		if (Option::isOn('auto_updates')) {
-			return;
-		}
+		if (! Option::isOn('auto_updates')) {
+			if (! defined('AUTOMATIC_UPDATER_DISABLED')) {
+				define('AUTOMATIC_UPDATER_DISABLED', false);
+			}
 
-		if (! defined('AUTOMATIC_UPDATER_DISABLED')) {
-			define('AUTOMATIC_UPDATER_DISABLED', false);
+			$hook->addFilter('auto_update_translation', '__return_false');
+			$hook->addFilter('automatic_updater_disabled', '__return_false');
+			$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
+			$hook->removeFilter('auto_plugin_update_send_email', '__return_false');
 		}
-
-		$hook->addFilter('auto_update_translation', '__return_false');
-		$hook->addFilter('automatic_updater_disabled', '__return_false');
-		$hook->removeAction('wp_maybe_auto_update', 'wp_maybe_auto_update');
-		$hook->removeFilter('auto_plugin_update_send_email', '__return_false');
 	}
 
 	/**
@@ -56,7 +55,9 @@ final class Updates implements Hookable, Extendable
 	 */
 	public function removeMenu(): void
 	{
-		remove_submenu_page('index.php', 'update-core.php');
+		if (! Option::isOn('updates')) {
+			remove_submenu_page('index.php', 'update-core.php');
+		}
 	}
 
 	/** @return iterable<object> */

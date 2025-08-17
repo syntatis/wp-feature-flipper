@@ -31,7 +31,9 @@
 	<config name="testVersion" value="7.4-"/>
 
 	<!-- Rulesets -->
-	<rule ref="SyntatisWP"/>
+	<rule ref="SyntatisWP">
+		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed" />
+	</rule>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array">

@@ -24,10 +24,10 @@ final class Admin implements Hookable, Extendable
 		$hook->addFilter('update_footer', '__return_empty_string', 99);
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield new AdminBar();
-		yield is_admin() ? new DashboardWidgets() : null;
+		yield 'admin_bar' => new AdminBar();
+		yield 'dashboard_widgets' => is_admin() ? new DashboardWidgets() : null;
 	}
 }
