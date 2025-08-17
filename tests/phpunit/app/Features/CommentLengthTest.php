@@ -52,9 +52,8 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMinCommentLengthDisabled(): void
 	{
-		$this->assertFalse(Option::isOn('comment_min_length_enabled'));
-
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
+		$comment = (new CommentLength(false, true))
+			->filterPreprocessComment(['comment_content' => 'Hi!']); // 3 characters.
 
 		$this->assertEquals(['comment_content' => 'Hi!'], $comment);
 	}
@@ -65,12 +64,10 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMinCommentLengthEnabled(): void
 	{
-		Option::update('comment_min_length_enabled', true);
-
-		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
 		$this->assertEquals(
 			['comment_content' => 'hello world!'],
-			$this->instance->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
+			((new CommentLength(true, true)))
+				->filterPreprocessComment(['comment_content' => 'hello world!']), // 12 characters.
 		);
 
 		$this->expectException(WPDieException::class);
@@ -85,25 +82,22 @@ class CommentLengthTest extends WPTestCase
 	 */
 	public function testMinCommentLengthUpdated(): void
 	{
-		Option::update('comment_min_length_enabled', true);
 		Option::update('comment_min_length', 20);
 
-		$this->assertTrue(Option::isOn('comment_min_length_enabled'));
 		$this->assertSame(20, Option::get('comment_min_length'));
 
 		// Asserting with value about 20 characters.
 		$text = $this->faker->realTextBetween(20, 30);
 		$this->assertEquals(
 			['comment_content' => $text],
-			$this->instance->filterPreprocessComment(
-				['comment_content' => $text],
-			),
+			(new CommentLength(true, true))
+				->filterPreprocessComment(['comment_content' => $text]),
 		);
 
 		$this->expectException(WPDieException::class);
 		$this->expectExceptionMessage('Comment&#039;s too short. Please write something more helpful.');
 
-		$comment = $this->instance->filterPreprocessComment(['comment_content' => $this->faker->text(19)]);
+		$comment = (new CommentLength(true, true))->filterPreprocessComment(['comment_content' => $this->faker->text(19)]);
 	}
 
 	/**
