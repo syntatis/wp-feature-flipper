@@ -8,24 +8,40 @@ Thumbs.db
 *.sql
 *.log
 
+# Caches #
+##########
+*.cache
+
 # Compiled source #
 ###################
-*.tar.gz
+*.tar*
 *.zip
 dist*
 build*
 @*
 
 # Dependencies #
-##########################
+################
+composer.lock
 node_modules
 vendor*
 
 # Temporary files #
-#############
+###################
 tmp
-.phpunit*
-*.cache
+wordpress/
+
+# Environment files #
+######################
+.env
+
+# Private Configs #
+######################
+phpcs.xml
+phpstan.xml
+phpunit.xml
+*.override.xml
+wp-cli.local.yml
 
 # wp-env #
 #####################
