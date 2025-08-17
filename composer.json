@@ -74,17 +74,17 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "analyze": "phpstan --memory-limit=2G",
         "build": [
             "codex scoper:init --yes --no-dev",
             "@make-pot"
         ],
+        "format": "phpcbf",
+        "lint": "phpcs",
         "make-pot": "wp i18n make-pot --exclude=vendor,dist,build . inc/languages/syntatis-feature-flipper.pot",
-        "phpcs": "phpcs",
-        "phpcs:fix": "phpcbf",
-        "phpstan": "phpstan --memory-limit=2G",
-        "phpunit": "npm run wp-env:tests-wordpress vendor/bin/phpunit --",
-        "plugin:zip": "@composer archive --format=zip",
-        "scoper": "codex scoper:init"
+        "scope": "codex scoper:init",
+        "test": "npm run wp-env:tests-wordpress vendor/bin/phpunit --",
+        "zip": "@composer archive --format=zip"
     },
     "scripts-descriptions": {
         "build": "Build the plugin for production",
