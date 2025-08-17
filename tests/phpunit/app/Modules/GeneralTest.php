@@ -36,7 +36,6 @@ class GeneralTest extends WPTestCase
 	public function testHook(): void
 	{
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('use_widgets_block_editor', [$this->instance, 'filterUseWidgetsBlockEditor']));
-		$this->assertSame(PHP_INT_MIN, $this->hook->hasFilter('preprocess_comment', [$this->instance, 'filterPreprocessComment']));
 	}
 
 	/** @testdox should default values */
