@@ -87,7 +87,7 @@ jobs:
       max-parallel: 2
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        wp-core-version: ["WordPress/WordPress", "WordPress/WordPress#6.4"]
+        wp-core-version: ["https://wordpress.org/latest.zip", "https://wordpress.org/wordpress-6.4.6.zip"]
 
     steps:
       - name: Checkout code
