@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Modules;
 
 use _WP_Dependency;
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\PublicSearch;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;

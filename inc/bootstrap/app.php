@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper;
 
-use SSFV\Codex;
+use SFFV\Codex;
 
 use function defined;
 

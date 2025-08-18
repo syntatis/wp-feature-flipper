@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;

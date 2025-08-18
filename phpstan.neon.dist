@@ -17,7 +17,7 @@ parameters:
 
   ## syntatis/phpstan-psr-11
   syntatis:
-    psr-11: SSFV\Psr\Container\ContainerInterface
+    psr-11: SFFV\Psr\Container\ContainerInterface
 
   ## johnbillion/wp-compat
   WPCompat:

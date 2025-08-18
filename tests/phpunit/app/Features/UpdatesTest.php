@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Features;
 
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Updates\Updates;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;

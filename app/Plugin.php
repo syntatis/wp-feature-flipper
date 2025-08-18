@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper;
 
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Settings\Settings;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Settings\Settings;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\Modules;
 

@@ -7,7 +7,7 @@ if (! defined('ABSPATH')) {
 	exit;
 }
 
-use SSFV\Codex\Settings\Setting;
+use SFFV\Codex\Settings\Setting;
 
 /**
  * Defines the options to be used by the plugin. Aside the name and type,

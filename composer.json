@@ -132,7 +132,7 @@
 	"extra": {
 		"codex": {
 			"scoper": {
-				"prefix": "SSFV",
+				"prefix": "SFFV",
 				"exclude-namespaces": [
 					"NunoMaduro\\Collision",
 					"PHPUnit",
