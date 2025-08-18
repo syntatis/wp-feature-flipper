@@ -23,7 +23,7 @@
 		"npm": ">=10"
 	},
 	"dependencies": {
-		"@syntatis/kubrick": "^0.2.0",
+		"@syntatis/kubrick": "^0.2.1",
 		"@wordpress/api-fetch": "^7.28.0",
 		"@wordpress/dom-ready": "^4.28.0",
 		"@wordpress/element": "^6.28.0",
@@ -35,7 +35,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.28.0",
-		"@wordpress/scripts": "^30.21.0",
+		"@wordpress/scripts": "27.9.0",
 		"copy-webpack-plugin": "^13.0.1",
 		"cross-env": "^10.0.0"
 	},
