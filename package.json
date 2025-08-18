@@ -48,7 +48,7 @@
 		"wp-env": "wp-env",
 		"wp-env:destroy": "wp-env destroy",
 		"wp-env:start": "wp-env start",
-		"wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper",
+		"wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/$(basename \"$PWD\") vendor/bin/phpunit --",
 		"packages-update": "wp-scripts packages-update"
 	}
 }

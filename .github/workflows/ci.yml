@@ -125,4 +125,4 @@ jobs:
           npm run wp-env:tests-wordpress php -- -v
 
       - name: Run tests
-        run: composer test
+        run: npm run wp-env:tests-wordpress
