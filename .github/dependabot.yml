@@ -45,6 +45,8 @@ updates:
       - "chore"
     allow:
       - dependency-type: "direct"
+    ignore:
+      - dependency-name: "@wordpress/*"
     groups:
       npm-dependencies:
         dependency-type: "production"
