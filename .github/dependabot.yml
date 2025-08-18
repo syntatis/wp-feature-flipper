@@ -46,7 +46,7 @@ updates:
     allow:
       - dependency-type: "direct"
     ignore:
-      - dependency-name: "@wordpress/*"
+      - dependency-name: "@wordpress/scripts"
     groups:
       npm-dependencies:
         dependency-type: "production"
