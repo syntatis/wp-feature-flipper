@@ -12,7 +12,7 @@ declare(strict_types=1);
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
  * Description:       Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
  * Version:           1.9.5
- * Requires at least: 6.0
+ * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
  * Author URI:        https://github.com/tfirdaus
