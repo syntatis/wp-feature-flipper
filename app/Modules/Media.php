@@ -40,6 +40,6 @@ final class Media implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield 'attachment_page' => new AttachmentPage();
-		yield 'attachment_slug' => ! Option::isOn('attachment_slug') ? new AttachmentSlug() : null;
+		yield 'attachment_slug' => ! Option::isOn('attachment_slug') && is_admin() ? new AttachmentSlug() : null;
 	}
 }
