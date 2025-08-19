@@ -29,12 +29,18 @@ final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
 			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);
+
+		$hook->addFilter(
+			'use_widgets_block_editor',
+			static fn (bool $value) => Option::isOn('block_based_widgets') ?? $value,
+			PHP_INT_MAX,
+		);
+
 		$hook->addFilter('pre_ping', static function (&$links): void {
 			if (Option::isOn('self_ping') || ! is_array($links)) {
 				return;
@@ -71,22 +77,6 @@ final class General implements Hookable, Extendable
 			},
 			PHP_INT_MAX,
 		);
-	}
-
-	/**
-	 * Filter the value to determine whether to use the block editor for widgets.
-	 *
-	 * @see https://developer.wordpress.org/reference/hooks/use_widgets_block_editor/
-	 */
-	public function filterUseWidgetsBlockEditor(bool $value): bool
-	{
-		$option = Option::isOn('block_based_widgets');
-
-		if ($option === null) {
-			return $value;
-		}
-
-		return (bool) $option === true;
 	}
 
 	/** @inheritDoc */
