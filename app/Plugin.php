@@ -20,6 +20,10 @@ final class Plugin implements Extendable
 		/**
 		 * Load and instantiate the plugin's modules.
 		 *
+		 * Instead of creating a loop, use `yield from` keyword to pass all items
+		 * in the `Modules` to be iterated within this `Plugin` consumer.
+		 *
+		 * @see https://github.com/syntatis/codex/blob/main/app/Plugin.php
 		 * @see https://www.php.net/manual/en/language.generators.syntax.php
 		 */
 		yield from new Modules($container);
