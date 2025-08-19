@@ -7,7 +7,6 @@ namespace Syntatis\FeatureFlipper;
 use SFFV\Codex\Contracts\Extendable;
 use SFFV\Codex\Settings\Settings;
 use SFFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\Modules;
 
 final class Plugin implements Extendable
@@ -15,8 +14,6 @@ final class Plugin implements Extendable
 	/** @return iterable<object> */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		Option::primeCache($container->get(Settings::class));
-
 		yield new CommonScripts();
 		yield new SettingPage($container->get(Settings::class));
 		yield from new Modules($container);
