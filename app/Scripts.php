@@ -8,7 +8,7 @@ use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Facades\App;
 use SFFV\Codex\Foundation\Hooks\Hook;
 
-final class CommonScripts implements Hookable
+final class Scripts implements Hookable
 {
 	public function hook(Hook $hook): void
 	{

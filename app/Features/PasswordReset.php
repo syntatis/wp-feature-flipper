@@ -35,7 +35,11 @@ final class PasswordReset implements Hookable
 			return;
 		}
 
-		if (did_action('woocommerce_loaded') === 1 && function_exists('is_wc_endpoint_url') && is_wc_endpoint_url('lost-password')) {
+		if (
+			did_action('woocommerce_loaded') === 1 &&
+			function_exists('is_wc_endpoint_url') &&
+			is_wc_endpoint_url('lost-password')
+		) {
 			$accountPage = trim(wc_get_page_permalink('myaccount'));
 
 			if ($accountPage !== '') {
