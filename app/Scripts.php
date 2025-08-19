@@ -12,11 +12,11 @@ final class Scripts implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-		$hook->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+		$hook->addAction('admin_enqueue_scripts', [self::class, 'enqueueScripts']);
+		$hook->addAction('wp_enqueue_scripts', [self::class, 'enqueueScripts']);
 	}
 
-	public function enqueueScripts(): void
+	public static function enqueueScripts(): void
 	{
 		if (! is_user_logged_in()) {
 			return;
