@@ -80,7 +80,7 @@ final class General implements Hookable, Extendable
 	 */
 	public function filterUseWidgetsBlockEditor(bool $value): bool
 	{
-		$option = Option::get('block_based_widgets');
+		$option = Option::isOn('block_based_widgets');
 
 		if ($option === null) {
 			return $value;
