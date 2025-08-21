@@ -57,7 +57,7 @@ return [
 		->withDefault(5),
 	(new Setting('self_ping', 'boolean'))
 		->withDefault(true),
-	(new Setting('embed', 'boolean'))
+	(new Setting('post_embed', 'boolean'))
 		->withDefault(true),
 	(new Setting('comments', 'boolean'))
 		->withDefault(true),

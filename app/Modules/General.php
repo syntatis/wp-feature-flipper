@@ -13,6 +13,7 @@ use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Gutenberg;
+use Syntatis\FeatureFlipper\Features\PostEmbed;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_filter;
@@ -90,8 +91,8 @@ final class General implements Hookable, Extendable
 			null;
 
 		yield 'comments' => ! Option::isOn('comments') ? new Comments() : null;
-		yield 'embeds' => ! Option::isOn('embed') ? new Embeds() : null;
 		yield 'feeds' => ! Option::isOn('feeds') && ! is_admin() ? new Feeds() : null;
+		yield 'post_embed' => ! Option::isOn('post_embed') ? new PostEmbed() : null;
 		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
 	}
 }
