@@ -10,7 +10,6 @@ use SFFV\Codex\Foundation\Hooks\Hook;
 use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
-use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Gutenberg;
 use Syntatis\FeatureFlipper\Features\PostEmbed;
