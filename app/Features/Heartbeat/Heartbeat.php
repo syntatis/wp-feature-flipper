@@ -43,7 +43,7 @@ final class Heartbeat implements Hookable, Extendable
 		}
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new ManageAdmin();

@@ -60,7 +60,7 @@ final class Updates implements Hookable, Extendable
 		}
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new ManageCore();

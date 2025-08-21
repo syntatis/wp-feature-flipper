@@ -37,7 +37,7 @@ final class General implements Hookable, Extendable
 
 		$hook->addFilter(
 			'use_widgets_block_editor',
-			static fn (bool $value) => Option::isOn('block_based_widgets') ?? $value,
+			static fn (bool $value) => Option::get('block_based_widgets') ?? $value,
 			PHP_INT_MAX,
 		);
 

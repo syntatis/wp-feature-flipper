@@ -36,7 +36,7 @@ final class Media implements Hookable, Extendable
 		);
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield 'attachment_page' => new AttachmentPage();
