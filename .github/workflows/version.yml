@@ -80,24 +80,24 @@ jobs:
             echo "Version updated successfully from ${{ steps.old.outputs.version }} to $UPDATED_HEADER_VERSION"
           fi
 
-      # - name: Rebuild NPM package.lock
-      #   run: npm update --package-lock-only
+      - name: Rebuild NPM package.lock
+        run: npm update --package-lock-only
 
-      # - name: Rebuild POT file
-      #   run: composer make-pot
+      - name: Rebuild POT file
+        run: composer make-pot
 
-      # - name: Create a Pull Request
-      #   uses: peter-evans/create-pull-request@v7
-      #   with:
-      #     branch-suffix: short-commit-hash
-      #     commit-message: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
-      #     branch: release/v${{ steps.new.outputs.version }}
-      #     title: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
-      #     add-paths: |
-      #       syntatis-feature-flipper.php
-      #       readme.txt
-      #     body: |
-      #       This PR updates the version of the application from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
-      #       Please review the changes and merge if everything looks good.
-      #     labels: |
-      #       release
+      - name: Create a Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch-suffix: short-commit-hash
+          commit-message: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
+          branch: release/v${{ steps.new.outputs.version }}
+          title: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
+          add-paths: |
+            syntatis-feature-flipper.php
+            readme.txt
+          body: |
+            This PR updates the version of the application from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
+            Please review the changes and merge if everything looks good.
+          labels: |
+            release
