@@ -87,7 +87,7 @@ jobs:
       max-parallel: 2
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        wp-core-version: ["https://wordpress.org/latest.zip", "https://wordpress.org/wordpress-6.4.6.zip"]
+        wp-core-version: ["latest", "wordpress-6.4.6"]
 
     steps:
       - name: Checkout code
@@ -118,7 +118,7 @@ jobs:
         run: |
           jq -n \
              --arg phpVersion "${{ matrix.php-version }}" \
-             --arg wpCoreVersion "${{ matrix.wp-core-version }}" \
+             --arg wpCoreVersion "https://wordpress.org/${{ matrix.wp-core-version }}.zip" \
             '{"phpVersion":$phpVersion, "core":$wpCoreVersion}' \
             > .wp-env.override.json
           npx wp-env start
