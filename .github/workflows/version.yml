@@ -1,0 +1,100 @@
+name: Version Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: "Select the version to update"
+        required: true
+        options:
+          - "Stable tag"
+
+      part:
+        type: choice
+        description: "Select the version part to update"
+        required: true
+        options:
+          - minor
+          - patch
+          - major
+
+jobs:
+  ci:
+    name: CI
+    if: ${{ github.ref_name == 'main' }}
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  bump-stable-tag:
+    needs: ci
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.version == 'Stable tag' }}
+    name: Bump "Stable tag" Version
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Get current version
+        id: old
+        run: |
+          HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
+          echo "Current version: $HEADER_VERSION"
+          echo "version=$HEADER_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Increment version
+        id: new
+        run: |
+          NEW_VERSION=$(vendor/bin/version incr ${{ steps.old.outputs.version }} -p ${{ github.event.inputs.part }})
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update version in files
+        run: |
+          OLD_VERSION=${{ steps.old.outputs.version }}
+          NEW_VERSION=${{ steps.new.outputs.version }}
+          sed -i "s/Stable tag: $OLD_VERSION/Stable tag: $NEW_VERSION/" readme.txt
+          sed -i "s/const PLUGIN_VERSION = '$OLD_VERSION';/const PLUGIN_VERSION = '$NEW_VERSION';/" syntatis-feature-flipper.php
+          sed -i "s/\"version\": \"$OLD_VERSION\",/\"version\": \"$NEW_VERSION\",/" package.json
+
+      - name: Verify version update
+        run: |
+          UPDATED_HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
+
+          if [ "$UPDATED_HEADER_VERSION" != "${{ steps.new.outputs.version }}" ]; then
+            echo "Version update failed. Expected ${{ steps.new.outputs.version }}, but got $UPDATED_HEADER_VERSION"
+            exit 1
+          else
+            echo "Version updated successfully from ${{ steps.old.outputs.version }} to $UPDATED_HEADER_VERSION"
+          fi
+
+      # - name: Rebuild NPM package.lock
+      #   run: npm update --package-lock-only
+
+      # - name: Rebuild POT file
+      #   run: composer make-pot
+
+      # - name: Create a Pull Request
+      #   uses: peter-evans/create-pull-request@v7
+      #   with:
+      #     branch-suffix: short-commit-hash
+      #     commit-message: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
+      #     branch: release/v${{ steps.new.outputs.version }}
+      #     title: "Bump \"Stable tag\" version to ${{ steps.new.outputs.version }}"
+      #     add-paths: |
+      #       syntatis-feature-flipper.php
+      #       readme.txt
+      #     body: |
+      #       This PR updates the version of the application from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
+      #       Please review the changes and merge if everything looks good.
+      #     labels: |
+      #       release
