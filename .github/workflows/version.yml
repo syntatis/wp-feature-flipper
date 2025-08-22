@@ -67,14 +67,15 @@ jobs:
           NEW_VERSION=${{ steps.new.outputs.version }}
           sed -i "s/Stable tag: $OLD_VERSION/Stable tag: $NEW_VERSION/" readme.txt
           sed -i "s/const PLUGIN_VERSION = '$OLD_VERSION';/const PLUGIN_VERSION = '$NEW_VERSION';/" syntatis-feature-flipper.php
+          sed -i -E "s/(Version:[[:space:]]+)$OLD_VERSION/\1$NEW_VERSION/" syntatis-feature-flipper.php
           sed -i "s/\"version\": \"$OLD_VERSION\",/\"version\": \"$NEW_VERSION\",/" package.json
 
       - name: Verify version update
         run: |
           EXPECTED_VERSION="${{ steps.new.outputs.version }}"
-          UPDATED_HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)"
-          UPDATED_PLUGIN_VERSION="v$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)"
-          UPDATED_README_VERSION="v$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt | tr -d '[:space:]')"
+          UPDATED_HEADER_VERSION="$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)"
+          UPDATED_PLUGIN_VERSION="$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)"
+          UPDATED_README_VERSION="$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt | tr -d '[:space:]')"
 
           checks=(
             "Header:$UPDATED_HEADER_VERSION"
