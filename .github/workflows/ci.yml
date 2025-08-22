@@ -120,9 +120,9 @@ jobs:
              --arg phpVersion "${{ matrix.php-version }}" \
              --arg wpCoreVersion "${{ matrix.wp-core-version }}" \
             '{"phpVersion":$phpVersion, "core":$wpCoreVersion}' \
-            > .wp-env.override.json \
-          npx wp-env start \
-          npx wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/$(echo \"${PWD##*/}\") php -- -v
+            > .wp-env.override.json
+          npx wp-env start
+          npx wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/$(echo "${PWD##*/}") php -v
 
       - name: Run tests
         run: npm run wp-env:tests-wordpress
