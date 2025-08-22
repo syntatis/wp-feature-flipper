@@ -71,14 +71,27 @@ jobs:
 
       - name: Verify version update
         run: |
-          UPDATED_HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
+          EXPECTED_VERSION="${{ steps.new.outputs.version }}"
+          UPDATED_HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)"
+          UPDATED_PLUGIN_VERSION="v$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)"
+          UPDATED_README_VERSION="v$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt | tr -d '[:space:]')"
 
-          if [ "$UPDATED_HEADER_VERSION" != "${{ steps.new.outputs.version }}" ]; then
-            echo "Version update failed. Expected ${{ steps.new.outputs.version }}, but got $UPDATED_HEADER_VERSION"
-            exit 1
-          else
-            echo "Version updated successfully from ${{ steps.old.outputs.version }} to $UPDATED_HEADER_VERSION"
-          fi
+          checks=(
+            "Header:$UPDATED_HEADER_VERSION"
+            "Plugin:$UPDATED_PLUGIN_VERSION"
+            "Readme:$UPDATED_README_VERSION"
+          )
+
+          for check in "${checks[@]}"; do
+            label="${check%%:*}"
+            value="${check#*:}"
+            if [ "$value" != "$EXPECTED_VERSION" ]; then
+              echo "Version update failed in $label. Expected $EXPECTED_VERSION, but got $value"
+              exit 1
+            fi
+          done
+
+          echo "Version updated successfully from ${{ steps.old.outputs.version }} to $EXPECTED_VERSION"
 
       - name: Rebuild NPM package.lock
         run: npm update --package-lock-only
