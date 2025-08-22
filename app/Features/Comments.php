@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\App;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Facades\App;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Admin_Bar;
 use WP_Block_Type_Registry;

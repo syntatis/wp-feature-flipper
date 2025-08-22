@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\App;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Codex\Settings\Settings;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Facades\App;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Settings\Settings;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Assets;
+use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_REST_Request;
 use WP_Screen;
 
@@ -42,6 +43,8 @@ final class SettingPage implements Hookable
 
 	public function __construct(Settings $settings)
 	{
+		Option::primeCache($settings);
+
 		$this->settings = $settings;
 		$this->appName = App::name();
 		$this->scriptHandle = $this->appName . '-settings';
@@ -60,7 +63,7 @@ final class SettingPage implements Hookable
 	{
 		add_submenu_page(
 			'options-general.php', // Parent slug.
-			__('Feature Settings', 'syntatis-feature-flipper'),
+			__('Features Settings', 'syntatis-feature-flipper'),
 			__('Features', 'syntatis-feature-flipper'),
 			'manage_options',
 			$this->appName,
@@ -205,7 +208,7 @@ final class SettingPage implements Hookable
 	{
 		$screen = get_current_screen();
 
-		if ($screen instanceof WP_Screen === false) {
+		if (! ($screen instanceof WP_Screen)) {
 			return;
 		}
 

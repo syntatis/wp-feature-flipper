@@ -23,11 +23,11 @@
 		"npm": ">=10"
 	},
 	"dependencies": {
-		"@syntatis/kubrick": "^0.2.0",
+		"@syntatis/kubrick": "^0.2.1",
 		"@wordpress/api-fetch": "^7.28.0",
 		"@wordpress/dom-ready": "^4.28.0",
 		"@wordpress/element": "^6.28.0",
-		"@wordpress/i18n": "^6.0.0",
+		"@wordpress/i18n": "^6.1.0",
 		"@wordpress/icons": "^10.28.0",
 		"clsx": "^2.1.1",
 		"lodash-es": "^4.17.21",
@@ -35,7 +35,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.28.0",
-		"@wordpress/scripts": "^30.21.0",
+		"@wordpress/scripts": "27.9.0",
 		"copy-webpack-plugin": "^13.0.1",
 		"cross-env": "^10.0.0"
 	},
@@ -48,7 +48,7 @@
 		"wp-env": "wp-env",
 		"wp-env:destroy": "wp-env destroy",
 		"wp-env:start": "wp-env start",
-		"wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/wp-feature-flipper",
+		"wp-env:tests-wordpress": "wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/$(echo \"${PWD##*/}\") vendor/bin/phpunit --",
 		"packages-update": "wp-scripts packages-update"
 	}
 }

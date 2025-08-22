@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Features\Updates;
 
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Updates;
 use Syntatis\FeatureFlipper\Features\Updates\ManagePlugins;
 use Syntatis\FeatureFlipper\Helpers\Option;

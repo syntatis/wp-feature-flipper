@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-use SSFV\Codex\Facades\App;
+use SFFV\Codex\Facades\App;
 
 ?>
 <div class="wrap">

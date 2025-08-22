@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
-use Syntatis\FeatureFlipper\Features\Attachment;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\AttachmentPage;
+use Syntatis\FeatureFlipper\Features\AttachmentSlug;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 final class Media implements Hookable, Extendable
@@ -35,9 +36,10 @@ final class Media implements Hookable, Extendable
 		);
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
-		yield 'attachment' => new Attachment();
+		yield 'attachment_page' => new AttachmentPage();
+		yield 'attachment_slug' => ! Option::isOn('attachment_slug') && is_admin() ? new AttachmentSlug() : null;
 	}
 }

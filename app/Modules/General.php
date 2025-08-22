@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Modules;
 
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
-use Syntatis\FeatureFlipper\Features\Embeds;
 use Syntatis\FeatureFlipper\Features\Feeds;
 use Syntatis\FeatureFlipper\Features\Gutenberg;
+use Syntatis\FeatureFlipper\Features\PostEmbed;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_filter;
@@ -29,12 +29,18 @@ final class General implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('use_widgets_block_editor', [$this, 'filterUseWidgetsBlockEditor'], PHP_INT_MAX);
 		$hook->addFilter(
 			Option::hook('default:block_based_widgets'),
 			static fn () => get_theme_support('widgets-block-editor'),
 			PHP_INT_MAX,
 		);
+
+		$hook->addFilter(
+			'use_widgets_block_editor',
+			static fn (bool $value) => Option::get('block_based_widgets') ?? $value,
+			PHP_INT_MAX,
+		);
+
 		$hook->addFilter('pre_ping', static function (&$links): void {
 			if (Option::isOn('self_ping') || ! is_array($links)) {
 				return;
@@ -73,22 +79,6 @@ final class General implements Hookable, Extendable
 		);
 	}
 
-	/**
-	 * Filter the value to determine whether to use the block editor for widgets.
-	 *
-	 * @see https://developer.wordpress.org/reference/hooks/use_widgets_block_editor/
-	 */
-	public function filterUseWidgetsBlockEditor(bool $value): bool
-	{
-		$option = Option::get('block_based_widgets');
-
-		if ($option === null) {
-			return $value;
-		}
-
-		return (bool) $option === true;
-	}
-
 	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
@@ -100,8 +90,8 @@ final class General implements Hookable, Extendable
 			null;
 
 		yield 'comments' => ! Option::isOn('comments') ? new Comments() : null;
-		yield 'embeds' => ! Option::isOn('embed') ? new Embeds() : null;
 		yield 'feeds' => ! Option::isOn('feeds') && ! is_admin() ? new Feeds() : null;
+		yield 'post_embed' => ! Option::isOn('post_embed') ? new PostEmbed() : null;
 		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
 	}
 }

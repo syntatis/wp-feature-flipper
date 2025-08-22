@@ -51,9 +51,9 @@ export const GeneralTab = () => {
 				<CommentsFieldset />
 				<RevisionsFieldset />
 				<SwitchFieldset
-					name="embed"
-					id="embed"
-					title={ __( 'Embeds', 'syntatis-feature-flipper' ) }
+					name="post_embed"
+					id="post-embed"
+					title={ __( 'Post Embed', 'syntatis-feature-flipper' ) }
 					label={ __(
 						'Enable post embedding',
 						'syntatis-feature-flipper'

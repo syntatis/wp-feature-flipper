@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features\Updates;
 
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function define;
@@ -60,7 +60,7 @@ final class Updates implements Hookable, Extendable
 		}
 	}
 
-	/** @return iterable<object> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new ManageCore();

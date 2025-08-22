@@ -83,7 +83,6 @@
 		"lint": "phpcs",
 		"make-pot": "wp i18n make-pot --exclude=vendor,dist,build . inc/languages/syntatis-feature-flipper.pot",
 		"scope": "codex scoper:init",
-		"test": "npm run wp-env:tests-wordpress vendor/bin/phpunit --",
 		"zip": "@composer archive --format=zip"
 	},
 	"scripts-descriptions": {
@@ -133,9 +132,10 @@
 	"extra": {
 		"codex": {
 			"scoper": {
-				"prefix": "SSFV",
+				"prefix": "SFFV",
 				"exclude-namespaces": [
 					"NunoMaduro\\Collision",
+					"PHPUnit",
 					"Syntatis\\Tests",
 					"Whoops"
 				],

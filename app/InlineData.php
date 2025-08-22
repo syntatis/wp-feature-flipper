@@ -8,7 +8,7 @@ use ArrayAccess;
 use BadMethodCallException;
 use JsonSerializable;
 use ReturnTypeWillChange;
-use SSFV\Codex\Facades\App;
+use SFFV\Codex\Facades\App;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Post_Type;
 
