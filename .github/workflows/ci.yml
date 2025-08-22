@@ -14,17 +14,6 @@ on:
       - "phpstan.neon.dist"
       - "phpunit.xml.dist"
 
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/ci.yml"
-      - "**.php"
-      - "composer.json"
-      - "phpcs.xml.dist"
-      - "phpstan.neon.dist"
-      - "phpunit.xml.dist"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
