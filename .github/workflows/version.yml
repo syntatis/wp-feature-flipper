@@ -50,7 +50,7 @@ jobs:
       - name: Get current version
         id: old
         run: |
-          HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
+          HEADER_VERSION="$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
           echo "Current version: $HEADER_VERSION"
           echo "version=$HEADER_VERSION" >> $GITHUB_OUTPUT
 
