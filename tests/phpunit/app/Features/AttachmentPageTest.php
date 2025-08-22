@@ -6,6 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Attachment;
+use Syntatis\FeatureFlipper\Features\AttachmentPage;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\Tests\WPTestCase;
 
@@ -16,10 +17,10 @@ use function version_compare;
  * @group feature-attachment
  * @group module-media
  */
-class AttachmentTest extends WPTestCase
+class AttachmentPageTest extends WPTestCase
 {
 	private Hook $hook;
-	private Attachment $instance;
+	private AttachmentPage $instance;
 
 	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
 	public function set_up(): void
@@ -27,7 +28,7 @@ class AttachmentTest extends WPTestCase
 		parent::set_up();
 
 		$this->hook = new Hook();
-		$this->instance = new Attachment();
+		$this->instance = new AttachmentPage();
 		$this->instance->hook($this->hook);
 	}
 
