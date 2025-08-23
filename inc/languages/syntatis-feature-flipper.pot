@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-23T09:18:17+00:00\n"
+"POT-Creation-Date: 2025-08-23T09:50:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -622,23 +622,31 @@ msgstr ""
 msgid "If switched off, WordPress will not send any emails."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:46
+#: src/setting-page/tabs/AdvancedTab.jsx:43
+msgid "WordPress may send outgoing email for various events, such as user registration, password resets, notifications, etc."
+msgstr ""
+
+#: src/setting-page/tabs/AdvancedTab.jsx:49
+msgid "If you do not want WordPress to send any of these emails, you can disable this feature."
+msgstr ""
+
+#: src/setting-page/tabs/AdvancedTab.jsx:62
 msgid "Enable Cron"
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:50
+#: src/setting-page/tabs/AdvancedTab.jsx:66
 msgid "If switched off, scheduled tasks will not run."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:57
+#: src/setting-page/tabs/AdvancedTab.jsx:73
 msgid "WP-Cron is an integral scheduling system within WordPress that manages time-based tasks automatically."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:63
+#: src/setting-page/tabs/AdvancedTab.jsx:79
 msgid "It allows WordPress to perform scheduled tasks like publishing scheduled posts, checking for plugin or theme updates, sending email notifications, and more."
 msgstr ""
 
-#: src/setting-page/tabs/AdvancedTab.jsx:69
+#: src/setting-page/tabs/AdvancedTab.jsx:85
 msgid "When disabling this feature, it is recommended to set up a server cron job as the replacement to trigger WP-Cron."
 msgstr ""
 
