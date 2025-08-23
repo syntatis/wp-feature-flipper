@@ -26,10 +26,10 @@ This plugin organizes these settings into sections so you can quickly find and m
 Tweak key WordPress features to fit your needs:
 
 * **Block Editor**: Prefer the Classic Editor? Disable the Block Editor for all or specific post types.
-* **Block-based Widgets**: Turn off the Block Widgets Editor.
-* **Comments**: Disable comments and remove related admin area elements.
-* **Revisions**: Limit or disable post revisions to improve performance.
-* **Embed**: Stop other sites from embedding your content.
+* **Block-based Widgets**: Turn off the "Block Widgets Editor".
+* **Comments**: Disable comments and remove related elements in the admin area.
+* **Revisions**: Disable or limit the number of post revisions to save to improve performance.
+* **Post Embed**: Stop other sites from embedding your post content.
 * **Self-ping**: Prevent pingbacks to your own site.
 * **Feeds**: Disable RSS feeds if you don't need them.
 
@@ -48,16 +48,18 @@ Customize your admin experience:
 
 Adjust media-related settings:
 
-* **Attachment Pages**: Disable attachment pages or re-enable them on WordPress 6.4+.
+* **Attachment Page**: Disable attachment pages or re-enable them on WordPress 6.4+.
 * **Attachment Slug**: Use random URLs for media pages to avoid slug conflicts.
 * **Infinite Scroll**: Restore infinite scroll in the Media Library.
+* **Big Image Size**: Prevent WordPress to scale down big images.
 * **Image Quality**: Adjust the quality of uploaded images (JPEG only).
 
 #### Site
 
 Control access and assets on your site:
 
-* **Access**: Make your site public, restrict it to logged-in users, or enable maintenance mode.
+* **Search**: Prevent use from using search on your site to find posts, pages, and other content.
+* **Sitemap**: Disable built-in XML sitemaps in WordPress.
 
 Unload some of the assets that are not always necessary for your site:
 
@@ -79,21 +81,16 @@ Improve your site's security by disabling or limiting access to certain features
 * **XML-RPC**: Disable the XML-RPC endpoint.
 * **API Authentication**: Require authentication for all REST API requests.
 
-Apply additional security measures to your login page:
-
-* **Identifier**: Restrict login to username only, email only, or allow both.
-* **Obfuscate Error**: Prevent hints about which login credential is incorrect.
-* **Block Bots**: Block known bots from accessing the login page.
-* **Obfuscate Usernames**: Expose randomize slug for users.
-
 Manage passwords policy on the site:
 
+* **Reset Password**: Prevent users from resetting their passwords.
 * **Application Passwords**: Disable Application Passwords and remove related UI elements.
 
 #### Advanced
 
 For advanced users, you may configure these following features, but do it carefully:
 
+* **Mailing**: Prevent WordPress to send outgoing mail.
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.
 * **Heartbeat**: Adjust or disable the Heartbeat API to reduce resource usage.
