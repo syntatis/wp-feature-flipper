@@ -111,7 +111,6 @@ jobs:
             syntatis-feature-flipper.php
             readme.txt
           body: |
-            This PR updates the version of the application from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
-            Please review the changes and merge if everything looks good.
+            This PR updates the version of the plugin from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
           labels: |
             release
