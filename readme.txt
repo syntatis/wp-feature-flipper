@@ -132,31 +132,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 1.9.5 =
+= 2.0.0 =
 
-* Improve setting main labels.
-* Make some minor improvements on handling default values.
-
-= 1.9.4 =
-
-* Fix missing translatable strings.
-* Fix translation loaded too early.
-
-= 1.9.3 =
-
-* Fix inconsistencies in some translatable strings.
-* Fix menu options on the Admin Bar setting.
-
-= 1.9.2 =
-
-* Add "Help" tab in the setting page.
-* Refine some translatable strings.
-
-= 1.9.1 =
-
-* Add support to identify the WooCommerce "My Account" page as a login page.
-
-= 1.9.0 =
-
-* Add option to obfuscate usernames.
-* Add an uninstaller to remove the plugin option when the plugin is uninstalled.
+* Refocusing plugin features to handle WordPress core features only, instead of adding new ones.
+* Fix UI compatibility issues on WordPress 6.4.
+* Bumped minimum WordPress compatibility to 6.4.
+* Tested compatibility for WordPress 6.8.
+* Various performance optimizations.
