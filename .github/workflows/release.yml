@@ -30,7 +30,7 @@ jobs:
         run: |
           npm run build
           composer run build
-          composer run plugin:zip -- --file=build
+          composer run zip -- --file=build
           unzip build.zip -d build
 
       - name: "Check latest tagged version"
