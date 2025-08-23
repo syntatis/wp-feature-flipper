@@ -37,6 +37,22 @@ export const AdvancedTab = () => {
 							'If switched off, WordPress will not send any emails.',
 							'syntatis-feature-flipper'
 						) }
+						help={
+							<HelpContent>
+								<p>
+									{ __(
+										'WordPress may send outgoing email for various events, such as user registration, password resets, notifications, etc.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+								<p>
+									{ __(
+										'If you do not want WordPress to send any of these emails, you can disable this feature.',
+										'syntatis-feature-flipper'
+									) }
+								</p>
+							</HelpContent>
+						}
 					/>
 					<UpdatesFieldset />
 					<SwitchFieldset

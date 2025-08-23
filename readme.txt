@@ -4,7 +4,7 @@ Contributors: tfirdaus
 Tags: tweaks, comments, updates, admin, security
 Requires at least: 6.4
 Tested up to: 6.8
-Stable tag: 1.9.5
+Stable tag: 2.0.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -26,10 +26,10 @@ This plugin organizes these settings into sections so you can quickly find and m
 Tweak key WordPress features to fit your needs:
 
 * **Block Editor**: Prefer the Classic Editor? Disable the Block Editor for all or specific post types.
-* **Block-based Widgets**: Turn off the Block Widgets Editor.
-* **Comments**: Disable comments and remove related admin area elements.
-* **Revisions**: Limit or disable post revisions to improve performance.
-* **Embed**: Stop other sites from embedding your content.
+* **Block-based Widgets**: Turn off the "Block Widgets Editor".
+* **Comments**: Disable comments and remove related elements in the admin area.
+* **Revisions**: Disable or limit the number of post revisions to save to improve performance.
+* **Post Embed**: Stop other sites from embedding your post content.
 * **Self-ping**: Prevent pingbacks to your own site.
 * **Feeds**: Disable RSS feeds if you don't need them.
 
@@ -48,16 +48,18 @@ Customize your admin experience:
 
 Adjust media-related settings:
 
-* **Attachment Pages**: Disable attachment pages or re-enable them on WordPress 6.4+.
+* **Attachment Page**: Disable attachment pages or re-enable them on WordPress 6.4+.
 * **Attachment Slug**: Use random URLs for media pages to avoid slug conflicts.
 * **Infinite Scroll**: Restore infinite scroll in the Media Library.
+* **Big Image Size**: Prevent WordPress to scale down big images.
 * **Image Quality**: Adjust the quality of uploaded images (JPEG only).
 
 #### Site
 
 Control access and assets on your site:
 
-* **Access**: Make your site public, restrict it to logged-in users, or enable maintenance mode.
+* **Search**: Prevent use from using search on your site to find posts, pages, and other content.
+* **Sitemap**: Disable built-in XML sitemaps in WordPress.
 
 Unload some of the assets that are not always necessary for your site:
 
@@ -79,21 +81,16 @@ Improve your site's security by disabling or limiting access to certain features
 * **XML-RPC**: Disable the XML-RPC endpoint.
 * **API Authentication**: Require authentication for all REST API requests.
 
-Apply additional security measures to your login page:
-
-* **Identifier**: Restrict login to username only, email only, or allow both.
-* **Obfuscate Error**: Prevent hints about which login credential is incorrect.
-* **Block Bots**: Block known bots from accessing the login page.
-* **Obfuscate Usernames**: Expose randomize slug for users.
-
 Manage passwords policy on the site:
 
+* **Reset Password**: Prevent users from resetting their passwords.
 * **Application Passwords**: Disable Application Passwords and remove related UI elements.
 
 #### Advanced
 
 For advanced users, you may configure these following features, but do it carefully:
 
+* **Mailing**: Prevent WordPress to send outgoing mail.
 * **Updates**: Enable or disable updates for WordPress, plugins, and themes.
 * **Cron**: Disable WP-Cron and use a real cron job.
 * **Heartbeat**: Adjust or disable the Heartbeat API to reduce resource usage.
@@ -135,31 +132,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 1.9.5 =
+= 2.0.0 =
 
-* Improve setting main labels.
-* Make some minor improvements on handling default values.
-
-= 1.9.4 =
-
-* Fix missing translatable strings.
-* Fix translation loaded too early.
-
-= 1.9.3 =
-
-* Fix inconsistencies in some translatable strings.
-* Fix menu options on the Admin Bar setting.
-
-= 1.9.2 =
-
-* Add "Help" tab in the setting page.
-* Refine some translatable strings.
-
-= 1.9.1 =
-
-* Add support to identify the WooCommerce "My Account" page as a login page.
-
-= 1.9.0 =
-
-* Add option to obfuscate usernames.
-* Add an uninstaller to remove the plugin option when the plugin is uninstalled.
+* Refocusing plugin features to handle WordPress core features only, instead of adding new ones.
+* Fix UI compatibility issues on WordPress 6.4.
+* Bumped minimum WordPress compatibility to 6.4.
+* Tested compatibility for WordPress 6.8.
+* Various performance optimizations.

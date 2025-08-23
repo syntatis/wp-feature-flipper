@@ -116,7 +116,7 @@ export const SecurityTab = () => {
 			<Fieldset
 				title={ __( 'Password', 'syntatis-feature-flipper' ) }
 				description={ __(
-					'Control the password-related features of your WordPress site.',
+					'Settings to manage password policy on your site.',
 					'syntatis-feature-flipper'
 				) }
 			>
