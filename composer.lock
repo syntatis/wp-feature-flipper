@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11ca8b965419300d49e8370d8854a26c",
+    "content-hash": "87230fda9715121dc977bb27897d7f38",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2606,16 +2606,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.22",
+            "version": "2.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4"
+                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/41600c8379eb5aee63e9413fe9e97273e25d57e4",
-                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
                 "shasum": ""
             },
             "require": {
@@ -2660,7 +2660,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-04T19:17:37+00:00"
+            "time": "2025-09-10T11:42:22+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -4291,16 +4291,16 @@
         },
         {
             "name": "shipmonk/dead-code-detector",
-            "version": "0.13.2",
+            "version": "0.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/dead-code-detector.git",
-                "reference": "806c397fdc6d3c2c7fce7f51ab6beaa92455e33c"
+                "reference": "40ab4426238c26aa0ddb963b41ffd438450153a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/806c397fdc6d3c2c7fce7f51ab6beaa92455e33c",
-                "reference": "806c397fdc6d3c2c7fce7f51ab6beaa92455e33c",
+                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/40ab4426238c26aa0ddb963b41ffd438450153a1",
+                "reference": "40ab4426238c26aa0ddb963b41ffd438450153a1",
                 "shasum": ""
             },
             "require": {
@@ -4320,11 +4320,12 @@
                 "phpstan/phpstan-phpunit": "^2.0.4",
                 "phpstan/phpstan-strict-rules": "^2.0.3",
                 "phpstan/phpstan-symfony": "^2.0.2",
+                "phpunit/phpcov": "^8.2",
                 "phpunit/phpunit": "^9.6.22",
                 "shipmonk/coding-standard": "^0.1.3",
                 "shipmonk/composer-dependency-analyser": "^1.8.2",
                 "shipmonk/name-collision-detector": "^2.1.1",
-                "shipmonk/phpstan-dev": "^0.1.0",
+                "shipmonk/phpstan-dev": "^0.1.1",
                 "shipmonk/phpstan-rules": "^4.1.0",
                 "symfony/contracts": "^2.5 || ^3.0",
                 "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
@@ -4361,22 +4362,22 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/dead-code-detector/issues",
-                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.2"
+                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.3"
             },
-            "time": "2025-08-14T10:52:20+00:00"
+            "time": "2025-09-01T09:03:40+00:00"
         },
         {
             "name": "shipmonk/phpstan-rules",
-            "version": "4.1.5",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/phpstan-rules.git",
-                "reference": "9a2a033d12a516a73056bb215e6e4dec0dd33701"
+                "reference": "2c3a585230138ce1f4b276fe203cc378693dece8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/9a2a033d12a516a73056bb215e6e4dec0dd33701",
-                "reference": "9a2a033d12a516a73056bb215e6e4dec0dd33701",
+                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/2c3a585230138ce1f4b276fe203cc378693dece8",
+                "reference": "2c3a585230138ce1f4b276fe203cc378693dece8",
                 "shasum": ""
             },
             "require": {
@@ -4393,7 +4394,8 @@
                 "shipmonk/coding-standard": "^0.1.3",
                 "shipmonk/composer-dependency-analyser": "^1.8.1",
                 "shipmonk/dead-code-detector": "^0.9.0",
-                "shipmonk/name-collision-detector": "^2.1.1"
+                "shipmonk/name-collision-detector": "^2.1.1",
+                "shipmonk/phpstan-dev": "^0.1.1"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -4419,9 +4421,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/phpstan-rules/issues",
-                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.1.5"
+                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/4.2.1"
             },
-            "time": "2025-07-17T11:41:10+00:00"
+            "time": "2025-09-04T07:48:25+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -4939,7 +4941,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -4998,7 +5000,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5010,6 +5012,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -5018,16 +5024,16 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
-                "reference": "b9123926e3b7bc2f98c02ad54f6a4b02b91a8abe"
+                "reference": "380872130d3a5dd3ace2f4010d95125fde5d5c70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/b9123926e3b7bc2f98c02ad54f6a4b02b91a8abe",
-                "reference": "b9123926e3b7bc2f98c02ad54f6a4b02b91a8abe",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/380872130d3a5dd3ace2f4010d95125fde5d5c70",
+                "reference": "380872130d3a5dd3ace2f4010d95125fde5d5c70",
                 "shasum": ""
             },
             "require": {
@@ -5076,7 +5082,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5088,15 +5094,19 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2025-06-27T09:58:17+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -5157,7 +5167,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5169,6 +5179,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -5177,7 +5191,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -5238,7 +5252,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5250,6 +5264,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -5258,7 +5276,7 @@
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
@@ -5314,7 +5332,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5326,6 +5344,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -5334,7 +5356,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -5394,7 +5416,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -5403,6 +5425,10 @@
                 },
                 {
                     "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
                     "type": "github"
                 },
                 {
@@ -5712,22 +5738,22 @@
         },
         {
             "name": "syntatis/codex-companion",
-            "version": "v0.4.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex-companion.git",
-                "reference": "9f9c13a2e55010dacf871d7424245dacb7e103f9"
+                "reference": "884e80e2d92632c0e2e9b677ad8d65be51e3e664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/9f9c13a2e55010dacf871d7424245dacb7e103f9",
-                "reference": "9f9c13a2e55010dacf871d7424245dacb7e103f9",
+                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/884e80e2d92632c0e2e9b677ad8d65be51e3e664",
+                "reference": "884e80e2d92632c0e2e9b677ad8d65be51e3e664",
                 "shasum": ""
             },
             "require": {
                 "adbario/php-dot-notation": "^3.3",
                 "composer-plugin-api": "^2.0",
-                "doctrine/inflector": "^2.0",
+                "doctrine/inflector": "^2.1",
                 "php": "^7.4 || ^8.0",
                 "symfony/console": "^5.4 || ^6.0 || ^7.1",
                 "symfony/filesystem": "^5.4 || ^6.0 || ^7.0",
@@ -5787,9 +5813,9 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex-companion/issues",
-                "source": "https://github.com/syntatis/codex-companion/tree/v0.4.0"
+                "source": "https://github.com/syntatis/codex-companion/tree/v0.4.1"
             },
-            "time": "2025-08-03T03:04:37+00:00"
+            "time": "2025-08-31T01:38:39+00:00"
         },
         {
             "name": "syntatis/coding-standard",

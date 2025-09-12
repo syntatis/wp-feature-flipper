@@ -109,7 +109,7 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	{
 		$postTypes = array_filter(
 			get_post_types(['public' => true], 'objects'),
-			static fn (WP_Post_Type $postTypeObject, string $postType) => ! in_array($postTypeObject->name, ['attachment'], true),
+			static fn (WP_Post_Type $postTypeObject) => ! in_array($postTypeObject->name, ['attachment'], true),
 			ARRAY_FILTER_USE_BOTH,
 		);
 
