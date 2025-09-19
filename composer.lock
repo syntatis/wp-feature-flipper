@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87230fda9715121dc977bb27897d7f38",
+    "content-hash": "04bae57eb625528d4dafd454a1cd0e91",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1992,16 +1992,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v10.1.1",
+            "version": "v10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f"
+                "reference": "113bf98892b5fc2b709a36970ce618fd375edb9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
-                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/113bf98892b5fc2b709a36970ce618fd375edb9a",
+                "reference": "113bf98892b5fc2b709a36970ce618fd375edb9a",
                 "shasum": ""
             },
             "require": {
@@ -2030,9 +2030,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.1.1"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.2.0"
             },
-            "time": "2025-08-20T15:58:51+00:00"
+            "time": "2025-09-17T14:44:22+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -2606,16 +2606,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.23",
+            "version": "2.1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5"
+                "reference": "25da374959afa391992792691093550b3098ef1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
-                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/25da374959afa391992792691093550b3098ef1e",
+                "reference": "25da374959afa391992792691093550b3098ef1e",
                 "shasum": ""
             },
             "require": {
@@ -2660,7 +2660,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-10T11:42:22+00:00"
+            "time": "2025-09-17T09:55:13+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
