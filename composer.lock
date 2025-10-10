@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87230fda9715121dc977bb27897d7f38",
+    "content-hash": "04bae57eb625528d4dafd454a1cd0e91",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1992,16 +1992,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v10.1.1",
+            "version": "v10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f"
+                "reference": "113bf98892b5fc2b709a36970ce618fd375edb9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
-                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/113bf98892b5fc2b709a36970ce618fd375edb9a",
+                "reference": "113bf98892b5fc2b709a36970ce618fd375edb9a",
                 "shasum": ""
             },
             "require": {
@@ -2030,9 +2030,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.1.1"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.2.0"
             },
-            "time": "2025-08-20T15:58:51+00:00"
+            "time": "2025-09-17T14:44:22+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -2606,16 +2606,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.23",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5"
-            },
+            "version": "2.1.30",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
-                "reference": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a4a7f159927983dd4f7c8020ed227d80b7f39d7d",
+                "reference": "a4a7f159927983dd4f7c8020ed227d80b7f39d7d",
                 "shasum": ""
             },
             "require": {
@@ -2660,7 +2655,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-10T11:42:22+00:00"
+            "time": "2025-10-02T16:07:52+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -2764,21 +2759,21 @@
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "f9f77efa9de31992a832ff77ea52eb42d675b094"
+                "reference": "d6211c46213d4181054b3d77b10a5c5cb0d59538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/f9f77efa9de31992a832ff77ea52eb42d675b094",
-                "reference": "f9f77efa9de31992a832ff77ea52eb42d675b094",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/d6211c46213d4181054b3d77b10a5c5cb0d59538",
+                "reference": "d6211c46213d4181054b3d77b10a5c5cb0d59538",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.0.4"
+                "phpstan/phpstan": "^2.1.29"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
@@ -2806,9 +2801,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.6"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.7"
             },
-            "time": "2025-07-21T12:19:29+00:00"
+            "time": "2025-09-26T11:19:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4291,16 +4286,16 @@
         },
         {
             "name": "shipmonk/dead-code-detector",
-            "version": "0.13.3",
+            "version": "0.13.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/dead-code-detector.git",
-                "reference": "40ab4426238c26aa0ddb963b41ffd438450153a1"
+                "reference": "5acf47424cc0eb0d72a80b3695051c64e590fe08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/40ab4426238c26aa0ddb963b41ffd438450153a1",
-                "reference": "40ab4426238c26aa0ddb963b41ffd438450153a1",
+                "url": "https://api.github.com/repos/shipmonk-rnd/dead-code-detector/zipball/5acf47424cc0eb0d72a80b3695051c64e590fe08",
+                "reference": "5acf47424cc0eb0d72a80b3695051c64e590fe08",
                 "shasum": ""
             },
             "require": {
@@ -4362,9 +4357,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/dead-code-detector/issues",
-                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.3"
+                "source": "https://github.com/shipmonk-rnd/dead-code-detector/tree/0.13.4"
             },
-            "time": "2025-09-01T09:03:40+00:00"
+            "time": "2025-10-09T17:12:07+00:00"
         },
         {
             "name": "shipmonk/phpstan-rules",
