@@ -43,12 +43,12 @@
 		"syntatis/codex-settings-provider": "^0.3"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.2",
 		"fakerphp/faker": "^1.24",
 		"filp/whoops": "^2.18",
 		"johnbillion/wp-compat": "^1.2",
 		"nunomaduro/collision": "^5.11",
-		"php-stubs/woocommerce-stubs": "^10.1",
+		"php-stubs/woocommerce-stubs": "^10.3",
 		"php-stubs/wordpress-tests-stubs": "^6.8",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpstan/extension-installer": "^1.4",
