@@ -34,7 +34,7 @@
 		"use-session-storage-state": "^19.0.1"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^11.2.0",
+		"@wordpress/env": "^11.3.0",
 		"@wordpress/scripts": "27.9.0",
 		"copy-webpack-plugin": "^14.0.0",
 		"cross-env": "^10.1.0"
