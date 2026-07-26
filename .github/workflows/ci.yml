@@ -43,7 +43,7 @@ jobs:
           php-version: "7.4"
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Check code styles
         run: composer lint
@@ -62,7 +62,7 @@ jobs:
           php-version: "7.4"
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Analyze source code
         run: composer analyze
@@ -102,7 +102,7 @@ jobs:
         run: npm ci
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Start wp-env
         run: |
