@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Modules;
 
 use _WP_Dependency;
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\PublicSearch;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
@@ -77,7 +77,7 @@ final class Site implements Hookable, Extendable
 		});
 	}
 
-	/** @return iterable<object|null> */
+	/** @inheritDoc */
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield 'public_search' => ! Option::isOn('public_search') ? new PublicSearch() : null;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Helpers;
 
-use SSFV\Codex\Facades\App;
+use SFFV\Codex\Facades\App;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\Tests\WPTestCase;
 

@@ -8,6 +8,7 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	convertDeprecationsToExceptions="true"
+	printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
 	>
 	<php>
 		<env name="WORDPRESS_TABLE_PREFIX" value="wptests_" />

@@ -6,7 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use Faker\Factory;
 use Faker\Generator;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Helpers\Option;

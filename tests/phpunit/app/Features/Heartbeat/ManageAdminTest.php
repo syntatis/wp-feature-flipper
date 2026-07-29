@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Features\Heartbeat;
 
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\Heartbeat;
 use Syntatis\FeatureFlipper\Features\Heartbeat\ManageAdmin;
 use Syntatis\FeatureFlipper\Helpers\Option;

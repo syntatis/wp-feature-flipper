@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Helpers\Str;
 

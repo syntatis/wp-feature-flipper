@@ -6,5 +6,5 @@ if (! defined('ABSPATH')) {
 }
 
 return [
-	\SSFV\Codex\Settings\Provider::class,
+	\SFFV\Codex\Settings\Provider::class,
 ];

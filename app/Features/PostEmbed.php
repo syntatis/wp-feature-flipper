@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Facades\App;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Facades\App;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP;
 use WP_Scripts;
@@ -19,7 +19,7 @@ use function strpos;
 
 use const PHP_INT_MAX;
 
-final class Embeds implements Hookable
+final class PostEmbed implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
@@ -112,7 +112,7 @@ final class Embeds implements Hookable
 
 	public function disableOnBlockEditor(): void
 	{
-		$assetFile = App::dir('dist/assets/embeds/index.asset.php');
+		$assetFile = App::dir('dist/assets/post-embed/index.asset.php');
 
 		/** @phpstan-var array{dependencies?:array<string>,version?:string} $asset */
 		$asset = is_readable($assetFile) ? require $assetFile : [];
@@ -120,8 +120,8 @@ final class Embeds implements Hookable
 		$asset['version'] ??= null;
 
 		wp_enqueue_script(
-			App::name() . '-embeds',
-			App::url('dist/assets/embeds/index.js'),
+			App::name() . '-post-embed',
+			App::url('dist/assets/post-embed/index.js'),
 			$asset['dependencies'],
 			$asset['version'],
 			true,

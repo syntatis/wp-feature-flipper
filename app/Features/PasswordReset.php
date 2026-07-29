@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\URL;
 
 use function function_exists;
@@ -35,7 +35,11 @@ final class PasswordReset implements Hookable
 			return;
 		}
 
-		if (did_action('woocommerce_loaded') === 1 && function_exists('is_wc_endpoint_url') && is_wc_endpoint_url('lost-password')) {
+		if (
+			did_action('woocommerce_loaded') === 1 &&
+			function_exists('is_wc_endpoint_url') &&
+			is_wc_endpoint_url('lost-password')
+		) {
 			$accountPage = trim(wc_get_page_permalink('myaccount'));
 
 			if ($accountPage !== '') {

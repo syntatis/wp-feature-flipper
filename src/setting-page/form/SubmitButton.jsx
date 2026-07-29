@@ -9,7 +9,7 @@ export const SubmitButton = () => {
 		<div className="submit">
 			<Button
 				isDisabled={ updating }
-				prefix={ updating && <Spinner /> }
+				suffix={ updating && <Spinner /> }
 				type="submit"
 			>
 				{ updating

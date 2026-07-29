@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
-use SSFV\Codex\Contracts\Hookable;
-use SSFV\Codex\Foundation\Hooks\Hook;
-use SSFV\Symfony\Component\Uid\Uuid;
+use SFFV\Codex\Contracts\Hookable;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Throwable;
 use WP_Query;
 
 use function is_string;
 
-final class Attachment implements Hookable
+final class AttachmentPage implements Hookable
 {
 	public function hook(Hook $hook): void
 	{
@@ -36,6 +34,7 @@ final class Attachment implements Hookable
 
 			return $enabled === '1' || $enabled === null;
 		});
+
 		$hook->addAction(
 			Option::hook('add:attachment_page'),
 			static function ($option, $value): void {
@@ -44,6 +43,7 @@ final class Attachment implements Hookable
 			10,
 			2,
 		);
+
 		$hook->addAction(
 			Option::hook('update:attachment_page'),
 			static function ($oldValue, $newValue): void {
@@ -53,24 +53,24 @@ final class Attachment implements Hookable
 			2,
 		);
 
-		if (! Option::isOn('attachment_page')) {
-			$hook->addAction('template_redirect', function (): void {
+		if (! Option::isOn('attachment_page') && ! is_admin()) {
+			$hook->addAction('template_redirect', static function (): void {
 				if (! is_attachment()) {
 					return;
 				}
 
-				$this->toNotFound();
+				self::notFound();
 			});
 
 			$hook->addFilter(
 				'redirect_canonical',
 				/* @phpstan-ignore shipmonk.missingNativeReturnTypehint */
-				function (string $url) {
+				static function (string $url) {
 					if (! is_attachment()) {
 						return $url;
 					}
 
-					$this->toNotFound();
+					self::notFound();
 				},
 			);
 
@@ -87,30 +87,9 @@ final class Attachment implements Hookable
 				return $url;
 			}, 99, 2);
 		}
-
-		$hook->addFilter(
-			'wp_unique_post_slug',
-			static function (string $slug, string $id, string $status, string $type): string {
-				if (Option::isOn('attachment_slug')) {
-					return $slug;
-				}
-
-				if ($type !== 'attachment' || Uuid::isValid($slug)) {
-					return $slug;
-				}
-
-				try {
-					return (string) Uuid::v5(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
-				} catch (Throwable $th) {
-					return $slug;
-				}
-			},
-			99,
-			4,
-		);
 	}
 
-	private function toNotFound(): void
+	private static function notFound(): void
 	{
 		/** @var WP_Query|null $wpQuery */
 		$wpQuery = $GLOBALS['wp_query'] ?? null;

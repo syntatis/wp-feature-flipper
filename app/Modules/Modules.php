@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper\Modules;
 
 use IteratorAggregate;
-use SSFV\Codex\Contracts\Extendable;
-use SSFV\Psr\Container\ContainerInterface;
+use SFFV\Codex\Contracts\Extendable;
+use SFFV\Psr\Container\ContainerInterface;
 use Traversable;
 
 use function is_object;

@@ -1,19 +1,9 @@
-name: ci
+name: CI
 
 on:
+  workflow_call:
   workflow_dispatch:
   pull_request:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/ci.yml"
-      - "**.php"
-      - "composer.json"
-      - "phpcs.xml.dist"
-      - "phpstan.neon.dist"
-      - "phpunit.xml.dist"
-
-  push:
     branches:
       - main
     paths:
@@ -29,11 +19,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  checks:
+  typo:
     runs-on: ubuntu-latest
+    name: Typo
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Check spelling
+        uses: crate-ci/typos@v1.47.0
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -41,29 +43,48 @@ jobs:
           php-version: "7.4"
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
-      - name: Run PHPCS
-        run: composer run phpcs
+      - name: Check code styles
+        run: composer lint
 
-      - name: Run PHPStan
-        run: composer run phpstan
-
-  tests:
+  analyze:
     runs-on: ubuntu-latest
+    name: Analyze
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v4
+
+      - name: Analyze source code
+        run: composer analyze
+
+  test:
+    needs: [typo, lint, analyze]
+    runs-on: ubuntu-latest
+    name: Test
+
     strategy:
       fail-fast: true
       max-parallel: 2
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        wp-core-version: ["WordPress/WordPress", "WordPress/WordPress#6.4"]
+        wp-core-version: ["latest", "wordpress-6.4.6"]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: "npm"
           node-version: "20.x"
@@ -77,30 +98,21 @@ jobs:
       - name: Get Docker version
         run: docker -v
 
-      - name: Install NodeJS dependencies
+      - name: Install Node.js dependencies
         run: npm ci
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Start wp-env
         run: |
           jq -n \
              --arg phpVersion "${{ matrix.php-version }}" \
-             --arg wpCoreVersion "${{ matrix.wp-core-version }}" \
+             --arg wpCoreVersion "https://wordpress.org/${{ matrix.wp-core-version }}.zip" \
             '{"phpVersion":$phpVersion, "core":$wpCoreVersion}' \
             > .wp-env.override.json
-          npm run wp-env:start
-          npm run wp-env:tests-wordpress php -- -v
+          npx wp-env start
+          npx wp-env run tests-wordpress --env-cwd=/var/www/html/wp-content/plugins/$(echo "${PWD##*/}") php -v
 
-      - name: Run PHPUnit
-        run: composer run phpunit
-
-  typos:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Check spelling
-        uses: crate-ci/typos@v1.35.3
+      - name: Run tests
+        run: npm run wp-env:tests-wordpress

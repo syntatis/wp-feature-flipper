@@ -6,12 +6,10 @@ namespace Syntatis\Tests\Modules;
 
 use Faker\Factory;
 use Faker\Generator;
-use SSFV\Codex\Foundation\Hooks\Hook;
+use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\General;
 use Syntatis\Tests\WPTestCase;
-
-use const PHP_INT_MAX;
 
 /** @group module-general */
 class GeneralTest extends WPTestCase
@@ -29,12 +27,6 @@ class GeneralTest extends WPTestCase
 		$this->instance = new General();
 		$this->instance->hook($this->hook);
 		$this->faker = Factory::create();
-	}
-
-	/** @testdox should have callback attached to hooks */
-	public function testHook(): void
-	{
-		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('use_widgets_block_editor', [$this->instance, 'filterUseWidgetsBlockEditor']));
 	}
 
 	/** @testdox should default values */
@@ -63,7 +55,7 @@ class GeneralTest extends WPTestCase
 	/** @testdox should return inherited value */
 	public function testFilterUseWidgetsBlockEditor(): void
 	{
-		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(true));
+		$this->assertTrue(wp_use_widgets_block_editor());
 	}
 
 	/** @testdox should return updated value */
@@ -71,11 +63,11 @@ class GeneralTest extends WPTestCase
 	{
 		Option::update('block_based_widgets', false);
 
-		$this->assertFalse($this->instance->filterUseWidgetsBlockEditor(true));
+		$this->assertFalse(wp_use_widgets_block_editor());
 
 		Option::update('block_based_widgets', true);
 
-		$this->assertTrue($this->instance->filterUseWidgetsBlockEditor(false));
+		$this->assertTrue(wp_use_widgets_block_editor());
 	}
 
 	/**
