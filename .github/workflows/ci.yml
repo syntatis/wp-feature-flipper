@@ -25,17 +25,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check spelling
-        uses: crate-ci/typos@v1.44.0
+        uses: crate-ci/typos@v1.48.0
 
   lint:
     runs-on: ubuntu-latest
     name: Lint
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -43,7 +43,7 @@ jobs:
           php-version: "7.4"
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Check code styles
         run: composer lint
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -62,7 +62,7 @@ jobs:
           php-version: "7.4"
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Analyze source code
         run: composer analyze
@@ -76,15 +76,23 @@ jobs:
       fail-fast: true
       max-parallel: 2
       matrix:
-        php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        wp-core-version: ["latest", "wordpress-6.4.6"]
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+        wp-core-version:
+          - "latest"
+          - "wordpress-6.4.6"
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           cache: "npm"
           node-version: "20.x"
@@ -102,7 +110,7 @@ jobs:
         run: npm ci
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Start wp-env
         run: |
