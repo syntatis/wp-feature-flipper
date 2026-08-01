@@ -9,7 +9,7 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
+Disable Comments, Gutenberg, Emojis, and other features you might not need in WordPress®
 
 == Description ==
 
@@ -131,6 +131,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 6. And more...
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Tested compatibility for WordPress 7.0.
+* Improved input sanitization for option values.
+* Various code quality and static analysis improvements.
 
 = 2.0.0 =
 
