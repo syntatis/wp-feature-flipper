@@ -23,18 +23,18 @@
 		"npm": ">=10"
 	},
 	"dependencies": {
-		"@syntatis/kubrick": "^0.2.1",
+		"@syntatis/kubrick": "^0.3.0",
 		"@wordpress/api-fetch": "^7.37.0",
 		"@wordpress/dom-ready": "^4.37.0",
 		"@wordpress/element": "^6.37.0",
 		"@wordpress/i18n": "^6.1.0",
-		"@wordpress/icons": "^10.30.0",
+		"@wordpress/icons": "^11.0.0",
 		"clsx": "^2.1.1",
 		"lodash-es": "^4.17.22",
 		"use-session-storage-state": "^19.0.1"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^11.2.0",
+		"@wordpress/env": "^11.3.0",
 		"@wordpress/scripts": "27.9.0",
 		"copy-webpack-plugin": "^14.0.0",
 		"cross-env": "^10.1.0"

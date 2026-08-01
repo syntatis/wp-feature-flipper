@@ -14,6 +14,7 @@ use function array_values;
 use function in_array;
 use function is_array;
 use function is_int;
+use function is_string;
 
 use const PHP_INT_MAX;
 
@@ -32,7 +33,7 @@ final class Gutenberg implements Hookable
 			Option::hook('gutenberg_post_types'),
 			static fn ($value) => Option::patch(
 				'gutenberg_post_types',
-				is_array($value) ? $value : [],
+				is_array($value) ? array_filter($value, static fn ($v): bool => is_string($v)) : [],
 				self::getPostTypes(),
 			),
 			PHP_INT_MAX,
