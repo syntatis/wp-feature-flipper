@@ -10,6 +10,6 @@
 		"neilbrayfield.php-docblocker",
 		"sanderronde.phpstan-vscode",
 		"wmaurer.change-case",
-		"valeryanm.vscode-phpsab",
+		"wongjn.php-sniffer",
 	]
 }
