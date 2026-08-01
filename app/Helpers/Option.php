@@ -18,6 +18,8 @@ use function array_values;
 use function count;
 use function in_array;
 use function is_array;
+use function is_int;
+use function is_string;
 use function preg_match;
 
 final class Option
@@ -121,7 +123,7 @@ final class Option
 	 * @see \Syntatis\FeatureFlipper\Helpers\Option::patch()
 	 *
 	 * @template TKey of array-key
-	 * @template TValue
+	 * @template TValue of int|string
 	 *
 	 * @phpstan-param non-empty-string $name
 	 * @phpstan-param array<TKey,TValue> $source
@@ -137,7 +139,7 @@ final class Option
 	 * @see Syntatis\FeatureFlipper\Helpers\Option::stash()
 	 *
 	 * @template TKey of array-key
-	 * @template TValue
+	 * @template TValue of int|string
 	 *
 	 * @param string $name  The name of the option.
 	 * @param array  $value The current value of the option.
@@ -158,7 +160,7 @@ final class Option
 			return $value;
 		}
 
-		$stashed = is_array($stashed) ? $stashed : [];
+		$stashed = is_array($stashed) ? array_filter($stashed, static fn ($v): bool => is_int($v) || is_string($v)) : [];
 
 		/**
 		 * If the intersection between the values and the stashed values is empty,

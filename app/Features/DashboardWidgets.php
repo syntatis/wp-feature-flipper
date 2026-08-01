@@ -12,12 +12,14 @@ use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
 
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_values;
 use function function_exists;
 use function in_array;
 use function is_array;
+use function is_string;
 use function preg_replace;
 
 use const PHP_INT_MAX;
@@ -42,7 +44,7 @@ final class DashboardWidgets implements Hookable
 			Option::hook('dashboard_widgets_enabled'),
 			static fn ($value) => Option::patch(
 				'dashboard_widgets_enabled',
-				is_array($value) ? $value : [],
+				is_array($value) ? array_filter($value, static fn ($v): bool => is_string($v)) : [],
 				self::getAllDashboardId(),
 			),
 			PHP_INT_MAX,
@@ -186,7 +188,7 @@ final class DashboardWidgets implements Hookable
 
 		switch ($screen->id) {
 			case 'settings_page_' . App::name():
-				// @phpstan-ignore requireOnce.fileNotFound
+				// @phpstan-ignore-next-line requireOnce.fileNotFound
 				require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 				set_current_screen('dashboard');
