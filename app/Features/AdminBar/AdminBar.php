@@ -12,6 +12,7 @@ use Syntatis\FeatureFlipper\Helpers\Assets;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
 
+use function array_filter;
 use function array_keys;
 use function array_merge;
 use function in_array;
@@ -46,7 +47,7 @@ final class AdminBar implements Hookable
 			Option::hook('admin_bar_menu'),
 			static fn ($value) => Option::patch(
 				'admin_bar_menu',
-				is_array($value) ? $value : [],
+				is_array($value) ? array_filter($value, static fn ($v): bool => is_string($v)) : [],
 				self::getRegisteredMenu(),
 			),
 			PHP_INT_MAX,
