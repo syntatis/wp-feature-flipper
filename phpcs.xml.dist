@@ -33,6 +33,7 @@
 	<!-- Rulesets -->
 	<rule ref="SyntatisWP">
 		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed" />
+		<exclude name="WordPress.PHP.POSIXFunctions" />
 	</rule>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
