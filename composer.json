@@ -39,7 +39,7 @@
 		"php": "^7.4 || ^8.0",
 		"jaybizzle/crawler-detect": "^1.4",
 		"symfony/uid": "^5.4",
-		"syntatis/codex": "^0.3",
+		"syntatis/codex": "^0.4",
 		"syntatis/codex-settings-provider": "^0.3"
 	},
 	"require-dev": {
