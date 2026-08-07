@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e35599909ba53edb638c6a186b787f1",
+    "content-hash": "9bf9a323e43807197b0c44f5ed79650c",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -4574,16 +4574,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.5",
+            "version": "3.13.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4"
+                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
-                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
+                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
                 "shasum": ""
             },
             "require": {
@@ -4649,7 +4649,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-11-04T16:30:35+00:00"
+            "time": "2026-08-06T00:17:32+00:00"
         },
         {
             "name": "symfony/console",
@@ -5819,16 +5819,16 @@
         },
         {
             "name": "syntatis/codex-companion",
-            "version": "v0.4.1",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/codex-companion.git",
-                "reference": "884e80e2d92632c0e2e9b677ad8d65be51e3e664"
+                "reference": "9306c0237f989b6c34ec31b50ab91de2eee72e2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/884e80e2d92632c0e2e9b677ad8d65be51e3e664",
-                "reference": "884e80e2d92632c0e2e9b677ad8d65be51e3e664",
+                "url": "https://api.github.com/repos/syntatis/codex-companion/zipball/9306c0237f989b6c34ec31b50ab91de2eee72e2d",
+                "reference": "9306c0237f989b6c34ec31b50ab91de2eee72e2d",
                 "shasum": ""
             },
             "require": {
@@ -5848,8 +5848,8 @@
                 "wpify/php-scoper": "*"
             },
             "require-dev": {
-                "composer/composer": "^2.8",
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+                "composer/composer": "^2.9",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpstan/extension-installer": "^1.4",
                 "phpstan/phpstan": "^2.1",
@@ -5894,29 +5894,29 @@
             ],
             "support": {
                 "issues": "https://github.com/syntatis/codex-companion/issues",
-                "source": "https://github.com/syntatis/codex-companion/tree/v0.4.1"
+                "source": "https://github.com/syntatis/codex-companion/tree/v0.5.0"
             },
-            "time": "2025-08-31T01:38:39+00:00"
+            "time": "2026-08-01T11:22:55+00:00"
         },
         {
             "name": "syntatis/coding-standard",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntatis/phpcs-ruleset.git",
-                "reference": "494d8d397d954147aff04beeb41e80be57809875"
+                "reference": "e1c81a0b14b4ec4744da34f0b22c01dd875a9139"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntatis/phpcs-ruleset/zipball/494d8d397d954147aff04beeb41e80be57809875",
-                "reference": "494d8d397d954147aff04beeb41e80be57809875",
+                "url": "https://api.github.com/repos/syntatis/phpcs-ruleset/zipball/e1c81a0b14b4ec4744da34f0b22c01dd875a9139",
+                "reference": "e1c81a0b14b4ec4744da34f0b22c01dd875a9139",
                 "shasum": ""
             },
             "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
                 "doctrine/coding-standard": "^13.0",
-                "php": ">=7.4",
-                "wp-coding-standards/wpcs": "^3.1"
+                "php": "^7.4 || ^8.0",
+                "wp-coding-standards/wpcs": "^3.4"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -5933,15 +5933,15 @@
             "description": "Curated Coding Standards for PHP and WordPress",
             "homepage": "https://github.com/syntatis/phpcs-ruleset#README",
             "keywords": [
-                "codesniffer",
                 "coding-standard",
-                "php"
+                "dev",
+                "linter"
             ],
             "support": {
                 "issues": "https://github.com/syntatis/phpcs-ruleset/issues",
-                "source": "https://github.com/syntatis/phpcs-ruleset/tree/v2.0.0"
+                "source": "https://github.com/syntatis/phpcs-ruleset/tree/v2.1.0"
             },
-            "time": "2025-04-12T12:44:22+00:00"
+            "time": "2026-08-03T04:38:06+00:00"
         },
         {
             "name": "syntatis/phpstan-psr-11",
