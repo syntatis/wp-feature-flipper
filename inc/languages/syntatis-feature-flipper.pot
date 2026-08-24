@@ -1,54 +1,54 @@
-# Copyright (C) 2025 Thoriq Firdaus
+# Copyright (C) 2026 Thoriq Firdaus
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 2.0.0\n"
+"Project-Id-Version: Feature Flipper 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-23T09:50:54+00:00\n"
+"POT-Creation-Date: 2026-08-24T14:47:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: syntatis-feature-flipper\n"
 
 #. Plugin Name of the plugin
-#: syntatis-feature-flipper.php
+#: syntatis-feature-flipper.php:11
 msgid "Feature Flipper"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: syntatis-feature-flipper.php
+#: syntatis-feature-flipper.php:12
 msgid "https://github.com/syntatis/wp-feature-flipper"
 msgstr ""
 
 #. Description of the plugin
-#: syntatis-feature-flipper.php
+#: syntatis-feature-flipper.php:13
 msgid "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress"
 msgstr ""
 
 #. Author of the plugin
-#: syntatis-feature-flipper.php
+#: syntatis-feature-flipper.php:17
 msgid "Thoriq Firdaus"
 msgstr ""
 
 #. Author URI of the plugin
-#: syntatis-feature-flipper.php
+#: syntatis-feature-flipper.php:18
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
-#: app/Features/CommentLength.php:61
+#: app/Features/CommentLength.php:63
 msgid "Comment's too short. Please write something more helpful."
 msgstr ""
 
-#: app/Features/CommentLength.php:62
-#: app/Features/CommentLength.php:78
+#: app/Features/CommentLength.php:64
+#: app/Features/CommentLength.php:80
 msgid "Comment Error"
 msgstr ""
 
-#: app/Features/CommentLength.php:77
+#: app/Features/CommentLength.php:79
 msgid "Comment's too long. Please write more concisely."
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Comments are disabled."
 msgstr ""
 
-#: app/Features/DashboardWidgets.php:221
+#: app/Features/DashboardWidgets.php:223
 msgid "Unknown"
 msgstr ""
 
