@@ -10,6 +10,16 @@ if (! defined('ABSPATH')) {
 use SFFV\Codex\Settings\Setting;
 
 /**
+ * In WordPress 7.1, the Media Library infinite scroll is back enabled, and
+ * allows each user to enable or disable it from their profile settings.
+ * The default will now be true on WordPress 7.1 and above, and false
+ * on WordPress 7.0 and below.
+ *
+ * @see https://github.com/WordPress/WordPress/blob/5a57baa3352953e1f9cef97fc480ed14a8135335/wp-includes/media.php#L5043-L5061
+ */
+$mediaInfiniteScroll = version_compare(wp_get_wp_version(), '7.1', '>=');
+
+/**
  * Defines the options to be used by the plugin. Aside the name and type,
  * each option may also define some constraints and default. Feel free
  * modify it to suit your needs.
@@ -120,7 +130,7 @@ return [
 	(new Setting('attachment_slug', 'boolean'))
 		->withDefault(true),
 	(new Setting('media_infinite_scroll', 'boolean'))
-		->withDefault(false),
+		->withDefault($mediaInfiniteScroll),
 	(new Setting('jpeg_compression', 'boolean'))
 		->withDefault(true),
 	/**

@@ -58,6 +58,11 @@ const PLUGIN_DIR = __DIR__;
 const PLUGIN_FILE = __FILE__;
 
 /**
+ * Load functions.
+ */
+require PLUGIN_DIR . '/inc/functions/polyfills.php';
+
+/**
  * Load and initialize the WordPress plugin application.
  */
 require PLUGIN_DIR . '/inc/bootstrap/app.php';
