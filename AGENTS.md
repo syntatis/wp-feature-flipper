@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository is the **Feature Flipper** WordPress plugin that lets site owners toggle core WordPress features — Comments, Gutenberg, Emojis, XML-RPC, Feeds, Updates, Cron, Heartbeat, and more — on or off from a settings screen.
+This repository is the **Feature Flipper** WordPress plugin. Site owners toggle core WordPress features on or off from a settings screen: Comments, Gutenberg, Emojis, XML-RPC, Feeds, Updates, Cron, Heartbeat, and more.
 
 ## Project Shape
 
@@ -45,7 +45,7 @@ This repository is the **Feature Flipper** WordPress plugin that lets site owner
 
 ### Codex framework conventions
 
-The plugin is built on the [Codex framework](https://
+The plugin is built on the [Codex framework](https://github.com/syntatis/codex) (`syntatis/codex`). Third-party classes, including Codex itself, are scoped into the runtime under the `SFFV` prefix.
 
 - Hooks: implement `SFFV\Codex\Contracts\Hookable` and register callbacks in `hook(Hook $hook)` with `$hook->addAction()` / `$hook->addFilter()`.
 - Composition: implement `SFFV\Codex\Contracts\Extendable` and return child instances from `getInstances(ContainerInterface $container)` using `yield`.
@@ -72,7 +72,7 @@ The plugin is built on the [Codex framework](https://
 
 ## Tooling
 
-The project use Composer and npm scripts.
+The project uses Composer and npm scripts.
 
 PHP (requires PHP 7.4+ locally):
 
@@ -84,7 +84,7 @@ PHP (requires PHP 7.4+ locally):
 - `composer scope` — regenerate the scoped dependencies (PHP-Scoper).
 - `composer build` — build the production plugin (scope + POT).
 
-JavaScript/React (See `.nvmrc` for the Node.js version):
+JavaScript/React (see `.nvmrc` for the Node.js version):
 
 - `npm install` — install front-end dependencies.
 - `npm run build` — production build into `dist/assets`.
@@ -94,7 +94,7 @@ JavaScript/React (See `.nvmrc` for the Node.js version):
 
 Local WordPress environment (`@wordpress/env`):
 
-- `npm run wp-env:start` — start the site (http://localhost:8801) and tests environment (port 8901).
+- `npm run wp-env:start` — start the site [http://localhost:8801](http://localhost:8801) and tests environment (port 8901).
 - `npm run wp-env:tests-wordpress` — run PHPUnit inside the tests environment.
 - `npm run wp-env:destroy` — tear down the environment.
 
