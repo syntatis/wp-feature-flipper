@@ -24,8 +24,8 @@
 	},
 	"dependencies": {
 		"@syntatis/kubrick": "^0.3.0",
-		"@wordpress/api-fetch": "^7.47.0",
-		"@wordpress/dom-ready": "^4.47.0",
+		"@wordpress/api-fetch": "^7.53.0",
+		"@wordpress/dom-ready": "^4.53.0",
 		"@wordpress/element": "^6.37.0",
 		"@wordpress/i18n": "^6.20.0",
 		"@wordpress/icons": "^11.0.0",
