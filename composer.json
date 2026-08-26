@@ -64,7 +64,7 @@
 		"syntatis/coding-standard": "^2.1",
 		"syntatis/phpstan-psr-11": "^0.1",
 		"szepeviktor/phpstan-wordpress": "^2.0",
-		"wp-cli/i18n-command": "^2.7",
+		"wp-cli/i18n-command": "^3.0",
 		"yoast/wp-test-utils": "^1.2"
 	},
 	"suggest": {
