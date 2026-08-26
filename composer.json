@@ -46,7 +46,7 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.2",
 		"fakerphp/faker": "^1.24",
 		"filp/whoops": "^2.18",
-		"johnbillion/wp-compat": "^1.5",
+		"johnbillion/wp-compat": "^2.0",
 		"nunomaduro/collision": "^5.11",
 		"php-stubs/woocommerce-stubs": "^11.0",
 		"php-stubs/wordpress-tests-stubs": "^7.1",
