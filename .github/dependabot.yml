@@ -47,6 +47,8 @@ updates:
       - dependency-type: "direct"
     ignore:
       - dependency-name: "@wordpress/scripts"
+      - dependency-name: "@wordpress/element" # Maintain compatibility for WordPress older versions.
+      - dependency-name: "@wordpress/icons" # Maintain compatibility for WordPress older versions.
     groups:
       npm-dependencies:
         dependency-type: "production"
