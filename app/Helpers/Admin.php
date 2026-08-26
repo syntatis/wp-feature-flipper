@@ -11,6 +11,7 @@ use WP_Screen;
 use function array_merge;
 use function function_exists;
 use function is_string;
+use function str_ends_with;
 
 /**
  * A collection of methods to interact with the WordPress admin area.
@@ -55,7 +56,7 @@ final class Admin
 				return self::isPluginSettingPage();
 
 			default:
-				if (Str::endsWith($address, '.php')) {
+				if (str_ends_with($address, '.php')) {
 					$pagenow = $GLOBALS['pagenow'] ?? '';
 
 					if (is_string($pagenow) && $pagenow === $address) {
