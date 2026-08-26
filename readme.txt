@@ -40,6 +40,7 @@ Customize your admin experience:
 * **Dashboard Widgets**: Remove unwanted or all dashboard widgets.
 * **Footer Text**: Get rid of the <q>Thank you for creating with WordPress</q> footer text.
 * **Update Nags**: Hide update notices for WordPress, plugins, and themes.
+* **View Transitions**: Disable the animated page transitions introduced in WordPress 7.0 in the admin area.
 * **Admin Bar**: Remove the admin bar on your site's front end.
 * **Howdy Text**: Replace the <q>Howdy</q> greeting in the admin bar.
 * **Environment Type**: Display site's environment type (e.g. Development, Staging, Production) in the admin bar.

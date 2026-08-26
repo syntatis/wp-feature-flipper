@@ -6,12 +6,14 @@ import {
 	SwitchFieldset,
 } from '../fieldset';
 import { HelpContent } from '../components';
+import { compareVersions } from '../utils/version';
 
 const wpFooter = document.querySelector( '#wpfooter' );
 const wpFooterDisplayStyle = wpFooter?.style?.display;
 
 export const AdminTab = () => {
-	const { getOption } = useSettingsContext();
+	const { getOption, inlineData } = useSettingsContext();
+
 	return (
 		<Form>
 			<Fieldset>
@@ -40,6 +42,24 @@ export const AdminTab = () => {
 						) }
 						description={ __(
 							'If switched off, notification message will not be shown when update is available.',
+							'syntatis-feature-flipper'
+						) }
+					/>
+				)}
+				{ compareVersions( inlineData.$wp.version, '7.0' ) >= 0 && (
+					<SwitchFieldset
+						name="admin_view_transitions"
+						id="admin-view-transitions"
+						title={ __(
+							'View Transitions',
+							'syntatis-feature-flipper'
+						) }
+						label={ __(
+							'Enable animated page transitions',
+							'syntatis-feature-flipper'
+						) }
+						description={ __(
+							'If switched off, the animated transition between admin page is disabled, and navigation falls back to standard page loads.',
 							'syntatis-feature-flipper'
 						) }
 					/>
