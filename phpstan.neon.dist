@@ -13,8 +13,6 @@ parameters:
     -
       identifier: shipmonk.checkedExceptionInYieldingMethod
     -
-      identifier: shipmonk.checkedExceptionInYieldingMethod
-    -
       identifier: WPCompat.parameterNotAvailable.wpenqueuescript.args
 
   ## syntatis/phpstan-psr-11
@@ -24,3 +22,9 @@ parameters:
   ## johnbillion/wp-compat
   WPCompat:
     requiresAtLeast: '6.4'
+
+  ## shipmonk/phpstan-rules
+  shipmonkRules:
+    forbidCast:
+      enabled: true
+      blacklist!: ['(unset)']
