@@ -9,6 +9,8 @@ use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Modules\Admin;
 use Syntatis\Tests\WPTestCase;
 
+use function version_compare;
+
 /** @group module-admin */
 class AdminTest extends WPTestCase
 {
@@ -19,6 +21,10 @@ class AdminTest extends WPTestCase
 	public function set_up(): void
 	{
 		parent::set_up();
+
+		if (! version_compare($GLOBALS['wp_version'], '7.0', '>=')) {
+			$this->markTestSkipped('This test requires WordPress 7.0 or newer.');
+		}
 
 		$this->hook = new Hook();
 		$this->instance = new Admin();
