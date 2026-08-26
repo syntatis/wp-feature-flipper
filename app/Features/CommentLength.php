@@ -7,9 +7,9 @@ namespace Syntatis\FeatureFlipper\Features;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
-use Syntatis\FeatureFlipper\Helpers\Str;
 
 use function is_numeric;
+use function mb_strlen;
 use function strip_tags;
 
 use const PHP_INT_MIN;
@@ -45,7 +45,7 @@ final class CommentLength implements Hookable
 			return $commentData;
 		}
 
-		$length = Str::length(
+		$length = mb_strlen(
 			strip_tags($commentData['comment_content']),
 			get_bloginfo('charset'),
 		);
