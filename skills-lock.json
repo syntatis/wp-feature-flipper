@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "skills": {
+    "asd-ste100": {
+      "source": "cfcosta/writing-styles",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "asd-ste100/SKILL.md",
+      "computedHash": "11f6a7335c9e15a0cebfb578e70f0fd883cc26baff03541c9f326edff97d65d9"
+    },
+    "karpathy-guidelines": {
+      "source": "multica-ai/andrej-karpathy-skills",
+      "sourceType": "github",
+      "skillPath": "skills/karpathy-guidelines/SKILL.md",
+      "computedHash": "41e8ca055bbde13d240776a14a076a59614057200340c243130a76ba4e64cac8"
+    }
+  }
+}
