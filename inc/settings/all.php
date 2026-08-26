@@ -18,6 +18,7 @@ use SFFV\Codex\Settings\Setting;
  * @see https://github.com/WordPress/WordPress/blob/5a57baa3352953e1f9cef97fc480ed14a8135335/wp-includes/media.php#L5043-L5061
  */
 $mediaInfiniteScroll = version_compare(wp_get_wp_version(), '7.1', '>=');
+$supportsViewTransitions = version_compare(wp_get_wp_version(), '7.0', '>=');
 
 /**
  * Defines the options to be used by the plugin. Aside the name and type,
@@ -102,6 +103,19 @@ return [
 		->withDefault(null),
 	(new Setting('admin_footer_text', 'boolean'))
 		->withDefault(true),
+	/**
+	 * WordPress 7.0 introduced View Transitions in the admin area, animating
+	 * navigation between pages and admin menu dropdowns. The option is only
+	 * registered when running WordPress 7.0 or later, where the View
+	 * Transitions API is available.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/64470
+	 */
+	...(
+		$supportsViewTransitions
+			? [(new Setting('admin_view_transitions', 'boolean'))->withDefault(true)]
+			: []
+	),
 
 	// Admin: Admin Bar.
 	(new Setting('admin_bar', 'boolean'))
