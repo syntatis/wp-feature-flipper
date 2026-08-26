@@ -8,7 +8,7 @@ on:
       - main
     paths:
       - ".github/workflows/ci.yml"
-      - "**.php"
+      - "*.php"
       - "composer.json"
       - "phpcs.xml.dist"
       - "phpstan.neon.dist"
