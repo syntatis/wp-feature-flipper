@@ -1,6 +1,6 @@
-# Agent Instructions
+# AGENTS.md
 
-This repository is the **Feature Flipper** WordPress plugin. Site owners toggle core WordPress features on or off from a settings screen: Comments, Gutenberg, Emojis, XML-RPC, Feeds, Updates, Cron, Heartbeat, and more.
+This repository is the **Feature Flipper** WordPress plugin. Users can toggle core WordPress features on or off from a settings screen: Comments, Gutenberg, Emojis, XML-RPC, Feeds, Updates, Cron, Heartbeat, and more.
 
 ## Project Shape
 
@@ -25,15 +25,15 @@ This repository is the **Feature Flipper** WordPress plugin. Site owners toggle 
 
 ### Language, style, and compatibility
 
-- Follow [PSR-12](https://www.php-fig.org/psr/psr-12/) plus the `SyntatisWP` coding standard defined in `phpcs.xml.dist`.
-- Use `declare(strict_types=1);` in first-party PHP files (the exceptions are `inc/bootstrap/providers.php` and `inc/config/*.php`, which are excluded from the rule).
-- Keep PHP code compatible with PHP 7.4+ and WordPress 6.4+.
-- Namespaces:
+- Follow [PSR-12](https://www.php-fig.org/psr/psr-12/) for general coding style, and refer to `phpcs.xml.dist` for the additional rules.
+- Follow [PSR-4](https://www.php-fig.org/psr/psr-4/) for class autoloading and namespaces.
   - `Syntatis\FeatureFlipper\` for product code.
   - `Syntatis\Tests\` for tests.
   - `SFFV\` for scoped third-party classes (PHP-Scoper output).
-- Indent PHP with tabs (width 4) and JSON/Markdown/NEON/YAML with spaces (width 2); see `.editorconfig`.
-- Internationalize user-facing strings with the `syntatis-feature-flipper` text domain.
+- Follow **SOLID** principles with some common design patterns like "Decorator", "Facade", "Adapter", etc. when applicable to ensure maintainable and testable code.
+- Use **PHP 7.4+** compatible syntax and features, including typed properties, arrow functions, and null coalescing assignment.
+- Use `declare(strict_types=1);` in first-party PHP files, except for files that are excluded in `phpcs.xml.dist`.
+- Ultimately, always KISS (Keep It Simple, Stupid) and avoid over-engineering.
 
 ### Architecture and testability
 
@@ -47,11 +47,11 @@ This repository is the **Feature Flipper** WordPress plugin. Site owners toggle 
 
 The plugin is built on the [Codex framework](https://github.com/syntatis/codex) (`syntatis/codex`). Third-party classes, including Codex itself, are scoped into the runtime under the `SFFV` prefix.
 
-- Hooks: implement `SFFV\Codex\Contracts\Hookable` and register callbacks in `hook(Hook $hook)` with `$hook->addAction()` / `$hook->addFilter()`.
-- Composition: implement `SFFV\Codex\Contracts\Extendable` and return child instances from `getInstances(ContainerInterface $container)` using `yield`.
-- Modules (`app/Modules/*`) are `Hookable` and `Extendable`: they register their own hooks and yield their feature instances.
-- Settings: define options declaratively in `inc/settings/all.php` using `SFFV\Codex\Settings\Setting`.
-- Options: read and write options through `Syntatis\FeatureFlipper\Helpers\Option` (`get`, `isOn`, `update`, `add`, `delete`).
+- **Hooks**: implement `SFFV\Codex\Contracts\Hookable` and register callbacks in `hook(Hook $hook)` with `$hook->addAction()` / `$hook->addFilter()`.
+- **Composition**: implement `SFFV\Codex\Contracts\Extendable` and return child instances from `getInstances(ContainerInterface $container)` using `yield`.
+- **Modules** (`app/Modules/*`) are `Hookable` and `Extendable`: they register their own hooks and yield their feature instances.
+- **Settings**: define options declaratively in `inc/settings/all.php` using `SFFV\Codex\Settings\Setting`.
+- **Options**: read and write options through `Syntatis\FeatureFlipper\Helpers\Option` (`get`, `isOn`, `update`, `add`, `delete`).
 - Static-only helper classes use the `Syntatis\FeatureFlipper\Concerns\DontInstantiate` trait.
 - Use the `SFFV\Codex\Facades\App` / `Config` facades for paths, URLs, and config instead of hard-coding them.
 
