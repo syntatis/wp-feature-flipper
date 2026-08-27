@@ -47,7 +47,7 @@ export const TrashRetentionFieldset = () => {
 							<HelpContent>
 								<p>
 									{ __(
-										'This setting is managed by the EMPTY_TRASH_DAYS constant defined in your wp-config.php file.',
+										'This setting is currently disabled, since it is manually managed by the "EMPTY_TRASH_DAYS" constant.',
 										'syntatis-feature-flipper'
 									) }
 								</p>
@@ -99,15 +99,10 @@ export const TrashRetentionFieldset = () => {
 					isReadOnly={ ! isLocked && isDisabled }
 					suffix={ __( 'days', 'syntatis-feature-flipper' ) }
 					description={
-						isLocked
-							? __(
-									'This setting is managed by the EMPTY_TRASH_DAYS constant in wp-config.php.',
-									'syntatis-feature-flipper'
-							  )
-							: __(
-									'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
-									'syntatis-feature-flipper'
-							  )
+						__(
+							'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
+							'syntatis-feature-flipper'
+						)
 					}
 				/>
 				<div style={ { marginTop: '1rem' } }>
