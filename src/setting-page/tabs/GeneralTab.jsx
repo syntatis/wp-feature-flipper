@@ -5,6 +5,7 @@ import {
 	GutenbergFieldset,
 	RevisionsFieldset,
 	SwitchFieldset,
+	TrashRetentionFieldset,
 } from '../fieldset';
 import { HelpContent } from '../components';
 
@@ -50,6 +51,7 @@ export const GeneralTab = () => {
 				/>
 				<CommentsFieldset />
 				<RevisionsFieldset />
+				<TrashRetentionFieldset />
 				<SwitchFieldset
 					name="post_embed"
 					id="post-embed"

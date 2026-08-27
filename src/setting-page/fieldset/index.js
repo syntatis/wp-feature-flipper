@@ -8,5 +8,6 @@ export { RadioGroupFieldset } from './RadioGroupFieldset';
 export { RevisionsFieldset } from './RevisionsFieldset';
 export { SwitchFieldset } from './SwitchFieldset';
 export { TextFieldset } from './TextFieldset';
+export { TrashRetentionFieldset } from './TrashRetentionFieldset';
 export { UpdatesFieldset } from './UpdatesFieldset';
 export { ImageSizesFieldset } from './ImageSizesFieldset';
