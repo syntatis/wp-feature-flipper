@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { Checkbox, TextField } from '@syntatis/kubrick';
+import { Switch, TextField } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
 import { HelpContent, HelpTip } from '../components';
 import styles from './styles.module.scss';
@@ -20,9 +20,9 @@ export const TrashRetentionFieldset = () => {
 	const initialDays =
 		Number.isFinite( parsed ) && parsed > 0 ? parsed : DEFAULT_DAYS;
 	const [ days, setDays ] = useState( initialDays );
-	const [ isDisabled, setDisabled ] = useState( option === 0 );
+	const [ isEnabled, setEnabled ] = useState( option !== 0 );
 
-	const isChecked = isLocked ? lockedDays === 0 : isDisabled;
+	const isSelected = isLocked ? lockedDays !== 0 : isEnabled;
 
 	let fieldValue = days;
 	let fieldKey = 'trash-retention-enabled';
@@ -30,7 +30,7 @@ export const TrashRetentionFieldset = () => {
 	if ( isLocked ) {
 		fieldValue = lockedDays;
 		fieldKey = 'trash-retention-locked';
-	} else if ( isDisabled ) {
+	} else if ( ! isEnabled ) {
 		fieldValue = 0;
 		fieldKey = 'trash-retention-disabled';
 	}
@@ -47,30 +47,30 @@ export const TrashRetentionFieldset = () => {
 							<HelpContent>
 								<p>
 									{ __(
-										'This setting is currently disabled, since it is manually managed by the "EMPTY_TRASH_DAYS" constant.',
-										'syntatis-feature-flipper'
-									) }
+											'This setting is currently disabled, since it is manually managed by the "EMPTY_TRASH_DAYS" constant.',
+											'syntatis-feature-flipper'
+										) }
 								</p>
 								<p>
 									{ __(
-										'To manage Trash retention here, remove or update the constant.',
-										'syntatis-feature-flipper'
-									) }
+											'To manage Trash retention here, remove or update the constant.',
+											'syntatis-feature-flipper'
+										) }
 								</p>
 							</HelpContent>
 						) : (
 							<HelpContent readmore="https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#empty-trash">
 								<p>
 									{ __(
-										'WordPress keeps deleted posts and comments in the Trash for 30 days by default.',
-										'syntatis-feature-flipper'
-									) }
+											'WordPress keeps deleted posts and comments in the Trash for 30 days by default.',
+											'syntatis-feature-flipper'
+										) }
 								</p>
 								<p>
 									{ __(
-										'You can change how long items remain in the Trash before they are permanently deleted, or disable the Trash so that deleted content is removed immediately.',
-										'syntatis-feature-flipper'
-									) }
+											'You can change how long items remain in the Trash before they are permanently deleted, or disable the Trash so that deleted content is removed immediately.',
+											'syntatis-feature-flipper'
+										) }
 								</p>
 							</HelpContent>
 						) }
@@ -78,48 +78,49 @@ export const TrashRetentionFieldset = () => {
 				</span>
 			</th>
 			<td>
-				<TextField
-					key={ fieldKey }
-					{ ...inputProps( 'trash_retention' ) }
-					type="number"
-					min={ 1 }
-					max={ MAX_DAYS }
-					defaultValue={ fieldValue }
-					onChange={ ( value ) => {
-						const parsedValue = Number( value );
-
-						if (
-							Number.isFinite( parsedValue ) &&
-							parsedValue >= 1
-						) {
-							setDays( parsedValue );
-						}
-					} }
+				<Switch
+					className={ styles.field }
+					onChange={ setEnabled }
+					isSelected={ isSelected }
 					isDisabled={ isLocked }
-					isReadOnly={ ! isLocked && isDisabled }
-					suffix={ __( 'days', 'syntatis-feature-flipper' ) }
-					description={
-						__(
-							'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
-							'syntatis-feature-flipper'
-						)
-					}
+					label={ __(
+						'Enable Trash retention',
+						'syntatis-feature-flipper'
+					) }
+					description={ __(
+						'If switched off, deleted content is permanently removed instead of being moved to the Trash.',
+						'syntatis-feature-flipper'
+					) }
 				/>
-				<div style={ { marginTop: '1rem' } }>
-					<Checkbox
-						onChange={ setDisabled }
-						isSelected={ isChecked }
+				{isEnabled && <div className={ styles.details }>
+					<TextField
+						key={ fieldKey }
+						{ ...inputProps( 'trash_retention' ) }
+						type="number"
+						min={ 1 }
+						max={ MAX_DAYS }
+						defaultValue={ fieldValue }
+						onChange={ ( value ) => {
+							const parsedValue = Number( value );
+
+							if (
+								Number.isFinite( parsedValue ) &&
+								parsedValue >= 1
+							) {
+								setDays( parsedValue );
+							}
+						} }
 						isDisabled={ isLocked }
-						label={ __(
-							'Disable Trash',
-							'syntatis-feature-flipper'
-						) }
-						description={ __(
-							'Items deleted while Trash is disabled are permanently deleted and cannot be restored.',
-							'syntatis-feature-flipper'
-						) }
+						isReadOnly={ ! isLocked && ! isEnabled }
+						suffix={ __( 'days', 'syntatis-feature-flipper' ) }
+						description={
+							__(
+								'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
+								'syntatis-feature-flipper'
+							)
+						}
 					/>
-				</div>
+				</div>}
 			</td>
 		</tr>
 	);
