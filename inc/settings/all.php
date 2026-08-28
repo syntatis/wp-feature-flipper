@@ -169,10 +169,23 @@ return [
 	 */
 	(new Setting('jpeg_compression_quality', 'integer'))
 		->withDefault(82),
+	/**
+	 * Whether WordPress should automatically scale large uploaded images.
+	 *
+	 * When switched off, WordPress will not scale down images that exceed
+	 * the big image size threshold.
+	 */
 	(new Setting('big_image_size', 'boolean'))
 		->withDefault(true),
+	/**
+	 * The maximum width or height (in pixels) an uploaded image can have
+	 * before WordPress scales it down.
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/big_image_size_threshold/
+	 */
 	(new Setting('big_image_size_threshold', 'integer'))
-		->withDefault(2560),
+		->withDefault(2560)
+		->apiSchema(['minimum' => 1, 'maximum' => 10000]),
 
 	/**
 	 * --------------------------------------------------------

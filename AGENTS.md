@@ -107,3 +107,38 @@ Local WordPress environment (`@wordpress/env`):
   - Coding standards: `composer lint` (or `composer format` to auto-fix).
   - Static analysis: `composer analyze`.
   - Scoping or release packaging: `composer scope` or `composer build`.
+
+## Code Comments and Docblocks
+
+Write code comments and docblocks in a concise, clear, and practical style.
+
+- Explain **why the code exists, what it is intended to do, or an important constraint**, rather than simply restating what the code does.
+- Start with the main purpose or behavior so the reader can understand the context quickly.
+- Use short paragraphs when additional context is needed. Prefer clear sentences over dense or overly technical wording.
+- When documenting a group of fields, options, or behaviors, briefly explain:
+  - what they represent,
+  - why they are included or allowed, and
+  - what is intentionally excluded or handled differently, when relevant.
+- Explicitly call out important safeguards, exclusions, or invariants when they could prevent future changes from introducing bugs.
+- Keep comments focused on information that is useful to someone maintaining the code later.
+- Do not document obvious implementation details that can already be understood directly from the code.
+- Avoid unnecessary verbosity, marketing language, or speculative explanations.
+- Preserve technical identifiers such as function names, field names, constants, and configuration keys using backticks where appropriate.
+- Use consistent terminology throughout the codebase.
+- Prefer active, straightforward language and avoid unnecessarily complex sentence structures.
+
+### Example
+
+Prefer:
+
+```php
+/**
+ * Defines the options to manage features grouped in the Admin section.
+ *
+ * Features in the Admin section are those that are specific to the
+ * WordPress admin area. Users won't see the changes unless they
+ * have access to the admin area.
+ */
+```
+
+The preferred style is **concise, explanatory, and maintenance-oriented**: give future developers the context they need without narrating the implementation line by line.
