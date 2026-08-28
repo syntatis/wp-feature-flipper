@@ -9,6 +9,7 @@ use BadMethodCallException;
 use JsonSerializable;
 use ReturnTypeWillChange;
 use SFFV\Codex\Facades\App;
+use Syntatis\FeatureFlipper\Features\TrashRetention;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Post_Type;
 
@@ -36,6 +37,12 @@ final class InlineData implements ArrayAccess, JsonSerializable
 					'widgetsBlockEditor' => get_theme_support('widgets-block-editor'),
 				],
 				'version' => get_bloginfo('version'),
+			],
+			'features' => [
+				'trashRetention' => [
+					'isLocked' => TrashRetention::hasExplicitConfig(),
+					'days' => TrashRetention::effectiveDays(),
+				],
 			],
 			'settingPage' => esc_url(Admin::url(App::name())),
 			'settingPageTab' => sanitize_key(isset($_GET['tab']) && is_string($_GET['tab']) ? $_GET['tab'] : ''),
