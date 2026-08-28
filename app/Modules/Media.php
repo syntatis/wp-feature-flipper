@@ -10,6 +10,7 @@ use SFFV\Codex\Foundation\Hooks\Hook;
 use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\AttachmentPage;
 use Syntatis\FeatureFlipper\Features\AttachmentSlug;
+use Syntatis\FeatureFlipper\Features\BigImageSize;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 final class Media implements Hookable, Extendable
@@ -19,13 +20,6 @@ final class Media implements Hookable, Extendable
 		$hook->addFilter(
 			'media_library_infinite_scrolling',
 			static fn (): bool => Option::isOn('media_infinite_scroll'),
-		);
-
-		$hook->addFilter(
-			'big_image_size_threshold',
-			static fn () => Option::isOn('big_image_size') ?
-				Option::get('big_image_size_threshold') :
-				false,
 		);
 
 		$hook->addFilter(
@@ -41,5 +35,6 @@ final class Media implements Hookable, Extendable
 	{
 		yield 'attachment_page' => new AttachmentPage();
 		yield 'attachment_slug' => ! Option::isOn('attachment_slug') && is_admin() ? new AttachmentSlug() : null;
+		yield 'big_image_size' => new BigImageSize();
 	}
 }

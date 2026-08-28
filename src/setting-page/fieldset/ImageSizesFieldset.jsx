@@ -1,14 +1,18 @@
 import { __ } from '@wordpress/i18n';
-import { SwitchFieldset } from './SwitchFieldset';
-import { TextField } from '@syntatis/kubrick';
-import { Fieldset, useSettingsContext } from '../form';
 import { useState } from '@wordpress/element';
+import { TextField } from '@syntatis/kubrick';
+import { SwitchFieldset } from './SwitchFieldset';
+import { Fieldset, useSettingsContext } from '../form';
+import { HelpContent } from '../components';
+
+const MIN_THRESHOLD = 1;
+const MAX_THRESHOLD = 10000;
 
 export const ImageSizesFieldset = () => {
 	const { getOption, getOptionName } = useSettingsContext();
-	const [ values, setValues ] = useState( {
-		bigImageSize: getOption( 'big_image_size' ),
-	} );
+	const [ isEnabled, setEnabled ] = useState(
+		getOption( 'big_image_size' )
+	);
 
 	return (
 		<Fieldset
@@ -21,7 +25,7 @@ export const ImageSizesFieldset = () => {
 			<SwitchFieldset
 				name="big_image_size"
 				id="big-image-size"
-				title="Big Image Size"
+				title={ __( 'Big Image Size', 'syntatis-feature-flipper' ) }
 				label={ __(
 					'Enable big image size threshold',
 					'syntatis-feature-flipper'
@@ -30,21 +34,39 @@ export const ImageSizesFieldset = () => {
 					'If switched off, WordPress will not scale down images that exceed the specified threshold.',
 					'syntatis-feature-flipper'
 				) }
-				onChange={ ( value ) => {
-					setValues( ( currentValues ) => {
-						return {
-							...currentValues,
-							bigImageSize: value,
-						};
-					} );
-				} }
+				onChange={ setEnabled }
+				help={
+					<HelpContent
+						readmore="https://developer.wordpress.org/reference/hooks/big_image_size_threshold/"
+					>
+						<p>
+							{ __(
+								'Since WordPress 5.3, images wider or taller than the threshold are automatically scaled down when uploaded, while the original image is kept in the uploads directory.',
+								'syntatis-feature-flipper'
+							) }
+						</p>
+						<p>
+							{ __(
+								'The default of 2560px is recommended for most sites. Disabling the automatic scaling, or raising the threshold, preserves very large images as-is. This may increase storage usage, slow down uploads, and deliver larger files to visitors.',
+								'syntatis-feature-flipper'
+							) }
+						</p>
+						<p>
+							{ __(
+								'Changing this setting does not resize images that have already been uploaded.',
+								'syntatis-feature-flipper'
+							) }
+						</p>
+					</HelpContent>
+				}
 			>
-				{ values.bigImageSize && (
+				{ isEnabled && (
 					<div style={ { marginTop: '1rem' } }>
 						<TextField
-							min={ 10 }
-							max={ 9999 }
 							type="number"
+							min={ MIN_THRESHOLD }
+							max={ MAX_THRESHOLD }
+							step={ 1 }
 							name={ getOptionName( 'big_image_size_threshold' ) }
 							defaultValue={ getOption(
 								'big_image_size_threshold'
@@ -58,11 +80,11 @@ export const ImageSizesFieldset = () => {
 									) }
 								</span>
 							}
+							suffix={ __( 'px', 'syntatis-feature-flipper' ) }
 							aria-label={ __(
-								'The threshold big image threshold size',
+								'Big image threshold in pixels',
 								'syntatis-feature-flipper'
 							) }
-							suffix="px"
 						/>
 					</div>
 				) }

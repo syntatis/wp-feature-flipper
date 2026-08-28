@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feature Flipper 2.1.0\n"
+"Project-Id-Version: Feature Flipper 2.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-feature-flipper\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-25T14:44:45+00:00\n"
+"POT-Creation-Date: 2026-08-28T05:53:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 3.0.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -156,7 +156,7 @@ msgid "Helpful information"
 msgstr ""
 
 #: src/setting-page/fieldset/AdminBarFieldset.jsx:15
-#: src/setting-page/tabs/AdminTab.jsx:69
+#: src/setting-page/tabs/AdminTab.jsx:89
 msgid "Admin Bar"
 msgstr ""
 
@@ -338,28 +338,48 @@ msgstr ""
 msgid "Quality"
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:15
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:19
 msgid "Image Sizes"
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:16
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:20
 msgid "Settings to control the size of the uploaded images."
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:25
-msgid "Enable big image size threshold"
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:28
+msgid "Big Image Size"
 msgstr ""
 
 #: src/setting-page/fieldset/ImageSizesFieldset.jsx:29
+msgid "Enable big image size threshold"
+msgstr ""
+
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:33
 msgid "If switched off, WordPress will not scale down images that exceed the specified threshold."
 msgstr ""
 
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:43
+msgid "Since WordPress 5.3, images wider or taller than the threshold are automatically scaled down when uploaded, while the original image is kept in the uploads directory."
+msgstr ""
+
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:49
+msgid "The default of 2560px is recommended for most sites. Disabling the automatic scaling, or raising the threshold, preserves very large images as-is. This may increase storage usage, slow down uploads, and deliver larger files to visitors."
+msgstr ""
+
 #: src/setting-page/fieldset/ImageSizesFieldset.jsx:55
+msgid "Changing this setting does not resize images that have already been uploaded."
+msgstr ""
+
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:77
 msgid "Threshold"
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:61
-msgid "The threshold big image threshold size"
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:83
+msgid "px"
+msgstr ""
+
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:84
+msgid "Big image threshold in pixels"
 msgstr ""
 
 #: src/setting-page/fieldset/RevisionsFieldset.jsx:20
@@ -510,95 +530,107 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:26
+#: src/setting-page/tabs/AdminTab.jsx:28
 msgid "This option will only remove the update notice that appear at the top of the admin area.It does not prevent the updates itself. To disable the updates, you can switch them off from the \"Advanced › Updates\" option."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:33
+#: src/setting-page/tabs/AdminTab.jsx:35
 msgid "Update Nags"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:37
+#: src/setting-page/tabs/AdminTab.jsx:39
 msgid "Enable update notification message"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:41
+#: src/setting-page/tabs/AdminTab.jsx:43
 msgid "If switched off, notification message will not be shown when update is available."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:50
-msgid "Footer Text"
+#: src/setting-page/tabs/AdminTab.jsx:53
+msgid "View Transitions"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:51
-msgid "Show the footer text"
+#: src/setting-page/tabs/AdminTab.jsx:57
+msgid "Enable animated page transitions"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:55
-msgid "If switched off, the footer text in the admin area will be removed."
+#: src/setting-page/tabs/AdminTab.jsx:61
+msgid "If switched off, the animated transition between admin page is disabled, and navigation falls back to standard page loads."
 msgstr ""
 
 #: src/setting-page/tabs/AdminTab.jsx:70
+msgid "Footer Text"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:71
+msgid "Show the footer text"
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:75
+msgid "If switched off, the footer text in the admin area will be removed."
+msgstr ""
+
+#: src/setting-page/tabs/AdminTab.jsx:90
 msgid "Options to customize the Admin Bar area"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:79
+#: src/setting-page/tabs/AdminTab.jsx:99
 msgid "Howdy Text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:80
+#: src/setting-page/tabs/AdminTab.jsx:100
 msgid "Show the \"Howdy\" text"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:84
+#: src/setting-page/tabs/AdminTab.jsx:104
 msgid "If switched off, the \"Howdy\" text in the Account menu in the admin bar will be removed."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:92
+#: src/setting-page/tabs/AdminTab.jsx:112
 msgid "Environment Type"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:96
+#: src/setting-page/tabs/AdminTab.jsx:116
 msgid "Show the current environment type"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:100
+#: src/setting-page/tabs/AdminTab.jsx:120
 msgid "If switched off, the current environment type of the site will not be shown in the Admin Bar."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:107
+#: src/setting-page/tabs/AdminTab.jsx:127
 msgid "In WordPress, the \"environment type\" identifies the setup of a site at different stages. These types include:"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:115
+#: src/setting-page/tabs/AdminTab.jsx:135
 msgid "Local:"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:120
+#: src/setting-page/tabs/AdminTab.jsx:140
 msgid "For development and testing on a local computer."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:127
+#: src/setting-page/tabs/AdminTab.jsx:147
 msgid "Development:"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:132
+#: src/setting-page/tabs/AdminTab.jsx:152
 msgid "For testing the site, usually on a remote server, before moving to staging."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:139
+#: src/setting-page/tabs/AdminTab.jsx:159
 msgid "Staging:"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:144
+#: src/setting-page/tabs/AdminTab.jsx:164
 msgid "A copy of the live site for safely testing changes."
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:151
+#: src/setting-page/tabs/AdminTab.jsx:171
 msgid "Production:"
 msgstr ""
 
-#: src/setting-page/tabs/AdminTab.jsx:156
+#: src/setting-page/tabs/AdminTab.jsx:176
 msgid "The live site that users visit, where stability and security are crucial."
 msgstr ""
 
