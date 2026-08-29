@@ -8,6 +8,7 @@ use ReflectionProperty;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Features\TrashRetention;
 use Syntatis\FeatureFlipper\Helpers\Option;
+use Syntatis\FeatureFlipper\InlineData;
 use Syntatis\Tests\WPTestCase;
 
 /**
@@ -29,6 +30,14 @@ class TrashRetentionTest extends WPTestCase
 		$reflection = new ReflectionProperty(TrashRetention::class, 'wasPredefined');
 		$reflection->setAccessible(true);
 		$reflection->setValue(null, false);
+	}
+
+	// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- WordPress convention.
+	public function tear_down(): void
+	{
+		unset($_GET['tab']);
+
+		parent::tear_down();
 	}
 
 	/** @testdox should return the WordPress default of 30 days */
@@ -64,6 +73,30 @@ class TrashRetentionTest extends WPTestCase
 		$this->assertSame(14, TrashRetention::effectiveDays());
 	}
 
+	/** @testdox should add the Trash retention values to the inline data */
+	public function testFilterInlineData(): void
+	{
+		$_GET['tab'] = 'admin';
+
+		$data = $this->instance->filterInlineData(new InlineData());
+
+		$this->assertFalse(isset($data['features']['trashRetention']));
+
+		$_GET['tab'] = 'general';
+
+		$data = $this->instance->filterInlineData(new InlineData());
+
+		$this->assertSame(
+			[
+				'isLocked' => false,
+				'days' => 30,
+				'defaultDays' => 30,
+				'maxDays' => 3650,
+			],
+			$data['features']['trashRetention'],
+		);
+	}
+
 	/** @testdox should respect a pre-defined EMPTY_TRASH_DAYS constant */
 	public function testHookRespectsPredefinedConstant(): void
 	{
@@ -76,6 +109,7 @@ class TrashRetentionTest extends WPTestCase
 		$this->assertTrue(TrashRetention::hasExplicitConfig());
 		$this->assertSame(30, TrashRetention::effectiveDays());
 		$this->assertSame(10, $hook->hasFilter(Option::hook('sanitize:trash_retention'), [$this->instance, 'sanitize']));
+		$this->assertSame(10, $hook->hasFilter('syntatis/feature_flipper/inline_data', [$this->instance, 'filterInlineData']));
 	}
 
 	/**
