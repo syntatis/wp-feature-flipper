@@ -1,0 +1,51 @@
+name: Versions
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/versions.yml"
+      - "consistent-versions.yaml"
+      - "consistent-versions.release.yaml"
+      - "inc/languages/syntatis-feature-flipper.pot"
+      - "package-lock.json"
+      - "package.json"
+      - "phpcs.xml.dist"
+      - "phpstan.neon.dist"
+      - "readme.txt"
+      - "syntatis-feature-flipper.php"
+  release:
+    types: [released]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  versions:
+    runs-on: ubuntu-latest
+    name: Versions
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer:v2
+
+      - name: Install version checker
+        run: |
+          mkdir -p /tmp/consistent-versions
+          composer require --working-dir=/tmp/consistent-versions szepeviktor/consistent-versions --no-interaction --no-progress
+
+      - name: Check version consistency
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.yaml
+
+      - name: Check release tag
+        if: ${{ github.event_name == 'release' }}
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.release.yaml

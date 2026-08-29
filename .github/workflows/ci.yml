@@ -8,17 +8,11 @@ on:
       - main
     paths:
       - ".github/workflows/ci.yml"
-      - ".github/workflows/release.yml"
       - "**.php"
       - "composer.json"
-      - "consistent-versions.yaml"
-      - "inc/languages/syntatis-feature-flipper.pot"
-      - "package-lock.json"
-      - "package.json"
       - "phpcs.xml.dist"
       - "phpstan.neon.dist"
       - "phpunit.xml.dist"
-      - "readme.txt"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -73,30 +67,8 @@ jobs:
       - name: Analyze source code
         run: composer analyze
 
-  versions:
-    runs-on: ubuntu-latest
-    name: Versions
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-          tools: composer:v2
-
-      - name: Install version checker
-        run: |
-          mkdir -p /tmp/consistent-versions
-          composer require --working-dir=/tmp/consistent-versions szepeviktor/consistent-versions --no-interaction --no-progress
-
-      - name: Check version consistency
-        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.yaml
-
   test:
-    needs: [typo, lint, analyze, versions]
+    needs: [typo, lint, analyze]
     runs-on: ubuntu-latest
     name: Test
 
