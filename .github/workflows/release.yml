@@ -42,11 +42,13 @@ jobs:
 
       - name: Install version checker
         if: ${{ github.event_name == 'release' }}
-        run: composer require --dev szepeviktor/consistent-versions --no-interaction --no-progress
+        run: |
+          mkdir -p /tmp/consistent-versions
+          composer require --working-dir=/tmp/consistent-versions szepeviktor/consistent-versions --no-interaction --no-progress
 
       - name: "Check latest tagged version"
         if: ${{ github.event_name == 'release' }}
-        run: vendor/bin/consistent-versions check consistent-versions.release.yaml
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.release.yaml
 
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable

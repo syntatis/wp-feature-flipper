@@ -88,10 +88,12 @@ jobs:
           tools: composer:v2
 
       - name: Install version checker
-        run: composer require --dev szepeviktor/consistent-versions --no-interaction --no-progress
+        run: |
+          mkdir -p /tmp/consistent-versions
+          composer require --working-dir=/tmp/consistent-versions szepeviktor/consistent-versions --no-interaction --no-progress
 
       - name: Check version consistency
-        run: vendor/bin/consistent-versions check consistent-versions.yaml
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.yaml
 
   test:
     needs: [typo, lint, analyze, versions]
