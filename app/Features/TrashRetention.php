@@ -21,10 +21,10 @@ use function trim;
 final class TrashRetention implements Hookable
 {
 	/** The number of days WordPress keeps trashed content by default. */
-	private const DEFAULT_DAYS = 30;
+	public const DEFAULT_DAYS = 30;
 
 	/** The maximum number of days that can be configured. */
-	private const MAX_DAYS = 3650;
+	public const MAX_DAYS = 3650;
 
 	/** Whether `EMPTY_TRASH_DAYS` was already defined before this plugin. */
 	private static bool $wasPredefined = false;

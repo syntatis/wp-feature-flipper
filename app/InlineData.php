@@ -42,6 +42,8 @@ final class InlineData implements ArrayAccess, JsonSerializable
 				'trashRetention' => [
 					'isLocked' => TrashRetention::hasExplicitConfig(),
 					'days' => TrashRetention::effectiveDays(),
+					'defaultDays' => TrashRetention::DEFAULT_DAYS,
+					'maxDays' => TrashRetention::MAX_DAYS,
 				],
 			],
 			'settingPage' => esc_url(Admin::url(App::name())),

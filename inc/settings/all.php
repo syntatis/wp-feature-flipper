@@ -82,19 +82,6 @@ return [
 		->withDefault(100),
 	(new Setting('feeds', 'boolean'))
 		->withDefault(true),
-	/**
-	 * The number of days that trashed posts and comments are kept before
-	 * being permanently deleted. A value of `0` disables the Trash entirely,
-	 * so deleted content is permanently removed instead of being moved to the
-	 * Trash.
-	 *
-	 * WordPress keeps trashed content for 30 days by default, controlled by
-	 * the `EMPTY_TRASH_DAYS` constant. This option exposes that behavior
-	 * without requiring the administrator to edit `wp-config.php`.
-	 *
-	 * @see \Syntatis\FeatureFlipper\Features\TrashRetention
-	 * @see https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#empty-trash
-	 */
 	(new Setting('trash_retention', 'integer'))
 		->withDefault(30)
 		->apiSchema(['type' => 'integer', 'minimum' => 0, 'maximum' => 3650]),

@@ -23,4 +23,13 @@ class InlineDataTest extends WPTestCase
 	{
 		$this->assertEquals(get_site_url(), $this->instance['$wp']['siteUrl']);
 	}
+
+	/** @testdox should expose the Trash retention day constraints */
+	public function testGetTrashRetentionConstraints(): void
+	{
+		$trashRetention = $this->instance['features']['trashRetention'];
+
+		$this->assertSame(30, $trashRetention['defaultDays']);
+		$this->assertSame(3650, $trashRetention['maxDays']);
+	}
 }
