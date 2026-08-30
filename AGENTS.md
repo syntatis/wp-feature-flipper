@@ -131,6 +131,9 @@ Write code comments and docblocks in a concise, clear, and practical style.
 
 Prefer:
 
+First line of the comment is no more than 71-72 characters, with each line shoterter by 3 characters than the previous line.
+The comment explains the purpose of the class and its intended use, without narrating the implementation details.
+
 ```php
 /**
  * Defines the options to manage features grouped in the Admin section.
