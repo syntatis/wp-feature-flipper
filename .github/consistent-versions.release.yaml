@@ -1,0 +1,37 @@
+checks:
+  release-tag:
+    normalize:
+      - trim-v-prefix
+      - version
+    expected:
+      reader: env
+      variable: GITHUB_REF_NAME
+    values:
+      plugin-header:
+        reader: wordpress-plugin
+        file: ../syntatis-feature-flipper.php
+        path: $.Version
+      plugin-constant:
+        reader: php
+        file: ../syntatis-feature-flipper.php
+        path: $.constants['Syntatis\\FeatureFlipper\\PLUGIN_VERSION']
+      wordpress-readme:
+        reader: wordpress-readme
+        file: ../readme.txt
+        path: $['Stable tag']
+      package:
+        reader: json
+        file: ../package.json
+        path: $.version
+      package-lock:
+        reader: json
+        file: ../package-lock.json
+        path: $.version
+      package-lock-root:
+        reader: json
+        file: ../package-lock.json
+        path: $.packages[''].version
+      gettext-template:
+        reader: gettext
+        file: ../inc/languages/syntatis-feature-flipper.pot
+        path: $.project.version

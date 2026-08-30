@@ -33,19 +33,6 @@ jobs:
           composer run zip -- --file=build
           unzip build.zip -d build
 
-      - name: "Check latest tagged version"
-        if: ${{ github.event_name == 'release' }}
-        run: |
-          LATEST_TAG="${{ github.ref_name }}";
-          HEADER_VERSION="v$(sed -n -e '0,/^\s*\* Version:\s\+\([0-9].\+\)$/ s##\1#p' syntatis-feature-flipper.php)";
-          PLUGIN_VERSION="v$(sed -n -e "0,/^const PLUGIN_VERSION = '\\([0-9].\\+\\)';$/ s##\\1#p" syntatis-feature-flipper.php)";
-          README_VERSION="v$(sed -n -e '0,/^Stable tag: \([0-9].\+\)$/ s##\1#p' readme.txt | tr -d '[:space:]')";
-          if [[ "${LATEST_TAG}" != "${HEADER_VERSION}" || "${LATEST_TAG}" != "${PLUGIN_VERSION}" || "${LATEST_TAG}" != "${README_VERSION}" ]];
-          then
-            echo "::error::Latest tag differs from current version"
-            exit 10
-          fi
-
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
