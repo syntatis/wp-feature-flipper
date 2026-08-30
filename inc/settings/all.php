@@ -93,16 +93,13 @@ return [
 	 * constant.
 	 *
 	 * @see \Syntatis\FeatureFlipper\Features\Autosave
-	 * @see \Syntatis\FeatureFlipper\Features\AutosaveInterval
 	 * @see https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#modify-autosave-interval
 	 */
 	(new Setting('autosave', 'boolean'))
 		->withDefault(true),
-	(new Setting('autosave_interval_enabled', 'boolean'))
-		->withDefault(false),
 	(new Setting('autosave_interval', 'integer'))
 		->withDefault(60)
-		->apiSchema(['type' => 'integer', 'minimum' => 15, 'maximum' => 3600]),
+		->apiSchema(['type' => 'integer', 'minimum' => 5, 'maximum' => 3600]),
 
 	/**
 	 * --------------------------------------------------------

@@ -1,9 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import {
 	AutosaveFieldset,
-	AutosaveIntervalFieldset,
 	CommentsFieldset,
 	GutenbergFieldset,
 	RevisionsFieldset,
@@ -13,10 +11,7 @@ import {
 import { HelpContent } from '../components';
 
 export const GeneralTab = () => {
-	const { inlineData, getOption } = useSettingsContext();
-	const [ isAutosaveEnabled, setAutosaveEnabled ] = useState(
-		getOption( 'autosave' )
-	);
+	const { inlineData } = useSettingsContext();
 
 	return (
 		<Form>
@@ -58,10 +53,7 @@ export const GeneralTab = () => {
 				<CommentsFieldset />
 				<RevisionsFieldset />
 				<TrashRetentionFieldset />
-				<AutosaveFieldset onChange={ setAutosaveEnabled } />
-				<AutosaveIntervalFieldset
-					isDisabled={ ! isAutosaveEnabled }
-				/>
+				<AutosaveFieldset />
 				<SwitchFieldset
 					name="post_embed"
 					id="post-embed"
