@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control -- Handled by the `labelProps` */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { Switch, TextField } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
@@ -97,6 +97,37 @@ export const AutosaveFieldset = () => {
 								}
 							} }
 							isDisabled={ isLocked }
+							validationBehavior="aria"
+							validate={ ( value ) => {
+								const parsedValue = Number( value );
+
+								if (
+									! Number.isFinite( parsedValue ) ||
+									parsedValue < minInterval
+								) {
+									return sprintf(
+										/* translators: %s: The minimum autosave interval in seconds. */
+										__(
+											'The value must be at least %s seconds.',
+											'syntatis-feature-flipper'
+										),
+										minInterval,
+									);
+								}
+
+								if ( parsedValue > maxInterval ) {
+									return sprintf(
+										/* translators: %s: The maximum autosave interval in seconds. */
+										__(
+											'The value must be at most %s seconds.',
+											'syntatis-feature-flipper'
+										),
+										maxInterval,
+									);
+								}
+
+								return undefined;
+							} }
 							suffix={ __(
 								'seconds',
 								'syntatis-feature-flipper'
