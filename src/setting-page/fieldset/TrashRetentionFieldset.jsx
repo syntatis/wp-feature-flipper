@@ -5,35 +5,24 @@ import { useSettingsContext } from '../form';
 import { HelpContent, HelpTip } from '../components';
 import styles from './styles.module.scss';
 
-const DEFAULT_DAYS = 30;
-const MAX_DAYS = 3650;
-
 export const TrashRetentionFieldset = () => {
-	const { getOption, labelProps, inputProps, inlineData } = useSettingsContext();
+	const { getOption, getOptionName, labelProps, inputProps, inlineData } =
+		useSettingsContext();
 
 	const trashRetention = inlineData.features?.trashRetention || {};
 	const isLocked = trashRetention.isLocked === true;
 	const lockedDays = Number( trashRetention.days );
+	const defaultDays = Number( trashRetention.defaultDays );
+	const maxDays = Number( trashRetention.maxDays );
 
 	const option = getOption( 'trash_retention' );
 	const parsed = Number( option );
 	const initialDays =
-		Number.isFinite( parsed ) && parsed > 0 ? parsed : DEFAULT_DAYS;
+		Number.isFinite( parsed ) && parsed > 0 ? parsed : defaultDays;
 	const [ days, setDays ] = useState( initialDays );
 	const [ isEnabled, setEnabled ] = useState( option !== 0 );
 
 	const isSelected = isLocked ? lockedDays !== 0 : isEnabled;
-
-	let fieldValue = days;
-	let fieldKey = 'trash-retention-enabled';
-
-	if ( isLocked ) {
-		fieldValue = lockedDays;
-		fieldKey = 'trash-retention-locked';
-	} else if ( ! isEnabled ) {
-		fieldValue = 0;
-		fieldKey = 'trash-retention-disabled';
-	}
 
 	return (
 		<tr>
@@ -92,35 +81,43 @@ export const TrashRetentionFieldset = () => {
 						'syntatis-feature-flipper'
 					) }
 				/>
-				{isEnabled && <div className={ styles.details }>
-					<TextField
-						key={ fieldKey }
-						{ ...inputProps( 'trash_retention' ) }
-						type="number"
-						min={ 1 }
-						max={ MAX_DAYS }
-						defaultValue={ fieldValue }
-						onChange={ ( value ) => {
-							const parsedValue = Number( value );
+				{ isSelected ? (
+					<div className={ styles.details }>
+						<TextField
+							{ ...inputProps( 'trash_retention' ) }
+							type="number"
+							min={ 1 }
+							max={ maxDays }
+							defaultValue={ isLocked ? lockedDays : days }
+							onChange={ ( value ) => {
+								const parsedValue = Number( value );
 
-							if (
-								Number.isFinite( parsedValue ) &&
-								parsedValue >= 1
-							) {
-								setDays( parsedValue );
+								if (
+									Number.isFinite( parsedValue ) &&
+									parsedValue >= 1
+								) {
+									setDays( parsedValue );
+								}
+							} }
+							isDisabled={ isLocked }
+							suffix={ __( 'days', 'syntatis-feature-flipper' ) }
+							description={
+								__(
+									'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
+									'syntatis-feature-flipper'
+								)
 							}
-						} }
-						isDisabled={ isLocked }
-						isReadOnly={ ! isLocked && ! isEnabled }
-						suffix={ __( 'days', 'syntatis-feature-flipper' ) }
-						description={
-							__(
-								'Choose how long deleted content should remain in the Trash before it is permanently deleted.',
-								'syntatis-feature-flipper'
-							)
-						}
-					/>
-				</div>}
+						/>
+					</div>
+				) : (
+					! isLocked && (
+						<input
+							type="hidden"
+							name={ getOptionName( 'trash_retention' ) }
+							value="0"
+						/>
+					)
+				) }
 			</td>
 		</tr>
 	);

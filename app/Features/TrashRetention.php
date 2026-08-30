@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Syntatis\FeatureFlipper\Features;
 
+use ArrayAccess;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
+use function array_merge;
 use function ctype_digit;
 use function define;
 use function defined;
+use function is_array;
 use function is_int;
 use function is_string;
 use function trim;
@@ -32,6 +35,7 @@ final class TrashRetention implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(Option::hook('sanitize:trash_retention'), [$this, 'sanitize'], 10, 1);
+		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 
 		/**
 		 * Check if `EMPTY_TRASH_DAYS` is already defined before this plugin.
@@ -63,6 +67,37 @@ final class TrashRetention implements Hookable
 		}
 
 		return self::retentionDays();
+	}
+
+	/**
+	 * Provide the Trash retention values to the plugin's global inline data.
+	 *
+	 * @phpstan-param ArrayAccess<string,mixed> $data
+	 *
+	 * @phpstan-return ArrayAccess<string,mixed>
+	 */
+	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	{
+		$tab = $_GET['tab'] ?? null;
+
+		if ($tab !== null && $tab !== 'general') {
+			return $data;
+		}
+
+		$features = $data['features'] ?? [];
+		$data['features'] = array_merge(
+			is_array($features) ? $features : [],
+			[
+				'trashRetention' => [
+					'isLocked' => self::hasExplicitConfig(),
+					'days' => self::effectiveDays(),
+					'defaultDays' => self::DEFAULT_DAYS,
+					'maxDays' => self::MAX_DAYS,
+				],
+			],
+		);
+
+		return $data;
 	}
 
 	/**
