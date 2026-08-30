@@ -1,4 +1,6 @@
 export { AdminBarFieldset } from './AdminBarFieldset';
+export { AutosaveFieldset } from './AutosaveFieldset';
+export { AutosaveIntervalFieldset } from './AutosaveIntervalFieldset';
 export { CommentsFieldset } from './CommentsFieldset';
 export { DashboardWidgetsFieldset } from './DashboardWidgetsFieldset';
 export { GutenbergFieldset } from './GutenbergFieldset';

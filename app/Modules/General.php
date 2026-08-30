@@ -8,6 +8,8 @@ use SFFV\Codex\Contracts\Extendable;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use SFFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Features\Autosave;
+use Syntatis\FeatureFlipper\Features\AutosaveInterval;
 use Syntatis\FeatureFlipper\Features\CommentLength;
 use Syntatis\FeatureFlipper\Features\Comments;
 use Syntatis\FeatureFlipper\Features\Feeds;
@@ -95,5 +97,7 @@ final class General implements Hookable, Extendable
 		yield 'post_embed' => ! Option::isOn('post_embed') ? new PostEmbed() : null;
 		yield 'gutenberg' => is_admin() ? new Gutenberg() : null;
 		yield 'trash_retention' => new TrashRetention();
+		yield 'autosave' => new Autosave();
+		yield 'autosave_interval' => new AutosaveInterval();
 	}
 }

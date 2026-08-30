@@ -18,10 +18,9 @@ use const PHP_INT_MAX;
  * The WordPress Heartbeat API is a core feature in WordPress that enables
  * near real-time communication between a web browser and the server.
  *
- * The Heartbeat API uses AJAX to send requests to the server at intervals.
- * By default, this is every 15 seconds in the post editor and every 60
- * seconds on the dashboard, while a user is logged into the WordPress
- * admin.
+ * It uses AJAX to send requests to the server at an interval. By default,
+ * this is every 15 seconds in the post editor and every 60 seconds on
+ * the dashboard, while a user is logged into the WordPress admin.
  *
  * @see https://developer.wordpress.org/plugins/javascript/heartbeat-api/
  */

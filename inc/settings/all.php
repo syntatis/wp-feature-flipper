@@ -85,6 +85,24 @@ return [
 	(new Setting('trash_retention', 'integer'))
 		->withDefault(30)
 		->apiSchema(['type' => 'integer', 'minimum' => 0, 'maximum' => 3650]),
+	/**
+	 * Manage the WordPress autosave feature.
+	 *
+	 * Autosave is enabled by default and can be switched off entirely. When
+	 * enabled, the interval can be customized through the `AUTOSAVE_INTERVAL`
+	 * constant.
+	 *
+	 * @see \Syntatis\FeatureFlipper\Features\Autosave
+	 * @see \Syntatis\FeatureFlipper\Features\AutosaveInterval
+	 * @see https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#modify-autosave-interval
+	 */
+	(new Setting('autosave', 'boolean'))
+		->withDefault(true),
+	(new Setting('autosave_interval_enabled', 'boolean'))
+		->withDefault(false),
+	(new Setting('autosave_interval', 'integer'))
+		->withDefault(60)
+		->apiSchema(['type' => 'integer', 'minimum' => 15, 'maximum' => 3600]),
 
 	/**
 	 * --------------------------------------------------------
