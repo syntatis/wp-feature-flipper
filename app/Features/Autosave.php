@@ -101,11 +101,10 @@ final class Autosave implements Hookable
 	/**
 	 * Clear the browser's local autosave backups when the feature is off.
 	 *
-	 * Gutenberg keeps a backup of the edited post in `sessionStorage`. When
-	 * autosave is disabled, a leftover backup makes the editor show a "restore
-	 * the backup" notice, so the backups are removed before the editor
-	 * initializes. The `wp-autosave-` prefix is a stable contract used by core
-	 * to identify these keys.
+	 * The block editor keeps a backup of the edited post in `sessionStorage`.
+	 * When autosave is disabled, the plugin will clear existing backups to
+	 * prevent the "backup of this post in your ..." notice to appear in
+	 * the block editor.
 	 */
 	public function clearLocalAutosaveStorage(): void
 	{
@@ -115,11 +114,17 @@ final class Autosave implements Hookable
 
 		wp_add_inline_script(
 			'wp-edit-post',
-			'try{'
-			. 'Object.keys(window.sessionStorage)'
-			. '.filter((key)=>key.indexOf("wp-autosave-")===0)'
-			. '.forEach((key)=>window.sessionStorage.removeItem(key));'
-			. '}catch(e){}',
+			<<<'JS'
+			try {
+				Object.keys(window.sessionStorage)
+					.filter(function (key) {
+						return key.indexOf('wp-autosave-') === 0;
+					})
+					.forEach(function (key) {
+						window.sessionStorage.removeItem(key);
+					});
+			} catch (e) {}
+			JS,
 		);
 	}
 
