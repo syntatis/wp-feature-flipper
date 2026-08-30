@@ -7,8 +7,8 @@ on:
       - main
     paths:
       - ".github/workflows/versions.yml"
-      - "consistent-versions.yaml"
-      - "consistent-versions.release.yaml"
+      - ".github/consistent-versions.yaml"
+      - ".github/consistent-versions.release.yaml"
       - "inc/languages/syntatis-feature-flipper.pot"
       - "package-lock.json"
       - "package.json"
@@ -44,8 +44,8 @@ jobs:
           composer require --working-dir=/tmp/consistent-versions szepeviktor/consistent-versions --no-interaction --no-progress
 
       - name: Check version consistency
-        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.yaml
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check .github/consistent-versions.yaml
 
       - name: Check release tag
         if: ${{ github.event_name == 'release' }}
-        run: /tmp/consistent-versions/vendor/bin/consistent-versions check consistent-versions.release.yaml
+        run: /tmp/consistent-versions/vendor/bin/consistent-versions check .github/consistent-versions.release.yaml

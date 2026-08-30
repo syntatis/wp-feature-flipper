@@ -3,67 +3,67 @@ checks:
     normalize: version
     expected:
       reader: wordpress-plugin
-      file: syntatis-feature-flipper.php
+      file: ../syntatis-feature-flipper.php
       path: $.Version
     values:
       plugin-constant:
         reader: php
-        file: syntatis-feature-flipper.php
+        file: ../syntatis-feature-flipper.php
         path: $.constants['Syntatis\\FeatureFlipper\\PLUGIN_VERSION']
       wordpress-readme:
         reader: wordpress-readme
-        file: readme.txt
+        file: ../readme.txt
         path: $['Stable tag']
       package:
         reader: json
-        file: package.json
+        file: ../package.json
         path: $.version
       package-lock:
         reader: json
-        file: package-lock.json
+        file: ../package-lock.json
         path: $.version
       package-lock-root:
         reader: json
-        file: package-lock.json
+        file: ../package-lock.json
         path: $.packages[''].version
       gettext-template:
         reader: gettext
-        file: inc/languages/syntatis-feature-flipper.pot
+        file: ../inc/languages/syntatis-feature-flipper.pot
         path: $.project.version
 
   minimum-php:
     normalize: version
     expected:
       reader: wordpress-plugin
-      file: syntatis-feature-flipper.php
+      file: ../syntatis-feature-flipper.php
       path: $['Requires PHP']
     values:
       composer:
         reader: composer
-        file: composer.json
+        file: ../composer.json
         path: $.require.php
         normalize: composer-minimum
       wordpress-readme:
         reader: wordpress-readme
-        file: readme.txt
+        file: ../readme.txt
         path: $['Requires PHP']
 
   minimum-wordpress:
     normalize: version
     expected:
       reader: wordpress-plugin
-      file: syntatis-feature-flipper.php
+      file: ../syntatis-feature-flipper.php
       path: $['Requires at least']
     values:
       phpcs:
         reader: phpcs
-        file: phpcs.xml.dist
+        file: ../phpcs.xml.dist
         path: $.config.minimum_wp_version
       phpstan:
         reader: neon
-        file: phpstan.neon.dist
+        file: ../phpstan.neon.dist
         path: $.parameters.WPCompat.requiresAtLeast
       wordpress-readme:
         reader: wordpress-readme
-        file: readme.txt
+        file: ../readme.txt
         path: $['Requires at least']
