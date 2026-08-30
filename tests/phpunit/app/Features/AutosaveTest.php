@@ -12,6 +12,7 @@ use Syntatis\FeatureFlipper\InlineData;
 use Syntatis\Tests\WPTestCase;
 use WP_Scripts;
 
+use function implode;
 use function is_object;
 
 use const PHP_INT_MAX;
@@ -63,6 +64,7 @@ class AutosaveTest extends WPTestCase
 	{
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('init', [$this->instance, 'deregisterScripts']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('block_editor_settings_all', [$this->instance, 'filterBlockEditorSettings']));
+		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('enqueue_block_editor_assets', [$this->instance, 'clearLocalAutosaveStorage']));
 		$this->assertSame(10, $this->hook->hasFilter(Option::hook('sanitize:autosave_interval'), [$this->instance, 'sanitize']));
 		$this->assertSame(10, $this->hook->hasFilter('syntatis/feature_flipper/inline_data', [$this->instance, 'filterInlineData']));
 	}
@@ -115,9 +117,29 @@ class AutosaveTest extends WPTestCase
 		Option::update('autosave', false);
 
 		$this->assertSame(
-			['someSetting' => 'value', 'autosaveInterval' => 0],
+			[
+				'someSetting' => 'value',
+				'autosaveInterval' => 0,
+				'localAutosaveInterval' => 0,
+			],
 			$this->instance->filterBlockEditorSettings(['someSetting' => 'value']),
 		);
+	}
+
+	/** @testdox should clear the local autosave backups when the feature is off */
+	public function testClearLocalAutosaveStorage(): void
+	{
+		$this->instance->clearLocalAutosaveStorage();
+
+		$onData = implode('', (array) wp_scripts()->get_data('wp-edit-post', 'after'));
+		$this->assertStringNotContainsString('wp-autosave-', $onData);
+
+		Option::update('autosave', false);
+
+		$this->instance->clearLocalAutosaveStorage();
+
+		$offData = implode('', (array) wp_scripts()->get_data('wp-edit-post', 'after'));
+		$this->assertStringContainsString('wp-autosave-', $offData);
 	}
 
 	/** @testdox should add the Autosave values to the inline data */

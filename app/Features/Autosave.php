@@ -24,11 +24,7 @@ use const PHP_INT_MAX;
 /**
  * Manage the WordPress autosave feature.
  *
- * WordPress automatically saves posts and pages while they are being edited.
- * The classic editor does this through the `autosave` script, while the block
- * editor schedules it from the `autosaveInterval` editor setting. Switching the
- * feature off disables both; when it is on, the autosave interval can be
- * customized through the `AUTOSAVE_INTERVAL` constant.
+ * @see https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#modify-autosave-interval
  */
 final class Autosave implements Hookable
 {
@@ -48,6 +44,7 @@ final class Autosave implements Hookable
 	{
 		$hook->addAction('init', [$this, 'deregisterScripts'], PHP_INT_MAX);
 		$hook->addFilter('block_editor_settings_all', [$this, 'filterBlockEditorSettings'], PHP_INT_MAX);
+		$hook->addAction('enqueue_block_editor_assets', [$this, 'clearLocalAutosaveStorage'], PHP_INT_MAX);
 		$hook->addFilter(Option::hook('sanitize:autosave_interval'), [$this, 'sanitize'], 10, 1);
 		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 
@@ -81,6 +78,10 @@ final class Autosave implements Hookable
 	/**
 	 * Disable the block editor autosave when the feature is switched off.
 	 *
+	 * Both the server-side autosave and the browser (sessionStorage) autosave
+	 * are disabled. The browser backup is what triggers the "backup of this
+	 * post in your browser" notice, so it must be turned off as well.
+	 *
 	 * @param array<string,mixed> $settings The block editor settings.
 	 *
 	 * @return array<string,mixed>
@@ -92,8 +93,34 @@ final class Autosave implements Hookable
 		}
 
 		$settings['autosaveInterval'] = 0;
+		$settings['localAutosaveInterval'] = 0;
 
 		return $settings;
+	}
+
+	/**
+	 * Clear the browser's local autosave backups when the feature is off.
+	 *
+	 * Gutenberg keeps a backup of the edited post in `sessionStorage`. When
+	 * autosave is disabled, a leftover backup makes the editor show a "restore
+	 * the backup" notice, so the backups are removed before the editor
+	 * initializes. The `wp-autosave-` prefix is a stable contract used by core
+	 * to identify these keys.
+	 */
+	public function clearLocalAutosaveStorage(): void
+	{
+		if (Option::isOn('autosave')) {
+			return;
+		}
+
+		wp_add_inline_script(
+			'wp-edit-post',
+			'try{'
+			. 'Object.keys(window.sessionStorage)'
+			. '.filter((key)=>key.indexOf("wp-autosave-")===0)'
+			. '.forEach((key)=>window.sessionStorage.removeItem(key));'
+			. '}catch(e){}',
+		);
 	}
 
 	/**
