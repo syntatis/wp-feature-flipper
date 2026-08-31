@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @wordpress-plugin
  * Plugin Name:       Feature Flipper
  * Plugin URI:        https://github.com/syntatis/wp-feature-flipper
- * Description:       Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress
+ * Description:       Disable Comments, Gutenberg, Emojis, and other features you might not need in WordPress®
  * Version:           2.2.0
  * Requires at least: 6.4
  * Requires PHP:      7.4

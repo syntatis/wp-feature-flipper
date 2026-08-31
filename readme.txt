@@ -33,6 +33,7 @@ Tweak key WordPress features to fit your needs:
 * **Self-ping**: Prevent pingbacks to your own site.
 * **Feeds**: Disable RSS feeds if you don't need them.
 * **Trash Retention**: Set how long deleted posts and comments stay in the Trash before they are permanently deleted, or disable the Trash entirely.
+* **Autosave**: Disable autosave or change how frequently WordPress automatically saves post and page edits.
 
 #### Admin
 

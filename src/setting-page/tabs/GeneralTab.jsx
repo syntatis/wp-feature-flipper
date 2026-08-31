@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fieldset, Form, useSettingsContext } from '../form';
 import {
+	AutosaveFieldset,
 	CommentsFieldset,
 	GutenbergFieldset,
 	RevisionsFieldset,
@@ -52,6 +53,7 @@ export const GeneralTab = () => {
 				<CommentsFieldset />
 				<RevisionsFieldset />
 				<TrashRetentionFieldset />
+				<AutosaveFieldset />
 				<SwitchFieldset
 					name="post_embed"
 					id="post-embed"
