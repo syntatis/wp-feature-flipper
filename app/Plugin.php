@@ -16,6 +16,7 @@ final class Plugin implements Extendable
 	{
 		yield new Scripts();
 		yield new SettingPage($container->get(Settings::class));
+		yield new Upgrade();
 
 		/**
 		 * Load and instantiate the plugin's modules.
