@@ -8,6 +8,7 @@ use SFFV\Codex\Foundation\Hooks\Hook;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\Upgrade;
 
+use function add_option;
 use function delete_option;
 use function get_option;
 use function update_option;
@@ -40,7 +41,10 @@ class UpgradeTest extends WPTestCase
 	/** @testdox should keep unlimited revisions when the cap was disabled */
 	public function testMigrateDisabledMax(): void
 	{
-		update_option(Option::name('revisions_max_enabled'), false);
+		// "add_option" is used because "update_option" with a "false" value is
+		// a no-op for a non-existent option, which wouldn't create the legacy
+		// option the migration is meant to clean up.
+		add_option(Option::name('revisions_max_enabled'), false);
 		update_option(Option::name('revisions_max'), 5);
 
 		$this->instance->run();
