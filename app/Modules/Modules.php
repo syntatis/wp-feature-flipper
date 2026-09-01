@@ -7,6 +7,8 @@ namespace Syntatis\FeatureFlipper\Modules;
 use IteratorAggregate;
 use SFFV\Codex\Contracts\Extendable;
 use SFFV\Psr\Container\ContainerInterface;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
+use Syntatis\FeatureFlipper\InlineDataCollection;
 use Traversable;
 
 use function is_object;
@@ -48,6 +50,12 @@ final class Modules implements IteratorAggregate
 		foreach ($values as $value) {
 			if (! is_object($value)) {
 				continue;
+			}
+
+			if ($value instanceof InlineDataProvider) {
+				/** @var InlineDataCollection $collection */
+				$collection = $this->container->get(InlineDataCollection::class);
+				$collection->add($value);
 			}
 
 			yield $value;

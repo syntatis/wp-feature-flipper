@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Syntatis\Tests\Features;
 
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Features\AdminBar\AdminBar;
 use Syntatis\FeatureFlipper\Features\AdminBar\RegisteredMenu;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -53,7 +54,7 @@ class AdminBarTest extends WPTestCase
 	public function testHook(): void
 	{
 		$this->assertSame(10, $this->hook->hasAction('syntatis/feature_flipper/updated_options', [$this->instance, 'stashOptions']));
-		$this->assertSame(10, $this->hook->hasFilter('syntatis/feature_flipper/inline_data', [$this->instance, 'filterInlineData']));
+		$this->assertInstanceOf(InlineDataProvider::class, $this->instance);
 
 		/**
 		 * Test that callbacks should be attached to hooks with the highest priority,
@@ -147,11 +148,11 @@ class AdminBarTest extends WPTestCase
 	}
 
 	/** @testdox should return the registered menu in admin for inline data */
-	public function testFilterInlineData(): void
+	public function testInlineData(): void
 	{
 		$_GET['tab'] = 'general';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertFalse(isset($data['$wp']['adminBarMenu']));
 
@@ -160,7 +161,7 @@ class AdminBarTest extends WPTestCase
 		 */
 		$_GET['tab'] = 'admin';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertTrue(isset($data['$wp']['adminBarMenu']));
 		$this->assertSame(array_keys(RegisteredMenu::all('top')), $data['$wp']['adminBarMenu']);

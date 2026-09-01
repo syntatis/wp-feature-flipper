@@ -6,6 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use SFFV\Codex\Facades\App;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Features\DashboardWidgets;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -54,13 +55,7 @@ class DashboardWidgetsTest extends WPTestCase
 				[$this->instance, 'stashOptions'],
 			),
 		);
-		$this->assertSame(
-			10,
-			$this->hook->hasFilter(
-				'syntatis/feature_flipper/inline_data',
-				[$this->instance, 'filterInlineData'],
-			),
-		);
+		$this->assertInstanceOf(InlineDataProvider::class, $this->instance);
 		$this->assertSame(
 			PHP_INT_MAX,
 			$this->hook->hasAction(
@@ -152,11 +147,11 @@ class DashboardWidgetsTest extends WPTestCase
 	}
 
 	/** @testdox should return the registered menu in admin for inline data */
-	public function testFilterInlineData(): void
+	public function testInlineData(): void
 	{
 		$_GET['tab'] = 'general';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertFalse(isset($data['$wp']['dashboardWidgets']));
 	}

@@ -6,6 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use ReflectionProperty;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Features\Autosave;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\InlineData;
@@ -66,7 +67,7 @@ class AutosaveTest extends WPTestCase
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasFilter('block_editor_settings_all', [$this->instance, 'filterBlockEditorSettings']));
 		$this->assertSame(PHP_INT_MAX, $this->hook->hasAction('enqueue_block_editor_assets', [$this->instance, 'clearLocalAutosaveStorage']));
 		$this->assertSame(10, $this->hook->hasFilter(Option::hook('sanitize:autosave_interval'), [$this->instance, 'sanitize']));
-		$this->assertSame(10, $this->hook->hasFilter('syntatis/feature_flipper/inline_data', [$this->instance, 'filterInlineData']));
+		$this->assertInstanceOf(InlineDataProvider::class, $this->instance);
 	}
 
 	/** @testdox should default to the WordPress interval of 60 seconds */
@@ -143,17 +144,17 @@ class AutosaveTest extends WPTestCase
 	}
 
 	/** @testdox should add the Autosave values to the inline data */
-	public function testFilterInlineData(): void
+	public function testInlineData(): void
 	{
 		$_GET['tab'] = 'admin';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertFalse(isset($data['features']['autosave']));
 
 		$_GET['tab'] = 'general';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertSame(
 			[

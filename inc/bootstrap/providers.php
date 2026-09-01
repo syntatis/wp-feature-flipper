@@ -7,4 +7,5 @@ if (! defined('ABSPATH')) {
 
 return [
 	\SFFV\Codex\Settings\Provider::class,
+	\Syntatis\FeatureFlipper\Providers\InlineDataServiceProvider::class,
 ];

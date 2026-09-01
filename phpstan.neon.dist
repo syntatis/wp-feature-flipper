@@ -13,6 +13,11 @@ parameters:
     -
       identifier: shipmonk.checkedExceptionInYieldingMethod
     -
+      identifier: shipmonk.checkedExceptionInCallable
+    -
+      identifier: shipmonk.deadMethod
+      path: app/Providers/InlineDataServiceProvider.php
+    -
       identifier: WPCompat.parameterNotAvailable.wpenqueuescript.args
 
   ## syntatis/phpstan-psr-11

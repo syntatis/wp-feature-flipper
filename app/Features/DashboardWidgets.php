@@ -8,6 +8,7 @@ use ArrayAccess;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Facades\App;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Screen;
@@ -28,13 +29,12 @@ use const PHP_INT_MAX;
  * @phpstan-type DashboardWidget array{id:string,title:string,callback:string,args:array<string,mixed>}|bool
  * @phpstan-type DashboardWidgetCollection array<"normal"|"side",array<string,array<string,DashboardWidget>>>
  */
-final class DashboardWidgets implements Hookable
+final class DashboardWidgets implements Hookable, InlineDataProvider
 {
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('wp_dashboard_setup', [$this, 'setup'], PHP_INT_MAX);
 		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
 			Option::hook('default:dashboard_widgets_enabled'),
 			static fn (): array => self::getAllDashboardId(),
@@ -110,7 +110,7 @@ final class DashboardWidgets implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		if (! Admin::isScreen(App::name())) {
 			return $data;
