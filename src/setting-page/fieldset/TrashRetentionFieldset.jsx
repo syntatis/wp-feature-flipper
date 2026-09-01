@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { Switch, TextField } from '@syntatis/kubrick';
 import { useSettingsContext } from '../form';
@@ -100,6 +100,37 @@ export const TrashRetentionFieldset = () => {
 								}
 							} }
 							isDisabled={ isLocked }
+							validationBehavior="aria"
+							validate={ ( value ) => {
+								const parsedValue = Number( value );
+
+								if (
+									! Number.isFinite( parsedValue ) ||
+									parsedValue < 1
+								) {
+									return sprintf(
+										/* translators: %s: The minimum trash retention in days. */
+										__(
+											'The value must be at least %s days.',
+											'syntatis-feature-flipper'
+										),
+										1,
+									);
+								}
+
+								if ( parsedValue > maxDays ) {
+									return sprintf(
+										/* translators: %s: The maximum trash retention in days. */
+										__(
+											'The value must be at most %s days.',
+											'syntatis-feature-flipper'
+										),
+										maxDays,
+									);
+								}
+
+								return undefined;
+							} }
 							suffix={ __( 'days', 'syntatis-feature-flipper' ) }
 							description={
 								__(
