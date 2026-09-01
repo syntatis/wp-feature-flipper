@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-28T05:53:49+00:00\n"
+"POT-Creation-Date: 2026-09-01T15:48:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 3.0.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: syntatis-feature-flipper.php:13
-msgid "Disable Comments, Gutenberg, Emojis, and other features you don't need in WordPress"
+msgid "Disable Comments, Gutenberg, Emojis, and other features you might not need in WordPress®"
 msgstr ""
 
 #. Author of the plugin
@@ -180,6 +180,54 @@ msgstr ""
 msgid "Unchecked menu items will be removed from the Admin Bar."
 msgstr ""
 
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:32
+msgid "Autosave"
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:38
+msgid "This setting is currently disabled, since it is manually managed by the \"AUTOSAVE_INTERVAL\" constant."
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:44
+msgid "To manage the autosave interval here, remove or update the constant."
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:53
+msgid "WordPress automatically saves changes while you edit posts and pages to help prevent data loss."
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:59
+msgid "Disabling autosave means unsaved changes could be lost if your browser crashes or your connection drops."
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:75
+msgid "Enable autosave"
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:79
+msgid "If switched off, WordPress will not automatically save your post and page edits."
+msgstr ""
+
+#. translators: %s: The minimum autosave interval in seconds.
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:110
+#, js-format
+msgid "The value must be at least %s seconds."
+msgstr ""
+
+#. translators: %s: The maximum autosave interval in seconds.
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:121
+#, js-format
+msgid "The value must be at most %s seconds."
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:131
+msgid "seconds"
+msgstr ""
+
+#: src/setting-page/fieldset/AutosaveFieldset.jsx:135
+msgid "Shorter intervals can help reduce the amount of work lost if an editing session is interrupted, while longer intervals can reduce the frequency of autosave requests."
+msgstr ""
+
 #: src/setting-page/fieldset/CommentsFieldset.jsx:24
 msgid "Comments"
 msgstr ""
@@ -200,16 +248,23 @@ msgstr ""
 msgid "Apply minimum number of characters required to post a comment."
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:54
-#: src/setting-page/fieldset/CommentsFieldset.jsx:81
+#. translators: %s: The minimum number of characters.
+#: src/setting-page/fieldset/CommentsFieldset.jsx:60
+#: src/setting-page/fieldset/CommentsFieldset.jsx:107
+#, js-format
+msgid "The value must be at least %s characters."
+msgstr ""
+
+#: src/setting-page/fieldset/CommentsFieldset.jsx:74
+#: src/setting-page/fieldset/CommentsFieldset.jsx:121
 msgid "characters"
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:62
+#: src/setting-page/fieldset/CommentsFieldset.jsx:82
 msgid "Maximum length:"
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:69
+#: src/setting-page/fieldset/CommentsFieldset.jsx:89
 msgid "Apply maximum number of characters required to post a comment."
 msgstr ""
 
@@ -333,8 +388,20 @@ msgstr ""
 msgid "If switched off, the image with JPEG format will be uploaded with the original quality."
 msgstr ""
 
-#: src/setting-page/fieldset/ImageQualityFieldset.jsx:55
-#: src/setting-page/fieldset/ImageQualityFieldset.jsx:61
+#. translators: %s: The minimum JPEG quality percentage.
+#: src/setting-page/fieldset/ImageQualityFieldset.jsx:57
+#, js-format
+msgid "The value must be at least %s percent."
+msgstr ""
+
+#. translators: %s: The maximum JPEG quality percentage.
+#: src/setting-page/fieldset/ImageQualityFieldset.jsx:68
+#, js-format
+msgid "The value must be at most %s percent."
+msgstr ""
+
+#: src/setting-page/fieldset/ImageQualityFieldset.jsx:86
+#: src/setting-page/fieldset/ImageQualityFieldset.jsx:92
 msgid "Quality"
 msgstr ""
 
@@ -370,15 +437,27 @@ msgstr ""
 msgid "Changing this setting does not resize images that have already been uploaded."
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:77
+#. translators: %s: The minimum big image size threshold in pixels.
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:80
+#, js-format
+msgid "The value must be at least %s px."
+msgstr ""
+
+#. translators: %s: The maximum big image size threshold in pixels.
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:91
+#, js-format
+msgid "The value must be at most %s px."
+msgstr ""
+
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:108
 msgid "Threshold"
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:83
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:114
 msgid "px"
 msgstr ""
 
-#: src/setting-page/fieldset/ImageSizesFieldset.jsx:84
+#: src/setting-page/fieldset/ImageSizesFieldset.jsx:115
 msgid "Big image threshold in pixels"
 msgstr ""
 
@@ -406,12 +485,72 @@ msgstr ""
 msgid "Maximum revisions:"
 msgstr ""
 
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:67
+#. translators: %s: The minimum number of revisions.
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:68
+#, js-format
+msgid "The value must be at least %s revisions."
+msgstr ""
+
+#. translators: %s: The maximum number of revisions.
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:79
+#, js-format
+msgid "The value must be at most %s revisions."
+msgstr ""
+
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:98
 msgid "Maximum"
 msgstr ""
 
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:74
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:105
 msgid "Apply maximum number of revisions to keep."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:32
+msgid "Trash Retention"
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:38
+msgid "This setting is currently disabled, since it is manually managed by the \"EMPTY_TRASH_DAYS\" constant."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:44
+msgid "To manage Trash retention here, remove or update the constant."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:53
+msgid "WordPress keeps deleted posts and comments in the Trash for 30 days by default."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:59
+msgid "You can change how long items remain in the Trash before they are permanently deleted, or disable the Trash so that deleted content is removed immediately."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:75
+msgid "Enable Trash retention"
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:79
+msgid "If switched off, deleted content is permanently removed instead of being moved to the Trash."
+msgstr ""
+
+#. translators: %s: The minimum trash retention in days.
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:113
+#, js-format
+msgid "The value must be at least %s days."
+msgstr ""
+
+#. translators: %s: The maximum trash retention in days.
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:124
+#, js-format
+msgid "The value must be at most %s days."
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:134
+msgid "days"
+msgstr ""
+
+#: src/setting-page/fieldset/TrashRetentionFieldset.jsx:136
+msgid "Choose how long deleted content should remain in the Trash before it is permanently deleted."
 msgstr ""
 
 #: src/setting-page/fieldset/UpdatesFieldset.jsx:41
@@ -682,83 +821,83 @@ msgstr ""
 msgid "When disabling this feature, it is recommended to set up a server cron job as the replacement to trigger WP-Cron."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:31
+#: src/setting-page/tabs/GeneralTab.jsx:33
 msgid "Block-based Widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:35
+#: src/setting-page/tabs/GeneralTab.jsx:37
 msgid "Enable the block-based widgets"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:41
+#: src/setting-page/tabs/GeneralTab.jsx:43
 msgid "If switched off, the block-based widgets will be disabled and the classic widgets will be used."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:45
+#: src/setting-page/tabs/GeneralTab.jsx:47
 msgid "The current theme in-use does not support block-based widgets."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:56
+#: src/setting-page/tabs/GeneralTab.jsx:60
 msgid "Post Embed"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:57
+#: src/setting-page/tabs/GeneralTab.jsx:61
 msgid "Enable post embedding"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:64
+#: src/setting-page/tabs/GeneralTab.jsx:68
 msgid "The Embed feature in WordPress allows you to embed a post, page, or custom post type into another post or page. It's a way to easily share and reference your own content within your website or within other WordPress sites."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:70
+#: src/setting-page/tabs/GeneralTab.jsx:74
 msgid "If you're not planning to use this feature, you can can always disable it."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:77
+#: src/setting-page/tabs/GeneralTab.jsx:81
 msgid "If switched off, other sites will not be able to embed content from your site, and vice-versa."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:85
+#: src/setting-page/tabs/GeneralTab.jsx:89
 msgid "Self-ping"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:86
+#: src/setting-page/tabs/GeneralTab.jsx:90
 msgid "Enable self-pingbacks"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:90
+#: src/setting-page/tabs/GeneralTab.jsx:94
 msgid "If switched off, WordPress will not send pingbacks to your own site."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:97
+#: src/setting-page/tabs/GeneralTab.jsx:101
 msgid "Pingbacks in WordPress are automatic notifications sent when one blog links to another."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:103
+#: src/setting-page/tabs/GeneralTab.jsx:107
 msgid "If a post links to a pingback-enabled post on another site, the linked site gets a notification that appears as a comment, encouraging interaction between bloggers."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:109
+#: src/setting-page/tabs/GeneralTab.jsx:113
 msgid "However, WordPress also sends pingbacks for internal links within the same site by default, which can result in unnecessary and sometimes annoying self-pings. Disabling self-pingbacks can help keep your comments section clean and relevant."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:120
+#: src/setting-page/tabs/GeneralTab.jsx:124
 msgid "Feeds"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:121
+#: src/setting-page/tabs/GeneralTab.jsx:125
 msgid "Enable RSS feeds"
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:125
+#: src/setting-page/tabs/GeneralTab.jsx:129
 msgid "If switched off, the RSS feed URLs will not be accessible."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:132
+#: src/setting-page/tabs/GeneralTab.jsx:136
 msgid "An RSS feed, which stands for \"Really Simple Syndication\" or \"Rich Site Summary\", is a standardized format that allows users to receive updates of your site content, usually through a feed reader such as Feedly, Inoreader or Reeder app."
 msgstr ""
 
-#: src/setting-page/tabs/GeneralTab.jsx:138
+#: src/setting-page/tabs/GeneralTab.jsx:142
 msgid "Disabling feeds can help prevent content scraping and reduce server load."
 msgstr ""
 
