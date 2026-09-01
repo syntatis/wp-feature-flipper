@@ -32,6 +32,7 @@ export const CommentsFieldset = () => {
 			{ isEnabled && (
 				<div className={ styles.details }>
 					<Checkbox
+						className={ styles.option }
 						label={ __(
 							'Minimum length:',
 							'syntatis-feature-flipper'
@@ -79,6 +80,7 @@ export const CommentsFieldset = () => {
 						}
 					/>
 					<Checkbox
+						className={ styles.option }
 						label={ __(
 							'Maximum length:',
 							'syntatis-feature-flipper'

@@ -4,6 +4,7 @@ import { Checkbox, TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
 import { useSettingsContext } from '../form';
 import { HelpContent } from '../components';
+import styles from './RevisionsFieldset.module.scss';
 
 export const RevisionsFieldset = () => {
 	const { getOption, getOptionName } = useSettingsContext();
@@ -44,6 +45,7 @@ export const RevisionsFieldset = () => {
 			{ isEnabled && (
 				<div style={ { marginTop: '1rem' } }>
 					<Checkbox
+						className={ styles.option }
 						label={ __(
 							'Maximum revisions:',
 							'syntatis-feature-flipper'
