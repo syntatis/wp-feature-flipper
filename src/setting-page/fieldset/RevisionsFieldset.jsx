@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { Checkbox, TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
@@ -55,6 +55,37 @@ export const RevisionsFieldset = () => {
 							<TextField
 								min={ 1 }
 								max={ 100 }
+								validationBehavior="aria"
+								validate={ ( value ) => {
+									const parsedValue = Number( value );
+
+									if (
+										! Number.isFinite( parsedValue ) ||
+										parsedValue < 1
+									) {
+										return sprintf(
+											/* translators: %s: The minimum number of revisions. */
+											__(
+												'The value must be at least %s revisions.',
+												'syntatis-feature-flipper'
+											),
+											1,
+										);
+									}
+
+									if ( parsedValue > 100 ) {
+										return sprintf(
+											/* translators: %s: The maximum number of revisions. */
+											__(
+												'The value must be at most %s revisions.',
+												'syntatis-feature-flipper'
+											),
+											100,
+										);
+									}
+
+									return undefined;
+								} }
 								placeholder={
 									typeof revisionMax === 'number'
 										? revisionMax

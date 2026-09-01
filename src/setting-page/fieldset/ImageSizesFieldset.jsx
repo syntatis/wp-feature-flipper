@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
@@ -67,6 +67,37 @@ export const ImageSizesFieldset = () => {
 							min={ MIN_THRESHOLD }
 							max={ MAX_THRESHOLD }
 							step={ 1 }
+							validationBehavior="aria"
+							validate={ ( value ) => {
+								const parsedValue = Number( value );
+
+								if (
+									! Number.isFinite( parsedValue ) ||
+									parsedValue < MIN_THRESHOLD
+								) {
+									return sprintf(
+										/* translators: %s: The minimum big image size threshold in pixels. */
+										__(
+											'The value must be at least %s px.',
+											'syntatis-feature-flipper'
+										),
+										MIN_THRESHOLD,
+									);
+								}
+
+								if ( parsedValue > MAX_THRESHOLD ) {
+									return sprintf(
+										/* translators: %s: The maximum big image size threshold in pixels. */
+										__(
+											'The value must be at most %s px.',
+											'syntatis-feature-flipper'
+										),
+										MAX_THRESHOLD,
+									);
+								}
+
+								return undefined;
+							} }
 							name={ getOptionName( 'big_image_size_threshold' ) }
 							defaultValue={ getOption(
 								'big_image_size_threshold'

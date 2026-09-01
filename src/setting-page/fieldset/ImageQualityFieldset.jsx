@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { SwitchFieldset } from './SwitchFieldset';
 import { TextField } from '@syntatis/kubrick';
 import { Fieldset, useSettingsContext } from '../form';
@@ -44,6 +44,37 @@ export const ImageQualityFieldset = () => {
 						<TextField
 							min={ 10 }
 							max={ 100 }
+							validationBehavior="aria"
+							validate={ ( value ) => {
+								const parsedValue = Number( value );
+
+								if (
+									! Number.isFinite( parsedValue ) ||
+									parsedValue < 10
+								) {
+									return sprintf(
+										/* translators: %s: The minimum JPEG quality percentage. */
+										__(
+											'The value must be at least %s percent.',
+											'syntatis-feature-flipper'
+										),
+										10,
+									);
+								}
+
+								if ( parsedValue > 100 ) {
+									return sprintf(
+										/* translators: %s: The maximum JPEG quality percentage. */
+										__(
+											'The value must be at most %s percent.',
+											'syntatis-feature-flipper'
+										),
+										100,
+									);
+								}
+
+								return undefined;
+							} }
 							type="number"
 							name={ getOptionName( 'jpeg_compression_quality' ) }
 							defaultValue={ getOption(

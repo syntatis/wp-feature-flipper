@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { SwitchFieldset } from './SwitchFieldset';
 import { useState } from '@wordpress/element';
 import { Checkbox, TextField } from '@syntatis/kubrick';
@@ -47,6 +47,26 @@ export const CommentsFieldset = () => {
 							<TextField
 								className={ `${ styles.inputNumber } code` }
 								min={ 1 }
+								validationBehavior="aria"
+								validate={ ( value ) => {
+									const parsedValue = Number( value );
+
+									if (
+										! Number.isFinite( parsedValue ) ||
+										parsedValue < 1
+									) {
+										return sprintf(
+											/* translators: %s: The minimum number of characters. */
+											__(
+												'The value must be at least %s characters.',
+												'syntatis-feature-flipper'
+											),
+											1,
+										);
+									}
+
+									return undefined;
+								} }
 								name={ getOptionName( 'comment_min_length' ) }
 								defaultValue={ minChars }
 								type="number"
@@ -74,6 +94,26 @@ export const CommentsFieldset = () => {
 							<TextField
 								className={ `${ styles.inputNumber } code` }
 								min={ 1 }
+								validationBehavior="aria"
+								validate={ ( value ) => {
+									const parsedValue = Number( value );
+
+									if (
+										! Number.isFinite( parsedValue ) ||
+										parsedValue < 1
+									) {
+										return sprintf(
+											/* translators: %s: The minimum number of characters. */
+											__(
+												'The value must be at least %s characters.',
+												'syntatis-feature-flipper'
+											),
+											1,
+										);
+									}
+
+									return undefined;
+								} }
 								name={ getOptionName( 'comment_max_length' ) }
 								defaultValue={ maxChars }
 								type="number"
