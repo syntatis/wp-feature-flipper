@@ -21,6 +21,8 @@ updates:
     ignore:
       - dependency-name: "symfony/*"
         versions: [">=6.0"]
+      - dependency-name: "phpstan/phpstan"
+        versions: [">=2.2.10"]
     groups:
       composer-require:
         dependency-type: "production"

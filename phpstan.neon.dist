@@ -12,8 +12,6 @@ parameters:
       path: app/Helpers/Option.php
     -
       identifier: shipmonk.checkedExceptionInYieldingMethod
-    -
-      identifier: WPCompat.parameterNotAvailable.wpenqueuescript.args
 
   ## syntatis/phpstan-psr-11
   syntatis:

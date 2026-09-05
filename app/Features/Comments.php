@@ -156,7 +156,7 @@ final class Comments implements Hookable
 	{
 		$assetFile = App::dir('dist/assets/comments/index.asset.php');
 
-		/** @phpstan-var array{dependencies?:array<string>,version?:string} $asset */
+		/** @phpstan-var array{dependencies?:list<non-empty-string>,version?:string} $asset */
 		$asset = is_readable($assetFile) ? require $assetFile : [];
 		$asset['dependencies'] ??= [];
 		$asset['version'] ??= null;

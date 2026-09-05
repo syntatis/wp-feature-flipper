@@ -52,7 +52,7 @@
 		"php-stubs/wordpress-tests-stubs": "^7.1",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpstan/extension-installer": "^1.4",
-		"phpstan/phpstan": "^2.2",
+		"phpstan/phpstan": "2.2.9",
 		"phpstan/phpstan-deprecation-rules": "^2.0",
 		"phpstan/phpstan-phpunit": "^2.0",
 		"phpstan/phpstan-strict-rules": "^2.0",

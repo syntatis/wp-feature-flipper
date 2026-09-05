@@ -10,6 +10,7 @@ use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Features\PublicSearch;
+use Syntatis\FeatureFlipper\Features\Sitemap;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Scripts;
 
@@ -19,8 +20,6 @@ final class Site implements Hookable, Extendable
 {
 	public function hook(Hook $hook): void
 	{
-		$hook->addFilter('wp_sitemaps_enabled', static fn () => Option::isOn('sitemap'));
-
 		if (! Option::isOn('emojis')) {
 			/**
 			 * WordPress 6.4 deprecated the use of `print_emoji_styles` function, but it has
@@ -81,5 +80,8 @@ final class Site implements Hookable, Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield 'public_search' => ! Option::isOn('public_search') ? new PublicSearch() : null;
+
+		// The sitemap feature is always active; see Sitemap::hook() for details.
+		yield 'sitemap' => new Sitemap();
 	}
 }
