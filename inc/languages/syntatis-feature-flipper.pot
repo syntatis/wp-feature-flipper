@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-01T15:48:21+00:00\n"
+"POT-Creation-Date: 2026-09-01T17:00:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 3.0.0-alpha\n"
 "X-Domain: syntatis-feature-flipper\n"
@@ -240,31 +240,31 @@ msgstr ""
 msgid "If switched off, comments will be disabled site-wide."
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:35
+#: src/setting-page/fieldset/CommentsFieldset.jsx:36
 msgid "Minimum length:"
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:42
+#: src/setting-page/fieldset/CommentsFieldset.jsx:43
 msgid "Apply minimum number of characters required to post a comment."
 msgstr ""
 
 #. translators: %s: The minimum number of characters.
-#: src/setting-page/fieldset/CommentsFieldset.jsx:60
-#: src/setting-page/fieldset/CommentsFieldset.jsx:107
+#: src/setting-page/fieldset/CommentsFieldset.jsx:61
+#: src/setting-page/fieldset/CommentsFieldset.jsx:109
 #, js-format
 msgid "The value must be at least %s characters."
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:74
-#: src/setting-page/fieldset/CommentsFieldset.jsx:121
+#: src/setting-page/fieldset/CommentsFieldset.jsx:75
+#: src/setting-page/fieldset/CommentsFieldset.jsx:123
 msgid "characters"
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:82
+#: src/setting-page/fieldset/CommentsFieldset.jsx:84
 msgid "Maximum length:"
 msgstr ""
 
-#: src/setting-page/fieldset/CommentsFieldset.jsx:89
+#: src/setting-page/fieldset/CommentsFieldset.jsx:91
 msgid "Apply maximum number of characters required to post a comment."
 msgstr ""
 
@@ -481,28 +481,28 @@ msgstr ""
 msgid "Limiting or disabling revisions can help to improve your site database more efficient, especially for multi-author blogs or sites with limited hosting resources."
 msgstr ""
 
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:47
-msgid "Maximum revisions:"
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:53
+msgid "Maximum revisions"
 msgstr ""
 
 #. translators: %s: The minimum number of revisions.
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:68
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:71
 #, js-format
 msgid "The value must be at least %s revisions."
 msgstr ""
 
 #. translators: %s: The maximum number of revisions.
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:79
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:82
 #, js-format
 msgid "The value must be at most %s revisions."
 msgstr ""
 
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:98
-msgid "Maximum"
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:92
+msgid "revisions"
 msgstr ""
 
-#: src/setting-page/fieldset/RevisionsFieldset.jsx:105
-msgid "Apply maximum number of revisions to keep."
+#: src/setting-page/fieldset/RevisionsFieldset.jsx:96
+msgid "Leave empty to keep all revisions, or enter the maximum number of revisions to keep."
 msgstr ""
 
 #: src/setting-page/fieldset/TrashRetentionFieldset.jsx:32

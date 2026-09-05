@@ -1,9 +1,0 @@
-/**
- * The kubrick Checkbox centers its suffix block (input plus error message)
- * against the label, so the input jumps vertically when the field shows a
- * validation error. Top-align the row to keep the input in place; the error
- * message then extends below the input instead of re-centering the row.
- */
-.option :global(.kubrick-checkbox-root .kubrick-checkbox-input-wrapper) {
-	align-items: flex-start;
-}

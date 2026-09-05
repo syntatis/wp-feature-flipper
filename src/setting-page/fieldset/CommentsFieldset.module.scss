@@ -15,6 +15,10 @@
  * validation error. Top-align the row to keep the input in place; the error
  * message then extends below the input instead of re-centering the row.
  */
-.option :global(.kubrick-checkbox-root .kubrick-checkbox-input-wrapper) {
+.option:global(.kubrick-Checkbox-root .kubrick-Checkbox-input-wrapper) {
 	align-items: flex-start;
+
+	:global(.kubrick-Checkbox-label) {
+		margin-top: 0.5rem;
+	}
 }

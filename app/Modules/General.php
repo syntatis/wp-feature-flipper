@@ -69,13 +69,11 @@ final class General implements Hookable, Extendable
 					return 0;
 				}
 
-				if (! Option::isOn('revisions_max_enabled')) {
-					return $num;
-				}
-
 				$max = Option::get('revisions_max');
 
-				return is_numeric($max) ? (int) $max : $num;
+				// A value below 1 keeps WordPress' default behavior of unlimited
+				// revisions; otherwise the value is the number of revisions to keep.
+				return is_numeric($max) && (int) $max > 0 ? (int) $max : $num;
 			},
 			PHP_INT_MAX,
 		);
