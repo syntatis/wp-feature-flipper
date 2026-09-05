@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests;
 
+use ArrayAccess;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\InlineData;
 
 class InlineDataTest extends WPTestCase
@@ -22,5 +24,22 @@ class InlineDataTest extends WPTestCase
 	public function testGetOffsetSiteURL(): void
 	{
 		$this->assertEquals(get_site_url(), $this->instance['$wp']['siteUrl']);
+	}
+
+	/** @testdox should run the registered providers when serialized */
+	public function testSerializeRunsProviders(): void
+	{
+		$provider = new class implements InlineDataProvider {
+			public function inlineData(ArrayAccess $data): ArrayAccess
+			{
+				$data['custom'] = 'value';
+
+				return $data;
+			}
+		};
+
+		$data = (new InlineData([$provider]))->jsonSerialize();
+
+		$this->assertSame('value', $data['custom']);
 	}
 }

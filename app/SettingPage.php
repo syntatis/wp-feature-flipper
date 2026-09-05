@@ -8,6 +8,7 @@ use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Facades\App;
 use SFFV\Codex\Foundation\Hooks\Hook;
 use SFFV\Codex\Settings\Settings;
+use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use Syntatis\FeatureFlipper\Helpers\Assets;
 use Syntatis\FeatureFlipper\Helpers\Option;
@@ -34,6 +35,8 @@ final class SettingPage implements Hookable
 {
 	private Settings $settings;
 
+	private ContainerInterface $container;
+
 	/** @phpstan-var non-empty-string */
 	private string $appName;
 
@@ -41,11 +44,14 @@ final class SettingPage implements Hookable
 
 	private string $inlineData = '';
 
-	public function __construct(Settings $settings)
+	public function __construct(ContainerInterface $container)
 	{
+		/** @var Settings $settings */
+		$settings = $container->get(Settings::class);
 		Option::primeCache($settings);
 
 		$this->settings = $settings;
+		$this->container = $container;
 		$this->appName = App::name();
 		$this->scriptHandle = $this->appName . '-settings';
 	}
@@ -161,7 +167,10 @@ final class SettingPage implements Hookable
 			do_action('syntatis/feature_flipper/updated_options', explode(',', (string) $options));
 		}
 
-		$this->inlineData = (string) wp_json_encode(new InlineData());
+		/** @var InlineData $inlineData */
+		$inlineData = $this->container->get(InlineData::class);
+
+		$this->inlineData = (string) wp_json_encode($inlineData);
 	}
 
 	/**

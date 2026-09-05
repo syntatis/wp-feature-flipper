@@ -9,6 +9,7 @@ use BadMethodCallException;
 use JsonSerializable;
 use ReturnTypeWillChange;
 use SFFV\Codex\Facades\App;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Helpers\Admin;
 use WP_Post_Type;
 
@@ -25,8 +26,13 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	/** @var array<string,mixed> */
 	private array $data;
 
-	public function __construct()
+	/** @var list<InlineDataProvider> */
+	private array $providers;
+
+	/** @param list<InlineDataProvider> $providers */
+	public function __construct(array $providers = [])
 	{
+		$this->providers = $providers;
 		$this->data = [
 			'$wp' => [
 				'siteUrl' => get_site_url(),
@@ -89,14 +95,11 @@ final class InlineData implements ArrayAccess, JsonSerializable
 	/** @return array<string,mixed> */
 	public function jsonSerialize(): array
 	{
-		/**
-		 * For internal use. Subject to change. External plugin should not rely on this hook.
-		 *
-		 * @var self $instance
-		 */
-		$instance = apply_filters('syntatis/feature_flipper/inline_data', $this);
+		foreach ($this->providers as $provider) {
+			$provider->inlineData($this);
+		}
 
-		return $instance->data;
+		return $this->data;
 	}
 
 	/**

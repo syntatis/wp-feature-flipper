@@ -8,6 +8,7 @@ use ArrayAccess;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Facades\App;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Helpers\Assets;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use WP_Admin_Bar;
@@ -25,7 +26,7 @@ use function sprintf;
 
 use const PHP_INT_MAX;
 
-final class AdminBar implements Hookable
+final class AdminBar implements Hookable, InlineDataProvider
 {
 	private string $appName;
 
@@ -37,7 +38,6 @@ final class AdminBar implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('syntatis/feature_flipper/updated_options', [$this, 'stashOptions']);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 		$hook->addFilter(
 			Option::hook('default:admin_bar_menu'),
 			static fn () => self::getRegisteredMenu(),
@@ -85,7 +85,7 @@ final class AdminBar implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 

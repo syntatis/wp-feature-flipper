@@ -7,6 +7,7 @@ namespace Syntatis\FeatureFlipper\Features;
 use ArrayAccess;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_merge;
@@ -26,7 +27,7 @@ use const PHP_INT_MAX;
  *
  * @see https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#modify-autosave-interval
  */
-final class Autosave implements Hookable
+final class Autosave implements Hookable, InlineDataProvider
 {
 	/** The number of seconds WordPress waits between autosaves by default. */
 	private const DEFAULT_INTERVAL = 60;
@@ -46,7 +47,6 @@ final class Autosave implements Hookable
 		$hook->addFilter('block_editor_settings_all', [$this, 'filterBlockEditorSettings'], PHP_INT_MAX);
 		$hook->addAction('enqueue_block_editor_assets', [$this, 'clearLocalAutosaveStorage'], PHP_INT_MAX);
 		$hook->addFilter(Option::hook('sanitize:autosave_interval'), [$this, 'sanitize'], 10, 1);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 
 		/**
 		 * Respect an existing `AUTOSAVE_INTERVAL` definition (e.g. from
@@ -157,7 +157,7 @@ final class Autosave implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 

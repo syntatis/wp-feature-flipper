@@ -6,6 +6,7 @@ namespace Syntatis\Tests\Features;
 
 use ReflectionProperty;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Features\TrashRetention;
 use Syntatis\FeatureFlipper\Helpers\Option;
 use Syntatis\FeatureFlipper\InlineData;
@@ -74,17 +75,17 @@ class TrashRetentionTest extends WPTestCase
 	}
 
 	/** @testdox should add the Trash retention values to the inline data */
-	public function testFilterInlineData(): void
+	public function testInlineData(): void
 	{
 		$_GET['tab'] = 'admin';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertFalse(isset($data['features']['trashRetention']));
 
 		$_GET['tab'] = 'general';
 
-		$data = $this->instance->filterInlineData(new InlineData());
+		$data = $this->instance->inlineData(new InlineData());
 
 		$this->assertSame(
 			[
@@ -109,7 +110,7 @@ class TrashRetentionTest extends WPTestCase
 		$this->assertTrue(TrashRetention::hasExplicitConfig());
 		$this->assertSame(30, TrashRetention::effectiveDays());
 		$this->assertSame(10, $hook->hasFilter(Option::hook('sanitize:trash_retention'), [$this->instance, 'sanitize']));
-		$this->assertSame(10, $hook->hasFilter('syntatis/feature_flipper/inline_data', [$this->instance, 'filterInlineData']));
+		$this->assertInstanceOf(InlineDataProvider::class, $this->instance);
 	}
 
 	/**

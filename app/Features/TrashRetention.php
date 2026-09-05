@@ -7,6 +7,7 @@ namespace Syntatis\FeatureFlipper\Features;
 use ArrayAccess;
 use SFFV\Codex\Contracts\Hookable;
 use SFFV\Codex\Foundation\Hooks\Hook;
+use Syntatis\FeatureFlipper\Contracts\InlineDataProvider;
 use Syntatis\FeatureFlipper\Helpers\Option;
 
 use function array_merge;
@@ -21,7 +22,7 @@ use function trim;
 /**
  * Manage the WordPress Trash retention period.
  */
-final class TrashRetention implements Hookable
+final class TrashRetention implements Hookable, InlineDataProvider
 {
 	/** The number of days WordPress keeps trashed content by default. */
 	private const DEFAULT_DAYS = 30;
@@ -35,7 +36,6 @@ final class TrashRetention implements Hookable
 	public function hook(Hook $hook): void
 	{
 		$hook->addFilter(Option::hook('sanitize:trash_retention'), [$this, 'sanitize'], 10, 1);
-		$hook->addFilter('syntatis/feature_flipper/inline_data', [$this, 'filterInlineData']);
 
 		/**
 		 * Check if `EMPTY_TRASH_DAYS` is already defined before this plugin.
@@ -76,7 +76,7 @@ final class TrashRetention implements Hookable
 	 *
 	 * @phpstan-return ArrayAccess<string,mixed>
 	 */
-	public function filterInlineData(ArrayAccess $data): ArrayAccess
+	public function inlineData(ArrayAccess $data): ArrayAccess
 	{
 		$tab = $_GET['tab'] ?? null;
 

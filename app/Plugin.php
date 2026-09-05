@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Syntatis\FeatureFlipper;
 
 use SFFV\Codex\Contracts\Extendable;
-use SFFV\Codex\Settings\Settings;
 use SFFV\Psr\Container\ContainerInterface;
 use Syntatis\FeatureFlipper\Modules\Modules;
 
