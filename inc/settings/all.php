@@ -62,10 +62,15 @@ return [
 	new Setting('block_based_widgets', 'boolean'),
 	(new Setting('revisions', 'boolean'))
 		->withDefault(defined('WP_POST_REVISIONS') ? (bool) WP_POST_REVISIONS : true),
-	(new Setting('revisions_max_enabled', 'boolean'))
-		->withDefault(false),
+	/**
+	 * The number of revisions to keep per post. A value of -1 (or any value
+	 * below 1) keeps WordPress' default behavior of unlimited revisions.
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/wp_revisions_to_keep/
+	 */
 	(new Setting('revisions_max', 'integer'))
-		->withDefault(5),
+		->withDefault(-1)
+		->apiSchema(['type' => 'integer', 'minimum' => -1, 'maximum' => 100]),
 	(new Setting('self_ping', 'boolean'))
 		->withDefault(true),
 	(new Setting('post_embed', 'boolean'))

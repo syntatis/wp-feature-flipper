@@ -34,8 +34,7 @@ class GeneralTest extends WPTestCase
 	{
 		$this->assertTrue(Option::isOn('block_based_widgets'));
 		$this->assertTrue(Option::isOn('revisions'));
-		$this->assertFalse(Option::isOn('revisions_max_enabled'));
-		$this->assertSame(5, Option::get('revisions_max'));
+		$this->assertSame(-1, Option::get('revisions_max'));
 	}
 
 	/** @testdox should return updated values */
@@ -43,12 +42,10 @@ class GeneralTest extends WPTestCase
 	{
 		Option::update('block_based_widgets', false);
 		Option::update('revisions', false);
-		Option::update('revisions_max_enabled', true);
 		Option::update('revisions_max', 10);
 
 		$this->assertFalse(Option::isOn('block_based_widgets'));
 		$this->assertFalse(Option::isOn('revisions'));
-		$this->assertTrue(Option::isOn('revisions_max_enabled'));
 		$this->assertSame(10, Option::get('revisions_max'));
 	}
 
@@ -97,15 +94,19 @@ class GeneralTest extends WPTestCase
 	{
 		$postId = self::factory()->post->create(['post_type' => 'post']);
 
-		$this->assertFalse(Option::isOn('revisions_max_enabled'));
+		// By default revisions are unlimited.
 		$this->assertSame(-1, wp_revisions_to_keep(get_post($postId)));
 
-		Option::update('revisions_max_enabled', true);
+		Option::update('revisions_max', 5);
 
 		$this->assertSame(5, wp_revisions_to_keep(get_post($postId)));
 
 		Option::update('revisions_max', 10);
 
 		$this->assertSame(10, wp_revisions_to_keep(get_post($postId)));
+
+		Option::update('revisions_max', -1);
+
+		$this->assertSame(-1, wp_revisions_to_keep(get_post($postId)));
 	}
 }
