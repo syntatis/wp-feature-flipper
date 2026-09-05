@@ -33,6 +33,7 @@ final class Assets
 		$assets = is_array($assets) ? $assets : [];
 
 		$version = isset($assets['version']) && is_string($assets['version']) ? sanitize_key($assets['version']) : null;
+		$version = $version !== '' ? $version : null;
 		$dependencies = isset($assets['dependencies']) && is_array($assets['dependencies']) ?
 			self::sanitizeDependencies($assets['dependencies']) :
 			[];
