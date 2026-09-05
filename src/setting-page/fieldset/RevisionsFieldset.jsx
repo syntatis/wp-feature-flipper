@@ -1,17 +1,17 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { Checkbox, TextField } from '@syntatis/kubrick';
+import { TextField } from '@syntatis/kubrick';
 import { SwitchFieldset } from './SwitchFieldset';
 import { useSettingsContext } from '../form';
 import { HelpContent } from '../components';
+import styles from './styles.module.scss';
 
 export const RevisionsFieldset = () => {
 	const { getOption, getOptionName } = useSettingsContext();
 	const [ isEnabled, setEnabled ] = useState( getOption( 'revisions' ) );
-	const [ isMaxEnabled, setMaxEnabled ] = useState(
-		getOption( 'revisions_max_enabled' )
-	);
-	const revisionMax = getOption( 'revisions_max' );
+	const revisionMax = Number( getOption( 'revisions_max' ) );
+	const isUnlimited =
+		! Number.isFinite( revisionMax ) || revisionMax <= 0;
 
 	return (
 		<SwitchFieldset
@@ -42,37 +42,59 @@ export const RevisionsFieldset = () => {
 			onChange={ setEnabled }
 		>
 			{ isEnabled && (
-				<div style={ { marginTop: '1rem' } }>
-					<Checkbox
-						label={ __(
-							'Maximum revisions:',
+				<div className={ styles.details }>
+					<TextField
+						type="number"
+						min={ 1 }
+						max={ 100 }
+						name={ getOptionName( 'revisions_max' ) }
+						defaultValue={ isUnlimited ? '' : revisionMax }
+						placeholder={ isUnlimited ? '∞' : undefined }
+						aria-label={ __(
+							'Maximum revisions',
 							'syntatis-feature-flipper'
 						) }
-						name={ getOptionName( 'revisions_max_enabled' ) }
-						onChange={ setMaxEnabled }
-						defaultSelected={ isMaxEnabled }
-						suffix={
-							<TextField
-								min={ 1 }
-								max={ 100 }
-								placeholder={
-									typeof revisionMax === 'number'
-										? revisionMax
-										: '∞'
-								}
-								defaultValue={ revisionMax }
-								type="number"
-								name={ getOptionName( 'revisions_max' ) }
-								className="code"
-								aria-label={ __(
-									'Maximum',
-									'syntatis-feature-flipper'
-								) }
-								isReadOnly={ ! isMaxEnabled }
-							/>
-						}
+						validationBehavior="aria"
+						validate={ ( value ) => {
+							if ( value === '' ) {
+								return undefined;
+							}
+
+							const parsedValue = Number( value );
+
+							if (
+								! Number.isFinite( parsedValue ) ||
+								parsedValue < 1
+							) {
+								return sprintf(
+									/* translators: %s: The minimum number of revisions. */
+									__(
+										'The value must be at least %s revisions.',
+										'syntatis-feature-flipper'
+									),
+									1,
+								);
+							}
+
+							if ( parsedValue > 100 ) {
+								return sprintf(
+									/* translators: %s: The maximum number of revisions. */
+									__(
+										'The value must be at most %s revisions.',
+										'syntatis-feature-flipper'
+									),
+									100,
+								);
+							}
+
+							return undefined;
+						} }
+						suffix={ __(
+							'revisions',
+							'syntatis-feature-flipper'
+						) }
 						description={ __(
-							'Apply maximum number of revisions to keep.',
+							'Leave empty to keep all revisions, or enter the maximum number of revisions to keep.',
 							'syntatis-feature-flipper'
 						) }
 					/>

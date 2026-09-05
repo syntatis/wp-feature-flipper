@@ -14,7 +14,8 @@ final class Plugin implements Extendable
 	public function getInstances(ContainerInterface $container): iterable
 	{
 		yield new Scripts();
-		yield new SettingPage($container);
+		yield new SettingPage($container->get(Settings::class));
+		yield new Upgrade();
 
 		/**
 		 * Load and instantiate the plugin's modules.
