@@ -23,7 +23,8 @@ final class Assets
 	 * @param string $path The path to the PHP file containing the asset manifests (version, dependencies).
 	 * @phpstan-param non-empty-string $path
 	 *
-	 * @return array{version:string|null,dependencies:array<string>}
+	 * @return array{version:string|null,dependencies:list<string>}
+	 * @phpstan-return array{version:non-empty-string|null,dependencies:list<non-empty-string>}
 	 */
 	public static function manifest(string $path): array
 	{
@@ -45,12 +46,13 @@ final class Assets
 	/**
 	 * @param array<mixed> $dependencies Unsanitized dependencies, retrieved from built file.
 	 *
-	 * @phpstan-return list<string>
+	 * @phpstan-return list<non-empty-string>
 	 */
 	private static function sanitizeDependencies(array $dependencies): array
 	{
 		$filtered = array_filter($dependencies, static fn ($dep) => is_string($dep) && $dep !== '');
+		$sanitized = array_map('sanitize_key', $filtered);
 
-		return array_values(array_map('sanitize_key', $filtered));
+		return array_values(array_filter($sanitized, static fn ($dep) => $dep !== ''));
 	}
 }

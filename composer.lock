@@ -2048,16 +2048,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v11.0.0",
+            "version": "v11.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "923dd29055713886efd7f85ea2510b9c6955a714"
+                "reference": "179fee63dba9c72a3f7bfcc3e7e2749f4650dd3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/923dd29055713886efd7f85ea2510b9c6955a714",
-                "reference": "923dd29055713886efd7f85ea2510b9c6955a714",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/179fee63dba9c72a3f7bfcc3e7e2749f4650dd3b",
+                "reference": "179fee63dba9c72a3f7bfcc3e7e2749f4650dd3b",
                 "shasum": ""
             },
             "require": {
@@ -2086,9 +2086,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v11.0.0"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v11.1.0"
             },
-            "time": "2026-08-04T19:31:58+00:00"
+            "time": "2026-09-03T14:42:36+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -2620,16 +2620,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.3.3",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "fb19eedd2bb67ff8cf7a5502ad329e701d6398a3"
+                "reference": "148cefffaf0233e4c08cc13db8a195a56dd6dfe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/fb19eedd2bb67ff8cf7a5502ad329e701d6398a3",
-                "reference": "fb19eedd2bb67ff8cf7a5502ad329e701d6398a3",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/148cefffaf0233e4c08cc13db8a195a56dd6dfe9",
+                "reference": "148cefffaf0233e4c08cc13db8a195a56dd6dfe9",
                 "shasum": ""
             },
             "require": {
@@ -2661,9 +2661,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.3"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.5"
             },
-            "time": "2026-07-08T07:01:06+00:00"
+            "time": "2026-08-31T16:05:28+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -6380,12 +6380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "6f7facf268e64e89b359c08196524f18353cb552"
+                "reference": "2fb37b616b583aae4202f4db6372107d60cbbdd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/6f7facf268e64e89b359c08196524f18353cb552",
-                "reference": "6f7facf268e64e89b359c08196524f18353cb552",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/2fb37b616b583aae4202f4db6372107d60cbbdd7",
+                "reference": "2fb37b616b583aae4202f4db6372107d60cbbdd7",
                 "shasum": ""
             },
             "require": {
@@ -6457,7 +6457,7 @@
                 "issues": "https://github.com/wp-cli/wp-cli/issues",
                 "source": "https://github.com/wp-cli/wp-cli"
             },
-            "time": "2026-08-17T10:21:29+00:00"
+            "time": "2026-09-03T09:30:48+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
